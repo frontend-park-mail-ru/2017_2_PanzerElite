@@ -3,7 +3,7 @@
 
 <head>
     <!-- Website CSS style -->
-    <link rel="stylesheet" type="text/css" href="./static/main.css">
+    <link rel="stylesheet" type="text/css" href="./static/CSS/login.css">
     <link rel="icon" href="./static/images/icon.jpg">
     <title>PanzerElite</title>
 </head>
@@ -11,24 +11,23 @@
 <body>
     <div class="login-page">
         <div class="form">
-            <form class="register-form hidden">
-                <input type="text" placeholder="Email Address" />
+            <form class="register-form hidden opa" id="register-form">
                 <input type="text" placeholder="Nick" />
                 <input type="password" placeholder="Password" />
                 <input type="password" placeholder="Confirm Password" />
 
                 <button>create</button>
-                <p class="message">Already registered? <a href="#">Sign In</a></p>
+                <p class="message" id="reg-message">Already registered? <a href="#">Sign In</a></p>
             </form>
-            <form class="login-form">
-                <input type="text" placeholder="username" />
-                <input type="password" placeholder="password" />
+            <form class="login-form opa" id="login-form">
+                <input type="text" placeholder="Username" />
+                <input type="password" placeholder="Password" />
                 <button>login</button>
-                <p class="message">Not registered? <a href="#">Create an account</a></p>
+                <p class="message" id="login-message">Not registered? <a href="#"> Create an account</a></p>
             </form>
         </div>
     </div>
 </body>
-<script type="text/javascript" src="../static/main.js"></script>
+<script type="text/javascript" src="../static/JS/login.js"></script>
 
 </html>
