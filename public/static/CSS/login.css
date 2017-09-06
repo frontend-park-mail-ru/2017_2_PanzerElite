@@ -48,12 +48,8 @@
 .form button:hover,
 .form button:active,
 .form button:focus {
-<<<<<<< HEAD
     background: rgba(0, 0, 0, 0.20);
     color: black;
-=======
-    background: rgba(0, 0, 0, 0.37);
->>>>>>> 37b07f80dce49a2a7a8b1896b4448d502a728a70
 }
 
 .form .message {
@@ -84,7 +80,6 @@ body {
     display: none;
 }
 
-<<<<<<< HEAD
 .footer {
     background: rgba(255, 255, 255, 0.30);
     position: absolute;
@@ -99,11 +94,11 @@ body {
 
 .footer-text {
     margin-left: 35%;
-=======
+}
+
 .warning {
     background-color: rgba(255, 0, 0, 0.76);
     color: black;
     font-size: 18px;
     font-weight: 900;
->>>>>>> 37b07f80dce49a2a7a8b1896b4448d502a728a70
 }
