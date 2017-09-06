@@ -11,19 +11,22 @@
 <body>
     <div class="login-page">
         <div class="form">
-            <form class="register-form hidden opa" id="register-form">
-                <input type="text" placeholder="Nick" />
-                <input type="password" placeholder="Password" />
-                <input type="password" placeholder="Confirm Password" />
+            <form class="register-form hidden " id="register-form">
+                <input type="text" id="nick-reg" placeholder="Nick" />
+                <input type="password" id="password-reg" placeholder="Password" />
+                <input type="password" id="confirm-reg" placeholder="Confirm Password" />
 
-                <button>create</button>
+                <button id="create-btn">create</button>
                 <p class="message" id="reg-message">Already registered? <a href="#">Sign In</a></p>
             </form>
-            <form class="login-form opa" id="login-form">
-                <input type="text" placeholder="Username" />
-                <input type="password" placeholder="Password" />
-                <button>login</button>
+            <form class="login-form " id="login-form">
+                <input type="text" id="nick-log" placeholder="Username" />
+                <input type="password" id="password-log" placeholder="Password" />
+                <button id="login-btn">login</button>
                 <p class="message" id="login-message">Not registered? <a href="#"> Create an account</a></p>
+
+                <p class="hidden warning" id="not-correct-p">Wrong Nick or Password</p>
+                <p class="hidden warning" id="not-correct-data-p">Invalid Data</p>
             </form>
         </div>
     </div>
