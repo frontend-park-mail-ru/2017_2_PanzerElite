@@ -1,11 +1,29 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-.menu-page,
-.login-page {
+
+/* done*/
+
+.page {
     width: 360px;
     padding: 8% 0 0;
     margin: auto;
 }
 
+
+/* done*/
+
+.navigation {
+    background: rgba(255, 255, 255, 0.30);
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-weight: 600px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 40px;
+}
+
+.login-form,
 .form {
     position: relative;
     z-index: 1;
@@ -17,6 +35,7 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
+.login-form input,
 .form input {
     font-family: "Roboto", sans-serif;
     outline: 0;
@@ -29,6 +48,7 @@
     font-size: 14px;
 }
 
+.login-form button,
 .form button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
@@ -45,17 +65,17 @@
     cursor: pointer;
 }
 
+.login-form button:hover,
+.login-form button:active,
+.login-form button:focus,
 .form button:hover,
 .form button:active,
 .form button:focus {
-<<<<<<< HEAD
     background: rgba(0, 0, 0, 0.20);
     color: black;
-=======
-    background: rgba(0, 0, 0, 0.37);
->>>>>>> 37b07f80dce49a2a7a8b1896b4448d502a728a70
 }
 
+.login-form .message,
 .form .message {
     margin: 15px 0 0;
     color: #FFFFFF;
@@ -63,14 +83,14 @@
     font-weight: 900;
 }
 
+.login-form .message a,
 .form .message a {
     color: rgb(0, 0, 0);
     text-decoration: none;
 }
 
 body {
-    background: black no-repeat;
-    background-image: url(../images/wallpaper.jpg);
+    margin: 0;
     background-size: cover;
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -80,11 +100,6 @@ body {
 
 /* new elems */
 
-.hidden {
-    display: none;
-}
-
-<<<<<<< HEAD
 .footer {
     background: rgba(255, 255, 255, 0.30);
     position: absolute;
@@ -99,11 +114,21 @@ body {
 
 .footer-text {
     margin-left: 35%;
-=======
+}
+
 .warning {
     background-color: rgba(255, 0, 0, 0.76);
     color: black;
     font-size: 18px;
     font-weight: 900;
->>>>>>> 37b07f80dce49a2a7a8b1896b4448d502a728a70
+}
+
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black no-repeat;
+    background-image: url(../images/wallpaper.jpg);
+    background-size: cover;
+    filter: blur(3px)
 }

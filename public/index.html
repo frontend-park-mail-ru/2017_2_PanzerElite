@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Website CSS style -->
+    <link rel="stylesheet" type="text/css" href="./static/CSS/login.css">
+    <link rel="icon" href="./static/images/icon.jpg">
+    <title>PanzerElite</title>
+</head>
+
+<body>
+    <div class="background">
+    </div>
+    <div id='application'>
+
+        <div class="page">
+            <nav id="navigation" class="navigation"></nav>
+            <div>
+                <section id='login-sec' hidden>
+                    <form class="login-form">
+                        <input type="text" id="nick-log" placeholder="Username" />
+                        <input type="password" id="password-log" placeholder="Password" />
+                        <button id="login-btn">login</button>
+                        <p class="warning" id="warning-msg-log" hidden>W</p>
+                    </form>
+                </section>
+                <section id='register-sec' hidden>
+                    <form class="form">
+                        <input type="text" id="nick-reg" placeholder="Nick" />
+                        <input type="password" id="password-reg" placeholder="Password" />
+                        <input type="password" id="confirm-reg" placeholder="Confirm Password" />
+                        <button id="create-btn">create</button>
+                        <p class="warning" id="warning-msg-reg" hidden>W</p>
+                    </form>
+                </section>
+                <section id='menu-sec' hidden>
+                    <form class="form">
+                        <button>Singleplayer</button>
+                        <br>
+                        <br>
+                        <button>Multiplayer</button>
+                        <br>
+                        <br>
+                        <button>Scores</button>
+                        <br>
+                        <br>
+                        <button>About</button>
+                    </form>
+                </section>
+                <section id='about-sec' hidden>about</section>
+
+            </div>
+            <div class="footer">
+                <a class="footer-text"> PanzerElite by Kurkin.N, Oganesyan.R 2017 </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+<script type="text/javascript" src="../static/JS/login.js"></script>
+
+</html>
