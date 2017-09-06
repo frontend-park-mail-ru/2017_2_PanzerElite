@@ -9,7 +9,7 @@
 .form {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.20);
+    background: rgba(255, 255, 255, 0.00);
     max-width: 360px;
     margin: 0 auto 100px;
     padding: 45px;
@@ -38,7 +38,8 @@
     border: 0;
     padding: 15px;
     color: #FFFFFF;
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: 600;
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
     cursor: pointer;
@@ -47,23 +48,28 @@
 .form button:hover,
 .form button:active,
 .form button:focus {
+<<<<<<< HEAD
     background: rgba(0, 0, 0, 0.20);
     color: black;
+=======
+    background: rgba(0, 0, 0, 0.37);
+>>>>>>> 37b07f80dce49a2a7a8b1896b4448d502a728a70
 }
 
 .form .message {
     margin: 15px 0 0;
-    color: white;
+    color: #FFFFFF;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 900;
 }
 
 .form .message a {
-    color: #000000;
+    color: rgb(0, 0, 0);
     text-decoration: none;
 }
 
 body {
+    background: black no-repeat;
     background-image: url(../images/wallpaper.jpg);
     background-size: cover;
     font-family: "Roboto", sans-serif;
@@ -78,6 +84,7 @@ body {
     display: none;
 }
 
+<<<<<<< HEAD
 .footer {
     background: rgba(255, 255, 255, 0.30);
     position: absolute;
@@ -92,4 +99,11 @@ body {
 
 .footer-text {
     margin-left: 35%;
+=======
+.warning {
+    background-color: rgba(255, 0, 0, 0.76);
+    color: black;
+    font-size: 18px;
+    font-weight: 900;
+>>>>>>> 37b07f80dce49a2a7a8b1896b4448d502a728a70
 }
