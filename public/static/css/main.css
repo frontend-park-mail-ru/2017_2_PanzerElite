@@ -87,18 +87,6 @@
     color: black;
 }
 
-.form .message {
-    margin: 15px 0 0;
-    color: #FFFFFF;
-    font-size: 18px;
-    font-weight: 900;
-}
-
-.form .message a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-}
-
 body {
     margin: 0;
     background-size: cover;

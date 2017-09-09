@@ -1,4 +1,3 @@
-const functions = require('./print');
 const express = require('express');
 //const fs = require('fs');
 
