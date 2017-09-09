@@ -14,45 +14,47 @@
     <div id='application'>
 
         <div class="page">
-
             <nav id="navigation" class="navigation"></nav>
+            <div>
+                <section id='login-sec' hidden>
+                    <form class="login-form">
+                        <input type="text" id="nick-log" placeholder="Username" />
+                        <input type="password" id="password-log" placeholder="Password" />
+                        <button id="login-btn">login</button>
+                        <p class="warning" id="warning-msg-log" hidden>W</p>
+                    </form>
+                </section>
+                <section id='register-sec' hidden>
+                    <form class="form">
+                        <input type="text" id="nick-reg" placeholder="Nick" />
+                        <input type="password" id="password-reg" placeholder="Password" />
+                        <input type="password" id="confirm-reg" placeholder="Confirm Password" />
+                        <button id="create-btn">create</button>
+                        <p class="warning" id="warning-msg-reg" hidden>W</p>
+                    </form>
+                </section>
+                <section id='menu-sec' hidden>
+                    <form class="form">
+                        <button>Singleplayer</button>
+                        <br>
+                        <br>
+                        <button>Multiplayer</button>
+                        <br>
+                        <br>
+                        <button>Scores</button>
+                        <br>
+                        <br>
+                        <button>About</button>
+                    </form>
+                </section>
+                <section id='about-sec' hidden>about</section>
 
-            <section id='login-sec' hidden>
-                <form class="login-form">
-                    <input type="text" id="nick-log" placeholder="Username" required/>
-                    <input type="password" id="password-log" placeholder="Password" required/>
-                    <button id="login-btn">login</button>
-                </form>
-            </section>
-            <section id='register-sec' hidden>
-                <form class="form ">
-                    <input type="text" id="nick-reg" placeholder="Nick" required />
-                    <input type="password" id="password-reg" placeholder="Password" required/>
-                    <input type="password" id="confirm-reg" placeholder="Confirm Password" required />
-
-                    <button id="create-btn">create</button>
-                </form>
-            </section>
-            <section id='menu-sec' hidden>
-                <form class="form">
-                    <button>Singleplayer</button>
-                    <br>
-                    <br>
-                    <button>Multiplayer</button>
-                    <br>
-                    <br>
-                    <button>Scores</button>
-                    <br>
-                    <br>
-                    <button>About</button>
-                </form>
-            </section>
-            <section id='about-sec' hidden>about</section>
-
+            </div>
             <div class="footer">
                 <a class="footer-text"> PanzerElite by Kurkin.N, Oganesyan.R 2017 </a>
             </div>
         </div>
+
     </div>
 
 </body>
