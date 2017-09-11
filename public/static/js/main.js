@@ -36,9 +36,9 @@ nav.addEventListener('click', (event) => {
         }
     });
 }, false);
-
+/*
 loginBtn.addEventListener('click', (event) => {
-    event.preventDefault();
+    //event.preventDefault();
     let nick = document.getElementById('nick-log').value;
     let pas = document.getElementById('password-log').value;
 
@@ -54,8 +54,8 @@ loginBtn.addEventListener('click', (event) => {
             warningMsgLog.hidden = false;
         }
     }
-}, false);
-
+}, false);*/
+/*
 registerBtn.addEventListener('click', (event) => {
     event.preventDefault();
     const nick = document.getElementById('nick-reg').value;
@@ -78,4 +78,100 @@ registerBtn.addEventListener('click', (event) => {
             }
         }
     }
-}, false);
+}, false);*/
+//new shit
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
+registerBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    console.log(loginForm.elements);
+    const nick = loginForm.elements['nick-reg'].value;
+    const pas = loginForm.elements['password-reg'].value;
+    const conf = loginForm.elements['confirm-reg'].value;
+
+    auth(nick, pas, conf, function(err, resp) {
+        if (err) {
+            return alert(`AUTH Error: ${err.status}`);
+        }
+
+        loginForm.reset();
+    });
+});
+
+loginBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    console.log(loginForm.elements);
+    const nick = loginForm.elements['nick-log'].value;
+    const pas = loginForm.elements['password-log'].value;
+
+    auth(nick, pas, function(err, resp) {
+        if (err) {
+            return alert(`AUTH Error: ${err.status}`);
+        }
+
+        loginForm.reset();
+    });
+});
+
+
+function auth(nick, pas, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/login', true);
+    xhr.withCredentials = true;
+    const user = { nick, pas };
+    const body = JSON.stringify(user);
+
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+        if (+xhr.status !== 200) {
+            return callback(xhr, null);
+        }
+
+        const response = JSON.parse(xhr.responseText);
+        callback(null, response);
+    };
+
+    xhr.send(body);
+}
+
+function register(nick, pas, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/register', true);
+    xhr.withCredentials = true;
+    const user = { nick, pas, conf };
+    const body = JSON.stringify(user);
+
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+        if (+xhr.status !== 200) {
+            return callback(xhr, null);
+        }
+
+        const response = JSON.parse(xhr.responseText);
+        callback(null, response);
+    };
+
+    xhr.send(body);
+}
+
+function whoami(callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/me', true);
+    xhr.withCredentials = true;
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+        if (+xhr.status !== 200) {
+            return callback(xhr, null);
+        }
+
+        const response = JSON.parse(xhr.responseText);
+        callback(null, response);
+    };
+
+    xhr.send();
+}

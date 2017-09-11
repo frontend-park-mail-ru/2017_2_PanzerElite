@@ -87,6 +87,11 @@
     color: black;
 }
 
+.button {
+    background: rgba(0, 0, 0, 0.20);
+    color: black;
+}
+
 body {
     margin: 0;
     background-size: cover;

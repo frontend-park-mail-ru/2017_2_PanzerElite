@@ -3,7 +3,7 @@
 
 <head>
     <!-- Website CSS style -->
-    <link rel="stylesheet" type="text/css" href="./static/CSS/main.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/main.css">
     <link rel="icon" href="./static/images/icon.jpg">
     <title>PanzerElite</title>
 </head>
@@ -16,15 +16,15 @@
             <nav id="navigation" class="navigation"></nav>
             <div>
                 <section id='login-sec' hidden>
-                    <form class="form">
+                    <form class="form" id="login-form">
                         <input type="text" id="nick-log" placeholder="Username" />
                         <input type="password" id="password-log" placeholder="Password" />
-                        <button id="login-btn">login</button>
+                        <button id="login-btn" type="submit">login</button>
                         <p class="warning" id="warning-msg-log" hidden>W</p>
                     </form>
                 </section>
                 <section id='register-sec' hidden>
-                    <form class="form">
+                    <form class="form" id="register-form">
                         <input type="text" id="nick-reg" placeholder="Nick" />
                         <input type="password" id="password-reg" placeholder="Password" />
                         <input type="password" id="confirm-reg" placeholder="Confirm Password" />
@@ -56,6 +56,6 @@
 
     </div>
 </body>
-<script type="text/javascript" src="../static/JS/main.js"></script>
+<script type="text/javascript" src="../static/js/main.js"></script>
 
 </html>
