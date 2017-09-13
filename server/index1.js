@@ -27,7 +27,6 @@ app.use(express.static('public'));
 app.use(body.json());
 app.use(cookie());
 
-
 const users = {};
 const ids = {};
 
@@ -37,15 +36,12 @@ app.post('/login', function(req, res) {
     if (!nick || !pas) {
         return res.status(400).end();
     }
-    if (!users[nick]) {
-        console.log(`No such User: ${err.status}`);
+    if (users[nick] == undefined) {
+        console.log(`No such User`);
         return;
     }
-    const id = uuid();
-    ids[id] = pas;
-
-    res.cookie('podvorot', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
-    res.json({ id });
+    res.cookie('UserID', ids[nick], { expires: new Date(Date.now() + 1000 * 60 * 10) });
+    //res.json({ id });
 });
 
 
@@ -57,26 +53,39 @@ app.post('/register', function(req, res) {
         return res.status(400).end();
     }
     if (users[nick]) {
-        console.log(`Already exists: ${err.status}`);
+        console.log(`Already exists`);
         return;
     }
+    if (!users[nick]) {
+        users[nick] = {
+            nick,
+            pas,
+
+        };
+    }
     const id = uuid();
-    ids[id] = pas;
+    ids[nick] = id;
 
-    res.cookie('podvorot', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
-    res.json({ id });
+    res.cookie('UserID', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
+    //sres.json({ id });
 });
-
-app.get('/me', function(req, res) {
-    const id = req.cookies['podvorot'];
-    const email = ids[id];
-    if (!email || !users[email]) {
+/*
+app.get('/', function(req, res) {
+    const id = req.cookies['UserID'];
+    const nick = ids[id];
+    if (!nick || !users[nick]) {
+        return res.status(401).end();
+    }
+    res.json(users[nick]);
+});*/
+app.get('/check', function(req, res) {
+    const id = req.cookies['UserID'];
+    //const nick = ids[id];
+    if (!id) {
         return res.status(401).end();
     }
 
-    users[email].count += 1;
-
-    res.json(users[email]);
+    res.json({ field: true });
 });
 
 const port = process.env.PORT || 8000;

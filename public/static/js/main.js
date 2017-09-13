@@ -5,6 +5,7 @@ const warningMsgReg = document.getElementById('warning-msg-reg');
 const liveSectionCollection = application.getElementsByTagName('section');
 const loginBtn = document.getElementById('login-btn');
 const registerBtn = document.getElementById('create-btn');
+const sectionsArray = Array.from(liveSectionCollection);
 
 const sections = [
     ['login-sec', 'SIGN IN'],
@@ -18,7 +19,6 @@ for (let sect of sections) {
     const button = document.createElement('input');
     button.setAttribute('type', 'button');
     button.setAttribute('class', 'button-nav');
-
     button.setAttribute('data-section', sect[0]);
     button.value = sect[1];
     nav.appendChild(button);
@@ -26,9 +26,7 @@ for (let sect of sections) {
 
 
 nav.addEventListener('click', (event) => {
-
     const sectionID = event.target.getAttribute('data-section');
-    const sectionsArray = Array.from(liveSectionCollection);
     sectionsArray.forEach((sectionElement) => {
         sectionElement.hidden = true;
         if (sectionElement.id === sectionID) {
@@ -36,6 +34,21 @@ nav.addEventListener('click', (event) => {
         }
     });
 }, false);
+
+
+whoami(function(err, resp) {
+    if (err) {
+        return alert(`AUTH Error: ${err.status}`);
+    }
+    if (resp.field) {
+        hideSection("menu-sec", false);
+        hideSection("about-sec", false);
+        hideSection("login-sec", true);
+        hideSection("register-sec", true);
+
+        return;
+    }
+});
 /*
 loginBtn.addEventListener('click', (event) => {
     //event.preventDefault();
@@ -82,14 +95,15 @@ registerBtn.addEventListener('click', (event) => {
 //new shit
 const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
+
 registerBtn.addEventListener('click', function(event) {
     event.preventDefault();
-    console.log(loginForm.elements);
-    const nick = loginForm.elements['nick-reg'].value;
-    const pas = loginForm.elements['password-reg'].value;
-    const conf = loginForm.elements['confirm-reg'].value;
+    // console.log(loginForm.elements);
+    const nick = registerForm.elements['nick-reg'].value;
+    const pas = registerForm.elements['password-reg'].value;
+    const conf = registerForm.elements['confirm-reg'].value;
 
-    auth(nick, pas, conf, function(err, resp) {
+    register(nick, pas, conf, function(err, resp) {
         if (err) {
             return alert(`AUTH Error: ${err.status}`);
         }
@@ -100,7 +114,7 @@ registerBtn.addEventListener('click', function(event) {
 
 loginBtn.addEventListener('click', function(event) {
     event.preventDefault();
-    console.log(loginForm.elements);
+    //console.log(loginForm.elements);
     const nick = loginForm.elements['nick-log'].value;
     const pas = loginForm.elements['password-log'].value;
 
@@ -111,6 +125,8 @@ loginBtn.addEventListener('click', function(event) {
 
         loginForm.reset();
     });
+
+
 });
 
 
@@ -136,7 +152,7 @@ function auth(nick, pas, callback) {
     xhr.send(body);
 }
 
-function register(nick, pas, callback) {
+function register(nick, pas, conf, callback) {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/register', true);
     xhr.withCredentials = true;
@@ -154,13 +170,12 @@ function register(nick, pas, callback) {
         const response = JSON.parse(xhr.responseText);
         callback(null, response);
     };
-
     xhr.send(body);
 }
 
 function whoami(callback) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/me', true);
+    xhr.open('GET', '/check', true);
     xhr.withCredentials = true;
 
     xhr.onreadystatechange = function() {
