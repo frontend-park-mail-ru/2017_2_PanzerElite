@@ -15,55 +15,48 @@ app.use(body.json());
 app.use(cookie());
 
 const users = {};
-const ids = {};
-
-app.post('/login', function(req, res) {
-    const nick = req.body.nick;
-    const pas = req.body.pas;
-    if (!nick || !pas) {
-        return res.status(400).end();
-    }
-    if (users[nick] == undefined) {
-        res.status(401);
-        res.json({ fuckyourself: 'bitch' });
-        return;
-    }
-    res.cookie('UserID', ids[nick], { expires: new Date(Date.now() + 1000 * 60 * 10) });
-    res.json({ id: ids[nick] });
-});
-
 
 app.post('/register', function(req, res) {
     const nick = req.body.nick;
     const pas = req.body.pas;
     const conf = req.body.conf;
     if (!nick || !pas) {
-        console.log("!nick || !pas");
         return res.status(400).end();
     }
     if (users[nick]) {
-        console.log(`Already exists`);
+        // say front that already exists
+        console.log("already exists");
         return;
     }
-    if (!users[nick]) {
-        console.log("!users[nick]");
-        users[nick] = {
-            nick,
-            pas,
-        };
-    }
-    console.log("we eill regiister now");
+
     const id = uuid();
-    ids[nick] = id;
+    users[nick] = {
+        id,
+        nick,
+        pas,
+    };
 
     res.cookie('userid', id, { expires: new Date(Date.now() + 1000 * 60 * 10), httpOnly: false });
-    console.log(id);
     res.json({ id });
 });
+
+app.post('/login', function(req, res) {
+    const nickname = req.body.nick;
+    const password = req.body.pas;
+    if (!nickname || !password) {
+        return res.status(400).end();
+    }
+    if (users[nickname] === undefined || users[nickname].pas != password) {
+        res.status(401);
+        // say front that such user doesnt exist
+        return;
+    }
+    res.cookie('userid', users[nickname].id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
+    res.json({ id: users[nickname].id });
+});
+
 app.get('/check', function(req, res) {
-    //console.log(req.cookies['userid']);
     const id = req.cookies['userid'];
-    console.log(id);
     if (id === undefined) {
         return res.status(401).end();
     }
@@ -76,8 +69,3 @@ const port = process.env.PORT || 8000;
 app.listen(port, function() {
     console.log(`Server listening port ${port}`);
 });
-/*
-в куках надо точно хранить только ИД
-нужен будет массив с Юзерами arr[nick] {id, password}
-
-*/

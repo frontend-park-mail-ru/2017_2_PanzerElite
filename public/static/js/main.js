@@ -56,8 +56,6 @@ registerBtn.addEventListener('click', function(event) {
 function whoami() {
     axios.get('/check')
         .then(function(response) {
-            console.log("we are loggined in");
-            console.log(response);
             sectionsArray["login"].hidden = true;
             sectionsArray["register"].hidden = true;
             sectionsArray["menu"].hidden = false;
