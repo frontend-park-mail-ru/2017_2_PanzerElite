@@ -1,4 +1,4 @@
-const application = document.getElementById('application');
+/*const application = document.getElementById('application');
 const nav = document.getElementById('navigation');
 const warningMsgLog = document.getElementById('warning-msg-log');
 const warningMsgReg = document.getElementById('warning-msg-reg');
@@ -91,7 +91,7 @@ registerBtn.addEventListener('click', (event) => {
             }
         }
     }
-}, false);*/
+}, false);
 //new shit
 const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
@@ -189,4 +189,126 @@ function whoami(callback) {
     };
 
     xhr.send();
+} */
+const loginBtn = document.getElementById('login-btn');
+const registerBtn = document.getElementById('create-btn');
+const warningMsgLog = document.getElementById('warning-msg-log');
+const warningMsgReg = document.getElementById('warning-msg-reg');
+const goToRegisterBtn = document.getElementById('go-to-reg');
+const goToLoginBtn = document.getElementById('go-to-log');
+const sectionsArray = {
+    login: document.getElementById("login-sec"),
+    register: document.getElementById("register-sec"),
+    menu: document.getElementById("menu-sec"),
+    about: document.getElementById("about-sec"),
+};
+sectionsArray["login"].hidden = false;
+
+goToLoginBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    sectionsArray["login"].hidden = false;
+    sectionsArray["register"].hidden = true;
+}, false);
+goToRegisterBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    sectionsArray["login"].hidden = true;
+    sectionsArray["register"].hidden = false;
+}, false);
+
+whoami();
+loginBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    const nick = document.getElementById('nick-log').value;
+    const pas = document.getElementById('password-log').value;
+    auth(nick, pas).then(res => {
+        console.log(res);
+        whoami();
+    }).catch(err => {
+        console.log(err);
+    });
+}, false);
+
+registerBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    const nick = document.getElementById('nick-reg').value;
+    const pas = document.getElementById('password-reg').value;
+    const conf = document.getElementById('confirm-reg').value;
+    register(nick, pas, conf, function(err, resp) {
+        if (err) {
+            return alert(`AUTH Error: ${err.status}`);
+        }
+        // sectionsArray['register'].reset();
+    });
+    whoami();
+}, false);
+
+
+
+
+function whoami() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/check', false);
+    xhr.withCredentials = true;
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+        if (+xhr.status !== 200) {
+            return;
+        }
+
+        const response = JSON.parse(xhr.responseText);
+        if (response.field) {
+            sectionsArray["login"].hidden = true;
+            sectionsArray["register"].hidden = true;
+            sectionsArray["menu"].hidden = false;
+        }
+    };
+
+    xhr.send();
+}
+
+function auth(nick, pas, callback) {
+    return axios.post('/login', {
+        nick,
+        pas
+    });
+    /* const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/login', false);
+    xhr.withCredentials = true;
+    const user = { nick, pas };
+    const body = JSON.stringify(user);
+
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+        if (+xhr.status !== 200) {
+            return callback(xhr, null);
+        }
+
+        const response = JSON.parse(xhr.responseText);
+        callback(null, response);
+    };
+
+    xhr.send(body); */
+}
+
+function register(nick, pas, conf, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/register', false);
+    xhr.withCredentials = true;
+    const user = { nick, pas, conf };
+    const body = JSON.stringify(user);
+
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf8');
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+        if (+xhr.status !== 200) {
+            return callback(xhr, null);
+        }
+
+        const response = JSON.parse(xhr.responseText);
+        callback(null, response);
+    };
+    xhr.send(body);
 }

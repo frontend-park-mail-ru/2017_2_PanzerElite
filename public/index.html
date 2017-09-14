@@ -5,6 +5,9 @@
     <!-- Website CSS style -->
     <link rel="stylesheet" type="text/css" href="./static/css/main.css">
     <link rel="icon" href="./static/images/icon.jpg">
+
+    <script defer type="text/javascript" src="../static/js/main.js"></script>
+    <script defer type="text/javascript" src="../node_modules/axios/dist/axios.min.js"></script>
     <title>PanzerElite</title>
 </head>
 
@@ -15,20 +18,26 @@
         <div class="page">
             <nav id="navigation" class="navigation"></nav>
             <div>
-                <section id='login-sec' hidden>
+                <section class="sec" id='login-sec' hidden>
                     <form class="form" id="login-form">
                         <input type="text" id="nick-log" placeholder="Username" />
                         <input type="password" id="password-log" placeholder="Password" />
                         <button id="login-btn" type="submit">login</button>
+                        <br>
+                        <br>
+                        <button id="go-to-reg">Create Account</button>
                         <p class="warning" id="warning-msg-log" hidden>W</p>
                     </form>
                 </section>
-                <section id='register-sec' hidden>
+                <section class="sec" id='register-sec' hidden>
                     <form class="form" id="register-form">
                         <input type="text" id="nick-reg" placeholder="Nick" />
                         <input type="password" id="password-reg" placeholder="Password" />
                         <input type="password" id="confirm-reg" placeholder="Confirm Password" />
                         <button id="create-btn">create</button>
+                        <br>
+                        <br>
+                        <button id="go-to-log">Already Have</button>
                         <p class="warning" id="warning-msg-reg" hidden>W</p>
                     </form>
                 </section>
@@ -56,6 +65,5 @@
 
     </div>
 </body>
-<script type="text/javascript" src="../static/js/main.js"></script>
 
 </html>

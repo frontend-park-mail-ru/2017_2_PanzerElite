@@ -24,6 +24,7 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(express.static('public'));
+app.use('/node_modules', express.static(__dirname + '/../node_modules'));
 app.use(body.json());
 app.use(cookie());
 
@@ -37,11 +38,12 @@ app.post('/login', function(req, res) {
         return res.status(400).end();
     }
     if (users[nick] == undefined) {
-        console.log(`No such User`);
+        res.status(401);
+        res.json({ fuckyourself: 'bitch' });
         return;
     }
     res.cookie('UserID', ids[nick], { expires: new Date(Date.now() + 1000 * 60 * 10) });
-    //res.json({ id });
+    res.json({ id: ids[nick] });
 });
 
 
@@ -50,6 +52,7 @@ app.post('/register', function(req, res) {
     const pas = req.body.pas;
     const conf = req.body.conf;
     if (!nick || !pas) {
+        console.log("!nick || !pas");
         return res.status(400).end();
     }
     if (users[nick]) {
@@ -57,31 +60,27 @@ app.post('/register', function(req, res) {
         return;
     }
     if (!users[nick]) {
+        console.log("!users[nick]");
         users[nick] = {
             nick,
             pas,
-
         };
     }
+    console.log("we eill regiister now");
     const id = uuid();
     ids[nick] = id;
 
-    res.cookie('UserID', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
+    res.cookie('userid', id, { expires: new Date(Date.now() + 1000 * 60 * 10), httpOnly: false });
+    console.log(id);
+    res.json({ id });
     //sres.json({ id });
+    //console.log(res);
 });
-/*
-app.get('/', function(req, res) {
-    const id = req.cookies['UserID'];
-    const nick = ids[id];
-    if (!nick || !users[nick]) {
-        return res.status(401).end();
-    }
-    res.json(users[nick]);
-});*/
 app.get('/check', function(req, res) {
-    const id = req.cookies['UserID'];
-    //const nick = ids[id];
-    if (!id) {
+    //console.log(req.cookies['userid']);
+    const id = req.cookies['userid'];
+    console.log(id);
+    if (id === undefined) {
         return res.status(401).end();
     }
 
