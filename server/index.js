@@ -1,17 +1,3 @@
-/*const express = require('express');
-//const fs = require('fs');
-
-const app = express();
-
-app.use(express.static('public'));
-
-app.get('../public/*', (req, res) => {
-    res.send('404');
-})
-
-app.listen(process.env.PORT || '8000', () => {
-    console.log('awd');
-});*/
 'use strict';
 
 const express = require('express');
@@ -73,8 +59,6 @@ app.post('/register', function(req, res) {
     res.cookie('userid', id, { expires: new Date(Date.now() + 1000 * 60 * 10), httpOnly: false });
     console.log(id);
     res.json({ id });
-    //sres.json({ id });
-    //console.log(res);
 });
 app.get('/check', function(req, res) {
     //console.log(req.cookies['userid']);
@@ -92,3 +76,8 @@ const port = process.env.PORT || 8000;
 app.listen(port, function() {
     console.log(`Server listening port ${port}`);
 });
+/*
+в куках надо точно хранить только ИД
+нужен будет массив с Юзерами arr[nick] {id, password}
+
+*/
