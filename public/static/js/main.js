@@ -4,6 +4,7 @@ const warningMsgLog = document.getElementById('warning-msg-log');
 const warningMsgReg = document.getElementById('warning-msg-reg');
 const goToRegisterBtn = document.getElementById('go-to-reg');
 const goToLoginBtn = document.getElementById('go-to-log');
+const logoutBtn = document.getElementById('logout-btn');
 const sectionsArray = {
     login: document.getElementById("login-sec"),
     register: document.getElementById("register-sec"),
@@ -33,6 +34,7 @@ loginBtn.addEventListener('click', function(event) {
         console.log(res);
         whoami();
     }).catch(err => {
+        warningMsgLog.hidden = false;
         console.log(err);
     });
 }, false);
@@ -46,11 +48,22 @@ registerBtn.addEventListener('click', function(event) {
         console.log(res);
         whoami();
     }).catch(err => {
+        warningMsgReg.hidden = false;
         console.log(err);
     });
 }, false);
 
+logoutBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    axios.get('/logout')
+        .then(function(response) {
+            whoami();
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
 
+}, false);
 
 
 function whoami() {
@@ -61,6 +74,9 @@ function whoami() {
             sectionsArray["menu"].hidden = false;
         })
         .catch(function(error) {
+            sectionsArray["login"].hidden = false;
+            sectionsArray["register"].hidden = true;
+            sectionsArray["menu"].hidden = true;
             console.log(error);
         });
 

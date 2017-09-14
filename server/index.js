@@ -25,6 +25,7 @@ app.post('/register', function(req, res) {
     }
     if (users[nick]) {
         // say front that already exists
+        res.status(401).end();
         console.log("already exists");
         return;
     }
@@ -47,12 +48,12 @@ app.post('/login', function(req, res) {
         return res.status(400).end();
     }
     if (users[nickname] === undefined || users[nickname].pas != password) {
-        res.status(401);
+        res.status(401).end();
         // say front that such user doesnt exist
         return;
     }
     res.cookie('userid', users[nickname].id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
-    res.json({ id: users[nickname].id });
+    res.end();
 });
 
 app.get('/check', function(req, res) {
@@ -60,9 +61,13 @@ app.get('/check', function(req, res) {
     if (id === undefined) {
         return res.status(401).end();
     }
-
-    res.json({ field: true });
+    res.end();
 });
+app.get('/logout', function(req, res) {
+    res.clearCookie('userid');
+    res.end();
+});
+
 
 const port = process.env.PORT || 8000;
 
