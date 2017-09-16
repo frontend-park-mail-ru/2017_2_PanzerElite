@@ -16,12 +16,6 @@ sectionsArray["login"].hidden = false;
 
 import urls from './config.js';
 
-/*
-
-const urls.login = "/login";
-const urls.register = "/register";
-const urls.logout = "/logout";
-const urls.check = "/check";*/
 const POST = "post";
 const GET = "get";
 
