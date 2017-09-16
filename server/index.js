@@ -17,9 +17,7 @@ app.use(cookie());
 const users = {};
 
 app.post('/register', function(req, res) {
-    const nick = req.body.nick;
-    const pas = req.body.pas;
-    const conf = req.body.conf;
+    const { nick, pas, conf } = req.body;
     if (!nick || !pas) {
         return res.status(400).end();
     }
@@ -42,8 +40,7 @@ app.post('/register', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-    const nickname = req.body.nick;
-    const password = req.body.pas;
+    const { nick: nickname, pas: password } = req.body;
     if (!nickname || !password) {
         return res.status(400).end();
     }

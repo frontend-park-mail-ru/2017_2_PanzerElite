@@ -13,13 +13,29 @@ const sectionsArray = {
 };
 sectionsArray["login"].hidden = false;
 
+
+import urls from './config.js';
+
+/*
+
+const urls.login = "/login";
+const urls.register = "/register";
+const urls.logout = "/logout";
+const urls.check = "/check";*/
+const POST = "post";
+const GET = "get";
+
+
+
 goToLoginBtn.addEventListener('click', (event) => {
     event.preventDefault();
+    warningMsgReg.hidden = true;
     sectionsArray["login"].hidden = false;
     sectionsArray["register"].hidden = true;
 }, false);
 goToRegisterBtn.addEventListener('click', function(event) {
     event.preventDefault();
+    warningMsgLog.hidden = true;
     sectionsArray["login"].hidden = true;
     sectionsArray["register"].hidden = false;
 }, false);
@@ -30,13 +46,19 @@ loginBtn.addEventListener('click', function(event) {
     event.preventDefault();
     const nick = document.getElementById('nick-log').value;
     const pas = document.getElementById('password-log').value;
-    auth(nick, pas).then(res => {
-        console.log(res);
-        whoami();
-    }).catch(err => {
+    if (nick.length > 15 || pas.length > 20 || nick.length < 1 || pas.length < 1) {
+        warningMsgLog.innerHTML = "Invalid Data";
         warningMsgLog.hidden = false;
-        console.log(err);
-    });
+    } else {
+        httpReq(POST, urls.login, { nick, pas })
+            .then(res => {
+                whoami();
+            }).catch(err => {
+                warningMsgLog.innerHTML = "Wrong Nick or Password";
+                warningMsgLog.hidden = false;
+                console.log(err);
+            });
+    }
 }, false);
 
 registerBtn.addEventListener('click', function(event) {
@@ -44,30 +66,41 @@ registerBtn.addEventListener('click', function(event) {
     const nick = document.getElementById('nick-reg').value;
     const pas = document.getElementById('password-reg').value;
     const conf = document.getElementById('confirm-reg').value;
-    register(nick, pas, conf).then(res => {
-        console.log(res);
-        whoami();
-    }).catch(err => {
+    if (nick.length > 15 || pas.length > 20 || nick.length < 1 || pas.length < 1) {
+        warningMsgReg.innerHTML = "Invalid Data";
         warningMsgReg.hidden = false;
-        console.log(err);
-    });
+    } else {
+        if (conf !== pas) {
+            warningMsgReg.innerHTML = "Passwords do not match";
+            warningMsgReg.hidden = false;
+        } else {
+            httpReq(POST, urls.register, { nick, pas, conf })
+                .then(res => {
+                    whoami();
+                }).catch(err => {
+                    warningMsgReg.innerHTML = "This Nick already exists";
+                    warningMsgLog.hidden = false;
+                    console.log(err);
+                });
+        }
+    }
 }, false);
 
 logoutBtn.addEventListener('click', function(event) {
     event.preventDefault();
-    axios.get('/logout')
-        .then(function(response) {
+    warningMsgLog.hidden = true;
+    warningMsgReg.hidden = true;
+    httpReq(GET, urls.logout)
+        .then(res => {
             whoami();
-        })
-        .catch(function(error) {
-            console.log(error);
+        }).catch(err => {
+            console.log(err);
         });
-
 }, false);
 
 
 function whoami() {
-    axios.get('/check')
+    httpReq(GET, urls.check)
         .then(function(response) {
             sectionsArray["login"].hidden = true;
             sectionsArray["register"].hidden = true;
@@ -79,20 +112,8 @@ function whoami() {
             sectionsArray["menu"].hidden = true;
             console.log(error);
         });
-
 }
 
-function auth(nick, pas) {
-    return axios.post('/login', {
-        nick,
-        pas
-    });
-}
-
-function register(nick, pas, conf) {
-    return axios.post('/register', {
-        nick,
-        pas,
-        conf
-    });
+function httpReq(type, uRL, sendObject) {
+    return axios.request({ url: uRL, method: type, data: sendObject });
 }
