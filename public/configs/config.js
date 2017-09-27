@@ -5,7 +5,9 @@ const urls = {
     logout: PREFIX_URL + "logout",
     check: PREFIX_URL + "getuser",
     chagePassword: PREFIX_URL + "changepassword"
-
 };
+const GET = "GET";
+const POST = "POST";
+
 export default urls;
-//yeah
+export { GET, POST };
