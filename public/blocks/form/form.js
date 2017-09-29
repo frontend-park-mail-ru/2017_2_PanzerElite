@@ -1,19 +1,19 @@
 "use strict";
-
-import Block from "../block/index.js";
+import "./form.css";
+import Block from "../block/block.js";
 class Form extends Block {
 	constructor(fields = []) {
 		const el = document.createElement("form");
 		super(el);
 
-		fields.forEach(function(field) {
-			const f = Block.Create("input", field.attrs || {}, field.classes || []);
-			this.append(f);
-		}.bind(this));
+		fields.forEach((field) => {
+			const input = Block.Create("input", field.attrs || {}, field.classes || []);
+			this.append(input);
+		});
 		this.wrnMsg = this.el.getElementsByClassName("warning")[0];
 	}
 	onSubmit(callback) {
-		this.el.addEventListener("submit", function(e) {
+		this.el.addEventListener("submit", (e) => {
 			e.preventDefault();
 			const formdata = {};
 			const elements = this.el.elements;
@@ -22,7 +22,7 @@ class Form extends Block {
 			}
 
 			callback(formdata);
-		}.bind(this));
+		});
 	}
 	warningMsg(text, flag) {
 		this.wrnMsg.value = text;

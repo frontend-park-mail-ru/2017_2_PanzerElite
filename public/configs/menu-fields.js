@@ -13,6 +13,13 @@ const menuFields = [{
 		type: "button",
 		value: "log out",
 	}
+},
+{
+	attrs: {
+		class: "button",
+		type: "button",
+		value: "scoreboard",
+	}
 }
 ];
 export default menuFields;

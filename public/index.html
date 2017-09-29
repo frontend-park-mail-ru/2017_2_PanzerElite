@@ -3,16 +3,20 @@
 
 <head>
     <!-- Website CSS style -->
-    <link rel="stylesheet" type="text/css" href="./main.css">
+    <link rel="stylesheet" type="text/css" href="./bundles/bundle.css">
     <link rel="icon" href="./images/icon.jpg">
+    <script defer type="module" src="./bundles/bundle.js"></script>
+    <!-- <script defer type="module" src="./main.js"></script> -->
     <title>PanzerElite</title>
 </head>
 
 <body>
-    <div class="background"></div>
+
+    <div class="background" style="background-image: url(../images/wallpaper.jpg)"></div>
     <div id="application"></div>
-    <script type="module" src="./bundles/bundle.js"></script>
-    <!--<script type="module" src="main.js"></script>-->
+    <div class="myProgress">
+        <div class="myBar"></div>
+    </div>
 </body>
 
 </html>

@@ -1,7 +1,3 @@
-/*function httpReq(type, uRL, sendObject) {
-    return axios.request({ url: uRL, method: type, data: sendObject, withCredentials: true });
-}*/
-
 function httpReq(type, uRL, sendObject) {
 	return new Promise(function(resolve, reject) {
 		fetch(uRL, {
@@ -12,18 +8,14 @@ function httpReq(type, uRL, sendObject) {
 			headers: {
 				"Content-Type": "application/json; charset=utf-8"
 			}
-		})
-			.then(function(response) {
-				if (response.status === 200) {
-					resolve();
-				} else {
-					reject("Something went wrong");
-				}
-			});
-		//.catch(function(response) {});
+		}).then(function(response) {
+			if (response.status === 200) {
+				resolve();
+			} else {
+				reject("Something went wrong");
+			}
+		});
 	});
 
 }
-
-
 export default httpReq;

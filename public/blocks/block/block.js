@@ -7,12 +7,12 @@ export default class Block {
 
 	static Create(tagName = "div", attrs = {}, classes = [], text = null) {
 		const el = document.createElement(tagName);
-		classes.forEach(function(className) {
+		classes.forEach((className) => {
 			el.classList.add(className);
 		});
-		for (let name in attrs) {
-			el.setAttribute(name, attrs[name]);
-		}
+		Object.keys(attrs).forEach(key => {
+			el.setAttribute(key, attrs[key]);
+		});
 		if (text) {
 			el.textContent = text;
 		}

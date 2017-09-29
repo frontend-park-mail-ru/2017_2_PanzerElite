@@ -1,7 +1,9 @@
 "use strict";
 
-import Block from "./blocks/block/index.js";
-import Form from "./blocks/form/index.js";
+import "./main.css";
+import Block from "./blocks/block/block.js";
+import Scoreboard from "./blocks/scoreboard/scoreboard.js";
+import Form from "./blocks/form/form.js";
 import loginFields from "./configs/login-fields.js";
 import changeFields from "./configs/change-password-fields.js";
 import registerFields from "./configs/register-fields.js";
@@ -13,17 +15,19 @@ const userService = new UserService();
 
 const app = new Block(document.getElementById("application"));
 
+openScoreboard();
 openLogin();
 openChange();
 openMenu();
 openRegister();
 sections.hide();
-userService.whoami();
+userService.check();
 
 app
 	.append(sections.menu)
 	.append(sections.login)
 	.append(sections.register)
+	.append(sections.scoreboard)
 	.append(sections.change);
 
 function openLogin() {
@@ -72,6 +76,9 @@ function openMenu() {
 		sections.menu.menuform.onButton(sectionButtons.menu.logout, function() {
 			userService.logout();
 		});
+		sections.menu.menuform.onButton(sectionButtons.menu.scoreboard, function() {
+			openScoreboard();
+		});
 		sections.menu
 			.append(sections.menu.menuform);
 		sections.menu.ready = true;
@@ -93,4 +100,16 @@ function openChange() {
 			.append(sections.change.changeform);
 		sections.change.ready = true;
 	}
+}
+
+function openScoreboard() {
+	if (!sections.scoreboard.ready) {
+		sections.scoreboard.score = new Scoreboard();
+		sections.scoreboard
+			.append(sections.scoreboard.score);
+		sections.scoreboard.ready = true;
+	}
+	sections.hide();
+	sections.scoreboard.score.update();
+	sections.scoreboard.show();
 }
