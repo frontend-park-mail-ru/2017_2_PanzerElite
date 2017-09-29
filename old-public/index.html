@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Website CSS style -->
+    <link rel="stylesheet" type="text/css" href="./static/css/main.css">
+    <link rel="icon" href="./static/images/icon.jpg">
+
+    <script defer type="text/javascript" src="../node_modules/axios/dist/axios.min.js"></script>
+    <script type="module" src="../static/js/main.js"></script>
+
+
+    <title>PanzerElite</title>
+</head>
+
+<body>
+    <div class="background">
+    </div>
+    <div id='application'>
+        <div class="page">
+            <nav id="navigation" class="navigation"></nav>
+            <div>
+                <section class="sec" id='login-sec' hidden>
+                    <form class="form" id="login-form">
+                        <input type="text" id="nick-log" placeholder="Username" />
+                        <input type="password" id="password-log" placeholder="Password" />
+                        <button id="login-btn" type="submit">login</button>
+                        <br>
+                        <br>
+                        <button id="go-to-reg">Create Account</button>
+                        <p class="warning" id="warning-msg-log" hidden>Invalid Data</p>
+                    </form>
+                </section>
+                <section class="sec" id='register-sec' hidden>
+                    <form class="form" id="register-form">
+                        <input type="text" id="nick-reg" placeholder="Nick" />
+                        <input type="password" id="password-reg" placeholder="Password" />
+                        <input type="password" id="confirm-reg" placeholder="Confirm Password" />
+                        <button id="create-btn">create</button>
+                        <br>
+                        <br>
+                        <button id="go-to-log">Already Have</button>
+                        <p class="warning" id="warning-msg-reg" hidden>Invalid Data</p>
+                    </form>
+                </section>
+                <section id='menu-sec' hidden>
+                    <form class="form">
+                        <button>Singleplayer</button>
+                        <br>
+                        <br>
+                        <button>Multiplayer</button>
+                        <br>
+                        <br>
+                        <button>Scores</button>
+                        <br>
+                        <br>
+                        <button id="go-to-change">Change password</button>
+                        <br>
+                        <br>
+                        <button id="logout-btn">LOG OUT</button>
+                    </form>
+                </section>
+                <section id='change-sec' hidden>
+                    <form class="form" id="change-form">
+                        <input type="password" id="password-change" placeholder="New Password" />
+                        <input type="password" id="confirm-change" placeholder="Confirm Password" />
+                        <button id="change-btn">Change</button>
+                        <br>
+                        <br>
+                        <button id="go-to-menu">Back to menu</button>
+                        <p class="warning" id="warning-msg-change" hidden>Invalid Data</p>
+                    </form>
+                </section>
+
+            </div>
+            <div class="footer">
+                <a class="footer-text"> PanzerElite by Kurkin.N, Oganesyan.R 2017 </a>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+node_modules
+old-public
+public/bundles
+public/blocks/scoreboard/ScoreboardTEMPLATE.js
