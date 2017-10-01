@@ -23,3 +23,87 @@ body {
     background-size: cover;
     filter: blur(3px)
 }
+
+.form {
+    position: absolute;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.00);
+    width: 280px;
+    top: 15%;
+    left: 38%;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.inputClass {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.subButton,
+.button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    margin-top: 15px;
+    background: #000000;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 600;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+.subButton:hover,
+.subButton:active,
+.subButton:focus,
+.button:hover,
+.button:active,
+.button:focus {
+    background: rgba(0, 0, 0, 0.20);
+    color: black;
+}
+
+.warning {
+    width: 100%;
+    margin-top: 5%;
+    border-color: black;
+    background-color: rgba(255, 0, 0, 0.76);
+    color: black;
+    font-size: 18px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.myProgress {
+    z-index: 2;
+    position: absolute;
+    width: 370px;
+    height: 30px;
+    top: 15%;
+    left: 38%;
+    /* padding: 45px; */
+    /* background-color: rgba(255, 255, 255, 0.23); */
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+}
+
+.myBar {
+    z-index: 2;
+    position: relative;
+    left: 1%;
+    width: 4%;
+    height: 30px;
+    background-color: black;
+}

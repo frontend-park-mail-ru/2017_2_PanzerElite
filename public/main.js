@@ -1,115 +1,61 @@
-"use strict";
-
-import "./main.css";
-import Block from "./blocks/block/block.js";
-import Scoreboard from "./blocks/scoreboard/scoreboard.js";
-import Form from "./blocks/form/form.js";
-import loginFields from "./configs/login-fields.js";
-import changeFields from "./configs/change-password-fields.js";
-import registerFields from "./configs/register-fields.js";
-import menuFields from "./configs/menu-fields.js";
+import { MainGenerator } from "./modules/mainGenerator.js";
+import { Block } from "./block/block.js";
 import UserService from "./services/user-service.js";
-import sections, { sectionButtons } from "./configs/sections.js";
+import PBar from "./modules/load-bar.js";
 
-const userService = new UserService();
+const app = document.getElementById("application");
+const main = new Block("div", {});
+app.appendChild(main.el);
 
-const app = new Block(document.getElementById("application"));
+MainGenerator(main);
 
-openScoreboard();
-openLogin();
-openChange();
-openMenu();
-openRegister();
-sections.hide();
-userService.check();
+const userService = new UserService(main);
+const pBar = new PBar();
 
-app
-    .append(sections.menu)
-    .append(sections.login)
-    .append(sections.register)
-    .append(sections.scoreboard)
-    .append(sections.change);
+pBar.show();
+userService.whoami();
+pBar.hide();
 
-function openLogin() {
-    sections.login.show();
-    if (!sections.login.ready) {
-        sections.login.loginform = new Form(loginFields);
-        sections.login.loginform.onSubmit(function(formdata) {
-            userService.login(formdata.nick, formdata.password);
-        });
-        sections.login.loginform.onButton(sectionButtons.login.goToRegister, function() {
-            sections.login.hide();
-            sections.register.show();
+main.login.loginBtn.setCallback(() => {
+	pBar.show();
+	userService.login(main.login.nick.el.value,
+		main.login.password.el.value);
+	pBar.hide();
+});
+main.login.changeformBtn.setCallback(() => {
+	main.login.hide();
+	main.register.show();
+});
 
-        });
-        sections.login
-            .append(sections.login.loginform);
-        sections.login.ready = true;
-    }
-}
+main.register.registerBtn.setCallback(() => {
+	pBar.show();
+	userService.register(main.register.nick.el.value,
+		main.register.password.el.value, main.register.confirm.el.value);
+	pBar.hide();
 
-function openRegister() {
-    sections.register.show();
-    if (!sections.register.ready) {
-        sections.register.registerform = new Form(registerFields);
-        sections.register.registerform.onSubmit(function(formdata) {
-            userService.register(formdata.nick, formdata.password, formdata.confirm);
-        });
-        sections.register.registerform.onButton(sectionButtons.register.goToLogin, function() {
-            sections.login.show();
-            sections.register.hide();
-        });
-        sections.register
-            .append(sections.register.registerform);
-        sections.register.ready = true;
-    }
-}
+});
+main.register.changeformBtn.setCallback(() => {
+	main.login.show();
+	main.register.hide();
+});
 
-function openMenu() {
-    sections.menu.show();
-    if (!sections.menu.ready) {
-        sections.menu.menuform = new Form(menuFields);
-        sections.menu.menuform.onButton(sectionButtons.menu.changePassword, function() {
-            sections.hide();
-            sections.change.show();
-        });
-        sections.menu.menuform.onButton(sectionButtons.menu.logout, function() {
-            userService.logout();
-        });
-        sections.menu.menuform.onButton(sectionButtons.menu.scoreboard, function() {
-            openScoreboard();
-        });
-        sections.menu
-            .append(sections.menu.menuform);
-        sections.menu.ready = true;
-    }
-}
+main.menu.changeBtn.setCallback(() => {
+	main.menu.hide();
+	main.change.show();
+});
+main.menu.logoutBtn.setCallback(() => {
+	pBar.show();
+	userService.logout();
+	pBar.hide();
+});
 
-function openChange() {
-    sections.change.show();
-    if (!sections.change.ready) {
-        sections.change.changeform = new Form(changeFields);
-        sections.change.changeform.onSubmit(function(formdata) {
-            userService.changePassword(formdata.password, formdata.confirm);
-        });
-        sections.change.changeform.onButton(sectionButtons.change.goToMenu, function() {
-            sections.hide();
-            sections.menu.show();
-        });
-        sections.change
-            .append(sections.change.changeform);
-        sections.change.ready = true;
-    }
-}
-
-function openScoreboard() {
-    if (!sections.scoreboard.ready) {
-        sections.scoreboard.score = new Scoreboard();
-        sections.scoreboard
-            .append(sections.scoreboard.score);
-        sections.scoreboard.ready = true;
-    }
-    sections.hide();
-    sections.scoreboard.score.update();
-    sections.scoreboard.show();
-}
+main.change.changeBtn.setCallback(() => {
+	pBar.show();
+	userService.changePassword(main.change.password.el.value,
+		main.change.confirm.el.value);
+	pBar.hide();
+});
+main.change.changeformBtn.setCallback(() => {
+	main.chagne.hide();
+	main.menu.show();
+});
