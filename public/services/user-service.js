@@ -6,10 +6,15 @@ import PBar from "../modules/load-bar.js";
 const pBar = new PBar();
 
 export default class UserService {
-    constructor(main) { this.main = main; }
+    constructor(main) {
+        pBar.show();
+        this.main = main;
+    }
 
 
     login(nick, pas) {
+        pBar.show();
+
         if (!Validate.checkLogAndPas(nick, pas)) {
             //sections.login.loginform.warningMsg("Invalid Data", false);
             //his.main.login.warning
@@ -31,6 +36,8 @@ export default class UserService {
     }
 
     register(nick, pas, conf) {
+        pBar.show();
+
         if (!Validate.checkLogAndPas(nick, pas)) {
             console.log("invalid data");
             //sections.register.registerform.warningMsg("Invalid Data", false);
@@ -57,6 +64,7 @@ export default class UserService {
     logout() {
         //sections.login.loginform.warningMsg("", true);
         //sections.register.registerform.warningMsg("", true);
+        pBar.show();
 
         httpReq(GET, urls.logout)
             .then(() => {
@@ -70,6 +78,8 @@ export default class UserService {
 
 
     changePassword(pas, conf) {
+        pBar.show();
+
         if (!Validate.checkPassword(pas)) {
             //sections.change.changeform.warningMsg("Invalid Data", false);
         } else {
@@ -91,7 +101,6 @@ export default class UserService {
 
 
     whoami() {
-        pBar.show();
         this.main.login.hide();
         this.main.register.hide();
         this.main.menu.hide();
