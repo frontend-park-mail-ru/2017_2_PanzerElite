@@ -35,6 +35,12 @@ export class Block {
 		}, false);
 	}
 
+	setAttributes(attrs = {}) {
+		Object.keys(attrs).forEach(key => {
+			this.el.setAttribute(key, attrs[key]);
+		});
+	}
+
 }
 
 export function FormCreator(main, children = []) {

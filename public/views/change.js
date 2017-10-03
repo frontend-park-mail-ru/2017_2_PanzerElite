@@ -2,42 +2,42 @@
 
 const changeFields = [{
 
-        class: "inputClass",
-        type: "password",
-        name: "password",
-        placeholder: "Password"
+	class: "inputClass",
+	type: "password",
+	name: "password",
+	placeholder: "Password"
 
-    },
-    {
+},
+{
 
-        class: "inputClass",
-        type: "password",
-        name: "confirm",
-        placeholder: "Confirm"
+	class: "inputClass",
+	type: "password",
+	name: "confirm",
+	placeholder: "Confirm"
 
-    },
-    {
-        name: "changeBtn",
-        class: "button",
-        type: "button",
-        value: "Change",
+},
+{
+	name: "changeBtn",
+	class: "button",
+	type: "button",
+	value: "Change",
 
-    },
-    {
-        name: "changeformBtn",
-        class: "button",
-        type: "button",
-        value: "back to menu",
+},
+{
+	name: "changeformBtn",
+	class: "button",
+	type: "button",
+	value: "back to menu",
 
-    },
-    {
-        name: "warning",
-        class: "warning",
-        type: "text",
-        value: "Invalid Data",
-        readonly: "true",
-        hidden: "true"
+},
+{
+	name: "warning",
+	class: "warning",
+	type: "text",
+	value: "Invalid Data",
+	readonly: "true",
+	hidden: "true"
 
-    }
+}
 ];
 export default changeFields;

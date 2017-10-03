@@ -14,10 +14,11 @@ export default class UserService {
 
     login(nick, pas) {
         pBar.show();
-
+        this.main.register.warning.hide();
         if (!Validate.checkLogAndPas(nick, pas)) {
-            //sections.login.loginform.warningMsg("Invalid Data", false);
-            //his.main.login.warning
+            this.main.login.warning.setAttributes({ value: "invalid data" });
+            this.main.login.warning.show();
+            pBar.hide();
         } else {
 
             httpReq(POST, urls.login, {
@@ -28,33 +29,36 @@ export default class UserService {
                     this.whoami();
                 })
                 .catch(err => {
-                    //sections.login.loginform.warningMsg("Wrong Nick or Password", false);
+                    this.main.login.warning.setAttributes({ value: "wrong nick or password" });
+                    this.main.login.warning.show();
                     console.log(err);
-
+                    pBar.hide();
                 });
         }
     }
 
     register(nick, pas, conf) {
         pBar.show();
-
+        this.main.login.warning.hide();
         if (!Validate.checkLogAndPas(nick, pas)) {
-            console.log("invalid data");
-            //sections.register.registerform.warningMsg("Invalid Data", false);
+            this.main.register.warning.setAttributes({ value: "invalid data" });
+            this.main.register.warning.show();
+            pBar.hide();
         } else {
             if (!Validate.confirmPassword(conf, pas)) {
-                console.log("ps dont match");
-                //sections.register.registerform.warningMsg("Passwords Dont Match", false);
+                this.main.register.warning.setAttributes({ value: "passwords dont match" });
+                this.main.register.warning.show();
+                pBar.hide();
             } else {
-                console.log("hey im in register sevice");
                 httpReq(POST, urls.register, { login: nick, password: pas, cf: conf })
                     .then(() => {
                         this.whoami();
                     })
                     .catch(err => {
-                        //sections.register.registerform.warningMsg("This Nick already Exists", false);
+                        this.main.register.warning.setAttributes({ value: "nick already exists" });
+                        this.main.register.warning.show();
                         console.log(err);
-
+                        pBar.hide();
                     });
             }
         }
@@ -62,29 +66,31 @@ export default class UserService {
 
 
     logout() {
-        //sections.login.loginform.warningMsg("", true);
-        //sections.register.registerform.warningMsg("", true);
+        this.main.register.warning.hide();
+        this.main.login.warning.hide();
         pBar.show();
-
         httpReq(GET, urls.logout)
             .then(() => {
                 this.whoami();
             })
             .catch(err => {
                 console.log(err);
-
+                pBar.hide();
             });
     }
 
 
     changePassword(pas, conf) {
         pBar.show();
-
         if (!Validate.checkPassword(pas)) {
-            //sections.change.changeform.warningMsg("Invalid Data", false);
+            this.main.change.warning.setAttributes({ value: "invalid data" });
+            this.main.change.warning.show();
+            pBar.hide();
         } else {
             if (!Validate.confirmPassword(conf, pas)) {
-                //sections.change.changeform.warningMsg("Passwords Dont Match", false);
+                this.main.change.warning.setAttributes({ value: "passwords dont match" });
+                this.main.change.warning.show();
+                pBar.hide();
             } else {
 
                 httpReq(POST, urls.chagePassword, { password: pas, conf })
@@ -93,7 +99,7 @@ export default class UserService {
                     })
                     .catch(err => {
                         console.log(err);
-
+                        pBar.hide();
                     });
             }
         }
