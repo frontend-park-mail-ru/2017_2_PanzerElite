@@ -50,4 +50,5 @@ const registerFields = [{
 
 }
 ];
+
 export default registerFields;

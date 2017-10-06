@@ -167,7 +167,6 @@ var userService = new __WEBPACK_IMPORTED_MODULE_2__services_user_service_js__["a
 userService.whoami();
 
 main.login.loginBtn.setCallback(function () {
-
 	userService.login(main.login.nick.el.value, main.login.password.el.value);
 });
 main.login.changeformBtn.setCallback(function () {
@@ -176,7 +175,6 @@ main.login.changeformBtn.setCallback(function () {
 });
 
 main.register.registerBtn.setCallback(function () {
-
 	userService.register(main.register.nick.el.value, main.register.password.el.value, main.register.confirm.el.value);
 });
 main.register.changeformBtn.setCallback(function () {
@@ -189,12 +187,10 @@ main.menu.changeBtn.setCallback(function () {
 	main.change.show();
 });
 main.menu.logoutBtn.setCallback(function () {
-
 	userService.logout();
 });
 
 main.change.changeBtn.setCallback(function () {
-
 	userService.changePassword(main.change.password.el.value, main.change.confirm.el.value);
 });
 main.change.changeformBtn.setCallback(function () {
@@ -406,6 +402,7 @@ var registerFields = [{
 	hidden: "true"
 
 }];
+
 /* harmony default export */ __webpack_exports__["a"] = (registerFields);
 
 /***/ }),
@@ -429,129 +426,129 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var pBar = new __WEBPACK_IMPORTED_MODULE_3__modules_load_bar_js__["a" /* default */]();
 
 var UserService = function () {
-    function UserService(main) {
-        _classCallCheck(this, UserService);
+	function UserService(main) {
+		_classCallCheck(this, UserService);
 
-        pBar.show();
-        this.main = main;
-    }
+		pBar.show();
+		this.main = main;
+	}
 
-    _createClass(UserService, [{
-        key: "login",
-        value: function login(nick, pas) {
-            var _this = this;
+	_createClass(UserService, [{
+		key: "login",
+		value: function login(nick, pas) {
+			var _this = this;
 
-            pBar.show();
-            this.main.register.warning.hide();
-            if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].checkLogAndPas(nick, pas)) {
-                this.main.login.warning.setAttributes({ value: "invalid data" });
-                this.main.login.warning.show();
-                pBar.hide();
-            } else {
+			pBar.show();
+			this.main.register.warning.hide();
+			if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].checkLogAndPas(nick, pas)) {
+				this.main.login.warning.setAttributes({ value: "invalid data" });
+				this.main.login.warning.show();
+				pBar.hide();
+			} else {
 
-                Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["b" /* POST */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].login, {
-                    login: nick,
-                    password: pas
-                }).then(function () {
-                    _this.whoami();
-                }).catch(function (err) {
-                    _this.main.login.warning.setAttributes({ value: "wrong nick or password" });
-                    _this.main.login.warning.show();
-                    console.log(err);
-                    pBar.hide();
-                });
-            }
-        }
-    }, {
-        key: "register",
-        value: function register(nick, pas, conf) {
-            var _this2 = this;
+				Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["b" /* POST */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].login, {
+					login: nick,
+					password: pas
+				}).then(function () {
+					_this.whoami();
+				}).catch(function (err) {
+					_this.main.login.warning.setAttributes({ value: "wrong nick or password" });
+					_this.main.login.warning.show();
+					console.log(err);
+					pBar.hide();
+				});
+			}
+		}
+	}, {
+		key: "register",
+		value: function register(nick, pas, conf) {
+			var _this2 = this;
 
-            pBar.show();
-            this.main.login.warning.hide();
-            if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].checkLogAndPas(nick, pas)) {
-                this.main.register.warning.setAttributes({ value: "invalid data" });
-                this.main.register.warning.show();
-                pBar.hide();
-            } else {
-                if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].confirmPassword(conf, pas)) {
-                    this.main.register.warning.setAttributes({ value: "passwords dont match" });
-                    this.main.register.warning.show();
-                    pBar.hide();
-                } else {
-                    Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["b" /* POST */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].register, { login: nick, password: pas, cf: conf }).then(function () {
-                        _this2.whoami();
-                    }).catch(function (err) {
-                        _this2.main.register.warning.setAttributes({ value: "nick already exists" });
-                        _this2.main.register.warning.show();
-                        console.log(err);
-                        pBar.hide();
-                    });
-                }
-            }
-        }
-    }, {
-        key: "logout",
-        value: function logout() {
-            var _this3 = this;
+			pBar.show();
+			this.main.login.warning.hide();
+			if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].checkLogAndPas(nick, pas)) {
+				this.main.register.warning.setAttributes({ value: "invalid data" });
+				this.main.register.warning.show();
+				pBar.hide();
+			} else {
+				if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].confirmPassword(conf, pas)) {
+					this.main.register.warning.setAttributes({ value: "passwords dont match" });
+					this.main.register.warning.show();
+					pBar.hide();
+				} else {
+					Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["b" /* POST */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].register, { login: nick, password: pas, cf: conf }).then(function () {
+						_this2.whoami();
+					}).catch(function (err) {
+						_this2.main.register.warning.setAttributes({ value: "nick already exists" });
+						_this2.main.register.warning.show();
+						console.log(err);
+						pBar.hide();
+					});
+				}
+			}
+		}
+	}, {
+		key: "logout",
+		value: function logout() {
+			var _this3 = this;
 
-            this.main.register.warning.hide();
-            this.main.login.warning.hide();
-            pBar.show();
-            Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].logout).then(function () {
-                _this3.whoami();
-            }).catch(function (err) {
-                console.log(err);
-                pBar.hide();
-            });
-        }
-    }, {
-        key: "changePassword",
-        value: function changePassword(pas, conf) {
-            var _this4 = this;
+			this.main.register.warning.hide();
+			this.main.login.warning.hide();
+			pBar.show();
+			Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].logout).then(function () {
+				_this3.whoami();
+			}).catch(function (err) {
+				console.log(err);
+				pBar.hide();
+			});
+		}
+	}, {
+		key: "changePassword",
+		value: function changePassword(pas, conf) {
+			var _this4 = this;
 
-            pBar.show();
-            if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].checkPassword(pas)) {
-                this.main.change.warning.setAttributes({ value: "invalid data" });
-                this.main.change.warning.show();
-                pBar.hide();
-            } else {
-                if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].confirmPassword(conf, pas)) {
-                    this.main.change.warning.setAttributes({ value: "passwords dont match" });
-                    this.main.change.warning.show();
-                    pBar.hide();
-                } else {
+			pBar.show();
+			if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].checkPassword(pas)) {
+				this.main.change.warning.setAttributes({ value: "invalid data" });
+				this.main.change.warning.show();
+				pBar.hide();
+			} else {
+				if (!__WEBPACK_IMPORTED_MODULE_2__modules_validation_js__["a" /* default */].confirmPassword(conf, pas)) {
+					this.main.change.warning.setAttributes({ value: "passwords dont match" });
+					this.main.change.warning.show();
+					pBar.hide();
+				} else {
 
-                    Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["b" /* POST */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].chagePassword, { password: pas, conf: conf }).then(function () {
-                        _this4.whoami();
-                    }).catch(function (err) {
-                        console.log(err);
-                        pBar.hide();
-                    });
-                }
-            }
-        }
-    }, {
-        key: "whoami",
-        value: function whoami() {
-            var _this5 = this;
+					Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["b" /* POST */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].chagePassword, { password: pas, conf: conf }).then(function () {
+						_this4.whoami();
+					}).catch(function (err) {
+						console.log(err);
+						pBar.hide();
+					});
+				}
+			}
+		}
+	}, {
+		key: "whoami",
+		value: function whoami() {
+			var _this5 = this;
 
-            this.main.login.hide();
-            this.main.register.hide();
-            this.main.menu.hide();
-            this.main.change.hide();
-            Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].check).then(function () {
-                _this5.main.menu.show();
-                pBar.hide();
-            }).catch(function (error) {
-                _this5.main.login.show();
-                pBar.hide();
-                console.log(error);
-            });
-        }
-    }]);
+			this.main.login.hide();
+			this.main.register.hide();
+			this.main.menu.hide();
+			this.main.change.hide();
+			Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].check).then(function () {
+				_this5.main.menu.show();
+				pBar.hide();
+			}).catch(function (error) {
+				_this5.main.login.show();
+				pBar.hide();
+				console.log(error);
+			});
+		}
+	}]);
 
-    return UserService;
+	return UserService;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (UserService);
@@ -566,11 +563,11 @@ var UserService = function () {
 var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
 // const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
 var urls = {
-    login: PREFIX_URL + "login",
-    register: PREFIX_URL + "register",
-    logout: PREFIX_URL + "logout",
-    check: PREFIX_URL + "getuser",
-    chagePassword: PREFIX_URL + "changepassword"
+	login: PREFIX_URL + "login",
+	register: PREFIX_URL + "register",
+	logout: PREFIX_URL + "logout",
+	check: PREFIX_URL + "getuser",
+	chagePassword: PREFIX_URL + "changepassword"
 };
 var GET = "GET";
 var POST = "POST";
@@ -588,23 +585,23 @@ var POST = "POST";
  * @module Http
  */
 function httpReq(type, uRL, sendObject) {
-    return new Promise(function (resolve, reject) {
-        fetch(uRL, {
-            method: type,
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            body: JSON.stringify(sendObject),
-            mode: "cors",
-            credentials: "include"
-        }).then(function (response) {
-            if (response.status === 200) {
-                resolve();
-            } else {
-                reject("Something went wrong");
-            }
-        });
-    });
+	return new Promise(function (resolve, reject) {
+		fetch(uRL, {
+			method: type,
+			headers: {
+				"Content-Type": "application/json; charset=utf-8"
+			},
+			body: JSON.stringify(sendObject),
+			mode: "cors",
+			credentials: "include"
+		}).then(function (response) {
+			if (response.status === 200) {
+				resolve();
+			} else {
+				reject("Something went wrong");
+			}
+		});
+	});
 }
 /* harmony default export */ __webpack_exports__["a"] = (httpReq);
 

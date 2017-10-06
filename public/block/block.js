@@ -1,6 +1,5 @@
 "use strict";
 
-
 export class Block {
 
 	constructor(type, attrs = {}) {
