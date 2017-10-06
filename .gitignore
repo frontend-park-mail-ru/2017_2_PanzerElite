@@ -1,1 +1,10 @@
 node_modules
+old-public
+previous-public
+package.json
+package-lock.json
+.gitignore
+.eslintignore
+.eslintrc.json
+pugCreator.js
+webpack.config.js
