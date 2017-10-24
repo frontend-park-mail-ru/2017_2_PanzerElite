@@ -2,17 +2,31 @@ import loginFields from "../views/login.js";
 import menuFields from "../views/menu.js";
 import changeFields from "../views/change.js";
 import registerFields from "../views/register.js";
+import gameView from "../views/game.js";
 
 export const forms = [{
-	name: "login",
-	children: loginFields
+    name: "login",
+    type: "div",
+    class: "login",
+    children: loginFields
 }, {
-	name: "register",
-	children: registerFields
+    name: "register",
+    type: "div",
+    class: "register",
+    children: registerFields
 }, {
-	name: "menu",
-	children: menuFields
+    name: "menu",
+    type: "div",
+    class: "menu",
+    children: menuFields
 }, {
-	name: "change",
-	children: changeFields
+    name: "change",
+    type: "div",
+    class: "change",
+    children: changeFields
+}, {
+    name: "game",
+    type: "div",
+    class: "game",
+    children: gameView
 }, ];

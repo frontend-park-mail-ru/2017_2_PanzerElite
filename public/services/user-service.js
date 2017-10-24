@@ -6,116 +6,127 @@ import PBar from "../modules/load-bar.js";
 const pBar = new PBar();
 
 export default class UserService {
-	constructor(main) {
-		pBar.show();
-		this.main = main;
-	}
+    constructor() {}
 
-	login(nick, pas) {
-		pBar.show();
-		this.main.register.warning.hide();
-		if (!Validate.checkLogAndPas(nick, pas)) {
-			this.main.login.warning.setAttributes({ value: "invalid data" });
-			this.main.login.warning.show();
-			pBar.hide();
-		} else {
+    login(nick, pas) {
+        return new Promise((resolve, reject) => {
+            pBar.show();
+            if (!Validate.checkLogAndPas(nick, pas)) {
+                //this.main.login.warning.setAttributes({ value: "invalid data" });
+                //this.main.login.warning.show();
+                pBar.hide();
+                reject("invalid data");
+                return;
+            } else {
+                httpReq(POST, urls.login, {
+                        login: nick,
+                        password: pas
+                    })
+                    .then(() => {
+                        pbar.hide();
+                        resolve();
+                        return;
 
-			httpReq(POST, urls.login, {
-				login: nick,
-				password: pas
-			})
-				.then(() => {
-					this.whoami();
-				})
-				.catch(err => {
-					this.main.login.warning.setAttributes({ value: "wrong nick or password" });
-					this.main.login.warning.show();
-					console.log(err);
-					pBar.hide();
-				});
-		}
-	}
+                    })
+                    .catch(err => {
+                        pBar.hide();
+                        reject("wrong nick or password");
+                        return;
+                    });
+            }
 
-	register(nick, pas, conf) {
-		pBar.show();
-		this.main.login.warning.hide();
-		if (!Validate.checkLogAndPas(nick, pas)) {
-			this.main.register.warning.setAttributes({ value: "invalid data" });
-			this.main.register.warning.show();
-			pBar.hide();
-		} else {
-			if (!Validate.confirmPassword(conf, pas)) {
-				this.main.register.warning.setAttributes({ value: "passwords dont match" });
-				this.main.register.warning.show();
-				pBar.hide();
-			} else {
-				httpReq(POST, urls.register, { login: nick, password: pas, cf: conf })
-					.then(() => {
-						this.whoami();
-					})
-					.catch(err => {
-						this.main.register.warning.setAttributes({ value: "nick already exists" });
-						this.main.register.warning.show();
-						console.log(err);
-						pBar.hide();
-					});
-			}
-		}
-	}
+        });
 
-	logout() {
-		this.main.register.warning.hide();
-		this.main.login.warning.hide();
-		pBar.show();
-		httpReq(GET, urls.logout)
-			.then(() => {
-				this.whoami();
-			})
-			.catch(err => {
-				console.log(err);
-				pBar.hide();
-			});
-	}
+    }
 
-	changePassword(pas, conf) {
-		pBar.show();
-		if (!Validate.checkPassword(pas)) {
-			this.main.change.warning.setAttributes({ value: "invalid data" });
-			this.main.change.warning.show();
-			pBar.hide();
-		} else {
-			if (!Validate.confirmPassword(conf, pas)) {
-				this.main.change.warning.setAttributes({ value: "passwords dont match" });
-				this.main.change.warning.show();
-				pBar.hide();
-			} else {
+    register(nick, pas, conf) {
+        return new Promise((resolve, reject) => {
+            pBar.show();
+            if (!Validate.checkLogAndPas(nick, pas)) {
+                pBar.hide();
+                reject("invalid data");
+                return;
+            } else {
+                if (!Validate.confirmPassword(conf, pas)) {
+                    pBar.hide();
+                    reject("passwords dont match");
+                    return;
+                } else {
+                    httpReq(POST, urls.register, { login: nick, password: pas, cf: conf })
+                        .then(() => {
+                            pBar.hide();
+                            resolve();
+                            return;
+                        })
+                        .catch(err => {
+                            pBar.hide();
+                            reject("nick already exists");
+                            return;
+                        });
+                }
+            }
+        });
+    }
 
-				httpReq(POST, urls.chagePassword, { password: pas, conf })
-					.then(() => {
-						this.whoami();
-					})
-					.catch(err => {
-						console.log(err);
-						pBar.hide();
-					});
-			}
-		}
-	}
+    logout() {
+        // this.main.register.warning.hide();
+        // this.main.login.warning.hide();
+        return new Promise((resolve, reject) => {
+            pBar.show();
+            httpReq(GET, urls.logout)
+                .then(() => {
+                    //this.whoami();
+                    resolve();
+                })
+                .catch(err => {
+                    pBar.hide();
+                    reject("unable to logout");
+                });
+        });
+    }
 
-	whoami() {
-		this.main.login.hide();
-		this.main.register.hide();
-		this.main.menu.hide();
-		this.main.change.hide();
-		httpReq(GET, urls.check)
-			.then(() => {
-				this.main.menu.show();
-				pBar.hide();
-			})
-			.catch(error => {
-				this.main.login.show();
-				pBar.hide();
-				console.log(error);
-			});
-	}
+    changePassword(pas, conf) {
+        return new Promise((resolve, reject) => {
+            pBar.show();
+            if (!Validate.checkPassword(pas)) {
+                // this.main.change.warning.setAttributes({ value: "invalid data" });
+                // this.main.change.warning.show();
+                pBar.hide();
+                reject("invalid data");
+            } else {
+                if (!Validate.confirmPassword(conf, pas)) {
+                    pBar.hide();
+                    reject("invalid data");
+                } else {
+
+                    httpReq(POST, urls.chagePassword, { password: pas, conf })
+                        .then(() => {
+                            //this.whoami();
+                            resolve();
+                        })
+                        .catch(err => {
+                            pBar.hide();
+                            reject("something went wrong");
+                        });
+                }
+            }
+        });
+    }
+
+    whoami() {
+        return new Promise((resolve, reject) => {
+            httpReq(GET, urls.check)
+                .then(() => {
+                    //this.main.menu.show();
+                    pBar.hide();
+                    resolve();
+                })
+                .catch(error => {
+                    //this.main.login.show();
+                    pBar.hide();
+                    reject("its very sad");
+                });
+        });
+
+    }
 }
