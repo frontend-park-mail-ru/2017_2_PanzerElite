@@ -15,6 +15,7 @@ function httpReq(type, uRL, sendObject) {
         }).then(function(response) {
             if (response.status === 200) {
                 resolve();
+                return;
             } else {
                 reject("Something went wrong");
             }

@@ -12,9 +12,18 @@ app.use(express.static("public"));
 app.use("/node_modules", express.static(__dirname + "/../node_modules"));
 app.use(body.json());
 app.use(cookie());
-//app.use(express.static("public"));
+app.use(express.static("public"));
+
+app.use("/login", express.static("public"));
+app.use("/register", express.static("public"));
+app.use("/menu", express.static("public"));
+app.use("/changepass", express.static("public"));
+
+
+
+
 //
-app.use('/*', express.static("public"));
+//app.use('/*', express.static("public"));
 //
 
 app.use(cors({

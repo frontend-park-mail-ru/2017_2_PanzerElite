@@ -1,23 +1,32 @@
+import routeValidate from "./RouteValidate";
+
 class Router {
     constructor() {
-
+        window.onpopstate = (event) => {
+            //this.go(document.location.pathname);
+            routeValidate(document.location.pathname, this, false);
+        };
     }
 
     init(node, config) {
         this.views = config;
         this.node = node;
-        this.currentHref = "/login"; //пока что так Дес не психуй
+        this.currentHref = null;
     }
 
     startListen() {
         this.node.addEventListener('click', event => this._onRouteChange(event));
     }
 
-    go(href) {
-        window.history.pushState({ path: href }, '', href); // for -> <-
+    go(href, saveHistory = true) {
+        if (saveHistory) {
+            window.history.pushState({ path: href }, '', href); // for -> <-
+        }
         if (href !== this.currentHref) {
             this.views[href].view.show();
-            this.views[this.currentHref].view.hide();
+            if (this.currentHref !== null) {
+                this.views[this.currentHref].view.hide();
+            }
             this.currentHref = href;
         }
     }
