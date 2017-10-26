@@ -1,6 +1,13 @@
 "use strict";
 
 const menuFields = [{
+        name: "play",
+        class: "menu__button button",
+        elemType: "a",
+        href: "/play/",
+        value: "play",
+    },
+    {
         name: "changeBtn",
         class: "menu__button button",
         elemType: "a",
@@ -20,12 +27,6 @@ const menuFields = [{
         class: "menu__button button",
         elemType: "a",
         value: "scoreboard",
-    },
-    {
-        name: "play",
-        class: "menu__button button",
-        elemType: "a",
-        value: "play",
     }
 ];
 export default menuFields;

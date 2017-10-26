@@ -6,6 +6,7 @@ import RegisterView from "./views/RegisterView/RegisterView";
 import MenuView from "./views/MenuView/MenuView";
 import ChangeView from "./views/ChangeView/ChangeView";
 import ThemeView from "./views/ThemeView/ThemeView";
+import GameTypeView from "./views/GameType/GameTypeView";
 
 import UserService from "./services/user-service";
 import routeValidate from "./utils/RouteValidate";
@@ -22,6 +23,7 @@ let register = new RegisterView(main.el);
 let menu = new MenuView(main.el);
 let change = new ChangeView(main.el);
 let theme = new ThemeView(main.el);
+let gameType = new GameTypeView(main.el);
 
 
 //login.show();
@@ -41,6 +43,9 @@ let config = {
     },
     '/changepass/': {
         view: change
+    },
+    '/play/': {
+        view: gameType
     }
 };
 

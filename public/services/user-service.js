@@ -1,16 +1,17 @@
 import urls, { GET, POST } from "../configs/config.js";
 import httpReq from "../modules/http.js";
 import Validate from "../modules/validation.js";
-import PBar from "../modules/load-bar.js";
+// import PBar from "../modules/load-bar.js";
 
-const pBar = new PBar();
+// const pBar = new PBar();
+
 
 export default class UserService {
     constructor() {}
 
     login(nick, pas) {
-        // pBar.show();
         return new Promise((resolve, reject) => {
+
             if (!Validate.checkLogAndPas(nick, pas)) {
                 reject("invalid data");
             } else {
@@ -25,7 +26,6 @@ export default class UserService {
                         reject("wrong nick or password");
                     });
             }
-            // pBar.hide();
         });
 
     }

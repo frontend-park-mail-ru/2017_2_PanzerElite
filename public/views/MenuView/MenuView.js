@@ -40,9 +40,7 @@ export default class MenuView extends BaseView {
         });
 
         this.play.setCallback(() => {
-            //TODO перекинуть на въю гаме , пока что будем стартовать гейм меннеджер
-            const gameManager = new GameManager();
-            gameManager.start("single");
+            router.go(this.play.el.getAttribute("href"), false);
         });
     }
 }
