@@ -1,7 +1,4 @@
-.menu__input,
-.login__input,
-.register__input,
-.change__input {
+.input {
     font-family: "Roboto", sans-serif;
     outline: 0;
     background: #f2f2f2;

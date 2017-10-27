@@ -1,37 +1,46 @@
-var keyboardJS = require('keyboardjs');
+const keyboardJS = require("keyboardjs");
+import Player from "../models/Player";
 
 export default class SinglePlayer {
-    constructor(tank) {
-        keyboardJS.bind('m', function(e) {
-            tank.turretRight = true;
-        }, function(e) {
-            tank.turretRight = false;
-        });
-        keyboardJS.bind('n', function(e) {
-            tank.turretLeft = true;
-        }, function(e) {
-            tank.turretLeft = false;
-        });
-        keyboardJS.bind('w', function(e) {
-            tank.forward = true;
-        }, function(e) {
-            tank.forward = false;
-        });
-        keyboardJS.bind('s', function(e) {
-            tank.backward = true;
-        }, function(e) {
-            tank.backward = false;
-        });
-        keyboardJS.bind('d', function(e) {
-            tank.right = true;
-        }, function(e) {
-            tank.right = false;
-        });
-        keyboardJS.bind('a', function(e) {
-            tank.left = true;
-        }, function(e) {
-            tank.left = false;
-        });
-    }
+	constructor() {
+		//TODO create instance of players
+		this.me = new Player("me"); // TODO write your original
+		this.opponent = new Player("super bitch bot");
+	}
 
+	initKeyListeners(callback) {
+		keyboardJS.bind("m", function(e) {
+			callback({ turretRight: true });
+		}, function(e) {
+			callback({ turretRight: false });
+		});
+		keyboardJS.bind("n", function(e) {
+			callback({ turretLeft: true });
+		}, function(e) {
+			callback({ turretLeft: false });
+		});
+		keyboardJS.bind("w", function(e) {
+			callback({ forward: true });
+		}, function(e) {
+			callback({ forward: false });
+		});
+		keyboardJS.bind("s", function(e) {
+			callback({ backward: true });
+		}, function(e) {
+			callback({ backward: false });
+		});
+		keyboardJS.bind("d", function(e) {
+			callback({ right: true });
+		}, function(e) {
+			callback({ right: false });
+		});
+		keyboardJS.bind("a", function(e) {
+			callback({ left: true });
+		}, function(e) {
+			callback({ left: false });
+		});
+	}
+	randomMovemant(callback) {
+		callback({ left: true, forward: true });
+	}
 }

@@ -1,7 +1,4 @@
-.register__button,
-.change__button,
-.menu__button,
-.login__button {
+.button {
     order: 1;
     text-decoration: none;
     font-family: "Roboto", sans-serif;

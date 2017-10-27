@@ -1,0 +1,11 @@
+.game {
+    display: flex;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.00);
+    top: 0%;
+    left: 0%;
+}
+
+.hidden {
+    display: none;
+}

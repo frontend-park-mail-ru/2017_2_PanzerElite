@@ -7,9 +7,12 @@ import MenuView from "./views/MenuView/MenuView";
 import ChangeView from "./views/ChangeView/ChangeView";
 import ThemeView from "./views/ThemeView/ThemeView";
 import GameTypeView from "./views/GameType/GameTypeView";
+import GameView from "./views/GameView/GameView";
 
-import UserService from "./services/user-service";
 import routeValidate from "./utils/RouteValidate";
+import progressBar from "./modules/load-bar";
+
+progressBar.show();
 
 const app = document.getElementById("application");
 document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
@@ -24,37 +27,36 @@ let menu = new MenuView(main.el);
 let change = new ChangeView(main.el);
 let theme = new ThemeView(main.el);
 let gameType = new GameTypeView(main.el);
+let gameView = new GameView(main.el);
 
-
-//login.show();
 
 let config = {
-    '/login/': {
-        view: login
-    },
-    '/register/': {
-        view: register
-    },
-    '/menu/': {
-        view: menu
-    },
-    '/': {
-        view: menu
-    },
-    '/changepass/': {
-        view: change
-    },
-    '/play/': {
-        view: gameType
-    }
+	"/login/": {
+		view: login
+	},
+	"/register/": {
+		view: register
+	},
+	"/menu/": {
+		view: menu
+	},
+	"/": {
+		view: menu
+	},
+	"/changepass/": {
+		view: change
+	},
+	"/play/": {
+		view: gameType
+	},
+	"/game/": {
+		view: gameView
+	}
 };
+
+routeValidate(document.location.pathname, router, true);
 
 router.init(main.el, config);
 router.startListen();
 
-routeValidate(document.location.pathname, router, true);
-
-// main.menu.play.setCallback(() => {
-//     main.menu.hide();
-//     main.game.show();
-// });
+progressBar.hide();

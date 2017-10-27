@@ -19,8 +19,7 @@ app.use("/register", express.static("public"));
 app.use("/menu", express.static("public"));
 app.use("/changepass", express.static("public"));
 app.use("/play", express.static("public"));
-
-
+app.use("/game", express.static("public"));
 
 
 //

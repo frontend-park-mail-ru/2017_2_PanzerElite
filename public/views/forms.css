@@ -1,7 +1,4 @@
-.menu,
-.login,
-.register,
-.change {
+.form {
     display: flex;
     position: absolute;
     flex-direction: column;
