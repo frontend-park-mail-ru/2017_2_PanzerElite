@@ -1,0 +1,11 @@
+.warning {
+    text-transform: uppercase;
+    width: 100%;
+    margin-top: 5%;
+    border-color: black;
+    background-color: rgba(255, 0, 0, 0.76);
+    color: black;
+    font-size: 18px;
+    font-weight: 900;
+    text-align: center;
+}
