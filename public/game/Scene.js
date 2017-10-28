@@ -2,6 +2,8 @@ import Tank from "./models/Tank";
 // import Turret from "./models/Turret";
 import tankLoader from "./utils/tankLoader";
 import turretLoader from "./utils/turretLoader";
+import mapLoader from "./utils/mapLoader";
+
 import progressBar from "../modules/load-bar";
 var THREE = require("three");
 
@@ -47,6 +49,18 @@ export default class Scene {
                     }
                 });
             });
+            mapLoader()
+                .then(collada => {
+                    let plc = new THREE.Object3D();
+                    let size = 0.05;
+                    collada.scene.scale.x = size;
+                    collada.scene.scale.y = size;
+                    collada.scene.scale.z = size;
+                    plc.add(collada.scene);
+                    plc.rotation.x = -0.5 * Math.PI;
+                    plc.rotation.z = 1 * Math.PI;
+                    this.scene.add(plc);
+                });
             progressBar.hide();
             this._init();
             this._addMap();
@@ -129,15 +143,15 @@ export default class Scene {
     }
 
     _addMap() {
-        let planeGeometry = new THREE.PlaneGeometry(600, 200, 1, 1);
+        let planeGeometry = new THREE.PlaneGeometry(600, 600, 1, 1);
         let planeMaterial = new THREE.MeshLambertMaterial({
             color: 0x30E02E
         });
         let plane = new THREE.Mesh(planeGeometry, planeMaterial);
         plane.receiveShadow = true;
-        plane.position.x = 0;
-        plane.position.y = 0;
-        plane.position.z = 0;
+        plane.position.x = 0.2;
+        plane.position.y = 0.2;
+        plane.position.z = 0.05;
         this.scene.add(plane);
     }
 

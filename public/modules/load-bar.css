@@ -14,7 +14,10 @@
     z-index: 2;
     position: relative;
     left: 1%;
-    width: 4%;
+    width: 8%;
     height: 30px;
-    background-color: black;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: scaleX(-1);
+    overflow: visible;
 }
