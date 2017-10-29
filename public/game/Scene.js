@@ -16,55 +16,48 @@ export default class Scene {
         this.scene = new THREE.Scene();
         this.tankMe = new Tank(null, startPositionMe);
         this.tankOpponent = new Tank(null, startPositionOpponent);
-        let promises = [];
 
+        tankLoader().then(coll => {
+            let collada = [coll.scene.clone(), coll.scene.clone()];
+            let i = 0;
+            ["tankOpponent", "tankMe"].forEach((key) => {
+                //tank
+                let cpy1 = collada[i].clone();
+                let cpy2 = collada[i].clone();
+                cpy1.children[0].children[1].children[0].children[1] = new THREE.Object3D();
+                cpy2.children[0].children[1].children[0].children[0] = new THREE.Object3D();
+                this[key].parent.add(cpy1);
+                this[key].dae.rotation.x = -0.5 * Math.PI;
+                this[key].dae.rotation.z = 1 * Math.PI;
+                this[key].dae.rotation.y = -0.5 * Math.PI;
 
-        promises.push(tankLoader());
-        promises.push(turretLoader());
-        promises.push(tankLoader("1."));
-        promises.push(turretLoader("1."));
+                this.scene.add(this[key].dae);
 
-        Promise.all(promises).then(collades => {
-            collades = [collades.slice(0, 2), collades.slice(2, 4)];
-            collades.forEach((collada, i) => {
-                ["tankOpponent", "tankMe"].forEach((key, j) => {
-                    if (i === j) {
-                        //tank
-                        collada[0].scene.children[0].children[1].children[0].children[3] = new THREE.Object3D();
-                        this[key].parent.add(collada[0].scene);
-                        this[key].original = collada[0].scene;
-                        this[key].dae.rotation.x = -0.5 * Math.PI;
-                        this[key].dae.rotation.z = 1 * Math.PI;
-                        this.scene.add(this[key].dae);
-
-                        //turret
-                        let size = 0.012;
-                        collada[1].scene.scale.x = size;
-                        collada[1].scene.scale.y = size;
-                        collada[1].scene.scale.z = size;
-                        this[key].turret.parent.add(collada[1].scene);
-                        this[key].turret.dae.rotation.x = -0.5 * Math.PI;
-                        this[key].turret.dae.rotation.z = 1 * Math.PI;
-                        this.scene.add(this[key].turret.dae);
-                    }
-                });
+                //turret
+                this[key].turret.parent.add(cpy2);
+                this[key].turret.dae.rotation.x = -0.5 * Math.PI;
+                this[key].turret.dae.rotation.z = 1 * Math.PI;
+                this.scene.add(this[key].turret.dae);
+                i++;
             });
-            mapLoader()
-                .then(collada => {
-                    let plc = new THREE.Object3D();
-                    let size = 0.05;
-                    collada.scene.scale.x = size;
-                    collada.scene.scale.y = size;
-                    collada.scene.scale.z = size;
-                    plc.add(collada.scene);
-                    plc.rotation.x = -0.5 * Math.PI;
-                    plc.rotation.z = 1 * Math.PI;
-                    this.scene.add(plc);
-                });
             progressBar.hide();
-            this._init();
-            this._addMap();
+
         });
+
+        mapLoader()
+            .then(collada => {
+                let plc = new THREE.Object3D();
+                let size = 0.05;
+                collada.scene.scale.x = size;
+                collada.scene.scale.y = size;
+                collada.scene.scale.z = size;
+                plc.add(collada.scene);
+                plc.rotation.x = -0.5 * Math.PI;
+                plc.rotation.z = 1 * Math.PI;
+                this.scene.add(plc);
+            });
+        this._init();
+        this._addMap();
     }
 
     _init() {
@@ -90,16 +83,37 @@ export default class Scene {
         this.renderer.domElement.style.zIndex = "99";
         document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
         ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
-        var my_color = "#FAFAFA",
-            ambientLight = new THREE.AmbientLight("#EEEEEE"),
-            hemiLight = new THREE.HemisphereLight(my_color, my_color, 0),
-            light = new THREE.PointLight(my_color, 1, 100);
-        hemiLight.position.set(0, 50, 0);
-        light.position.set(0, 20, 10);
-        this.scene.add(ambientLight);
-        this.scene.add(hemiLight);
-        this.scene.add(light);
+        // let my_color1 = "#74D0EC",
+        //     my_color2 = "#FAFAFA",
+        //     hemiLight = new THREE.HemisphereLight(my_color1, my_color2, 1.35);
+        // hemiLight.position.set(0, 0, 100);
+        // this.scene.add(hemiLight);
+        // lights
+        let light, light2;
+        this.scene.add(new THREE.AmbientLight(0x666666));
+        light = new THREE.DirectionalLight(0xdfebff, 1.75);
+        light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
 
+        light.position.set(50, 200, 100);
+        light2.position.set(-50, -200, 100);
+
+        light.position.multiplyScalar(1.3);
+        light2.position.multiplyScalar(1.3);
+
+        light.castShadow = true;
+        light.shadow.mapSize.width = 1024;
+        light.shadow.mapSize.height = 1024;
+        let d = 300;
+        light.shadow.camera.left = -d;
+        light.shadow.camera.right = d;
+        light.shadow.camera.top = d;
+        light.shadow.camera.bottom = -d;
+        light.shadow.camera.far = 1000;
+        this.scene.add(light);
+        this.scene.add(light2);
+
+
+        /////////light end
         this._resizeWindow();
 
         this._startRenderAnimate();

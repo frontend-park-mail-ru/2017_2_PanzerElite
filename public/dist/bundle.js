@@ -10574,53 +10574,46 @@ var Scene = function () {
         this.scene = new THREE.Scene();
         this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
         this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
-        var promises = [];
 
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_1__utils_tankLoader__["a" /* default */])());
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_2__utils_turretLoader__["a" /* default */])());
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_1__utils_tankLoader__["a" /* default */])("1."));
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_2__utils_turretLoader__["a" /* default */])("1."));
+        Object(__WEBPACK_IMPORTED_MODULE_1__utils_tankLoader__["a" /* default */])().then(function (coll) {
+            var collada = [coll.scene.clone(), coll.scene.clone()];
+            var i = 0;
+            ["tankOpponent", "tankMe"].forEach(function (key) {
+                //tank
+                var cpy1 = collada[i].clone();
+                var cpy2 = collada[i].clone();
+                cpy1.children[0].children[1].children[0].children[1] = new THREE.Object3D();
+                cpy2.children[0].children[1].children[0].children[0] = new THREE.Object3D();
+                _this[key].parent.add(cpy1);
+                _this[key].dae.rotation.x = -0.5 * Math.PI;
+                _this[key].dae.rotation.z = 1 * Math.PI;
+                _this[key].dae.rotation.y = -0.5 * Math.PI;
 
-        Promise.all(promises).then(function (collades) {
-            collades = [collades.slice(0, 2), collades.slice(2, 4)];
-            collades.forEach(function (collada, i) {
-                ["tankOpponent", "tankMe"].forEach(function (key, j) {
-                    if (i === j) {
-                        //tank
-                        collada[0].scene.children[0].children[1].children[0].children[3] = new THREE.Object3D();
-                        _this[key].parent.add(collada[0].scene);
-                        _this[key].original = collada[0].scene;
-                        _this[key].dae.rotation.x = -0.5 * Math.PI;
-                        _this[key].dae.rotation.z = 1 * Math.PI;
-                        _this.scene.add(_this[key].dae);
+                _this.scene.add(_this[key].dae);
 
-                        //turret
-                        var size = 0.012;
-                        collada[1].scene.scale.x = size;
-                        collada[1].scene.scale.y = size;
-                        collada[1].scene.scale.z = size;
-                        _this[key].turret.parent.add(collada[1].scene);
-                        _this[key].turret.dae.rotation.x = -0.5 * Math.PI;
-                        _this[key].turret.dae.rotation.z = 1 * Math.PI;
-                        _this.scene.add(_this[key].turret.dae);
-                    }
-                });
-            });
-            Object(__WEBPACK_IMPORTED_MODULE_3__utils_mapLoader__["a" /* default */])().then(function (collada) {
-                var plc = new THREE.Object3D();
-                var size = 0.05;
-                collada.scene.scale.x = size;
-                collada.scene.scale.y = size;
-                collada.scene.scale.z = size;
-                plc.add(collada.scene);
-                plc.rotation.x = -0.5 * Math.PI;
-                plc.rotation.z = 1 * Math.PI;
-                _this.scene.add(plc);
+                //turret
+                _this[key].turret.parent.add(cpy2);
+                _this[key].turret.dae.rotation.x = -0.5 * Math.PI;
+                _this[key].turret.dae.rotation.z = 1 * Math.PI;
+                _this.scene.add(_this[key].turret.dae);
+                i++;
             });
             __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].hide();
-            _this._init();
-            _this._addMap();
         });
+
+        Object(__WEBPACK_IMPORTED_MODULE_3__utils_mapLoader__["a" /* default */])().then(function (collada) {
+            var plc = new THREE.Object3D();
+            var size = 0.05;
+            collada.scene.scale.x = size;
+            collada.scene.scale.y = size;
+            collada.scene.scale.z = size;
+            plc.add(collada.scene);
+            plc.rotation.x = -0.5 * Math.PI;
+            plc.rotation.z = 1 * Math.PI;
+            _this.scene.add(plc);
+        });
+        this._init();
+        this._addMap();
     }
 
     _createClass(Scene, [{
@@ -10648,16 +10641,37 @@ var Scene = function () {
             this.renderer.domElement.style.zIndex = "99";
             document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
             ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
-            var my_color = "#FAFAFA",
-                ambientLight = new THREE.AmbientLight("#EEEEEE"),
-                hemiLight = new THREE.HemisphereLight(my_color, my_color, 0),
-                light = new THREE.PointLight(my_color, 1, 100);
-            hemiLight.position.set(0, 50, 0);
-            light.position.set(0, 20, 10);
-            this.scene.add(ambientLight);
-            this.scene.add(hemiLight);
-            this.scene.add(light);
+            // let my_color1 = "#74D0EC",
+            //     my_color2 = "#FAFAFA",
+            //     hemiLight = new THREE.HemisphereLight(my_color1, my_color2, 1.35);
+            // hemiLight.position.set(0, 0, 100);
+            // this.scene.add(hemiLight);
+            // lights
+            var light = void 0,
+                light2 = void 0;
+            this.scene.add(new THREE.AmbientLight(0x666666));
+            light = new THREE.DirectionalLight(0xdfebff, 1.75);
+            light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
 
+            light.position.set(50, 200, 100);
+            light2.position.set(-50, -200, 100);
+
+            light.position.multiplyScalar(1.3);
+            light2.position.multiplyScalar(1.3);
+
+            light.castShadow = true;
+            light.shadow.mapSize.width = 1024;
+            light.shadow.mapSize.height = 1024;
+            var d = 300;
+            light.shadow.camera.left = -d;
+            light.shadow.camera.right = d;
+            light.shadow.camera.top = d;
+            light.shadow.camera.bottom = -d;
+            light.shadow.camera.far = 1000;
+            this.scene.add(light);
+            this.scene.add(light2);
+
+            /////////light end
             this._resizeWindow();
 
             this._startRenderAnimate();
@@ -10747,98 +10761,97 @@ var THREE = __webpack_require__(3);
 
 
 var Tank = function () {
-	function Tank(dae) {
-		var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [0, 0];
+    function Tank(dae) {
+        var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [0, 0];
 
-		_classCallCheck(this, Tank);
+        _classCallCheck(this, Tank);
 
-		//some magic for turn
-		this.dae = new THREE.Object3D();
-		this.parent = new THREE.Object3D();
-		this.parent.position.x = -1;
-		this.parent.position.z = +4.4;
-		this.dae.add(this.parent);
-		this.original = null;
-		this.angle = Math.PI - Math.PI;
-		////new motion
-		this.forward = false;
-		this.backward = false;
-		this.right = false;
-		this.left = false;
-		//turret
-		this.turret = null;
-		this.turretRight = false;
-		this.turretLeft = false;
+        //some magic for turn
+        this.dae = new THREE.Object3D();
+        this.parent = new THREE.Object3D();
+        this.parent.position.x = +0.5;
+        this.dae.add(this.parent);
+        this.original = null;
+        this.angle = Math.PI - Math.PI;
+        ////new motion
+        this.forward = false;
+        this.backward = false;
+        this.right = false;
+        this.left = false;
+        //turret
+        this.turret = null;
+        this.turretRight = false;
+        this.turretLeft = false;
 
-		this.dae.position.x = coords[0];
-		this.dae.position.y = coords[1];
+        this.dae.position.x = coords[0];
+        this.dae.position.y = coords[1];
 
-		this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
-	}
+        this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
+    }
 
-	_createClass(Tank, [{
-		key: "moveForward",
-		value: function moveForward() {
-			this.dae.position.y += 0.3 * Math.cos(this.angle);
-			this.dae.position.x += 0.3 * Math.sin(this.angle);
-			this.turret.dae.position.y += 0.3 * Math.cos(this.angle);
-			this.turret.dae.position.x += 0.3 * Math.sin(this.angle);
-		}
-	}, {
-		key: "moveBackward",
-		value: function moveBackward() {
-			this.dae.position.y -= 0.2 * Math.cos(this.angle);
-			this.dae.position.x -= 0.2 * Math.sin(this.angle);
-			this.turret.dae.position.y -= 0.2 * Math.cos(this.angle);
-			this.turret.dae.position.x -= 0.2 * Math.sin(this.angle);
-		}
-	}, {
-		key: "turnRight",
-		value: function turnRight() {
-			this.dae.rotation.y += 0.005 * Math.PI;
-			this.angle += 0.005 * Math.PI;
-		}
-	}, {
-		key: "turnLeft",
-		value: function turnLeft() {
-			this.dae.rotation.y -= 0.005 * Math.PI;
-			this.angle -= 0.005 * Math.PI;
-		}
-	}, {
-		key: "turnTurretRight",
-		value: function turnTurretRight() {
-			this.turret.dae.rotation.y += 0.008 * Math.PI;
-		}
-	}, {
-		key: "turnTurretLeft",
-		value: function turnTurretLeft() {
-			this.turret.dae.rotation.y -= 0.008 * Math.PI;
-		}
-	}, {
-		key: "update",
-		value: function update() {
-			if (this.forward) {
-				this.moveForward();
-			}
-			if (this.backward) {
-				this.moveBackward();
-			}
-			if (this.right) {
-				this.turnRight();
-			}
-			if (this.left) {
-				this.turnLeft();
-			}
-			if (this.turretLeft) {
-				this.turnTurretLeft();
-			}
-			if (this.turretRight) {
-				this.turnTurretRight();
-			}
-		}
-	}]);
+    _createClass(Tank, [{
+        key: "moveForward",
+        value: function moveForward() {
+            this.dae.position.y += 0.3 * Math.cos(this.angle);
+            this.dae.position.x += 0.3 * Math.sin(this.angle);
+            this.turret.dae.position.y += 0.3 * Math.cos(this.angle);
+            this.turret.dae.position.x += 0.3 * Math.sin(this.angle);
+        }
+    }, {
+        key: "moveBackward",
+        value: function moveBackward() {
+            this.dae.position.y -= 0.2 * Math.cos(this.angle);
+            this.dae.position.x -= 0.2 * Math.sin(this.angle);
+            this.turret.dae.position.y -= 0.2 * Math.cos(this.angle);
+            this.turret.dae.position.x -= 0.2 * Math.sin(this.angle);
+        }
+    }, {
+        key: "turnRight",
+        value: function turnRight() {
+            this.dae.rotation.y += 0.005 * Math.PI;
+            this.angle += 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnLeft",
+        value: function turnLeft() {
+            this.dae.rotation.y -= 0.005 * Math.PI;
+            this.angle -= 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnTurretRight",
+        value: function turnTurretRight() {
+            this.turret.dae.rotation.y += 0.008 * Math.PI;
+        }
+    }, {
+        key: "turnTurretLeft",
+        value: function turnTurretLeft() {
+            this.turret.dae.rotation.y -= 0.008 * Math.PI;
+        }
+    }, {
+        key: "update",
+        value: function update() {
+            if (this.forward) {
+                this.moveForward();
+            }
+            if (this.backward) {
+                this.moveBackward();
+            }
+            if (this.right) {
+                this.turnRight();
+            }
+            if (this.left) {
+                this.turnLeft();
+            }
+            if (this.turretLeft) {
+                this.turnTurretLeft();
+            }
+            if (this.turretRight) {
+                this.turnTurretRight();
+            }
+        }
+    }]);
 
-	return Tank;
+    return Tank;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Tank);
@@ -10853,19 +10866,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var THREE = __webpack_require__(3);
 
 var Turret = function Turret(dae, coords) {
-	_classCallCheck(this, Turret);
+    _classCallCheck(this, Turret);
 
-	this.dae = new THREE.Object3D();
-	this.parent = new THREE.Object3D();
-	this.parent.position.x = -0.33;
-	this.parent.position.z = -2;
-	this.parent.position.y = +1.7;
-	this.parent.rotation.y += Math.PI;
-	this.dae.add(this.parent);
-	this.angle = Math.PI - Math.PI;
+    this.dae = new THREE.Object3D();
+    this.parent = new THREE.Object3D();
+    this.parent.position.z += -1;
+    this.parent.rotation.y += 0.5 * Math.PI;
+    this.dae.add(this.parent);
+    this.angle = Math.PI - Math.PI;
 
-	this.dae.position.x = coords[0];
-	this.dae.position.y = coords[1];
+    this.dae.position.x = coords[0];
+    this.dae.position.y = coords[1];
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Turret);
@@ -10882,20 +10893,14 @@ var ColladaLoader = __webpack_require__(8);
 
 
 
-function tankLoader(index) {
-	return new Promise(function (resolve, reject) {
-		var loader = new ColladaLoader();
-		loader.options.convertUpAxis = true;
-		// httpReq('GET', `./game/3dModels/model.${index ? index : ''}dae`).then(res => {
-		//     // console.log(res);
-		//     loader.parse(res.body, (collada) => {
-		//         resolve(collada);
-		//     });
-		// });
-		loader.load("./game/3dModels/model." + (index ? index : "") + "dae", function (collada) {
-			resolve(collada);
-		});
-	});
+function tankLoader() {
+    return new Promise(function (resolve, reject) {
+        var loader = new ColladaLoader();
+        loader.options.convertUpAxis = true;
+        loader.load("./game/3dModels/Hammer+Tank/model.dae", function (collada) {
+            resolve(collada);
+        });
+    });
 }
 
 /***/ }),
@@ -10903,7 +10908,7 @@ function tankLoader(index) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = turretLoader;
+/* unused harmony export default */
 var THREE = __webpack_require__(3);
 var ColladaLoader = __webpack_require__(8);
 function turretLoader() {
