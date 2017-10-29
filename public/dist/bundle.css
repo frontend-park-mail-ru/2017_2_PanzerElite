@@ -7,7 +7,7 @@
 }
 
 .main-container {
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -23,7 +23,7 @@
     background: black no-repeat;
     background-image: unset;
     background-size: cover;
-    filter: blur(3px)
+    filter: blur(3px);
 }/* .myProgress {
     z-index: 2;
     position: absolute;
@@ -183,6 +183,18 @@
     background: rgba(255, 255, 255, 0.00);
     top: 0%;
     left: 0%;
+}.gamemenu {
+    z-index: 99;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.00);
+    width: 280px;
+    top: 15%;
+    left: 38%;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 .hidden {

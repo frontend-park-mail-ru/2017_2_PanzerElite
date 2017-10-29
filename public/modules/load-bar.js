@@ -3,7 +3,6 @@ class pBar {
 
     constructor() {
         this.elem = document.getElementsByClassName("myBar")[0];
-        // this.id;
         this.hide();
     }
 
@@ -12,15 +11,6 @@ class pBar {
      */
     show() {
         this.elem.parentElement.classList.remove("hidden");
-        // var shift = 1;
-        // this.id = setInterval(() => {
-        //     if (shift >= 94) {
-        //         shift = 1;
-        //     } else {
-        //         shift++;
-        //     }
-        //     this.elem.style.left = shift + "%";
-        // }, 10);
     }
 
     /**
@@ -28,7 +18,6 @@ class pBar {
      */
     hide() {
         this.elem.parentElement.classList.add("hidden");
-        // clearInterval(this.id);
     }
 }
 export default new pBar();

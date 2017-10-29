@@ -8,7 +8,7 @@ body {
 }
 
 .main-container {
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -24,5 +24,5 @@ body {
     background: black no-repeat;
     background-image: unset;
     background-size: cover;
-    filter: blur(3px)
+    filter: blur(3px);
 }

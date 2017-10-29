@@ -82,7 +82,8 @@ export default class Scene {
         this.renderer.domElement.setAttribute("id", "game");
         this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
         this.renderer.domElement.style.position = "absolute";
-        this.renderer.domElement.style.zIndex = "99";
+        this.renderer.domElement.style.zIndex = "1";
+
         document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
         ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
         let light, light2;

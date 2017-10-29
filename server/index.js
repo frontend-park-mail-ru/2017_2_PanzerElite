@@ -22,6 +22,7 @@ app.use("/play", express.static("public"));
 app.use("/game", express.static("public"));
 
 
+
 //
 //app.use('/*', express.static("public"));
 //

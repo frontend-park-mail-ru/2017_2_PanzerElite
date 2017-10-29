@@ -3851,7 +3851,6 @@ var pBar = function () {
         _classCallCheck(this, pBar);
 
         this.elem = document.getElementsByClassName("myBar")[0];
-        // this.id;
         this.hide();
     }
 
@@ -3864,15 +3863,6 @@ var pBar = function () {
         key: "show",
         value: function show() {
             this.elem.parentElement.classList.remove("hidden");
-            // var shift = 1;
-            // this.id = setInterval(() => {
-            //     if (shift >= 94) {
-            //         shift = 1;
-            //     } else {
-            //         shift++;
-            //     }
-            //     this.elem.style.left = shift + "%";
-            // }, 10);
         }
 
         /**
@@ -3883,7 +3873,6 @@ var pBar = function () {
         key: "hide",
         value: function hide() {
             this.elem.parentElement.classList.add("hidden");
-            // clearInterval(this.id);
         }
     }]);
 
@@ -9304,8 +9293,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_RouteValidate__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__modules_load_bar__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__ = __webpack_require__(5);
 
 
 
@@ -9320,7 +9310,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_11__modules_load_bar__["a" /* default */].show();
+
+__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].show();
 
 var app = document.getElementById("application");
 document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
@@ -9335,38 +9326,39 @@ var menu = new __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__["a" /* def
 var change = new __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__["a" /* default */](main.el);
 var theme = new __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__["a" /* default */](main.el);
 var gameType = new __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__["a" /* default */](main.el);
+var gameMenu = new __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__["a" /* default */](main.el);
 var gameView = new __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__["a" /* default */](main.el);
 
 var config = {
-	"/login/": {
-		view: login
-	},
-	"/register/": {
-		view: register
-	},
-	"/menu/": {
-		view: menu
-	},
-	"/": {
-		view: menu
-	},
-	"/changepass/": {
-		view: change
-	},
-	"/play/": {
-		view: gameType
-	},
-	"/game/": {
-		view: gameView
-	}
+    "/login/": {
+        view: login
+    },
+    "/register/": {
+        view: register
+    },
+    "/menu/": {
+        view: menu
+    },
+    "/": {
+        view: menu
+    },
+    "/changepass/": {
+        view: change
+    },
+    "/play/": {
+        view: gameType
+    },
+    "/game/": {
+        view: gameView
+    }
 };
 
-Object(__WEBPACK_IMPORTED_MODULE_10__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
+Object(__WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
 
 __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].init(main.el, config);
 __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
 
-__WEBPACK_IMPORTED_MODULE_11__modules_load_bar__["a" /* default */].hide();
+__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
 
 /***/ }),
 /* 13 */
@@ -10638,7 +10630,8 @@ var Scene = function () {
             this.renderer.domElement.setAttribute("id", "game");
             this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
             this.renderer.domElement.style.position = "absolute";
-            this.renderer.domElement.style.zIndex = "99";
+            this.renderer.domElement.style.zIndex = "1";
+
             document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
             ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
             var light = void 0,
@@ -11219,51 +11212,51 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
 
 var GameTypeView = function (_BaseView) {
-	_inherits(GameTypeView, _BaseView);
+    _inherits(GameTypeView, _BaseView);
 
-	function GameTypeView(parentNode) {
-		_classCallCheck(this, GameTypeView);
+    function GameTypeView(parentNode) {
+        _classCallCheck(this, GameTypeView);
 
-		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
 
-		var _this = _possibleConstructorReturn(this, (GameTypeView.__proto__ || Object.getPrototypeOf(GameTypeView)).call(this, view.el));
+        var _this = _possibleConstructorReturn(this, (GameTypeView.__proto__ || Object.getPrototypeOf(GameTypeView)).call(this, view.el));
 
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
-		return _this;
-	}
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        return _this;
+    }
 
-	_createClass(GameTypeView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
+    _createClass(GameTypeView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
 
-			__WEBPACK_IMPORTED_MODULE_1__gameType__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
+            __WEBPACK_IMPORTED_MODULE_1__gameType__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
 
-			this.singlePlayer.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
-				var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-				gameManager.start("single");
-			});
-			this.changeformBtn.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-			});
-		}
-	}]);
+            this.singlePlayer.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+                gameManager.start("single");
+            });
+            this.changeformBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+            });
+        }
+    }]);
 
-	return GameTypeView;
+    return GameTypeView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (GameTypeView);
@@ -11314,44 +11307,157 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var GameView = function (_BaseView) {
-	_inherits(GameView, _BaseView);
+    _inherits(GameView, _BaseView);
 
-	function GameView(parentNode) {
-		_classCallCheck(this, GameView);
+    function GameView(parentNode) {
+        _classCallCheck(this, GameView);
 
-		var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "game hidden" });
+        var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "game hidden" });
 
-		var _this = _possibleConstructorReturn(this, (GameView.__proto__ || Object.getPrototypeOf(GameView)).call(this, view.el));
+        var _this = _possibleConstructorReturn(this, (GameView.__proto__ || Object.getPrototypeOf(GameView)).call(this, view.el));
 
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._buttonsInit();
-		return _this;
-	}
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._buttonsInit();
+        return _this;
+    }
 
-	_createClass(GameView, [{
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			window.addEventListener("keyup", function (e) {
-				if (e.keyCode == 27) {
-					var flag = confirm("Do You want to Quit?");
-					if (flag) {
-						document.getElementById("game").classList.add("hidden");
-						__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go("/play/", true);
-					}
-				}
-			});
-		}
-	}]);
+    _createClass(GameView, [{
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            window.addEventListener("keyup", function (e) {
+                if (e.keyCode == 27) {
+                    document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
+                }
+            });
+        }
+    }]);
 
-	return GameView;
+    return GameView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (GameView);
 
 /***/ }),
 /* 47 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__gameMenu_css__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+var GameMenuView = function (_BaseView) {
+    _inherits(GameMenuView, _BaseView);
+
+    function GameMenuView(parentNode) {
+        _classCallCheck(this, GameMenuView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "gamemenu hidden" });
+
+        var _this = _possibleConstructorReturn(this, (GameMenuView.__proto__ || Object.getPrototypeOf(GameMenuView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        return _this;
+    }
+
+    _createClass(GameMenuView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_3__gameMenu__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.resumeBtn.setCallback(function () {
+                _this3.hide();
+            });
+            this.quitBtn.setCallback(function () {
+                _this3.hide();
+                __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go(_this3.quitBtn.el.getAttribute("href"), true);
+            });
+        }
+    }]);
+
+    return GameMenuView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (GameMenuView);
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var gameMenuFields = [{
+	name: "resumeBtn",
+	class: " button",
+	elemType: "input",
+	value: "resume",
+	type: "button",
+	href: "/menu/"
+
+}, {
+	name: "quitBtn",
+	class: " button",
+	elemType: "input",
+	value: "quit",
+	type: "button",
+	href: "/menu/"
+
+}];
+/* harmony default export */ __webpack_exports__["a"] = (gameMenuFields);
+
+/***/ }),
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
