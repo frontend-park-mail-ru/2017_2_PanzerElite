@@ -31,6 +31,7 @@ export default class Scene {
                 this[key].dae.rotation.z = 1 * Math.PI;
                 this[key].dae.rotation.y = -0.5 * Math.PI;
 
+                // this[key].dae.castShadow = true;
                 this.scene.add(this[key].dae);
 
                 //turret
@@ -64,13 +65,14 @@ export default class Scene {
         ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
 
         this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
-        this.camera.position.set(-1, 15, -115);
+        this.camera.position.set(-1, 10, -95);
 
         this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
         this.renderer = new THREE.WebGLRenderer({
             alpha: true,
             antialias: true
         });
+        this.renderer.shadowMap.enabled = true;
 
         this.tankMe.turret.dae.add(this.camera);
 
@@ -83,19 +85,13 @@ export default class Scene {
         this.renderer.domElement.style.zIndex = "99";
         document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
         ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
-        // let my_color1 = "#74D0EC",
-        //     my_color2 = "#FAFAFA",
-        //     hemiLight = new THREE.HemisphereLight(my_color1, my_color2, 1.35);
-        // hemiLight.position.set(0, 0, 100);
-        // this.scene.add(hemiLight);
-        // lights
         let light, light2;
         this.scene.add(new THREE.AmbientLight(0x666666));
         light = new THREE.DirectionalLight(0xdfebff, 1.75);
         light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
 
         light.position.set(50, 200, 100);
-        light2.position.set(-50, -200, 100);
+        light2.position.set(-150, -200, 100);
 
         light.position.multiplyScalar(1.3);
         light2.position.multiplyScalar(1.3);
@@ -111,8 +107,6 @@ export default class Scene {
         light.shadow.camera.far = 1000;
         this.scene.add(light);
         this.scene.add(light2);
-
-
         /////////light end
         this._resizeWindow();
 
@@ -157,16 +151,30 @@ export default class Scene {
     }
 
     _addMap() {
-        let planeGeometry = new THREE.PlaneGeometry(600, 600, 1, 1);
-        let planeMaterial = new THREE.MeshLambertMaterial({
-            color: 0x30E02E
-        });
-        let plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.receiveShadow = true;
-        plane.position.x = 0.2;
-        plane.position.y = 0.2;
-        plane.position.z = 0.05;
-        this.scene.add(plane);
+        // let planeGeometry = new THREE.PlaneGeometry(600, 600, 1, 1);
+        // let planeMaterial = new THREE.MeshLambertMaterial({
+        //     color: 0x30E02E
+        // });
+        // let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        // plane.receiveShadow = true;
+        // plane.position.x = 0.2;
+        // plane.position.y = 0.2;
+        // plane.position.z = 0.05;
+        // this.scene.add(plane);
+        // ground
+        let loader = new THREE.TextureLoader();
+        let groundTexture = loader.load('./game/3dModels/terrain/grasslight-big.jpg');
+        groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+        groundTexture.repeat.set(900, 900);
+        groundTexture.anisotropy = 16;
+        let groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
+        let mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
+        mesh.position.z = 0.01;
+        // mesh.rotation.x = -Math.PI / 2;
+        // mesh.rotation.z = 1 * Math.PI;
+        // mesh.receiveShadow = true;
+        this.scene.add(mesh);
+        // poles
     }
 
 }

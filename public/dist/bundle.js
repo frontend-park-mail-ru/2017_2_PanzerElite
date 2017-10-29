@@ -3851,7 +3851,7 @@ var pBar = function () {
         _classCallCheck(this, pBar);
 
         this.elem = document.getElementsByClassName("myBar")[0];
-        this.id;
+        // this.id;
         this.hide();
     }
 
@@ -3863,18 +3863,16 @@ var pBar = function () {
     _createClass(pBar, [{
         key: "show",
         value: function show() {
-            var _this = this;
-
             this.elem.parentElement.classList.remove("hidden");
-            var shift = 1;
-            this.id = setInterval(function () {
-                if (shift >= 94) {
-                    shift = 1;
-                } else {
-                    shift++;
-                }
-                _this.elem.style.left = shift + "%";
-            }, 10);
+            // var shift = 1;
+            // this.id = setInterval(() => {
+            //     if (shift >= 94) {
+            //         shift = 1;
+            //     } else {
+            //         shift++;
+            //     }
+            //     this.elem.style.left = shift + "%";
+            // }, 10);
         }
 
         /**
@@ -3885,7 +3883,7 @@ var pBar = function () {
         key: "hide",
         value: function hide() {
             this.elem.parentElement.classList.add("hidden");
-            clearInterval(this.id);
+            // clearInterval(this.id);
         }
     }]);
 
@@ -10589,6 +10587,7 @@ var Scene = function () {
                 _this[key].dae.rotation.z = 1 * Math.PI;
                 _this[key].dae.rotation.y = -0.5 * Math.PI;
 
+                // this[key].dae.castShadow = true;
                 _this.scene.add(_this[key].dae);
 
                 //turret
@@ -10622,13 +10621,14 @@ var Scene = function () {
             ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
 
             this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
-            this.camera.position.set(-1, 15, -115);
+            this.camera.position.set(-1, 10, -95);
 
             this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
             this.renderer = new THREE.WebGLRenderer({
                 alpha: true,
                 antialias: true
             });
+            this.renderer.shadowMap.enabled = true;
 
             this.tankMe.turret.dae.add(this.camera);
 
@@ -10641,12 +10641,6 @@ var Scene = function () {
             this.renderer.domElement.style.zIndex = "99";
             document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
             ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
-            // let my_color1 = "#74D0EC",
-            //     my_color2 = "#FAFAFA",
-            //     hemiLight = new THREE.HemisphereLight(my_color1, my_color2, 1.35);
-            // hemiLight.position.set(0, 0, 100);
-            // this.scene.add(hemiLight);
-            // lights
             var light = void 0,
                 light2 = void 0;
             this.scene.add(new THREE.AmbientLight(0x666666));
@@ -10654,7 +10648,7 @@ var Scene = function () {
             light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
 
             light.position.set(50, 200, 100);
-            light2.position.set(-50, -200, 100);
+            light2.position.set(-150, -200, 100);
 
             light.position.multiplyScalar(1.3);
             light2.position.multiplyScalar(1.3);
@@ -10670,7 +10664,6 @@ var Scene = function () {
             light.shadow.camera.far = 1000;
             this.scene.add(light);
             this.scene.add(light2);
-
             /////////light end
             this._resizeWindow();
 
@@ -10729,16 +10722,30 @@ var Scene = function () {
     }, {
         key: "_addMap",
         value: function _addMap() {
-            var planeGeometry = new THREE.PlaneGeometry(600, 600, 1, 1);
-            var planeMaterial = new THREE.MeshLambertMaterial({
-                color: 0x30E02E
-            });
-            var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-            plane.receiveShadow = true;
-            plane.position.x = 0.2;
-            plane.position.y = 0.2;
-            plane.position.z = 0.05;
-            this.scene.add(plane);
+            // let planeGeometry = new THREE.PlaneGeometry(600, 600, 1, 1);
+            // let planeMaterial = new THREE.MeshLambertMaterial({
+            //     color: 0x30E02E
+            // });
+            // let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+            // plane.receiveShadow = true;
+            // plane.position.x = 0.2;
+            // plane.position.y = 0.2;
+            // plane.position.z = 0.05;
+            // this.scene.add(plane);
+            // ground
+            var loader = new THREE.TextureLoader();
+            var groundTexture = loader.load('./game/3dModels/terrain/grasslight-big.jpg');
+            groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+            groundTexture.repeat.set(900, 900);
+            groundTexture.anisotropy = 16;
+            var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
+            var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
+            mesh.position.z = 0.01;
+            // mesh.rotation.x = -Math.PI / 2;
+            // mesh.rotation.z = 1 * Math.PI;
+            // mesh.receiveShadow = true;
+            this.scene.add(mesh);
+            // poles
         }
     }]);
 
