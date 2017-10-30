@@ -13,10 +13,16 @@ export default class GameView extends BaseView {
         this._buttonsInit();
     }
     _buttonsInit() {
-        window.addEventListener("keyup", function(e) {
-            if (e.keyCode == 27) {
-                document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
-            }
-        });
+        window.addEventListener("keyup", this._enableGameMenu);
+    }
+    _enableGameMenu(e) {
+        if (e.keyCode == 27) {
+            document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
+            // document.getElementById("game").classList.add("blured");
+        }
+    }
+    destroyGame() {
+        window.removeEventListener("keyup", this._enableGameMenu);
+        this.view.el.innerHTML = "";
     }
 }

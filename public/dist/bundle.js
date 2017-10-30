@@ -153,60 +153,63 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var Router = function () {
-	function Router() {
-		var _this = this;
+    function Router() {
+        var _this = this;
 
-		_classCallCheck(this, Router);
+        _classCallCheck(this, Router);
 
-		window.onpopstate = function (event) {
-			//this.go(document.location.pathname);
-			Object(__WEBPACK_IMPORTED_MODULE_0__RouteValidate__["a" /* default */])(document.location.pathname, _this, false);
-		};
-	}
+        window.onpopstate = function (event) {
+            //this.go(document.location.pathname);
+            Object(__WEBPACK_IMPORTED_MODULE_0__RouteValidate__["a" /* default */])(document.location.pathname, _this, false);
+        };
+    }
 
-	_createClass(Router, [{
-		key: "init",
-		value: function init(node, config) {
-			this.views = config;
-			this.node = node;
-			this.currentHref = null;
-		}
-	}, {
-		key: "startListen",
-		value: function startListen() {
-			var _this2 = this;
+    _createClass(Router, [{
+        key: "init",
+        value: function init(node, config) {
+            this.views = config;
+            this.node = node;
+            this.currentHref = null;
+        }
+    }, {
+        key: "startListen",
+        value: function startListen() {
+            var _this2 = this;
 
-			this.node.addEventListener("click", function (event) {
-				return _this2._onRouteChange(event);
-			});
-		}
-	}, {
-		key: "go",
-		value: function go(href) {
-			var saveHistory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+            this.node.addEventListener("click", function (event) {
+                return _this2._onRouteChange(event);
+            });
+        }
+    }, {
+        key: "go",
+        value: function go(href) {
+            var saveHistory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-			if (saveHistory) {
-				window.history.pushState({ path: href }, "", href); // for -> <-
-			}
-			if (href !== this.currentHref) {
-				this.views[href].view.show();
-				if (this.currentHref !== null) {
-					this.views[this.currentHref].view.hide();
-				}
-				this.currentHref = href;
-			}
-		}
-	}, {
-		key: "_onRouteChange",
-		value: function _onRouteChange(event) {
-			if (event.target instanceof HTMLAnchorElement) {
-				event.preventDefault();
-				this.go(event.target.getAttribute("href"));
-			}
-		}
-	}]);
+            if (saveHistory) {
+                window.history.pushState({ path: href }, "", href); // for -> <-
+            }
+            if (href !== this.currentHref) {
+                this.views[href].view.show();
+                if (this.currentHref !== null) {
+                    this.views[this.currentHref].view.hide();
+                    if (this.views[this.currentHref].view.destroyGame !== undefined) {
+                        this.views[this.currentHref].view.destroyGame();
+                    }
+                }
+                this.currentHref = href;
+            }
+        }
+    }, {
+        key: "_onRouteChange",
+        value: function _onRouteChange(event) {
+            if (event.target instanceof HTMLAnchorElement) {
+                event.preventDefault();
+                this.go(event.target.getAttribute("href"));
+            }
+        }
+    }]);
 
-	return Router;
+    return Router;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (new Router());
@@ -11326,11 +11329,21 @@ var GameView = function (_BaseView) {
     _createClass(GameView, [{
         key: "_buttonsInit",
         value: function _buttonsInit() {
-            window.addEventListener("keyup", function (e) {
-                if (e.keyCode == 27) {
-                    document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
-                }
-            });
+            window.addEventListener("keyup", this._enableGameMenu);
+        }
+    }, {
+        key: "_enableGameMenu",
+        value: function _enableGameMenu(e) {
+            if (e.keyCode == 27) {
+                document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
+                // document.getElementById("game").classList.add("blured");
+            }
+        }
+    }, {
+        key: "destroyGame",
+        value: function destroyGame() {
+            window.removeEventListener("keyup", this._enableGameMenu);
+            this.view.el.innerHTML = "";
         }
     }]);
 
@@ -11354,7 +11367,7 @@ var GameView = function (_BaseView) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__gameMenu_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -11446,18 +11459,7 @@ var gameMenuFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (gameMenuFields);
 
 /***/ }),
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */
+/* 50 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

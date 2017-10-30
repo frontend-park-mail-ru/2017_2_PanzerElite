@@ -4,4 +4,9 @@
     background: rgba(255, 255, 255, 0.00);
     top: 0%;
     left: 0%;
+    /* filter: blur(5px); */
+}
+
+.blured {
+    filter: blur(5px);
 }
