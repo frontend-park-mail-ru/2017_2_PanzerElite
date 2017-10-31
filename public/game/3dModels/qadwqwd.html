@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Cube</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        
+        canvas {
+            color: white;
+            width: 100%;
+            height: 100%;
+            border: 1px solid white;
+        }
+        
+        .game {
+            display: flex;
+            position: absolute;
+            background: rgba(255, 255, 255, 0.00);
+            top: 0%;
+            left: 0%;
+            /* filter: blur(5px); */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Liquid Three.js Cube</h1>
+    <p>Change the browser's window size.</p>
+    <script src="three.min.js"></script>
+    <script src="./collada.js"></script>
+    <script src="./keyboard-min.js"></script>
+    <div class="game">
+    </div>
+    <!-- Get the latest version of the Three.js library. -->
+    <script>
+        function mapCreator(scene) {
+            let promises = [];
+
+
+            promises.push(modelLoader("houses/church/model.dae"));
+            promises.push(modelLoader("houses/bighouse/model.dae"));
+            promises.push(modelLoader("houses/middlehouse/model.dae"));
+            promises.push(modelLoader("houses/smallhouse/model.dae"));
+
+            Promise.all(promises).then(collades => {
+                let church, big, small, middle;
+                church = modelInit(collades[0], 0.04);
+                big = modelInit(collades[1], 0.04);
+                middle = modelInit(collades[2], 0.05);
+                small = modelInit(collades[3], 0.05);
+                let config = [{
+                    x: 0,
+                    y: 0,
+                    type: 1
+                }, {
+                    x: -136,
+                    y: 88,
+                    type: 3,
+                    flag: false
+
+                }, {
+                    x: -48,
+                    y: 108,
+                    type: 3,
+                    flag: false
+
+                }, {
+                    x: -20,
+                    y: 56,
+                    type: 3,
+                    flag: false
+
+                }, {
+                    x: -136,
+                    y: -20,
+                    type: 3,
+                    flag: false
+
+                }, {
+                    x: 68,
+                    y: 40,
+                    type: 3,
+                    flag: false
+
+                }, {
+                    x: 100,
+                    y: 40,
+                    type: 3,
+                    flag: false
+
+                }, {
+                    x: 132,
+                    y: 40,
+                    type: 3,
+                    flag: false
+
+                }, {
+                    x: -100,
+                    y: 24,
+                    type: 2,
+                    flag: true
+
+                }, {
+                    x: -128,
+                    y: -88,
+                    type: 2,
+                    flag: true
+
+                }, {
+                    x: -20,
+                    y: -92,
+                    type: 2,
+                    flag: false
+
+                }, {
+                    x: 32,
+                    y: 104,
+                    type: 2,
+                    flag: true
+
+                }, {
+                    x: 140,
+                    y: 84,
+                    type: 2,
+                    flag: false
+
+                }, {
+                    x: -84,
+                    y: 64,
+                    type: 4,
+                    flag: true
+
+                }, {
+                    x: -56,
+                    y: -40,
+                    type: 4,
+                    flag: false
+                }, ];
+                let sizes = [{}, {
+                    x: 57,
+                    y: 58,
+                    color: 0x777777,
+                    house: big,
+                    shiftx: -6,
+                    shifty: 25,
+                }, {
+                    x: 20,
+                    y: 32,
+                    color: 0xCFBDAA,
+                    house: middle,
+                    shiftx: 7,
+                    shifty: 15,
+
+                }, {
+                    x: 18,
+                    y: 17,
+                    color: 0xFFEBCD,
+                    house: small,
+                    shiftx: 8,
+                    shifty: 10,
+                }, {
+                    x: 25,
+                    y: 42,
+                    color: 0x888888,
+                    house: church,
+                    shiftx: -6,
+                    shifty: 25,
+                }];
+                config.forEach((key) => {
+                    // debugger;
+                    let house = sizes[key.type].house.clone();
+                    let geometry = new THREE.BoxGeometry(sizes[key.type].x, sizes[key.type].y, 1);
+                    let material = new THREE.MeshBasicMaterial({
+                        color: sizes[key.type].color
+                    });
+                    let cube = new THREE.Mesh(geometry, material);
+                    cube.position.x = key.x;
+                    cube.position.y = key.y;
+                    if (key.flag) {
+                        cube.rotation.z = 0.5 * Math.PI;
+                        house.rotation.y = 0.5 * Math.PI;
+                        house.position.x = (key.x + sizes[key.type].shifty);
+                        house.position.y = (key.y - sizes[key.type].shiftx);
+                    } else {
+                        house.position.x = (key.x + sizes[key.type].shiftx);
+                        house.position.y = (key.y + sizes[key.type].shifty);
+                    }
+                    scene.add(cube);
+
+
+                    scene.add(house);
+                });
+
+            });
+
+
+
+        }
+
+        function modelInit(collada, size) {
+            let plc = new THREE.Object3D();
+            collada.scene.scale.x = size;
+            collada.scene.scale.y = size;
+            collada.scene.scale.z = size;
+            plc.add(collada.scene);
+            plc.rotation.x = -0.5 * Math.PI;
+            plc.rotation.z = 1 * Math.PI;
+            //this.scene.add(plc);
+
+            // plc.position.x = positionx;
+            // plc.position.y = positiony;
+            plc.position.z -= 0.1;
+            return plc;
+        };
+
+        function modelLoader(modelPath) {
+            return new Promise((resolve, reject) => {
+                let loader = new THREE.ColladaLoader();
+                loader.options.convertUpAxis = true;
+                loader.load("./game/3dModels/" + modelPath, (collada) => {
+                    resolve(collada);
+                });
+            });
+        }
+        class Tank {
+            constructor(dae, coords = [0, 0]) {
+                //some magic for turn
+                this.dae = new THREE.Object3D();
+                this.parent = new THREE.Object3D();
+                this.parent.position.x = +0.5;
+                this.dae.add(this.parent);
+                this.original = null;
+                this.angle = Math.PI - Math.PI;
+                ////new motion
+                this.forward = false;
+                this.backward = false;
+                this.right = false;
+                this.left = false;
+                //turret
+                this.turret = null;
+                this.turretRight = false;
+                this.turretLeft = false;
+
+                this.dae.position.x = coords[0];
+                this.dae.position.y = coords[1];
+
+                this.turret = new Turret(null, coords);
+
+            }
+            moveForward() {
+                this.dae.position.y += 0.6 * Math.cos(this.angle);
+                this.dae.position.x += 0.6 * Math.sin(this.angle);
+                this.turret.dae.position.y += 0.6 * Math.cos(this.angle);
+                this.turret.dae.position.x += 0.6 * Math.sin(this.angle);
+            }
+            moveBackward() {
+                this.dae.position.y -= 0.2 * Math.cos(this.angle);
+                this.dae.position.x -= 0.2 * Math.sin(this.angle);
+                this.turret.dae.position.y -= 0.2 * Math.cos(this.angle);
+                this.turret.dae.position.x -= 0.2 * Math.sin(this.angle);
+            }
+            turnRight() {
+                this.dae.rotation.y += 0.015 * Math.PI;
+                this.angle += 0.015 * Math.PI;
+            }
+            turnLeft() {
+                this.dae.rotation.y -= 0.015 * Math.PI;
+                this.angle -= 0.015 * Math.PI;
+            }
+            turnTurretRight() {
+                this.turret.dae.rotation.y += 0.018 * Math.PI;
+            }
+            turnTurretLeft() {
+                this.turret.dae.rotation.y -= 0.018 * Math.PI;
+            }
+            update() {
+                if (this.forward) {
+                    this.moveForward();
+                }
+                if (this.backward) {
+                    this.moveBackward();
+                }
+                if (this.right) {
+                    this.turnRight();
+                }
+                if (this.left) {
+                    this.turnLeft();
+                }
+                if (this.turretLeft) {
+                    this.turnTurretLeft();
+                }
+                if (this.turretRight) {
+                    this.turnTurretRight();
+                }
+            }
+        }
+        class Turret {
+            constructor(dae, coords) {
+                this.dae = new THREE.Object3D();
+                this.parent = new THREE.Object3D();
+                // this.parent.position.y += -1;
+
+                this.parent.position.z += -0.5;
+                this.parent.rotation.y += 0.5 * Math.PI;
+                this.dae.add(this.parent);
+                this.angle = Math.PI - Math.PI;
+
+                this.dae.position.x = coords[0];
+                this.dae.position.y = coords[1];
+            }
+        }
+
+        function tankLoader() {
+            return new Promise((resolve, reject) => {
+                let loader = new THREE.ColladaLoader();
+                loader.options.convertUpAxis = true;
+                loader.load("./game/3dModels/Hammer+Tank/model.dae", (collada) => {
+                    resolve(collada);
+                });
+            });
+        }
+        class Scene {
+            constructor(startPositionMe, startPositionOpponent) {
+                //////
+                this._resizeFunction = this._resizeFunction.bind(this);
+
+                this.scene = new THREE.Scene();
+                this.tankMe = new Tank(null, startPositionMe);
+                this.tankOpponent = new Tank(null, startPositionOpponent);
+                tankLoader().then(coll => {
+                    let collada = [coll.scene.clone(), coll.scene.clone()];
+                    let i = 0;
+                    ["tankOpponent", "tankMe"].forEach((key) => {
+                        //tank
+                        let cpy1 = collada[i].clone();
+                        let cpy2 = collada[i].clone();
+                        cpy1.children[0].children[1].children[0].children[1] = new THREE.Object3D();
+                        cpy2.children[0].children[1].children[0].children[0] = new THREE.Object3D();
+                        this[key].parent.add(cpy1);
+                        this[key].dae.rotation.x = -0.5 * Math.PI;
+                        this[key].dae.rotation.z = 1 * Math.PI;
+                        this[key].dae.rotation.y = -0.5 * Math.PI;
+
+                        // this[key].dae.castShadow = true;
+                        this.scene.add(this[key].dae);
+
+                        //turret
+                        this[key].turret.parent.add(cpy2);
+                        this[key].turret.dae.rotation.x = -0.5 * Math.PI;
+                        this[key].turret.dae.rotation.z = 1 * Math.PI;
+                        this.scene.add(this[key].turret.dae);
+                        i++;
+                    });
+                    this._init();
+
+                });
+                mapCreator(this.scene);
+                this._addMap();
+
+                // mapLoader()
+                //     .then(collada => {
+                //         let plc = new THREE.Object3D();
+                //         let size = 0.05;
+                //         collada.scene.scale.x = size;
+                //         collada.scene.scale.y = size;
+                //         collada.scene.scale.z = size;
+                //         plc.add(collada.scene);
+                //         plc.rotation.x = -0.5 * Math.PI;
+                //         plc.rotation.z = 1 * Math.PI;
+                //         this.scene.add(plc);
+                //     });
+
+            }
+
+            _init() {
+                ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
+
+                this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
+
+                //this.camera.position.set(0, 3, -3);//first view
+                //второй параметор очвечает за высоту камеры
+                // this.camera.position.set(0, 75, -285); //up view
+
+
+                this.camera.position.set(0, 6.5, -37); //standart view
+
+
+
+                //this.camera.lookAt(new THREE.Vector3(0, 2.75, 3));//first view
+                // this.camera.lookAt(new THREE.Vector3(0, 15, 10)); //up view
+
+
+                this.camera.lookAt(new THREE.Vector3(0, 3.60, 0)); //standart vie
+                this.renderer = new THREE.WebGLRenderer({
+                    alpha: true,
+                    antialias: true
+                });
+                this.renderer.shadowMap.enabled = true;
+
+                this.tankMe.turret.dae.add(this.camera);
+
+                this.renderer.setPixelRatio(window.devicePixelRatio);
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                ///
+                this.renderer.domElement.setAttribute("id", "game");
+                this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
+                this.renderer.domElement.style.position = "absolute";
+                this.renderer.domElement.style.zIndex = "1";
+
+                document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
+                ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
+                let light, light2;
+                this.scene.add(new THREE.AmbientLight(0x666666));
+                light = new THREE.DirectionalLight(0xdfebff, 1.75);
+                light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
+
+                light.position.set(50, 200, 100);
+                light2.position.set(-150, -200, 100);
+
+                light.position.multiplyScalar(1.3);
+                light2.position.multiplyScalar(1.3);
+
+                light.castShadow = true;
+                light.shadow.mapSize.width = 1024;
+                light.shadow.mapSize.height = 1024;
+                let d = 300;
+                light.shadow.camera.left = -d;
+                light.shadow.camera.right = d;
+                light.shadow.camera.top = d;
+                light.shadow.camera.bottom = -d;
+                light.shadow.camera.far = 1000;
+                this.scene.add(light);
+                this.scene.add(light2);
+                /////////light end
+                this._resizeWindow();
+
+                this._startRenderAnimate();
+
+            }
+
+            updateObjects(type, action) {
+                Object.keys(action).forEach(key => {
+                    this[type][key] = action[key];
+                });
+            }
+
+            _startRenderAnimate() {
+                let innerrender = () => {
+                    window.requestAnimationFrame(innerrender);
+                    this._render();
+                };
+                innerrender();
+            }
+
+            _render() {
+                ["tankMe", "tankOpponent"].forEach(key => {
+                    this[key].update();
+                });
+                this.renderer.render(this.scene, this.camera);
+            }
+
+            _resizeWindow() {
+                window.addEventListener("resize", this._resizeFunction, false);
+            }
+
+            _resizeFunction() {
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this._render();
+            }
+
+            _addMap() {
+                let loader = new THREE.TextureLoader();
+                let groundTexture = loader.load('./game/3dModels/terrain/grasslight-big.jpg');
+                groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+                groundTexture.repeat.set(900, 900);
+                groundTexture.anisotropy = 16;
+                let groundMaterial = new THREE.MeshPhongMaterial({
+                    color: 0xAAAAAA,
+                    specular: 0x000000,
+                    map: groundTexture
+                });
+                let mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
+                mesh.position.z = 0.01;
+                this.scene.add(mesh);
+
+                ////testbox
+                // var geometry = new THREE.BoxGeometry(4, 8, 2);
+                // var material = new THREE.MeshBasicMaterial({
+                //     color: 0xFF0000
+                // });
+                // var cube = new THREE.Mesh(geometry, material);
+                // cube.position.x = 10;
+                // cube.position.y = 9;
+                // var geometry2 = new THREE.BoxGeometry(0.1, 0.1, 6);
+                // var material2 = new THREE.MeshBasicMaterial({
+                //     color: 0x0000FF
+                // });
+                // var cube2 = new THREE.Mesh(geometry2, material2);
+                // cube2.position.x = 12;
+                // cube2.position.y = 13;
+                // this.scene.add(cube2);
+                // this.scene.add(cube);
+
+            }
+
+        }
+        class Player {
+            constructor(nickname) {
+                this.health = 100;
+                this.nickname = nickname;
+            }
+        }
+        class SinglePlayer {
+            constructor() {
+                //TODO create instance of players
+                this.me = new Player("me"); // TODO write your original
+                this.opponent = new Player("super bitch bot");
+            }
+
+            initKeyListeners(callback) {
+                keyboardJS.bind("m", function(e) {
+                    callback({
+                        turretRight: true
+                    });
+                }, function(e) {
+                    callback({
+                        turretRight: false
+                    });
+                });
+                keyboardJS.bind("n", function(e) {
+                    callback({
+                        turretLeft: true
+                    });
+                }, function(e) {
+                    callback({
+                        turretLeft: false
+                    });
+                });
+                keyboardJS.bind("w", function(e) {
+                    callback({
+                        forward: true
+                    });
+                }, function(e) {
+                    callback({
+                        forward: false
+                    });
+                });
+                keyboardJS.bind("s", function(e) {
+                    callback({
+                        backward: true
+                    });
+                }, function(e) {
+                    callback({
+                        backward: false
+                    });
+                });
+                keyboardJS.bind("d", function(e) {
+                    callback({
+                        right: true
+                    });
+                }, function(e) {
+                    callback({
+                        right: false
+                    });
+                });
+                keyboardJS.bind("a", function(e) {
+                    callback({
+                        left: true
+                    });
+                }, function(e) {
+                    callback({
+                        left: false
+                    });
+                });
+            }
+            randomMovemant(callback) {
+                callback({
+                    left: true,
+                    forward: true
+                });
+            }
+        }
+        let scene = new Scene([100, 80], [-10, -10]);
+        let strategy = new SinglePlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии
+        strategy.initKeyListeners((action) => {
+            scene.updateObjects("tankMe", action);
+        });
+    </script>
+</body>
+
+</html>

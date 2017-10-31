@@ -1,11 +1,9 @@
 import Tank from "./models/Tank";
-// import Turret from "./models/Turret";
-import tankLoader from "./utils/tankLoader";
-import turretLoader from "./utils/turretLoader";
-import mapLoader from "./utils/mapLoader";
+import modelLoader from "./utils/modelLoader";
+import MapCreator from "./utils/MapCreator";
 
 import progressBar from "../modules/load-bar";
-var THREE = require("three");
+// var THREE = require("three");
 
 export default class Scene {
     constructor(startPositionMe, startPositionOpponent) {
@@ -16,8 +14,7 @@ export default class Scene {
         this.scene = new THREE.Scene();
         this.tankMe = new Tank(null, startPositionMe);
         this.tankOpponent = new Tank(null, startPositionOpponent);
-
-        tankLoader().then(coll => {
+        modelLoader("Hammer+Tank/model.dae").then(coll => {
             let collada = [coll.scene.clone(), coll.scene.clone()];
             let i = 0;
             ["tankOpponent", "tankMe"].forEach((key) => {
@@ -42,23 +39,10 @@ export default class Scene {
                 i++;
             });
             progressBar.hide();
-
+            this._init();
         });
-
-        mapLoader()
-            .then(collada => {
-                let plc = new THREE.Object3D();
-                let size = 0.05;
-                collada.scene.scale.x = size;
-                collada.scene.scale.y = size;
-                collada.scene.scale.z = size;
-                plc.add(collada.scene);
-                plc.rotation.x = -0.5 * Math.PI;
-                plc.rotation.z = 1 * Math.PI;
-                this.scene.add(plc);
-            });
-        this._init();
         this._addMap();
+
     }
 
     _init() {
@@ -66,6 +50,8 @@ export default class Scene {
 
         this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
         this.camera.position.set(-1, 10, -95);
+
+
 
         this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
         this.renderer = new THREE.WebGLRenderer({
@@ -75,6 +61,9 @@ export default class Scene {
         this.renderer.shadowMap.enabled = true;
 
         this.tankMe.turret.dae.add(this.camera);
+        ///
+        this.tankMe.camera = this.camera;
+        ///
 
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -112,13 +101,9 @@ export default class Scene {
         this._resizeWindow();
 
         this._startRenderAnimate();
+
     }
 
-    /**
-     * object action
-     * @param {string} type : tankMe | tankOpponent
-     * @param {object} action 
-     */
     updateObjects(type, action) {
         Object.keys(action).forEach(key => {
             this[type][key] = action[key];
@@ -152,17 +137,7 @@ export default class Scene {
     }
 
     _addMap() {
-        // let planeGeometry = new THREE.PlaneGeometry(600, 600, 1, 1);
-        // let planeMaterial = new THREE.MeshLambertMaterial({
-        //     color: 0x30E02E
-        // });
-        // let plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        // plane.receiveShadow = true;
-        // plane.position.x = 0.2;
-        // plane.position.y = 0.2;
-        // plane.position.z = 0.05;
-        // this.scene.add(plane);
-        // ground
+        MapCreator(this.scene);
         let loader = new THREE.TextureLoader();
         let groundTexture = loader.load('./game/3dModels/terrain/grasslight-big.jpg');
         groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
@@ -171,11 +146,9 @@ export default class Scene {
         let groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
         let mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
         mesh.position.z = 0.01;
-        // mesh.rotation.x = -Math.PI / 2;
-        // mesh.rotation.z = 1 * Math.PI;
-        // mesh.receiveShadow = true;
         this.scene.add(mesh);
-        // poles
+
+        //
     }
 
 }

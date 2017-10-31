@@ -25,6 +25,21 @@ export default class Tank {
 
         this.turret = new Turret(null, coords);
 
+
+        this.camera = null;
+        this.changeCamera = false;
+        this.cameraCurrentType = 0;
+
+        this.cameraTypes = [() => {
+            this.camera.position.set(0, 6.5, -37);
+            this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+        }, () => {
+            this.camera.position.set(0, 3, -3);
+            this.camera.lookAt(new THREE.Vector3(0, 2.75, 3));
+        }, () => {
+            this.camera.position.set(0, 75, -285);
+            this.camera.lookAt(new THREE.Vector3(0, 15, 10));
+        }];
     }
     moveForward() {
         this.dae.position.y += 0.3 * Math.cos(this.angle);
@@ -70,6 +85,12 @@ export default class Tank {
         }
         if (this.turretRight) {
             this.turnTurretRight();
+        }
+        if (this.changeCamera) {
+            this.cameraCurrentType++;
+            this.cameraCurrentType %= 3;
+            this.cameraTypes[this.cameraCurrentType]();
+            this.changeCamera = false;
         }
     }
 }
