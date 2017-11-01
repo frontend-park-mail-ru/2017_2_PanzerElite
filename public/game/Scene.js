@@ -77,8 +77,10 @@ export default class Scene {
         ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
         let light, light2;
         this.scene.add(new THREE.AmbientLight(0x666666));
-        light = new THREE.DirectionalLight(0xdfebff, 1.75);
-        light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
+        // light = new THREE.DirectionalLight(0xdfebff, 1.75);
+        // light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
+        light = new THREE.DirectionalLight(0xdfebff, 1.1);
+        light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
 
         light.position.set(50, 200, 100);
         light2.position.set(-150, -200, 100);
@@ -139,16 +141,67 @@ export default class Scene {
     _addMap() {
         MapCreator(this.scene);
         let loader = new THREE.TextureLoader();
-        let groundTexture = loader.load('./game/3dModels/terrain/grasslight-big.jpg');
+        let groundTexture = loader.load('./game/3dModels/terrain/www.jpg');
         groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-        groundTexture.repeat.set(900, 900);
+        groundTexture.repeat.set(1900, 1900);
         groundTexture.anisotropy = 16;
         let groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
         let mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
         mesh.position.z = 0.01;
         this.scene.add(mesh);
-
         //
+        modelLoader("road/model.dae").then(coll => {
+            coll.scene.rotation.x = -0.5 * Math.PI;
+            coll.scene.rotation.z = 1 * Math.PI;
+            coll.scene.position.z -= 0.1;
+            coll.scene.scale.z = 3;
+            coll.scene.scale.x = 0.05;
+            coll.scene.position.z = 0.11;
+            coll.scene.position.y = 500;
+            let road2 = coll.scene.clone();
+            road2.rotation.y = 0.5 * Math.PI;
+            road2.position.y = 0;
+            road2.position.x = 500;
+
+            this.scene.add(coll.scene);
+            this.scene.add(road2);
+
+        })
+
+        modelLoader("trees/tree/model2.dae").then(coll => {
+            coll.scene.rotation.x = -0.5 * Math.PI;
+            coll.scene.rotation.z = 1 * Math.PI;
+            coll.scene.position.z -= 0.1;
+            coll.scene.scale.z *= 1.5;
+            coll.scene.scale.x *= 1.5;
+            coll.scene.scale.y *= 1.5;
+            coll.scene.position.z = 0.11;
+            coll.scene.position.y = 60;
+            coll.scene.position.x = 60;
+
+
+            this.scene.add(coll.scene);
+
+
+        })
+
+        modelLoader("trees/tree/model.dae").then(coll => {
+            coll.scene.rotation.x = -0.5 * Math.PI;
+            coll.scene.rotation.z = 1 * Math.PI;
+            coll.scene.position.z -= 0.1;
+            // coll.scene.scale.z *= 0.75;
+            // coll.scene.scale.x *= 1.5;
+            // coll.scene.scale.y *= 1.5;
+            coll.scene.position.z = 0.11;
+            coll.scene.position.y = 70;
+            coll.scene.position.x = 70;
+
+
+            this.scene.add(coll.scene);
+
+
+        })
+
     }
 
 }

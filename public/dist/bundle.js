@@ -429,6 +429,137 @@ var pBar = function () {
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function KeyCombo(keyComboStr) {
+  this.sourceStr = keyComboStr;
+  this.subCombos = KeyCombo.parseComboStr(keyComboStr);
+  this.keyNames = this.subCombos.reduce(function (memo, nextSubCombo) {
+    return memo.concat(nextSubCombo);
+  }, []);
+}
+
+// TODO: Add support for key combo sequences
+KeyCombo.sequenceDeliminator = '>>';
+KeyCombo.comboDeliminator = '>';
+KeyCombo.keyDeliminator = '+';
+
+KeyCombo.parseComboStr = function (keyComboStr) {
+  var subComboStrs = KeyCombo._splitStr(keyComboStr, KeyCombo.comboDeliminator);
+  var combo = [];
+
+  for (var i = 0; i < subComboStrs.length; i += 1) {
+    combo.push(KeyCombo._splitStr(subComboStrs[i], KeyCombo.keyDeliminator));
+  }
+  return combo;
+};
+
+KeyCombo.prototype.check = function (pressedKeyNames) {
+  var startingKeyNameIndex = 0;
+  for (var i = 0; i < this.subCombos.length; i += 1) {
+    startingKeyNameIndex = this._checkSubCombo(this.subCombos[i], startingKeyNameIndex, pressedKeyNames);
+    if (startingKeyNameIndex === -1) {
+      return false;
+    }
+  }
+  return true;
+};
+
+KeyCombo.prototype.isEqual = function (otherKeyCombo) {
+  if (!otherKeyCombo || typeof otherKeyCombo !== 'string' && (typeof otherKeyCombo === 'undefined' ? 'undefined' : _typeof(otherKeyCombo)) !== 'object') {
+    return false;
+  }
+
+  if (typeof otherKeyCombo === 'string') {
+    otherKeyCombo = new KeyCombo(otherKeyCombo);
+  }
+
+  if (this.subCombos.length !== otherKeyCombo.subCombos.length) {
+    return false;
+  }
+  for (var i = 0; i < this.subCombos.length; i += 1) {
+    if (this.subCombos[i].length !== otherKeyCombo.subCombos[i].length) {
+      return false;
+    }
+  }
+
+  for (var i = 0; i < this.subCombos.length; i += 1) {
+    var subCombo = this.subCombos[i];
+    var otherSubCombo = otherKeyCombo.subCombos[i].slice(0);
+
+    for (var j = 0; j < subCombo.length; j += 1) {
+      var keyName = subCombo[j];
+      var index = otherSubCombo.indexOf(keyName);
+
+      if (index > -1) {
+        otherSubCombo.splice(index, 1);
+      }
+    }
+    if (otherSubCombo.length !== 0) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+KeyCombo._splitStr = function (str, deliminator) {
+  var s = str;
+  var d = deliminator;
+  var c = '';
+  var ca = [];
+
+  for (var ci = 0; ci < s.length; ci += 1) {
+    if (ci > 0 && s[ci] === d && s[ci - 1] !== '\\') {
+      ca.push(c.trim());
+      c = '';
+      ci += 1;
+    }
+    c += s[ci];
+  }
+  if (c) {
+    ca.push(c.trim());
+  }
+
+  return ca;
+};
+
+KeyCombo.prototype._checkSubCombo = function (subCombo, startingKeyNameIndex, pressedKeyNames) {
+  subCombo = subCombo.slice(0);
+  pressedKeyNames = pressedKeyNames.slice(startingKeyNameIndex);
+
+  var endIndex = startingKeyNameIndex;
+  for (var i = 0; i < subCombo.length; i += 1) {
+
+    var keyName = subCombo[i];
+    if (keyName[0] === '\\') {
+      var escapedKeyName = keyName.slice(1);
+      if (escapedKeyName === KeyCombo.comboDeliminator || escapedKeyName === KeyCombo.keyDeliminator) {
+        keyName = escapedKeyName;
+      }
+    }
+
+    var index = pressedKeyNames.indexOf(keyName);
+    if (index > -1) {
+      subCombo.splice(i, 1);
+      i -= 1;
+      if (index > endIndex) {
+        endIndex = index;
+      }
+      if (subCombo.length === 0) {
+        return endIndex;
+      }
+    }
+  }
+  return -1;
+};
+
+module.exports = KeyCombo;
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3885,137 +4016,6 @@ function Projector(){console.error('THREE.Projector has been moved to /examples/
 function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to /examples/js/renderers/CanvasRenderer.js');this.domElement=document.createElementNS('http://www.w3.org/1999/xhtml','canvas');this.clear=function(){};this.render=function(){};this.setClearColor=function(){};this.setSize=function(){};}
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function KeyCombo(keyComboStr) {
-  this.sourceStr = keyComboStr;
-  this.subCombos = KeyCombo.parseComboStr(keyComboStr);
-  this.keyNames = this.subCombos.reduce(function (memo, nextSubCombo) {
-    return memo.concat(nextSubCombo);
-  }, []);
-}
-
-// TODO: Add support for key combo sequences
-KeyCombo.sequenceDeliminator = '>>';
-KeyCombo.comboDeliminator = '>';
-KeyCombo.keyDeliminator = '+';
-
-KeyCombo.parseComboStr = function (keyComboStr) {
-  var subComboStrs = KeyCombo._splitStr(keyComboStr, KeyCombo.comboDeliminator);
-  var combo = [];
-
-  for (var i = 0; i < subComboStrs.length; i += 1) {
-    combo.push(KeyCombo._splitStr(subComboStrs[i], KeyCombo.keyDeliminator));
-  }
-  return combo;
-};
-
-KeyCombo.prototype.check = function (pressedKeyNames) {
-  var startingKeyNameIndex = 0;
-  for (var i = 0; i < this.subCombos.length; i += 1) {
-    startingKeyNameIndex = this._checkSubCombo(this.subCombos[i], startingKeyNameIndex, pressedKeyNames);
-    if (startingKeyNameIndex === -1) {
-      return false;
-    }
-  }
-  return true;
-};
-
-KeyCombo.prototype.isEqual = function (otherKeyCombo) {
-  if (!otherKeyCombo || typeof otherKeyCombo !== 'string' && (typeof otherKeyCombo === 'undefined' ? 'undefined' : _typeof(otherKeyCombo)) !== 'object') {
-    return false;
-  }
-
-  if (typeof otherKeyCombo === 'string') {
-    otherKeyCombo = new KeyCombo(otherKeyCombo);
-  }
-
-  if (this.subCombos.length !== otherKeyCombo.subCombos.length) {
-    return false;
-  }
-  for (var i = 0; i < this.subCombos.length; i += 1) {
-    if (this.subCombos[i].length !== otherKeyCombo.subCombos[i].length) {
-      return false;
-    }
-  }
-
-  for (var i = 0; i < this.subCombos.length; i += 1) {
-    var subCombo = this.subCombos[i];
-    var otherSubCombo = otherKeyCombo.subCombos[i].slice(0);
-
-    for (var j = 0; j < subCombo.length; j += 1) {
-      var keyName = subCombo[j];
-      var index = otherSubCombo.indexOf(keyName);
-
-      if (index > -1) {
-        otherSubCombo.splice(index, 1);
-      }
-    }
-    if (otherSubCombo.length !== 0) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-KeyCombo._splitStr = function (str, deliminator) {
-  var s = str;
-  var d = deliminator;
-  var c = '';
-  var ca = [];
-
-  for (var ci = 0; ci < s.length; ci += 1) {
-    if (ci > 0 && s[ci] === d && s[ci - 1] !== '\\') {
-      ca.push(c.trim());
-      c = '';
-      ci += 1;
-    }
-    c += s[ci];
-  }
-  if (c) {
-    ca.push(c.trim());
-  }
-
-  return ca;
-};
-
-KeyCombo.prototype._checkSubCombo = function (subCombo, startingKeyNameIndex, pressedKeyNames) {
-  subCombo = subCombo.slice(0);
-  pressedKeyNames = pressedKeyNames.slice(startingKeyNameIndex);
-
-  var endIndex = startingKeyNameIndex;
-  for (var i = 0; i < subCombo.length; i += 1) {
-
-    var keyName = subCombo[i];
-    if (keyName[0] === '\\') {
-      var escapedKeyName = keyName.slice(1);
-      if (escapedKeyName === KeyCombo.comboDeliminator || escapedKeyName === KeyCombo.keyDeliminator) {
-        keyName = escapedKeyName;
-      }
-    }
-
-    var index = pressedKeyNames.indexOf(keyName);
-    if (index > -1) {
-      subCombo.splice(i, 1);
-      i -= 1;
-      if (index > endIndex) {
-        endIndex = index;
-      }
-      if (subCombo.length === 0) {
-        return endIndex;
-      }
-    }
-  }
-  return -1;
-};
-
-module.exports = KeyCombo;
-
-/***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4116,7 +4116,7 @@ var GameManager = function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var KeyCombo = __webpack_require__(6);
+var KeyCombo = __webpack_require__(5);
 
 function Locale(name) {
   this.localeName = name;
@@ -4981,7 +4981,7 @@ var SinglePlayer = function () {
 
 var Keyboard = __webpack_require__(29);
 var Locale = __webpack_require__(9);
-var KeyCombo = __webpack_require__(6);
+var KeyCombo = __webpack_require__(5);
 
 var keyboard = new Keyboard();
 
@@ -4999,7 +4999,7 @@ exports.KeyCombo = KeyCombo;
 /* WEBPACK VAR INJECTION */(function(global) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var Locale = __webpack_require__(9);
-var KeyCombo = __webpack_require__(6);
+var KeyCombo = __webpack_require__(5);
 
 function Keyboard(targetWindow, targetElement, platform, userAgent) {
   this._locale = null;
@@ -5668,8 +5668,10 @@ var Scene = function () {
             var light = void 0,
                 light2 = void 0;
             this.scene.add(new THREE.AmbientLight(0x666666));
-            light = new THREE.DirectionalLight(0xdfebff, 1.75);
-            light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
+            // light = new THREE.DirectionalLight(0xdfebff, 1.75);
+            // light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
+            light = new THREE.DirectionalLight(0xdfebff, 1.1);
+            light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
 
             light.position.set(50, 200, 100);
             light2.position.set(-150, -200, 100);
@@ -5739,18 +5741,63 @@ var Scene = function () {
     }, {
         key: "_addMap",
         value: function _addMap() {
+            var _this5 = this;
+
             Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene);
             var loader = new THREE.TextureLoader();
-            var groundTexture = loader.load('./game/3dModels/terrain/grasslight-big.jpg');
+            var groundTexture = loader.load('./game/3dModels/terrain/www.jpg');
             groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-            groundTexture.repeat.set(900, 900);
+            groundTexture.repeat.set(1900, 1900);
             groundTexture.anisotropy = 16;
             var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
             var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
             mesh.position.z = 0.01;
             this.scene.add(mesh);
-
             //
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("road/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                coll.scene.scale.z = 3;
+                coll.scene.scale.x = 0.05;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.y = 500;
+                var road2 = coll.scene.clone();
+                road2.rotation.y = 0.5 * Math.PI;
+                road2.position.y = 0;
+                road2.position.x = 500;
+
+                _this5.scene.add(coll.scene);
+                _this5.scene.add(road2);
+            });
+
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("trees/tree/model2.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                coll.scene.scale.z *= 1.5;
+                coll.scene.scale.x *= 1.5;
+                coll.scene.scale.y *= 1.5;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.y = 60;
+                coll.scene.position.x = 60;
+
+                _this5.scene.add(coll.scene);
+            });
+
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("trees/tree/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                // coll.scene.scale.z *= 0.75;
+                // coll.scene.scale.x *= 1.5;
+                // coll.scene.scale.y *= 1.5;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.y = 70;
+                coll.scene.position.x = 70;
+
+                _this5.scene.add(coll.scene);
+            });
         }
     }]);
 
@@ -5769,7 +5816,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var THREE = __webpack_require__(5);
+var THREE = __webpack_require__(6);
 
 
 var Tank = function () {
@@ -5898,7 +5945,7 @@ var Tank = function () {
 "use strict";
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var THREE = __webpack_require__(5);
+var THREE = __webpack_require__(6);
 
 var Turret = function Turret(dae, coords) {
     _classCallCheck(this, Turret);
@@ -5922,7 +5969,7 @@ var Turret = function Turret(dae, coords) {
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var THREE = __webpack_require__(5);
+var THREE = __webpack_require__(6);
 
 /**
  * @author Tim Knip / http://www.floorplanner.com/ / tim at floorplanner.com
