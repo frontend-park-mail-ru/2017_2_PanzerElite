@@ -8,6 +8,9 @@ import progressBar from "../modules/load-bar";
 export default class Scene {
     constructor(startPositionMe, startPositionOpponent) {
         progressBar.show();
+        this.stats = new Stats();
+        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(this.stats.dom);
         //////
         this._resizeFunction = this._resizeFunction.bind(this);
 
@@ -49,11 +52,13 @@ export default class Scene {
         ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
 
         this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
-        this.camera.position.set(-1, 10, -95);
+        //this.camera.position.set(-1, 10, -95);
 
 
+        this.camera.position.set(0, 6.5, -37);
+        this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
 
-        this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
+        //this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
         this.renderer = new THREE.WebGLRenderer({
             alpha: true,
             antialias: true
@@ -106,18 +111,33 @@ export default class Scene {
 
     }
 
-    updateObjects(type, action) {
-        Object.keys(action).forEach(key => {
-            this[type][key] = action[key];
+    updateObjects(type, instractions) {
+        // Object.keys(action).forEach(key => {
+        //     this[type][key] = action[key];
+        // });
+        Object.keys(instractions).forEach(key => {
+            this[type].instractions = instractions;
         });
     }
 
     _startRenderAnimate() {
+
+
         let innerrender = () => {
             window.requestAnimationFrame(innerrender);
+            this.stats.begin();
             this._render();
+            this.stats.end();
+
         };
+
         innerrender();
+
+        // monitored code goes here
+
+
+        //requestAnimationFrame(this._startRenderAnimat);
+
     }
 
     _render() {
@@ -168,39 +188,39 @@ export default class Scene {
 
         })
 
-        modelLoader("trees/tree/model2.dae").then(coll => {
-            coll.scene.rotation.x = -0.5 * Math.PI;
-            coll.scene.rotation.z = 1 * Math.PI;
-            coll.scene.position.z -= 0.1;
-            coll.scene.scale.z *= 1.5;
-            coll.scene.scale.x *= 1.5;
-            coll.scene.scale.y *= 1.5;
-            coll.scene.position.z = 0.11;
-            coll.scene.position.y = 60;
-            coll.scene.position.x = 60;
+        // modelLoader("trees/tree/model2.dae").then(coll => {
+        //     coll.scene.rotation.x = -0.5 * Math.PI;
+        //     coll.scene.rotation.z = 1 * Math.PI;
+        //     coll.scene.position.z -= 0.1;
+        //     coll.scene.scale.z *= 1.5;
+        //     coll.scene.scale.x *= 1.5;
+        //     coll.scene.scale.y *= 1.5;
+        //     coll.scene.position.z = 0.11;
+        //     coll.scene.position.y = 60;
+        //     coll.scene.position.x = 60;
 
 
-            this.scene.add(coll.scene);
+        //     this.scene.add(coll.scene);
 
 
-        })
+        // })
 
-        modelLoader("trees/tree/model.dae").then(coll => {
-            coll.scene.rotation.x = -0.5 * Math.PI;
-            coll.scene.rotation.z = 1 * Math.PI;
-            coll.scene.position.z -= 0.1;
-            // coll.scene.scale.z *= 0.75;
-            // coll.scene.scale.x *= 1.5;
-            // coll.scene.scale.y *= 1.5;
-            coll.scene.position.z = 0.11;
-            coll.scene.position.y = 70;
-            coll.scene.position.x = 70;
-
-
-            this.scene.add(coll.scene);
+        // modelLoader("trees/tree/model.dae").then(coll => {
+        //     coll.scene.rotation.x = -0.5 * Math.PI;
+        //     coll.scene.rotation.z = 1 * Math.PI;
+        //     coll.scene.position.z -= 0.1;
+        //     // coll.scene.scale.z *= 0.75;
+        //     // coll.scene.scale.x *= 1.5;
+        //     // coll.scene.scale.y *= 1.5;
+        //     coll.scene.position.z = 0.11;
+        //     coll.scene.position.y = 70;
+        //     coll.scene.position.x = 70;
 
 
-        })
+        //     this.scene.add(coll.scene);
+
+
+        // })
 
     }
 

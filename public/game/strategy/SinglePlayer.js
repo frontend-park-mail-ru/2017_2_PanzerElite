@@ -4,11 +4,57 @@ import Player from "../models/Player";
 export default class SinglePlayer {
     constructor() {
         //TODO create instance of players
-        this.me = new Player("me"); // TODO write your original
-        this.opponent = new Player("super bitch bot");
+        this.me = new Player("me", [50, 50]); // TODO write your original
+        this.opponent = new Player("super bitch bot", [-10, -10]);
+
+        this._gameLoop = this._gameLoop.bind(this);
+        this._actionStates = {};
     }
 
-    initKeyListeners(callback) {
+    destroy() {
+        this._stopLoop();
+    }
+
+    getPlayersCoors() {
+        return {
+            me: this.me.coords,
+            opponent: this.opponent.coords
+        };
+    }
+
+    startListenGameLoop(callback) {
+        this.sceneInstructionCallback = callback;
+        //PanzerElite team is js-makaki, except ментор
+        this._startLoop();
+        this._initKeyListeners((newState) => {
+            Object.assign(this._actionStates, newState);
+        });
+    }
+
+    _startLoop() {
+        window.requestAnimationFrame(this._gameLoop);
+        //this.gameLoopId = setInterval(this._gameLoop, 1);
+    }
+
+    _stopLoop() {
+        clearInterval(this.gameLoopId);
+    }
+
+    //Основной цикл, который шлет изменения
+    _gameLoop() {
+
+        Object.keys(this._actionStates).forEach(key => {
+            this.me[key] = this._actionStates[key];
+        });
+        this.me.update();
+        this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+            this.me.getInstrustions()
+        );
+        window.requestAnimationFrame(this._gameLoop);
+
+    }
+
+    _initKeyListeners(callback) {
         keyboardJS.bind("m", function(e) {
             callback({ turretRight: true });
         }, function(e) {

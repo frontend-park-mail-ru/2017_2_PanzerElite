@@ -26,6 +26,8 @@ export default class GameMenuView extends BaseView {
     _buttonsInit() {
         this.resumeBtn.setCallback(() => {
             this.hide();
+            document.getElementById("game").classList.remove("blured");
+
         });
         this.quitBtn.setCallback(() => {
             this.hide();

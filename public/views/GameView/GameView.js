@@ -18,7 +18,7 @@ export default class GameView extends BaseView {
     _enableGameMenu(e) {
         if (e.keyCode == 27) {
             document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
-            // document.getElementById("game").classList.add("blured");
+            document.getElementById("game").classList.add("blured");
         }
     }
     destroyGame() {

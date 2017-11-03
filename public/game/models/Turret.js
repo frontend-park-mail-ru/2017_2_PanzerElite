@@ -10,7 +10,7 @@ export default class Turret {
         this.dae.add(this.parent);
         this.angle = Math.PI - Math.PI;
 
-        this.dae.position.x = coords[0];
-        this.dae.position.y = coords[1];
+        this.dae.position.x = coords.x;
+        this.dae.position.y = coords.y;
     }
 }

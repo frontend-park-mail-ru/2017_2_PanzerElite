@@ -9,11 +9,18 @@ export default class GameManager {
 
     start(strategy) {
         if (strategy == "single") {
-            this.scene = new Scene([10, 10], [-10, -10]);
-            this.strategy = new SinglePlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии
-            this.strategy.initKeyListeners((action) => {
-                this.scene.updateObjects("tankMe", action);
+            this.strategy = new SinglePlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+            const playersCoords = this.strategy.getPlayersCoors();
+            this.scene = new Scene(playersCoords.me, playersCoords.opponent);
+            this.strategy.startListenGameLoop((instractions) => {
+                // console.log(instractions);
+                this.scene.updateObjects("tankMe", instractions);
+
             });
+            // this.scene.updateObjects("tankMe", {});
+            // this.strategy.initKeyListeners((action) => {
+            //     this.scene.updateObjects("tankMe", action);
+            // });
 
             // this.strategy.randomMovemant(action => {
             // 	this.scene.updateObjects("tankOpponent", action);
@@ -26,11 +33,16 @@ export default class GameManager {
     }
 
     startLoop() {
-        this.mainLoop = setInterval(this._mainLoop, 500);
+        this.mainLoopId = setInterval(this._mainLoop, 500);
     }
 
     stopLoop() {
-        clearInterval(this.mainLoop);
+        clearInterval(this.mainLoopId);
+    }
+
+    destroy() {
+        stopLoop();
+        this.strategy.destroy();
     }
 
     _mainLoop() {

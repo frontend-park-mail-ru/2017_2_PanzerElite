@@ -4070,11 +4070,17 @@ var GameManager = function () {
             var _this = this;
 
             if (strategy == "single") {
-                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]([10, 10], [-10, -10]);
-                this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии
-                this.strategy.initKeyListeners(function (action) {
-                    _this.scene.updateObjects("tankMe", action);
+                this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+                var playersCoords = this.strategy.getPlayersCoors();
+                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent);
+                this.strategy.startListenGameLoop(function (instractions) {
+                    // console.log(instractions);
+                    _this.scene.updateObjects("tankMe", instractions);
                 });
+                // this.scene.updateObjects("tankMe", {});
+                // this.strategy.initKeyListeners((action) => {
+                //     this.scene.updateObjects("tankMe", action);
+                // });
 
                 // this.strategy.randomMovemant(action => {
                 // 	this.scene.updateObjects("tankOpponent", action);
@@ -4086,12 +4092,18 @@ var GameManager = function () {
     }, {
         key: "startLoop",
         value: function startLoop() {
-            this.mainLoop = setInterval(this._mainLoop, 500);
+            this.mainLoopId = setInterval(this._mainLoop, 500);
         }
     }, {
         key: "stopLoop",
         value: function stopLoop() {
-            clearInterval(this.mainLoop);
+            clearInterval(this.mainLoopId);
+        }
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            stopLoop();
+            this.strategy.destroy();
         }
     }, {
         key: "_mainLoop",
@@ -4919,13 +4931,68 @@ var SinglePlayer = function () {
         _classCallCheck(this, SinglePlayer);
 
         //TODO create instance of players
-        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me"); // TODO write your original
-        this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot");
+        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50]); // TODO write your original
+        this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10]);
+
+        this._gameLoop = this._gameLoop.bind(this);
+        this._actionStates = {};
     }
 
     _createClass(SinglePlayer, [{
-        key: "initKeyListeners",
-        value: function initKeyListeners(callback) {
+        key: "destroy",
+        value: function destroy() {
+            this._stopLoop();
+        }
+    }, {
+        key: "getPlayersCoors",
+        value: function getPlayersCoors() {
+            return {
+                me: this.me.coords,
+                opponent: this.opponent.coords
+            };
+        }
+    }, {
+        key: "startListenGameLoop",
+        value: function startListenGameLoop(callback) {
+            var _this = this;
+
+            this.sceneInstructionCallback = callback;
+            //PanzerElite team is js-makaki, except ментор
+            this._startLoop();
+            this._initKeyListeners(function (newState) {
+                Object.assign(_this._actionStates, newState);
+            });
+        }
+    }, {
+        key: "_startLoop",
+        value: function _startLoop() {
+            window.requestAnimationFrame(this._gameLoop);
+            //this.gameLoopId = setInterval(this._gameLoop, 1);
+        }
+    }, {
+        key: "_stopLoop",
+        value: function _stopLoop() {
+            clearInterval(this.gameLoopId);
+        }
+
+        //Основной цикл, который шлет изменения
+
+    }, {
+        key: "_gameLoop",
+        value: function _gameLoop() {
+            var _this2 = this;
+
+            Object.keys(this._actionStates).forEach(function (key) {
+                _this2.me[key] = _this2._actionStates[key];
+            });
+            this.me.update();
+            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+            this.me.getInstrustions());
+            window.requestAnimationFrame(this._gameLoop);
+        }
+    }, {
+        key: "_initKeyListeners",
+        value: function _initKeyListeners(callback) {
             keyboardJS.bind("m", function (e) {
                 callback({ turretRight: true });
             }, function (e) {
@@ -5561,14 +5628,98 @@ module.exports = function (locale, platform, userAgent) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Player = function Player(nickname) {
-	_classCallCheck(this, Player);
+var Player = function () {
+    function Player(nickname, coords) {
+        _classCallCheck(this, Player);
 
-	this.health = 100;
-	this.nickname = nickname;
-};
+        this.health = 100;
+        this.nickname = nickname;
+        this.coords = { x: coords[0], y: coords[1] };
+        this.angle = -0.5 * Math.PI;
+        this.turretAngle = 0;
+    }
+
+    _createClass(Player, [{
+        key: "moveForward",
+        value: function moveForward() {
+            this.coords.y += 0.3 * Math.cos(this.angle);
+            this.coords.x += 0.3 * Math.sin(this.angle);
+            //this.turret.dae.position.y += 0.3 * Math.cos(this.angle);
+            //this.turret.dae.position.x += 0.3 * Math.sin(this.angle);
+        }
+    }, {
+        key: "moveBackward",
+        value: function moveBackward() {
+            this.coords.y -= 0.2 * Math.cos(this.angle);
+            this.coords.x -= 0.2 * Math.sin(this.angle);
+            //this.turret.dae.position.y -= 0.2 * Math.cos(this.angle);
+            //this.turret.dae.position.x -= 0.2 * Math.sin(this.angle);
+        }
+    }, {
+        key: "turnRight",
+        value: function turnRight() {
+            //this.dae.rotation.y += 0.005 * Math.PI;
+            this.angle += 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnLeft",
+        value: function turnLeft() {
+            //this.dae.rotation.y -= 0.005 * Math.PI;
+            this.angle -= 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnTurretRight",
+        value: function turnTurretRight() {
+            //this.turret.dae.rotation.y += 0.008 * Math.PI;
+            this.turretAngle += 0.008 * Math.PI;
+        }
+    }, {
+        key: "turnTurretLeft",
+        value: function turnTurretLeft() {
+            //this.turret.dae.rotation.y -= 0.008 * Math.PI;
+            this.turretAngle -= 0.008 * Math.PI;
+        }
+    }, {
+        key: "update",
+        value: function update() {
+            if (this.forward) {
+                this.moveForward();
+            }
+            if (this.backward) {
+                this.moveBackward();
+            }
+            if (this.right) {
+                this.turnRight();
+            }
+            if (this.left) {
+                this.turnLeft();
+            }
+            if (this.turretLeft) {
+                this.turnTurretLeft();
+            }
+            if (this.turretRight) {
+                this.turnTurretRight();
+            }
+            // if (this.changeCamera) {
+            //     this.cameraCurrentType++;
+            //     this.cameraCurrentType %= 3;
+            //     this.cameraTypes[this.cameraCurrentType]();
+            //     this.changeCamera = false;
+            // }
+        }
+    }, {
+        key: "getInstrustions",
+        value: function getInstrustions() {
+            return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle };
+        }
+    }]);
+
+    return Player;
+}();
 
 /* harmony default export */ __webpack_exports__["a"] = (Player);
 
@@ -5599,6 +5750,9 @@ var Scene = function () {
         _classCallCheck(this, Scene);
 
         __WEBPACK_IMPORTED_MODULE_3__modules_load_bar__["a" /* default */].show();
+        this.stats = new Stats();
+        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(this.stats.dom);
         //////
         this._resizeFunction = this._resizeFunction.bind(this);
 
@@ -5641,9 +5795,13 @@ var Scene = function () {
             ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
 
             this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
-            this.camera.position.set(-1, 10, -95);
+            //this.camera.position.set(-1, 10, -95);
 
-            this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
+
+            this.camera.position.set(0, 6.5, -37);
+            this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+
+            //this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
             this.renderer = new THREE.WebGLRenderer({
                 alpha: true,
                 antialias: true
@@ -5697,11 +5855,14 @@ var Scene = function () {
         }
     }, {
         key: "updateObjects",
-        value: function updateObjects(type, action) {
+        value: function updateObjects(type, instractions) {
             var _this2 = this;
 
-            Object.keys(action).forEach(function (key) {
-                _this2[type][key] = action[key];
+            // Object.keys(action).forEach(key => {
+            //     this[type][key] = action[key];
+            // });
+            Object.keys(instractions).forEach(function (key) {
+                _this2[type].instractions = instractions;
             });
         }
     }, {
@@ -5711,9 +5872,17 @@ var Scene = function () {
 
             var innerrender = function innerrender() {
                 window.requestAnimationFrame(innerrender);
+                _this3.stats.begin();
                 _this3._render();
+                _this3.stats.end();
             };
+
             innerrender();
+
+            // monitored code goes here
+
+
+            //requestAnimationFrame(this._startRenderAnimat);
         }
     }, {
         key: "_render",
@@ -5771,33 +5940,39 @@ var Scene = function () {
                 _this5.scene.add(road2);
             });
 
-            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("trees/tree/model2.dae").then(function (coll) {
-                coll.scene.rotation.x = -0.5 * Math.PI;
-                coll.scene.rotation.z = 1 * Math.PI;
-                coll.scene.position.z -= 0.1;
-                coll.scene.scale.z *= 1.5;
-                coll.scene.scale.x *= 1.5;
-                coll.scene.scale.y *= 1.5;
-                coll.scene.position.z = 0.11;
-                coll.scene.position.y = 60;
-                coll.scene.position.x = 60;
+            // modelLoader("trees/tree/model2.dae").then(coll => {
+            //     coll.scene.rotation.x = -0.5 * Math.PI;
+            //     coll.scene.rotation.z = 1 * Math.PI;
+            //     coll.scene.position.z -= 0.1;
+            //     coll.scene.scale.z *= 1.5;
+            //     coll.scene.scale.x *= 1.5;
+            //     coll.scene.scale.y *= 1.5;
+            //     coll.scene.position.z = 0.11;
+            //     coll.scene.position.y = 60;
+            //     coll.scene.position.x = 60;
 
-                _this5.scene.add(coll.scene);
-            });
 
-            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("trees/tree/model.dae").then(function (coll) {
-                coll.scene.rotation.x = -0.5 * Math.PI;
-                coll.scene.rotation.z = 1 * Math.PI;
-                coll.scene.position.z -= 0.1;
-                // coll.scene.scale.z *= 0.75;
-                // coll.scene.scale.x *= 1.5;
-                // coll.scene.scale.y *= 1.5;
-                coll.scene.position.z = 0.11;
-                coll.scene.position.y = 70;
-                coll.scene.position.x = 70;
+            //     this.scene.add(coll.scene);
 
-                _this5.scene.add(coll.scene);
-            });
+
+            // })
+
+            // modelLoader("trees/tree/model.dae").then(coll => {
+            //     coll.scene.rotation.x = -0.5 * Math.PI;
+            //     coll.scene.rotation.z = 1 * Math.PI;
+            //     coll.scene.position.z -= 0.1;
+            //     // coll.scene.scale.z *= 0.75;
+            //     // coll.scene.scale.x *= 1.5;
+            //     // coll.scene.scale.y *= 1.5;
+            //     coll.scene.position.z = 0.11;
+            //     coll.scene.position.y = 70;
+            //     coll.scene.position.x = 70;
+
+
+            //     this.scene.add(coll.scene);
+
+
+            // })
         }
     }]);
 
@@ -5823,7 +5998,7 @@ var Tank = function () {
     function Tank(dae) {
         var _this = this;
 
-        var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [0, 0];
+        var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { x: 0, y: 0 };
 
         _classCallCheck(this, Tank);
 
@@ -5832,20 +6007,20 @@ var Tank = function () {
         this.parent = new THREE.Object3D();
         this.parent.position.x = +0.5;
         this.dae.add(this.parent);
-        this.original = null;
-        this.angle = Math.PI - Math.PI;
+        // this.original = null;
+        //this.angle = Math.PI - Math.PI;
         ////new motion
-        this.forward = false;
-        this.backward = false;
-        this.right = false;
-        this.left = false;
-        //turret
-        this.turret = null;
-        this.turretRight = false;
-        this.turretLeft = false;
+        // this.forward = false;
+        // this.backward = false;
+        // this.right = false;
+        // this.left = false;
+        // //turret
+        // this.turret = null;
+        // this.turretRight = false;
+        // this.turretLeft = false;
 
-        this.dae.position.x = coords[0];
-        this.dae.position.y = coords[1];
+        this.dae.position.x = coords.x;
+        this.dae.position.y = coords.y;
 
         this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
 
@@ -5863,6 +6038,7 @@ var Tank = function () {
             _this.camera.position.set(0, 75, -285);
             _this.camera.lookAt(new THREE.Vector3(0, 15, 10));
         }];
+        this.instractions = { coords: {}, angle: -0.5 * Math.PI };
     }
 
     _createClass(Tank, [{
@@ -5906,30 +6082,19 @@ var Tank = function () {
     }, {
         key: "update",
         value: function update() {
-            if (this.forward) {
-                this.moveForward();
-            }
-            if (this.backward) {
-                this.moveBackward();
-            }
-            if (this.right) {
-                this.turnRight();
-            }
-            if (this.left) {
-                this.turnLeft();
-            }
-            if (this.turretLeft) {
-                this.turnTurretLeft();
-            }
-            if (this.turretRight) {
-                this.turnTurretRight();
-            }
-            if (this.changeCamera) {
-                this.cameraCurrentType++;
-                this.cameraCurrentType %= 3;
-                this.cameraTypes[this.cameraCurrentType]();
-                this.changeCamera = false;
-            }
+            this.dae.rotation.y = this.instractions.angle - 0.5 * Math.PI;
+            this.turret.dae.rotation.y = this.instractions.turretAngle - 0.5 * Math.PI;
+            this.dae.position.y = this.instractions.coords.y;
+            this.dae.position.x = this.instractions.coords.x;
+            this.turret.dae.position.y = this.instractions.coords.y;
+            this.turret.dae.position.x = this.instractions.coords.x;
+
+            // if (this.changeCamera) {
+            //     this.cameraCurrentType++;
+            //     this.cameraCurrentType %= 3;
+            //     this.cameraTypes[this.cameraCurrentType]();
+            //     this.changeCamera = false;
+            // }
         }
     }]);
 
@@ -5959,8 +6124,8 @@ var Turret = function Turret(dae, coords) {
     this.dae.add(this.parent);
     this.angle = Math.PI - Math.PI;
 
-    this.dae.position.x = coords[0];
-    this.dae.position.y = coords[1];
+    this.dae.position.x = coords.x;
+    this.dae.position.y = coords.y;
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Turret);
@@ -5972,9 +6137,9 @@ var Turret = function Turret(dae, coords) {
 var THREE = __webpack_require__(6);
 
 /**
- * @author Tim Knip / http://www.floorplanner.com/ / tim at floorplanner.com
- * @author Tony Parisi / http://www.tonyparisi.com/
- */
+* @author Tim Knip / http://www.floorplanner.com/ / tim at floorplanner.com
+* @author Tony Parisi / http://www.tonyparisi.com/
+*/
 
 var ColladaLoader = function ColladaLoader() {
 
@@ -6228,6 +6393,7 @@ var ColladaLoader = function ColladaLoader() {
             var url = sceneElement.getAttribute('url').replace(/^#/, '');
             return visualScenes[url.length > 0 ? url : 'visual_scene0'];
         } else {
+
             return null;
         }
     }
@@ -9002,8 +9168,7 @@ var ColladaLoader = function ColladaLoader() {
         switch (param.type) {
 
             case 'IDREF':
-            case 'Name':
-            case 'name':
+            case 'Name':case 'name':
             case 'float':
 
                 return this.data;
@@ -11515,7 +11680,7 @@ var GameView = function (_BaseView) {
         value: function _enableGameMenu(e) {
             if (e.keyCode == 27) {
                 document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
-                // document.getElementById("game").classList.add("blured");
+                document.getElementById("game").classList.add("blured");
             }
         }
     }, {
@@ -11598,6 +11763,7 @@ var GameMenuView = function (_BaseView) {
 
             this.resumeBtn.setCallback(function () {
                 _this3.hide();
+                document.getElementById("game").classList.remove("blured");
             });
             this.quitBtn.setCallback(function () {
                 _this3.hide();
