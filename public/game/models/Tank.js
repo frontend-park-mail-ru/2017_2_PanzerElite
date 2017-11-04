@@ -3,23 +3,8 @@ import Turret from "./Turret";
 
 export default class Tank {
     constructor(dae, coords = { x: 0, y: 0 }) {
-        //some magic for turn
-        this.dae = new THREE.Object3D();
-        this.parent = new THREE.Object3D();
-        //this.parent.position.x = +0.5;
-        this.dae.add(this.parent);
-        // this.original = null;
-        //this.angle = Math.PI - Math.PI;
-        ////new motion
-        // this.forward = false;
-        // this.backward = false;
-        // this.right = false;
-        // this.left = false;
-        // //turret
-        // this.turret = null;
-        // this.turretRight = false;
-        // this.turretLeft = false;
 
+        this.dae = new THREE.Object3D();
         this.dae.position.x = coords.x;
         this.dae.position.y = coords.y;
 
@@ -27,20 +12,20 @@ export default class Tank {
 
 
         this.camera = null;
-        this.changeCamera = false;
+        // this.changeCamera = false;
         this.cameraCurrentType = 0;
 
         this.cameraTypes = [() => {
-            this.camera.position.set(0, 6.5, -37);
+            this.camera.position.set(50, 7.9, 0);
             this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
         }, () => {
-            this.camera.position.set(0, 3, -3);
-            this.camera.lookAt(new THREE.Vector3(0, 2.75, 3));
+            this.camera.position.set(5, 3, 0);
+            this.camera.lookAt(new THREE.Vector3(0, 2.7, 0));
         }, () => {
-            this.camera.position.set(0, 75, -285);
-            this.camera.lookAt(new THREE.Vector3(0, 15, 10));
+            this.camera.position.set(185, 45, 0);
+            this.camera.lookAt(new THREE.Vector3(0, 15, 0));
         }];
-        this.instractions = { coords: {}, angle: -0.5 * Math.PI };
+        this.instractions = { coords: {}, angle: -0.5 * Math.PI, cameraType: 0 };
     }
     moveForward() {
         this.dae.position.y += 0.3 * Math.cos(this.angle);
@@ -76,11 +61,9 @@ export default class Tank {
         this.turret.dae.position.y = this.instractions.coords.y;
         this.turret.dae.position.x = this.instractions.coords.x;
 
-        // if (this.changeCamera) {
-        //     this.cameraCurrentType++;
-        //     this.cameraCurrentType %= 3;
-        //     this.cameraTypes[this.cameraCurrentType]();
-        //     this.changeCamera = false;
-        // }
+        if (this.instractions.cameraType !== this.cameraCurrentType) {
+            this.cameraTypes[this.instractions.cameraType]();
+            this.cameraCurrentType = this.instractions.cameraType;
+        }
     }
 }

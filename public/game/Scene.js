@@ -27,16 +27,14 @@ export default class Scene {
                 let cpy1 = collada[i].clone();
                 let cpy2 = collada[i].clone();
 
-                console.log(cpy1);
-                //cpy1.children[0].children[1].children[0].children[1] = new THREE.Object3D(); //old tank
-                //cpy2.children[0].children[1].children[0].children[0] = new THREE.Object3D();
-
                 cpy1.children[2] = new THREE.Object3D();
                 cpy1.children[3] = new THREE.Object3D();
                 cpy2.children[0] = new THREE.Object3D();
                 cpy2.children[1] = new THREE.Object3D();
 
-                this[key].parent.add(cpy1);
+                // this[key].parent.add(cpy1);
+                this[key].dae.add(cpy1);
+
                 this[key].dae.rotation.x = -0.5 * Math.PI;
                 this[key].dae.rotation.z = 1 * Math.PI;
                 this[key].dae.rotation.y = -0.5 * Math.PI;
@@ -64,13 +62,10 @@ export default class Scene {
         ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
 
         this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
-        //this.camera.position.set(-1, 10, -95);
 
 
-        this.camera.position.set(40, 6.5, 0);
+        this.camera.position.set(50, 7.9, 0);
         this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
-
-        //this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
         this.renderer = new THREE.WebGLRenderer({
             alpha: true,
             antialias: true
@@ -94,8 +89,6 @@ export default class Scene {
         ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
         let light, light2;
         this.scene.add(new THREE.AmbientLight(0x666666));
-        // light = new THREE.DirectionalLight(0xdfebff, 1.75);
-        // light2 = new THREE.DirectionalLight(0xdfebff, 1.75);
         light = new THREE.DirectionalLight(0xdfebff, 1.1);
         light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
 
@@ -104,16 +97,6 @@ export default class Scene {
 
         light.position.multiplyScalar(1.3);
         light2.position.multiplyScalar(1.3);
-
-        //light.castShadow = true;
-        // light.shadow.mapSize.width = 1024;
-        // light.shadow.mapSize.height = 1024;
-        // let d = 300;
-        // light.shadow.camera.left = -d;
-        // light.shadow.camera.right = d;
-        // light.shadow.camera.top = d;
-        // light.shadow.camera.bottom = -d;
-        // light.shadow.camera.far = 1000;
         this.scene.add(light);
         this.scene.add(light2);
         /////////light end
@@ -127,9 +110,7 @@ export default class Scene {
         // Object.keys(action).forEach(key => {
         //     this[type][key] = action[key];
         // });
-        Object.keys(instractions).forEach(key => {
-            this[type].instractions = instractions;
-        });
+        this[type].instractions = instractions;
     }
 
     _startRenderAnimate() {

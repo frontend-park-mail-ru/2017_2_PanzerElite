@@ -15,7 +15,6 @@ export default class GameManager {
             this.strategy.startListenGameLoop((instractions) => {
                 // console.log(instractions);
                 this.scene.updateObjects("tankMe", instractions);
-
             });
             // this.scene.updateObjects("tankMe", {});
             // this.strategy.initKeyListeners((action) => {
@@ -25,9 +24,6 @@ export default class GameManager {
             // this.strategy.randomMovemant(action => {
             // 	this.scene.updateObjects("tankOpponent", action);
             // });
-
-
-
         }
         this.startLoop();
     }

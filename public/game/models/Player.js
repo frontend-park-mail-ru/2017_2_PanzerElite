@@ -1,69 +1,63 @@
 export default class Player {
-    constructor(nickname, coords) {
+    constructor(nickname, coords, actionStates) {
+        this.actionStates = actionStates;
         this.health = 100;
         this.nickname = nickname;
         this.coords = { x: coords[0], y: coords[1] };
         this.angle = -0.5 * Math.PI;
         this.turretAngle = 0;
+        this.cameraCurrentType = 0;
     }
 
     moveForward() {
         this.coords.y += 0.3 * Math.cos(this.angle);
         this.coords.x += 0.3 * Math.sin(this.angle);
-        //this.turret.dae.position.y += 0.3 * Math.cos(this.angle);
-        //this.turret.dae.position.x += 0.3 * Math.sin(this.angle);
     }
     moveBackward() {
         this.coords.y -= 0.2 * Math.cos(this.angle);
         this.coords.x -= 0.2 * Math.sin(this.angle);
-        //this.turret.dae.position.y -= 0.2 * Math.cos(this.angle);
-        //this.turret.dae.position.x -= 0.2 * Math.sin(this.angle);
     }
     turnRight() {
-        //this.dae.rotation.y += 0.005 * Math.PI;
         this.angle += 0.005 * Math.PI;
     }
     turnLeft() {
-        //this.dae.rotation.y -= 0.005 * Math.PI;
         this.angle -= 0.005 * Math.PI;
     }
     turnTurretRight() {
-        //this.turret.dae.rotation.y += 0.008 * Math.PI;
         this.turretAngle += 0.008 * Math.PI;
     }
     turnTurretLeft() {
-        //this.turret.dae.rotation.y -= 0.008 * Math.PI;
         this.turretAngle -= 0.008 * Math.PI;
-
     }
     update() {
-        if (this.forward) {
+        if (this.actionStates.forward) {
             this.moveForward();
         }
-        if (this.backward) {
+        if (this.actionStates.backward) {
             this.moveBackward();
         }
-        if (this.right) {
+        if (this.actionStates.right) {
             this.turnRight();
         }
-        if (this.left) {
+        if (this.actionStates.left) {
             this.turnLeft();
         }
-        if (this.turretLeft) {
+        if (this.actionStates.turretLeft) {
             this.turnTurretLeft();
         }
-        if (this.turretRight) {
+        if (this.actionStates.turretRight) {
             this.turnTurretRight();
         }
-        // if (this.changeCamera) {
-        //     this.cameraCurrentType++;
-        //     this.cameraCurrentType %= 3;
-        //     this.cameraTypes[this.cameraCurrentType]();
-        //     this.changeCamera = false;
-        // }
+        if (this.actionStates.changeCamera) {
+            this.actionStates.changeCamera = false;
+            // this.changeCamera = false;
+            console.log("im in change");
+            this.cameraCurrentType++;
+            this.cameraCurrentType %= 3;
+        }
     }
 
     getInstrustions() {
-        return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle };
+        return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType };
     }
 }
