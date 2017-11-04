@@ -32,6 +32,8 @@ export default class SinglePlayer {
     }
 
     _startLoop() {
+        //window.requestIdleCallback(this._gameLoop);
+
         window.requestAnimationFrame(this._gameLoop);
         //this.gameLoopId = setInterval(this._gameLoop, 1);
     }
@@ -50,6 +52,7 @@ export default class SinglePlayer {
         this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
             this.me.getInstrustions()
         );
+        //window.requestIdleCallback(this._gameLoop);
         window.requestAnimationFrame(this._gameLoop);
 
     }

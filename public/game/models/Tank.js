@@ -6,7 +6,7 @@ export default class Tank {
         //some magic for turn
         this.dae = new THREE.Object3D();
         this.parent = new THREE.Object3D();
-        this.parent.position.x = +0.5;
+        //this.parent.position.x = +0.5;
         this.dae.add(this.parent);
         // this.original = null;
         //this.angle = Math.PI - Math.PI;
@@ -69,8 +69,8 @@ export default class Tank {
         this.turret.dae.rotation.y -= 0.008 * Math.PI;
     }
     update() {
-        this.dae.rotation.y = this.instractions.angle - 0.5 * Math.PI;
-        this.turret.dae.rotation.y = this.instractions.turretAngle - 0.5 * Math.PI;
+        this.dae.rotation.y = this.instractions.angle - Math.PI;
+        this.turret.dae.rotation.y = this.instractions.turretAngle - Math.PI;
         this.dae.position.y = this.instractions.coords.y;
         this.dae.position.x = this.instractions.coords.x;
         this.turret.dae.position.y = this.instractions.coords.y;

@@ -4966,6 +4966,8 @@ var SinglePlayer = function () {
     }, {
         key: "_startLoop",
         value: function _startLoop() {
+            //window.requestIdleCallback(this._gameLoop);
+
             window.requestAnimationFrame(this._gameLoop);
             //this.gameLoopId = setInterval(this._gameLoop, 1);
         }
@@ -4988,6 +4990,7 @@ var SinglePlayer = function () {
             this.me.update();
             this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
             this.me.getInstrustions());
+            //window.requestIdleCallback(this._gameLoop);
             window.requestAnimationFrame(this._gameLoop);
         }
     }, {
@@ -5759,15 +5762,25 @@ var Scene = function () {
         this.scene = new THREE.Scene();
         this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
         this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
-        Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("Hammer+Tank/model.dae").then(function (coll) {
+        // modelLoader("Hammer+Tank/model.dae").then(coll => {
+        Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("T90/model.dae").then(function (coll) {
+
             var collada = [coll.scene.clone(), coll.scene.clone()];
             var i = 0;
             ["tankOpponent", "tankMe"].forEach(function (key) {
                 //tank
                 var cpy1 = collada[i].clone();
                 var cpy2 = collada[i].clone();
-                cpy1.children[0].children[1].children[0].children[1] = new THREE.Object3D();
-                cpy2.children[0].children[1].children[0].children[0] = new THREE.Object3D();
+
+                console.log(cpy1);
+                //cpy1.children[0].children[1].children[0].children[1] = new THREE.Object3D(); //old tank
+                //cpy2.children[0].children[1].children[0].children[0] = new THREE.Object3D();
+
+                cpy1.children[2] = new THREE.Object3D();
+                cpy1.children[3] = new THREE.Object3D();
+                cpy2.children[0] = new THREE.Object3D();
+                cpy2.children[1] = new THREE.Object3D();
+
                 _this[key].parent.add(cpy1);
                 _this[key].dae.rotation.x = -0.5 * Math.PI;
                 _this[key].dae.rotation.z = 1 * Math.PI;
@@ -5779,6 +5792,8 @@ var Scene = function () {
                 //turret
                 _this[key].turret.parent.add(cpy2);
                 _this[key].turret.dae.rotation.x = -0.5 * Math.PI;
+                _this[key].turret.dae.rotation.y = +0.5 * Math.PI;
+
                 _this[key].turret.dae.rotation.z = 1 * Math.PI;
                 _this.scene.add(_this[key].turret.dae);
                 i++;
@@ -5798,7 +5813,7 @@ var Scene = function () {
             //this.camera.position.set(-1, 10, -95);
 
 
-            this.camera.position.set(0, 6.5, -37);
+            this.camera.position.set(40, 6.5, 0);
             this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
 
             //this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
@@ -5806,7 +5821,7 @@ var Scene = function () {
                 alpha: true,
                 antialias: true
             });
-            this.renderer.shadowMap.enabled = true;
+            //this.renderer.shadowMap.enabled = true;
 
             this.tankMe.turret.dae.add(this.camera);
             ///
@@ -5837,15 +5852,15 @@ var Scene = function () {
             light.position.multiplyScalar(1.3);
             light2.position.multiplyScalar(1.3);
 
-            light.castShadow = true;
-            light.shadow.mapSize.width = 1024;
-            light.shadow.mapSize.height = 1024;
-            var d = 300;
-            light.shadow.camera.left = -d;
-            light.shadow.camera.right = d;
-            light.shadow.camera.top = d;
-            light.shadow.camera.bottom = -d;
-            light.shadow.camera.far = 1000;
+            //light.castShadow = true;
+            // light.shadow.mapSize.width = 1024;
+            // light.shadow.mapSize.height = 1024;
+            // let d = 300;
+            // light.shadow.camera.left = -d;
+            // light.shadow.camera.right = d;
+            // light.shadow.camera.top = d;
+            // light.shadow.camera.bottom = -d;
+            // light.shadow.camera.far = 1000;
             this.scene.add(light);
             this.scene.add(light2);
             /////////light end
@@ -6005,7 +6020,7 @@ var Tank = function () {
         //some magic for turn
         this.dae = new THREE.Object3D();
         this.parent = new THREE.Object3D();
-        this.parent.position.x = +0.5;
+        //this.parent.position.x = +0.5;
         this.dae.add(this.parent);
         // this.original = null;
         //this.angle = Math.PI - Math.PI;
@@ -6082,8 +6097,8 @@ var Tank = function () {
     }, {
         key: "update",
         value: function update() {
-            this.dae.rotation.y = this.instractions.angle - 0.5 * Math.PI;
-            this.turret.dae.rotation.y = this.instractions.turretAngle - 0.5 * Math.PI;
+            this.dae.rotation.y = this.instractions.angle - Math.PI;
+            this.turret.dae.rotation.y = this.instractions.turretAngle - Math.PI;
             this.dae.position.y = this.instractions.coords.y;
             this.dae.position.x = this.instractions.coords.x;
             this.turret.dae.position.y = this.instractions.coords.y;
@@ -6119,7 +6134,7 @@ var Turret = function Turret(dae, coords) {
     this.parent = new THREE.Object3D();
     // this.parent.position.y += -1;
 
-    this.parent.position.z += -0.5;
+    //this.parent.position.z += -0.5;
     this.parent.rotation.y += 0.5 * Math.PI;
     this.dae.add(this.parent);
     this.angle = Math.PI - Math.PI;

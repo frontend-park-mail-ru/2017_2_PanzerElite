@@ -17,15 +17,25 @@ export default class Scene {
         this.scene = new THREE.Scene();
         this.tankMe = new Tank(null, startPositionMe);
         this.tankOpponent = new Tank(null, startPositionOpponent);
-        modelLoader("Hammer+Tank/model.dae").then(coll => {
+        // modelLoader("Hammer+Tank/model.dae").then(coll => {
+        modelLoader("T90/model.dae").then(coll => {
+
             let collada = [coll.scene.clone(), coll.scene.clone()];
             let i = 0;
             ["tankOpponent", "tankMe"].forEach((key) => {
                 //tank
                 let cpy1 = collada[i].clone();
                 let cpy2 = collada[i].clone();
-                cpy1.children[0].children[1].children[0].children[1] = new THREE.Object3D();
-                cpy2.children[0].children[1].children[0].children[0] = new THREE.Object3D();
+
+                console.log(cpy1);
+                //cpy1.children[0].children[1].children[0].children[1] = new THREE.Object3D(); //old tank
+                //cpy2.children[0].children[1].children[0].children[0] = new THREE.Object3D();
+
+                cpy1.children[2] = new THREE.Object3D();
+                cpy1.children[3] = new THREE.Object3D();
+                cpy2.children[0] = new THREE.Object3D();
+                cpy2.children[1] = new THREE.Object3D();
+
                 this[key].parent.add(cpy1);
                 this[key].dae.rotation.x = -0.5 * Math.PI;
                 this[key].dae.rotation.z = 1 * Math.PI;
@@ -37,6 +47,8 @@ export default class Scene {
                 //turret
                 this[key].turret.parent.add(cpy2);
                 this[key].turret.dae.rotation.x = -0.5 * Math.PI;
+                this[key].turret.dae.rotation.y = +0.5 * Math.PI;
+
                 this[key].turret.dae.rotation.z = 1 * Math.PI;
                 this.scene.add(this[key].turret.dae);
                 i++;
@@ -55,7 +67,7 @@ export default class Scene {
         //this.camera.position.set(-1, 10, -95);
 
 
-        this.camera.position.set(0, 6.5, -37);
+        this.camera.position.set(40, 6.5, 0);
         this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
 
         //this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
@@ -63,7 +75,7 @@ export default class Scene {
             alpha: true,
             antialias: true
         });
-        this.renderer.shadowMap.enabled = true;
+        //this.renderer.shadowMap.enabled = true;
 
         this.tankMe.turret.dae.add(this.camera);
         ///
@@ -93,15 +105,15 @@ export default class Scene {
         light.position.multiplyScalar(1.3);
         light2.position.multiplyScalar(1.3);
 
-        light.castShadow = true;
-        light.shadow.mapSize.width = 1024;
-        light.shadow.mapSize.height = 1024;
-        let d = 300;
-        light.shadow.camera.left = -d;
-        light.shadow.camera.right = d;
-        light.shadow.camera.top = d;
-        light.shadow.camera.bottom = -d;
-        light.shadow.camera.far = 1000;
+        //light.castShadow = true;
+        // light.shadow.mapSize.width = 1024;
+        // light.shadow.mapSize.height = 1024;
+        // let d = 300;
+        // light.shadow.camera.left = -d;
+        // light.shadow.camera.right = d;
+        // light.shadow.camera.top = d;
+        // light.shadow.camera.bottom = -d;
+        // light.shadow.camera.far = 1000;
         this.scene.add(light);
         this.scene.add(light2);
         /////////light end
