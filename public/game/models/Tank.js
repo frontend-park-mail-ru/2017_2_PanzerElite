@@ -10,7 +10,6 @@ export default class Tank {
 
         this.turret = new Turret(null, coords);
 
-
         this.camera = null;
         // this.changeCamera = false;
         this.cameraCurrentType = 0;

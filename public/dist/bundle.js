@@ -5627,6 +5627,7 @@ var Player = function () {
         this.angle = -0.5 * Math.PI;
         this.turretAngle = 0;
         this.cameraCurrentType = 0;
+        this.map = [{ x: 0, y: 0, height: 58, width: 57 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
     }
 
     _createClass(Player, [{
@@ -5666,6 +5667,12 @@ var Player = function () {
         value: function update() {
             if (this.actionStates.forward) {
                 this.moveForward();
+                if (this.isCollision()) {
+                    var B = this.isCollision();
+                    while (this.houseCollision(B)) {
+                        this.moveBackward();
+                    }
+                }
             }
             if (this.actionStates.backward) {
                 this.moveBackward();
@@ -5689,6 +5696,51 @@ var Player = function () {
                 this.cameraCurrentType++;
                 this.cameraCurrentType %= 3;
             }
+        }
+
+        // isCollision(B) {
+        //     let w = 0.5 * (3 + B.width);
+        //     let h = 0.5 * (7 + B.height);
+        //     let dx = this.coords.x - B.x;
+        //     let dy = this.coords.y - B.y;
+
+        //     if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
+        //         console.log("its collision bro");
+        //         return true;
+        //     }
+        // }
+
+    }, {
+        key: "isCollision",
+        value: function isCollision() {
+            var _this = this;
+
+            var flag = null;
+            this.map.forEach(function (B) {
+                var w = 0.5 * (3 + B.width);
+                var h = 0.5 * (7 + B.height);
+                var dx = _this.coords.x - B.x;
+                var dy = _this.coords.y - B.y;
+
+                if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
+                    console.log("its collision bro");
+                    flag = B;
+                }
+            });
+            return flag;
+        }
+    }, {
+        key: "houseCollision",
+        value: function houseCollision(B) {
+            var w = 0.5 * (3 + B.width);
+            var h = 0.5 * (7 + B.height);
+            var dx = this.coords.x - B.x;
+            var dy = this.coords.y - B.y;
+            if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
+                console.log("coll");
+                return true;
+            }
+            return false;
         }
     }, {
         key: "getInstrustions",
@@ -5720,7 +5772,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-// var THREE = require("three");
 
 var Scene = function () {
     function Scene(startPositionMe, startPositionOpponent) {
@@ -5908,40 +5959,14 @@ var Scene = function () {
                 _this4.scene.add(coll.scene);
                 _this4.scene.add(road2);
             });
-
-            // modelLoader("trees/tree/model2.dae").then(coll => {
-            //     coll.scene.rotation.x = -0.5 * Math.PI;
-            //     coll.scene.rotation.z = 1 * Math.PI;
-            //     coll.scene.position.z -= 0.1;
-            //     coll.scene.scale.z *= 1.5;
-            //     coll.scene.scale.x *= 1.5;
-            //     coll.scene.scale.y *= 1.5;
-            //     coll.scene.position.z = 0.11;
-            //     coll.scene.position.y = 60;
-            //     coll.scene.position.x = 60;
-
-
-            //     this.scene.add(coll.scene);
-
-
-            // })
-
-            // modelLoader("trees/tree/model.dae").then(coll => {
-            //     coll.scene.rotation.x = -0.5 * Math.PI;
-            //     coll.scene.rotation.z = 1 * Math.PI;
-            //     coll.scene.position.z -= 0.1;
-            //     // coll.scene.scale.z *= 0.75;
-            //     // coll.scene.scale.x *= 1.5;
-            //     // coll.scene.scale.y *= 1.5;
-            //     coll.scene.position.z = 0.11;
-            //     coll.scene.position.y = 70;
-            //     coll.scene.position.x = 70;
-
-
-            //     this.scene.add(coll.scene);
-
-
-            // })
+            // let geometry = new THREE.BoxGeometry(7, 3, 1);
+            // let material = new THREE.MeshBasicMaterial({
+            //     color: 0xFF0000
+            // });
+            // let cube = new THREE.Mesh(geometry, material);
+            // cube.position.x = 50;
+            // cube.position.y = 50;
+            // this.scene.add(cube);
         }
     }]);
 

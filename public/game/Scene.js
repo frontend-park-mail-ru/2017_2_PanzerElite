@@ -3,7 +3,6 @@ import modelLoader from "./utils/modelLoader";
 import MapCreator from "./utils/MapCreator";
 
 import progressBar from "../modules/load-bar";
-// var THREE = require("three");
 
 export default class Scene {
     constructor(startPositionMe, startPositionOpponent) {
@@ -164,56 +163,30 @@ export default class Scene {
         this.scene.add(mesh);
         //
         modelLoader("road/model.dae").then(coll => {
-            coll.scene.rotation.x = -0.5 * Math.PI;
-            coll.scene.rotation.z = 1 * Math.PI;
-            coll.scene.position.z -= 0.1;
-            coll.scene.scale.z = 3;
-            coll.scene.scale.x = 0.05;
-            coll.scene.position.z = 0.11;
-            coll.scene.position.y = 500;
-            let road2 = coll.scene.clone();
-            road2.rotation.y = 0.5 * Math.PI;
-            road2.position.y = 0;
-            road2.position.x = 500;
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                coll.scene.scale.z = 3;
+                coll.scene.scale.x = 0.05;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.y = 500;
+                let road2 = coll.scene.clone();
+                road2.rotation.y = 0.5 * Math.PI;
+                road2.position.y = 0;
+                road2.position.x = 500;
 
-            this.scene.add(coll.scene);
-            this.scene.add(road2);
+                this.scene.add(coll.scene);
+                this.scene.add(road2);
 
-        })
-
-        // modelLoader("trees/tree/model2.dae").then(coll => {
-        //     coll.scene.rotation.x = -0.5 * Math.PI;
-        //     coll.scene.rotation.z = 1 * Math.PI;
-        //     coll.scene.position.z -= 0.1;
-        //     coll.scene.scale.z *= 1.5;
-        //     coll.scene.scale.x *= 1.5;
-        //     coll.scene.scale.y *= 1.5;
-        //     coll.scene.position.z = 0.11;
-        //     coll.scene.position.y = 60;
-        //     coll.scene.position.x = 60;
-
-
-        //     this.scene.add(coll.scene);
-
-
-        // })
-
-        // modelLoader("trees/tree/model.dae").then(coll => {
-        //     coll.scene.rotation.x = -0.5 * Math.PI;
-        //     coll.scene.rotation.z = 1 * Math.PI;
-        //     coll.scene.position.z -= 0.1;
-        //     // coll.scene.scale.z *= 0.75;
-        //     // coll.scene.scale.x *= 1.5;
-        //     // coll.scene.scale.y *= 1.5;
-        //     coll.scene.position.z = 0.11;
-        //     coll.scene.position.y = 70;
-        //     coll.scene.position.x = 70;
-
-
-        //     this.scene.add(coll.scene);
-
-
-        // })
+            })
+            // let geometry = new THREE.BoxGeometry(7, 3, 1);
+            // let material = new THREE.MeshBasicMaterial({
+            //     color: 0xFF0000
+            // });
+            // let cube = new THREE.Mesh(geometry, material);
+            // cube.position.x = 50;
+            // cube.position.y = 50;
+            // this.scene.add(cube);
 
     }
 
