@@ -18,7 +18,7 @@ export default function MapCreator(scene) {
         housePlace.forEach((key) => {
 
             let house = houseParams[key.type].house.clone();
-            let geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 1);
+            let geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
             let material = new THREE.MeshBasicMaterial({
                 color: houseParams[key.type].color
             });

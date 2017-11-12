@@ -1,3 +1,5 @@
+import { setTimeout } from "timers";
+
 export default class Player {
     constructor(nickname, coords, actionStates) {
         this.actionStates = actionStates;
@@ -101,45 +103,10 @@ export default class Player {
             this.cameraCurrentType++;
             this.cameraCurrentType %= 3;
         }
+        if (this.actionStates.fire) {
+            setTimeout(() => { this.actionStates.fire = false; }, 500);
+        }
     }
-
-    // isCollision(B) {
-    //     let w = 0.5 * (3 + B.width);
-    //     let h = 0.5 * (7 + B.height);
-    //     let dx = this.coords.x - B.x;
-    //     let dy = this.coords.y - B.y;
-
-    //     if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
-    //         console.log("its collision bro");
-    //         return true;
-    //     }
-    // }
-    // isCollision() {
-    //     let flag = null;
-    //     this.map.forEach((B) => {
-    //         let w = 0.5 * (3 + B.height);
-    //         let h = 0.5 * (7 + B.width);
-    //         let dx = this.coords.x - B.x;
-    //         let dy = this.coords.y - B.y;
-
-    //         if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
-    //             console.log("its collision bro");
-    //             flag = B;
-    //         }
-    //     });
-    //     return flag;
-    // }
-    // houseCollision(B) {
-    //     let w = 0.5 * (3 + B.width);
-    //     let h = 0.5 * (7 + B.height);
-    //     let dx = this.coords.x - B.x;
-    //     let dy = this.coords.y - B.y;
-    //     if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
-    //         console.log("coll");
-    //         return true;
-    //     }
-    //     return false;
-    // }
 
     _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
         let leftX = polyX - polyH / 2;
@@ -182,6 +149,6 @@ export default class Player {
     }
 
     getInstrustions() {
-        return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType };
+        return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire };
     }
 }

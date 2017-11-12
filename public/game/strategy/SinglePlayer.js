@@ -78,6 +78,13 @@ export default class SinglePlayer {
         }, function(e) {
             callback({ changeCamera: true });
         });
+        keyboardJS.bind("space", function(e) {
+            // callback({ changeCamera: false });
+        }, function(e) {
+            callback({ fire: true });
+            console.log("fire in sp");
+
+        });
     }
     randomMovemant(callback) {
         callback({ left: true, forward: true });

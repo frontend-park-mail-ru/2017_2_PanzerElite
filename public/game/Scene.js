@@ -3,6 +3,8 @@ import modelLoader from "./utils/modelLoader";
 import MapCreator from "./utils/MapCreator";
 
 import progressBar from "../modules/load-bar";
+import { setTimeout } from "timers";
+// import { Math } from "../../../../Library/Caches/typescript/2.6/node_modules/@types/three";
 
 export default class Scene {
     constructor(startPositionMe, startPositionOpponent) {
@@ -110,6 +112,10 @@ export default class Scene {
         //     this[type][key] = action[key];
         // });
         this[type].instractions = instractions;
+        if (instractions.fire) {
+            this.tankMe.boom.visible = true;
+            setTimeout(() => { this.tankMe.boom.visible = false }, 500);
+        }
     }
 
     _startRenderAnimate() {
@@ -163,21 +169,35 @@ export default class Scene {
         this.scene.add(mesh);
         //
         modelLoader("road/model.dae").then(coll => {
+            coll.scene.rotation.x = -0.5 * Math.PI;
+            coll.scene.rotation.z = 1 * Math.PI;
+            coll.scene.position.z -= 0.1;
+            coll.scene.scale.z = 3;
+            coll.scene.scale.x = 0.05;
+            coll.scene.position.z = 0.11;
+            coll.scene.position.y = 500;
+            let road2 = coll.scene.clone();
+            road2.rotation.y = 0.5 * Math.PI;
+            road2.position.y = 0;
+            road2.position.x = 500;
+
+            this.scene.add(coll.scene);
+            this.scene.add(road2);
+
+        })
+        modelLoader("boom/model.dae").then(coll => {
                 coll.scene.rotation.x = -0.5 * Math.PI;
                 coll.scene.rotation.z = 1 * Math.PI;
-                coll.scene.position.z -= 0.1;
-                coll.scene.scale.z = 3;
-                coll.scene.scale.x = 0.05;
-                coll.scene.position.z = 0.11;
-                coll.scene.position.y = 500;
-                let road2 = coll.scene.clone();
-                road2.rotation.y = 0.5 * Math.PI;
-                road2.position.y = 0;
-                road2.position.x = 500;
 
-                this.scene.add(coll.scene);
-                this.scene.add(road2);
+                coll.scene.scale.z *= 0.45;
+                coll.scene.scale.y *= 0.45;
+                coll.scene.scale.x *= 0.45;
 
+                this.boom = coll.scene.clone();
+                this.boom.position.set(-10, 1.75, 0);
+                this.tankMe.turret.dae.add(this.boom);
+                this.tankMe.boom = this.boom;
+                this.tankMe.boom.visible = false
             })
             // let geometry = new THREE.BoxGeometry(7, 3, 1);
             // let material = new THREE.MeshBasicMaterial({
