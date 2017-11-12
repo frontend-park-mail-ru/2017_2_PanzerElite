@@ -7,8 +7,9 @@ export default class Player {
         this.angle = -0.5 * Math.PI;
         this.turretAngle = 0;
         this.cameraCurrentType = 0;
+        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false };
         this.map = [
-            { x: 0, y: 0, height: 58, width: 57 },
+            { x: 0, y: 0, height: 57, width: 58 },
             { x: -136, y: 88, height: 18, width: 17 },
             { x: -48, y: 108, height: 18, width: 17 },
             { x: -20, y: 56, height: 18, width: 17 },
@@ -31,8 +32,8 @@ export default class Player {
         this.coords.x += 0.3 * Math.sin(this.angle);
     }
     moveBackward() {
-        this.coords.y -= 0.2 * Math.cos(this.angle);
-        this.coords.x -= 0.2 * Math.sin(this.angle);
+        this.coords.y -= 0.3 * Math.cos(this.angle);
+        this.coords.x -= 0.3 * Math.sin(this.angle);
     }
     turnRight() {
         this.angle += 0.005 * Math.PI;
@@ -48,22 +49,46 @@ export default class Player {
     }
     update() {
         if (this.actionStates.forward) {
-            this.moveForward();
-            if (this.isCollision()) {
-                let B = this.isCollision();
-                while (this.houseCollision(B)) {
-                    this.moveBackward();
-                }
+            this.deprecatedMovemants.backward = false;
+            if (!this.deprecatedMovemants.forward) {
+                this.moveForward();
+            }
+            if (this._tankCollisionWithHouses()) {
+                this.deprecatedMovemants.forward = true;
+            } else {
+                this.deprecatedMovemants.forward = false;
             }
         }
         if (this.actionStates.backward) {
-            this.moveBackward();
+            this.deprecatedMovemants.forward = false;
+            if (!this.deprecatedMovemants.backward) {
+                this.moveBackward();
+            }
+            if (this._tankCollisionWithHouses()) {
+                this.deprecatedMovemants.backward = true;
+            } else {
+                this.deprecatedMovemants.backward = false;
+            }
         }
         if (this.actionStates.right) {
-            this.turnRight();
+            if (!this.deprecatedMovemants.turnRight) {
+                this.turnRight();
+            }
+            if (this._tankCollisionWithHouses()) {
+                this.deprecatedMovemants.turnRight = true;
+            } else {
+                this.deprecatedMovemants.turnRight = false;
+            }
         }
         if (this.actionStates.left) {
-            this.turnLeft();
+            if (!this.deprecatedMovemants.turnLeft) {
+                this.turnLeft();
+            }
+            if (this._tankCollisionWithHouses()) {
+                this.deprecatedMovemants.turnLeft = true;
+            } else {
+                this.deprecatedMovemants.turnLeft = false;
+            }
         }
         if (this.actionStates.turretLeft) {
             this.turnTurretLeft();
@@ -73,8 +98,6 @@ export default class Player {
         }
         if (this.actionStates.changeCamera) {
             this.actionStates.changeCamera = false;
-            // this.changeCamera = false;
-            console.log("im in change");
             this.cameraCurrentType++;
             this.cameraCurrentType %= 3;
         }
@@ -91,31 +114,71 @@ export default class Player {
     //         return true;
     //     }
     // }
-    isCollision() {
-        let flag = null;
-        this.map.forEach((B) => {
-            let w = 0.5 * (3 + B.width);
-            let h = 0.5 * (7 + B.height);
-            let dx = this.coords.x - B.x;
-            let dy = this.coords.y - B.y;
+    // isCollision() {
+    //     let flag = null;
+    //     this.map.forEach((B) => {
+    //         let w = 0.5 * (3 + B.height);
+    //         let h = 0.5 * (7 + B.width);
+    //         let dx = this.coords.x - B.x;
+    //         let dy = this.coords.y - B.y;
 
-            if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
-                console.log("its collision bro");
-                flag = B;
+    //         if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
+    //             console.log("its collision bro");
+    //             flag = B;
+    //         }
+    //     });
+    //     return flag;
+    // }
+    // houseCollision(B) {
+    //     let w = 0.5 * (3 + B.width);
+    //     let h = 0.5 * (7 + B.height);
+    //     let dx = this.coords.x - B.x;
+    //     let dy = this.coords.y - B.y;
+    //     if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
+    //         console.log("coll");
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+    _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
+        let leftX = polyX - polyH / 2;
+        let rightX = leftX + polyH;
+        if (pointX < rightX && pointX > leftX) {
+            let leftY = polyY - polyW / 2;
+            let rightY = leftY + polyW;
+            if (pointY < rightY && pointY > leftY) {
+                return true;
             }
-        });
-        return flag;
-    }
-    houseCollision(B) {
-        let w = 0.5 * (3 + B.width);
-        let h = 0.5 * (7 + B.height);
-        let dx = this.coords.x - B.x;
-        let dy = this.coords.y - B.y;
-        if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
-            console.log("coll");
-            return true;
         }
         return false;
+    }
+
+    _tankCollisionWithHouses() {
+        let tankPoints = [{
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            },
+            {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            }
+        ];
+        let flag = false;
+        this.map.some(key => {
+            tankPoints.some(tp => {
+                flag = this._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
+                return flag;
+            })
+            return flag;
+        });
+        return flag;
     }
 
     getInstrustions() {

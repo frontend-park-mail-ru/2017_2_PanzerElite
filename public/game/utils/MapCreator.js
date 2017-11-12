@@ -41,6 +41,17 @@ export default function MapCreator(scene) {
         });
 
     });
+    map.forEach((key) => {
+        let geometry = new THREE.BoxGeometry(key.height, key.width, 4);
+        let material = new THREE.MeshBasicMaterial({
+            color: 0xFF0000
+        });
+        let cube = new THREE.Mesh(geometry, material);
+        cube.position.x = key.x;
+        cube.position.y = key.y;
+        // scene.add(cube);
+        // scene.add(house);
+    });
 
 }
 
@@ -56,6 +67,24 @@ function modelInit(collada, size) {
     return plc;
 };
 
+
+let map = [
+    { x: 0, y: 0, height: 57, width: 58 },
+    { x: -136, y: 88, height: 18, width: 17 },
+    { x: -48, y: 108, height: 18, width: 17 },
+    { x: -20, y: 56, height: 18, width: 17 },
+    { x: -136, y: -20, height: 18, width: 17 },
+    { x: 68, y: 40, height: 18, width: 17 },
+    { x: 100, y: 40, height: 18, width: 17 },
+    { x: 132, y: 40, height: 18, width: 17 },
+    { x: -100, y: 24, height: 32, width: 20 },
+    { x: -128, y: -88, height: 32, width: 20 },
+    { x: -20, y: -92, height: 20, width: 32 },
+    { x: 32, y: 104, height: 32, width: 20 },
+    { x: 140, y: 84, height: 20, width: 32 },
+    { x: -84, y: 64, height: 42, width: 25 },
+    { x: -56, y: -40, height: 25, width: 42 },
+];
 
 let houseParams = [{}, {
     x: 57,

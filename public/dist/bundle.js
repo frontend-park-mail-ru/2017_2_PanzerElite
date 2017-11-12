@@ -5627,7 +5627,8 @@ var Player = function () {
         this.angle = -0.5 * Math.PI;
         this.turretAngle = 0;
         this.cameraCurrentType = 0;
-        this.map = [{ x: 0, y: 0, height: 58, width: 57 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
+        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false };
+        this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
     }
 
     _createClass(Player, [{
@@ -5639,8 +5640,8 @@ var Player = function () {
     }, {
         key: "moveBackward",
         value: function moveBackward() {
-            this.coords.y -= 0.2 * Math.cos(this.angle);
-            this.coords.x -= 0.2 * Math.sin(this.angle);
+            this.coords.y -= 0.3 * Math.cos(this.angle);
+            this.coords.x -= 0.3 * Math.sin(this.angle);
         }
     }, {
         key: "turnRight",
@@ -5666,22 +5667,46 @@ var Player = function () {
         key: "update",
         value: function update() {
             if (this.actionStates.forward) {
-                this.moveForward();
-                if (this.isCollision()) {
-                    var B = this.isCollision();
-                    while (this.houseCollision(B)) {
-                        this.moveBackward();
-                    }
+                this.deprecatedMovemants.backward = false;
+                if (!this.deprecatedMovemants.forward) {
+                    this.moveForward();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.forward = true;
+                } else {
+                    this.deprecatedMovemants.forward = false;
                 }
             }
             if (this.actionStates.backward) {
-                this.moveBackward();
+                this.deprecatedMovemants.forward = false;
+                if (!this.deprecatedMovemants.backward) {
+                    this.moveBackward();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.backward = true;
+                } else {
+                    this.deprecatedMovemants.backward = false;
+                }
             }
             if (this.actionStates.right) {
-                this.turnRight();
+                if (!this.deprecatedMovemants.turnRight) {
+                    this.turnRight();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.turnRight = true;
+                } else {
+                    this.deprecatedMovemants.turnRight = false;
+                }
             }
             if (this.actionStates.left) {
-                this.turnLeft();
+                if (!this.deprecatedMovemants.turnLeft) {
+                    this.turnLeft();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.turnLeft = true;
+                } else {
+                    this.deprecatedMovemants.turnLeft = false;
+                }
             }
             if (this.actionStates.turretLeft) {
                 this.turnTurretLeft();
@@ -5691,8 +5716,6 @@ var Player = function () {
             }
             if (this.actionStates.changeCamera) {
                 this.actionStates.changeCamera = false;
-                // this.changeCamera = false;
-                console.log("im in change");
                 this.cameraCurrentType++;
                 this.cameraCurrentType %= 3;
             }
@@ -5709,38 +5732,74 @@ var Player = function () {
         //         return true;
         //     }
         // }
+        // isCollision() {
+        //     let flag = null;
+        //     this.map.forEach((B) => {
+        //         let w = 0.5 * (3 + B.height);
+        //         let h = 0.5 * (7 + B.width);
+        //         let dx = this.coords.x - B.x;
+        //         let dy = this.coords.y - B.y;
+
+        //         if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
+        //             console.log("its collision bro");
+        //             flag = B;
+        //         }
+        //     });
+        //     return flag;
+        // }
+        // houseCollision(B) {
+        //     let w = 0.5 * (3 + B.width);
+        //     let h = 0.5 * (7 + B.height);
+        //     let dx = this.coords.x - B.x;
+        //     let dy = this.coords.y - B.y;
+        //     if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
+        //         console.log("coll");
+        //         return true;
+        //     }
+        //     return false;
+        // }
 
     }, {
-        key: "isCollision",
-        value: function isCollision() {
-            var _this = this;
-
-            var flag = null;
-            this.map.forEach(function (B) {
-                var w = 0.5 * (3 + B.width);
-                var h = 0.5 * (7 + B.height);
-                var dx = _this.coords.x - B.x;
-                var dy = _this.coords.y - B.y;
-
-                if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
-                    console.log("its collision bro");
-                    flag = B;
+        key: "_pointInPolygon",
+        value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
+            var leftX = polyX - polyH / 2;
+            var rightX = leftX + polyH;
+            if (pointX < rightX && pointX > leftX) {
+                var leftY = polyY - polyW / 2;
+                var rightY = leftY + polyW;
+                if (pointY < rightY && pointY > leftY) {
+                    return true;
                 }
-            });
-            return flag;
-        }
-    }, {
-        key: "houseCollision",
-        value: function houseCollision(B) {
-            var w = 0.5 * (3 + B.width);
-            var h = 0.5 * (7 + B.height);
-            var dx = this.coords.x - B.x;
-            var dy = this.coords.y - B.y;
-            if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
-                console.log("coll");
-                return true;
             }
             return false;
+        }
+    }, {
+        key: "_tankCollisionWithHouses",
+        value: function _tankCollisionWithHouses() {
+            var _this = this;
+
+            var tankPoints = [{
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            }];
+            var flag = false;
+            this.map.some(function (key) {
+                tankPoints.some(function (tp) {
+                    flag = _this._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
+                    return flag;
+                });
+                return flag;
+            });
+            return flag;
         }
     }, {
         key: "getInstrustions",
@@ -11135,6 +11194,17 @@ function MapCreator(scene) {
             scene.add(house);
         });
     });
+    map.forEach(function (key) {
+        var geometry = new THREE.BoxGeometry(key.height, key.width, 4);
+        var material = new THREE.MeshBasicMaterial({
+            color: 0xFF0000
+        });
+        var cube = new THREE.Mesh(geometry, material);
+        cube.position.x = key.x;
+        cube.position.y = key.y;
+        // scene.add(cube);
+        // scene.add(house);
+    });
 }
 
 function modelInit(collada, size) {
@@ -11148,6 +11218,8 @@ function modelInit(collada, size) {
     plc.position.z -= 0.1;
     return plc;
 };
+
+var map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
 
 var houseParams = [{}, {
     x: 57,
@@ -11410,6 +11482,8 @@ var changeFields = [{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__theme_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_GameManager__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Router__ = __webpack_require__(1);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11423,59 +11497,66 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
+
 var ThemeView = function (_BaseView) {
-	_inherits(ThemeView, _BaseView);
+    _inherits(ThemeView, _BaseView);
 
-	function ThemeView(parentNode) {
-		_classCallCheck(this, ThemeView);
+    function ThemeView(parentNode) {
+        _classCallCheck(this, ThemeView);
 
-		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "theme" });
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "theme" });
 
-		var _this = _possibleConstructorReturn(this, (ThemeView.__proto__ || Object.getPrototypeOf(ThemeView)).call(this, view.el));
+        var _this = _possibleConstructorReturn(this, (ThemeView.__proto__ || Object.getPrototypeOf(ThemeView)).call(this, view.el));
 
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
 
-		_this.themeFlag = true;
-		_this.wallpaper = null;
-		return _this;
-	}
+        _this.themeFlag = true;
+        _this.wallpaper = null;
+        return _this;
+    }
 
-	_createClass(ThemeView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
+    _createClass(ThemeView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
 
-			__WEBPACK_IMPORTED_MODULE_1__theme_js__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
+            __WEBPACK_IMPORTED_MODULE_1__theme_js__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
 
-			this.themeBtn.setCallback(function () {
-				_this3.themeFlag ? _this3.wallpaper = "url(../images/2wallpaper.jpg)" : _this3.wallpaper = "url(../images/wallpaper.jpg)";
-				document.getElementById("background").style.backgroundImage = _this3.wallpaper;
-				_this3.parentNode.childNodes.forEach(function (key) {
-					key.childNodes.forEach(function (child) {
-						if (child.classList.contains("button")) {
-							_this3.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
-						}
-					});
-				});
-				_this3.themeFlag = !_this3.themeFlag;
-			});
-		}
-	}]);
+            this.themeBtn.setCallback(function () {
+                _this3.themeFlag ? _this3.wallpaper = "url(../images/2wallpaper.jpg)" : _this3.wallpaper = "url(../images/wallpaper.jpg)";
+                document.getElementById("background").style.backgroundImage = _this3.wallpaper;
+                _this3.parentNode.childNodes.forEach(function (key) {
+                    key.childNodes.forEach(function (child) {
+                        if (child.classList.contains("button")) {
+                            _this3.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
+                        }
+                    });
+                });
+                _this3.themeFlag = !_this3.themeFlag;
+            });
+            this.playBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_5__utils_Router__["a" /* default */].go(_this3.playBtn.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_4__game_GameManager__["a" /* default */]();
+                gameManager.start("single");
+            });
+        }
+    }]);
 
-	return ThemeView;
+    return ThemeView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (ThemeView);
@@ -11488,11 +11569,18 @@ var ThemeView = function (_BaseView) {
 
 
 var themeFields = [{
-	name: "themeBtn",
-	class: "register__button button",
-	elemType: "input",
-	type: "button",
-	value: "Theme"
+    name: "themeBtn",
+    class: "button",
+    elemType: "input",
+    type: "button",
+    value: "Theme"
+}, {
+    name: "playBtn",
+    class: " button",
+    elemType: "input",
+    value: "Fast Game",
+    href: "/game/",
+    type: "button"
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = (themeFields);
