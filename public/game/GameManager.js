@@ -21,7 +21,7 @@ export default class GameManager {
             this.startLoop();
         }
         if (strategy == "multi") {
-            var webSocket = new WebSocket("ws://salty-shelf-19870.herokuapp.com/mgame");
+            var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
             let flag = false;
 
             function sendMsg(msgToSend) {
