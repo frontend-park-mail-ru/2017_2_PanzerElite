@@ -4726,8 +4726,8 @@ __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
-// const PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
-var PREFIX_URL = "http://127.0.0.1:8080/api/user/";
+var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
+// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
 var urls = {
     login: PREFIX_URL + "login",
     register: PREFIX_URL + "register",
