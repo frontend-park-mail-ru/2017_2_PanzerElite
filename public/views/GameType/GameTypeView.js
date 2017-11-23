@@ -33,6 +33,11 @@ export default class GameTypeView extends BaseView {
             const gameManager = new GameManager();
             gameManager.start("single");
         });
+        this.multiPlayer.setCallback(() => {
+            router.go(this.multiPlayer.el.getAttribute("href"), false);
+            const gameManager = new GameManager();
+            gameManager.start("multi");
+        });
         this.changeformBtn.setCallback(() => {
             router.go(this.changeformBtn.el.getAttribute("href"), false);
         });

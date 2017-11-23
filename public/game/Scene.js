@@ -108,14 +108,15 @@ export default class Scene {
     }
 
     updateObjects(type, instractions) {
+        console.log("im in updateobject" + type);
         // Object.keys(action).forEach(key => {
         //     this[type][key] = action[key];
         // });
         this[type].instractions = instractions;
-        if (instractions.fire) {
-            this.tankMe.boom.visible = true;
-            setTimeout(() => { this.tankMe.boom.visible = false }, 500);
-        }
+        // if (instractions.fire) {
+        //     this.tankMe.boom.visible = true;
+        //     setTimeout(() => { this.tankMe.boom.visible = false }, 500);
+        // }
     }
 
     _startRenderAnimate() {

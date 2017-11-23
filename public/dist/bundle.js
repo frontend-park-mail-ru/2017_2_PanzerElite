@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -220,13 +220,13 @@ var Router = function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__buttons_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__forms_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__inputFields_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__warningMsg_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -267,9 +267,9 @@ var BaseView = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configs_config_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_http_js__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_validation_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configs_config_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_http_js__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_validation_js__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_load_bar_js__ = __webpack_require__(4);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -384,7 +384,7 @@ var UserService = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__load_bar_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -429,216 +429,6 @@ var pBar = function () {
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scene__ = __webpack_require__(36);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-
-var GameManager = function () {
-    function GameManager() {
-        _classCallCheck(this, GameManager);
-
-        this._mainLoop = this._mainLoop.bind(this);
-    }
-
-    _createClass(GameManager, [{
-        key: "start",
-        value: function start(strategy) {
-            var _this = this;
-
-            if (strategy == "single") {
-                this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
-                var playersCoords = this.strategy.getPlayersCoors();
-                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent);
-                this.strategy.startListenGameLoop(function (instractions) {
-                    // console.log(instractions);
-                    _this.scene.updateObjects("tankMe", instractions);
-                });
-                // this.scene.updateObjects("tankMe", {});
-                // this.strategy.initKeyListeners((action) => {
-                //     this.scene.updateObjects("tankMe", action);
-                // });
-
-                // this.strategy.randomMovemant(action => {
-                // 	this.scene.updateObjects("tankOpponent", action);
-                // });
-            }
-            this.startLoop();
-        }
-    }, {
-        key: "startLoop",
-        value: function startLoop() {
-            this.mainLoopId = setInterval(this._mainLoop, 500);
-        }
-    }, {
-        key: "stopLoop",
-        value: function stopLoop() {
-            clearInterval(this.mainLoopId);
-        }
-    }, {
-        key: "destroy",
-        value: function destroy() {
-            stopLoop();
-            this.strategy.destroy();
-        }
-    }, {
-        key: "_mainLoop",
-        value: function _mainLoop() {
-            if (this.strategy.me.health <= 0 && this.strategy.opponent.health <= 0) {
-                console.log("Draw bitch");
-            } else if (this.strategy.me.health <= 0) {
-                console.log("Bot won! :(");
-            } else if (this.strategy.opponent.health <= 0) {
-                console.log("I won! ;)");
-            }
-        }
-    }]);
-
-    return GameManager;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (GameManager);
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function KeyCombo(keyComboStr) {
-  this.sourceStr = keyComboStr;
-  this.subCombos = KeyCombo.parseComboStr(keyComboStr);
-  this.keyNames = this.subCombos.reduce(function (memo, nextSubCombo) {
-    return memo.concat(nextSubCombo);
-  }, []);
-}
-
-// TODO: Add support for key combo sequences
-KeyCombo.sequenceDeliminator = '>>';
-KeyCombo.comboDeliminator = '>';
-KeyCombo.keyDeliminator = '+';
-
-KeyCombo.parseComboStr = function (keyComboStr) {
-  var subComboStrs = KeyCombo._splitStr(keyComboStr, KeyCombo.comboDeliminator);
-  var combo = [];
-
-  for (var i = 0; i < subComboStrs.length; i += 1) {
-    combo.push(KeyCombo._splitStr(subComboStrs[i], KeyCombo.keyDeliminator));
-  }
-  return combo;
-};
-
-KeyCombo.prototype.check = function (pressedKeyNames) {
-  var startingKeyNameIndex = 0;
-  for (var i = 0; i < this.subCombos.length; i += 1) {
-    startingKeyNameIndex = this._checkSubCombo(this.subCombos[i], startingKeyNameIndex, pressedKeyNames);
-    if (startingKeyNameIndex === -1) {
-      return false;
-    }
-  }
-  return true;
-};
-
-KeyCombo.prototype.isEqual = function (otherKeyCombo) {
-  if (!otherKeyCombo || typeof otherKeyCombo !== 'string' && (typeof otherKeyCombo === 'undefined' ? 'undefined' : _typeof(otherKeyCombo)) !== 'object') {
-    return false;
-  }
-
-  if (typeof otherKeyCombo === 'string') {
-    otherKeyCombo = new KeyCombo(otherKeyCombo);
-  }
-
-  if (this.subCombos.length !== otherKeyCombo.subCombos.length) {
-    return false;
-  }
-  for (var i = 0; i < this.subCombos.length; i += 1) {
-    if (this.subCombos[i].length !== otherKeyCombo.subCombos[i].length) {
-      return false;
-    }
-  }
-
-  for (var i = 0; i < this.subCombos.length; i += 1) {
-    var subCombo = this.subCombos[i];
-    var otherSubCombo = otherKeyCombo.subCombos[i].slice(0);
-
-    for (var j = 0; j < subCombo.length; j += 1) {
-      var keyName = subCombo[j];
-      var index = otherSubCombo.indexOf(keyName);
-
-      if (index > -1) {
-        otherSubCombo.splice(index, 1);
-      }
-    }
-    if (otherSubCombo.length !== 0) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-KeyCombo._splitStr = function (str, deliminator) {
-  var s = str;
-  var d = deliminator;
-  var c = '';
-  var ca = [];
-
-  for (var ci = 0; ci < s.length; ci += 1) {
-    if (ci > 0 && s[ci] === d && s[ci - 1] !== '\\') {
-      ca.push(c.trim());
-      c = '';
-      ci += 1;
-    }
-    c += s[ci];
-  }
-  if (c) {
-    ca.push(c.trim());
-  }
-
-  return ca;
-};
-
-KeyCombo.prototype._checkSubCombo = function (subCombo, startingKeyNameIndex, pressedKeyNames) {
-  subCombo = subCombo.slice(0);
-  pressedKeyNames = pressedKeyNames.slice(startingKeyNameIndex);
-
-  var endIndex = startingKeyNameIndex;
-  for (var i = 0; i < subCombo.length; i += 1) {
-
-    var keyName = subCombo[i];
-    if (keyName[0] === '\\') {
-      var escapedKeyName = keyName.slice(1);
-      if (escapedKeyName === KeyCombo.comboDeliminator || escapedKeyName === KeyCombo.keyDeliminator) {
-        keyName = escapedKeyName;
-      }
-    }
-
-    var index = pressedKeyNames.indexOf(keyName);
-    if (index > -1) {
-      subCombo.splice(i, 1);
-      i -= 1;
-      if (index > endIndex) {
-        endIndex = index;
-      }
-      if (subCombo.length === 0) {
-        return endIndex;
-      }
-    }
-  }
-  return -1;
-};
-
-module.exports = KeyCombo;
-
-/***/ }),
-/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4095,6 +3885,271 @@ function Projector(){console.error('THREE.Projector has been moved to /examples/
 function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to /examples/js/renderers/CanvasRenderer.js');this.domElement=document.createElementNS('http://www.w3.org/1999/xhtml','canvas');this.clear=function(){};this.render=function(){};this.setClearColor=function(){};this.setSize=function(){};}
 
 /***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scene__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_three__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__ = __webpack_require__(41);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+
+var GameManager = function () {
+    function GameManager() {
+        _classCallCheck(this, GameManager);
+
+        this._mainLoop = this._mainLoop.bind(this);
+    }
+
+    _createClass(GameManager, [{
+        key: "start",
+        value: function start(strategy) {
+            var _this = this;
+
+            if (strategy == "single") {
+                this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+                var playersCoords = this.strategy.getPlayersCoors();
+                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent);
+                this.strategy.startListenGameLoop(function (instractions) {
+                    // console.log(instractions);
+                    _this.scene.updateObjects("tankMe", instractions);
+                });
+                this.startLoop();
+            }
+            if (strategy == "multi") {
+                var sendMsg = function sendMsg(msgToSend) {
+                    webSocket.send(JSON.stringify(msgToSend));
+                };
+
+                var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+                var flag = false;
+
+                webSocket.onmessage = function (message) {
+                    // console.log(message.data);
+                    // let coords = { x: message.data.x, y: message.data.y };
+                    // if (message.data.me == true) {
+                    //     this.scene.updateObjects("tankMe", { angle: message.data.angle, turretAngle: message.data.turretAngle, coords: coords, fire: false, cameraType: 0 });
+                    // } else {
+                    //     this.scene.updateObjects("tankOpponent", { angle: message.data.angle, turretAngle: message.data.turretAngle, coords: coords, fire: false, cameraType: 0 });
+                    // }
+                    var obj = JSON.parse(message.data);
+                    var coords = { x: obj.x, y: obj.y };
+                    if (obj.me) {
+                        this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: false, cameraType: 0 });
+                    } else {
+                        this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: false, cameraType: 0 });
+                    }
+                }.bind(this);
+
+                webSocket.onopen = function () {
+                    console.log("connection opened");
+                    flag = true;
+                };
+
+                webSocket.onclose = function () {
+                    console.log("connection closed");
+                    flag = false;
+                };
+
+                webSocket.onerror = function wserror(message) {
+                    console.log("error: " + message);
+                };
+
+                // this.strategy = new MultiPlayer();
+                // this.strategy._initKeyListeners((instractions) => {
+
+                //     if (flag) {
+                //         sendMsg(instractions);
+                //     }
+                // });
+
+                console.log("im in flag");
+                this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 });
+                this.strategy._initKeyListeners(function (instractions) {
+                    // console.log(instractions);
+                    // this.scene.updateObjects("tankMe", instractions);
+                    if (flag) {
+                        sendMsg(instractions);
+                    }
+                });
+                // this.startLoop();
+            }
+        }
+    }, {
+        key: "startLoop",
+        value: function startLoop() {
+            this.mainLoopId = setInterval(this._mainLoop, 500);
+        }
+    }, {
+        key: "stopLoop",
+        value: function stopLoop() {
+            clearInterval(this.mainLoopId);
+        }
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            stopLoop();
+            this.strategy.destroy();
+        }
+    }, {
+        key: "_mainLoop",
+        value: function _mainLoop() {
+            if (this.strategy.me.health <= 0 && this.strategy.opponent.health <= 0) {
+                console.log("Draw bitch");
+            } else if (this.strategy.me.health <= 0) {
+                console.log("Bot won! :(");
+            } else if (this.strategy.opponent.health <= 0) {
+                console.log("I won! ;)");
+            }
+        }
+    }]);
+
+    return GameManager;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (GameManager);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function KeyCombo(keyComboStr) {
+  this.sourceStr = keyComboStr;
+  this.subCombos = KeyCombo.parseComboStr(keyComboStr);
+  this.keyNames = this.subCombos.reduce(function (memo, nextSubCombo) {
+    return memo.concat(nextSubCombo);
+  }, []);
+}
+
+// TODO: Add support for key combo sequences
+KeyCombo.sequenceDeliminator = '>>';
+KeyCombo.comboDeliminator = '>';
+KeyCombo.keyDeliminator = '+';
+
+KeyCombo.parseComboStr = function (keyComboStr) {
+  var subComboStrs = KeyCombo._splitStr(keyComboStr, KeyCombo.comboDeliminator);
+  var combo = [];
+
+  for (var i = 0; i < subComboStrs.length; i += 1) {
+    combo.push(KeyCombo._splitStr(subComboStrs[i], KeyCombo.keyDeliminator));
+  }
+  return combo;
+};
+
+KeyCombo.prototype.check = function (pressedKeyNames) {
+  var startingKeyNameIndex = 0;
+  for (var i = 0; i < this.subCombos.length; i += 1) {
+    startingKeyNameIndex = this._checkSubCombo(this.subCombos[i], startingKeyNameIndex, pressedKeyNames);
+    if (startingKeyNameIndex === -1) {
+      return false;
+    }
+  }
+  return true;
+};
+
+KeyCombo.prototype.isEqual = function (otherKeyCombo) {
+  if (!otherKeyCombo || typeof otherKeyCombo !== 'string' && (typeof otherKeyCombo === 'undefined' ? 'undefined' : _typeof(otherKeyCombo)) !== 'object') {
+    return false;
+  }
+
+  if (typeof otherKeyCombo === 'string') {
+    otherKeyCombo = new KeyCombo(otherKeyCombo);
+  }
+
+  if (this.subCombos.length !== otherKeyCombo.subCombos.length) {
+    return false;
+  }
+  for (var i = 0; i < this.subCombos.length; i += 1) {
+    if (this.subCombos[i].length !== otherKeyCombo.subCombos[i].length) {
+      return false;
+    }
+  }
+
+  for (var i = 0; i < this.subCombos.length; i += 1) {
+    var subCombo = this.subCombos[i];
+    var otherSubCombo = otherKeyCombo.subCombos[i].slice(0);
+
+    for (var j = 0; j < subCombo.length; j += 1) {
+      var keyName = subCombo[j];
+      var index = otherSubCombo.indexOf(keyName);
+
+      if (index > -1) {
+        otherSubCombo.splice(index, 1);
+      }
+    }
+    if (otherSubCombo.length !== 0) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+KeyCombo._splitStr = function (str, deliminator) {
+  var s = str;
+  var d = deliminator;
+  var c = '';
+  var ca = [];
+
+  for (var ci = 0; ci < s.length; ci += 1) {
+    if (ci > 0 && s[ci] === d && s[ci - 1] !== '\\') {
+      ca.push(c.trim());
+      c = '';
+      ci += 1;
+    }
+    c += s[ci];
+  }
+  if (c) {
+    ca.push(c.trim());
+  }
+
+  return ca;
+};
+
+KeyCombo.prototype._checkSubCombo = function (subCombo, startingKeyNameIndex, pressedKeyNames) {
+  subCombo = subCombo.slice(0);
+  pressedKeyNames = pressedKeyNames.slice(startingKeyNameIndex);
+
+  var endIndex = startingKeyNameIndex;
+  for (var i = 0; i < subCombo.length; i += 1) {
+
+    var keyName = subCombo[i];
+    if (keyName[0] === '\\') {
+      var escapedKeyName = keyName.slice(1);
+      if (escapedKeyName === KeyCombo.comboDeliminator || escapedKeyName === KeyCombo.keyDeliminator) {
+        keyName = escapedKeyName;
+      }
+    }
+
+    var index = pressedKeyNames.indexOf(keyName);
+    if (index > -1) {
+      subCombo.splice(i, 1);
+      i -= 1;
+      if (index > endIndex) {
+        endIndex = index;
+      }
+      if (subCombo.length === 0) {
+        return endIndex;
+      }
+    }
+  }
+  return -1;
+};
+
+module.exports = KeyCombo;
+
+/***/ }),
 /* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4124,6 +4179,24 @@ function analyseHref(href, isLogged, router, savehistory) {
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var Keyboard = __webpack_require__(32);
+var Locale = __webpack_require__(11);
+var KeyCombo = __webpack_require__(7);
+
+var keyboard = new Keyboard();
+
+keyboard.setLocale('us', __webpack_require__(33));
+
+exports = module.exports = keyboard;
+exports.Keyboard = Keyboard;
+exports.Locale = Locale;
+exports.KeyCombo = KeyCombo;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -4150,11 +4223,11 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var KeyCombo = __webpack_require__(6);
+var KeyCombo = __webpack_require__(7);
 
 function Locale(name) {
   this.localeName = name;
@@ -4304,7 +4377,185 @@ Locale.prototype._clearMacros = function () {
 module.exports = Locale;
 
 /***/ }),
-/* 11 */
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_timers__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var Player = function () {
+    function Player(nickname, coords, actionStates) {
+        _classCallCheck(this, Player);
+
+        this.actionStates = actionStates;
+        this.health = 100;
+        this.nickname = nickname;
+        this.coords = { x: coords[0], y: coords[1] };
+        this.angle = -0.5 * Math.PI;
+        this.turretAngle = 0;
+        this.cameraCurrentType = 0;
+        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false };
+        this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
+    }
+
+    _createClass(Player, [{
+        key: "moveForward",
+        value: function moveForward() {
+            this.coords.y += 0.3 * Math.cos(this.angle);
+            this.coords.x += 0.3 * Math.sin(this.angle);
+        }
+    }, {
+        key: "moveBackward",
+        value: function moveBackward() {
+            this.coords.y -= 0.3 * Math.cos(this.angle);
+            this.coords.x -= 0.3 * Math.sin(this.angle);
+        }
+    }, {
+        key: "turnRight",
+        value: function turnRight() {
+            this.angle += 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnLeft",
+        value: function turnLeft() {
+            this.angle -= 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnTurretRight",
+        value: function turnTurretRight() {
+            this.turretAngle += 0.008 * Math.PI;
+        }
+    }, {
+        key: "turnTurretLeft",
+        value: function turnTurretLeft() {
+            this.turretAngle -= 0.008 * Math.PI;
+        }
+    }, {
+        key: "update",
+        value: function update() {
+            var _this = this;
+
+            if (this.actionStates.forward) {
+                this.deprecatedMovemants.backward = false;
+                if (!this.deprecatedMovemants.forward) {
+                    this.moveForward();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.forward = true;
+                } else {
+                    this.deprecatedMovemants.forward = false;
+                }
+            }
+            if (this.actionStates.backward) {
+                this.deprecatedMovemants.forward = false;
+                if (!this.deprecatedMovemants.backward) {
+                    this.moveBackward();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.backward = true;
+                } else {
+                    this.deprecatedMovemants.backward = false;
+                }
+            }
+            if (this.actionStates.right) {
+                if (!this.deprecatedMovemants.turnRight) {
+                    this.turnRight();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.turnRight = true;
+                } else {
+                    this.deprecatedMovemants.turnRight = false;
+                }
+            }
+            if (this.actionStates.left) {
+                if (!this.deprecatedMovemants.turnLeft) {
+                    this.turnLeft();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.turnLeft = true;
+                } else {
+                    this.deprecatedMovemants.turnLeft = false;
+                }
+            }
+            if (this.actionStates.turretLeft) {
+                this.turnTurretLeft();
+            }
+            if (this.actionStates.turretRight) {
+                this.turnTurretRight();
+            }
+            if (this.actionStates.changeCamera) {
+                this.actionStates.changeCamera = false;
+                this.cameraCurrentType++;
+                this.cameraCurrentType %= 3;
+            }
+            if (this.actionStates.fire) {
+                Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
+                    _this.actionStates.fire = false;
+                }, 500);
+            }
+        }
+    }, {
+        key: "_pointInPolygon",
+        value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
+            var leftX = polyX - polyH / 2;
+            var rightX = leftX + polyH;
+            if (pointX < rightX && pointX > leftX) {
+                var leftY = polyY - polyW / 2;
+                var rightY = leftY + polyW;
+                if (pointY < rightY && pointY > leftY) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }, {
+        key: "_tankCollisionWithHouses",
+        value: function _tankCollisionWithHouses() {
+            var _this2 = this;
+
+            var tankPoints = [{
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            }];
+            var flag = false;
+            this.map.some(function (key) {
+                tankPoints.some(function (tp) {
+                    flag = _this2._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
+                    return flag;
+                });
+                return flag;
+            });
+            return flag;
+        }
+    }, {
+        key: "getInstrustions",
+        value: function getInstrustions() {
+            return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire };
+        }
+    }]);
+
+    return Player;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Player);
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -4360,7 +4611,7 @@ exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4379,23 +4630,23 @@ function modelLoader(modelPath) {
 }
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__main_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__ = __webpack_require__(4);
 
@@ -4463,26 +4714,26 @@ __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
 __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
-var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
-// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
+// const PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
+var PREFIX_URL = "http://127.0.0.1:8080/api/user/";
 var urls = {
-	login: PREFIX_URL + "login",
-	register: PREFIX_URL + "register",
-	logout: PREFIX_URL + "logout",
-	check: PREFIX_URL + "getuser",
-	chagePassword: PREFIX_URL + "changepassword"
+    login: PREFIX_URL + "login",
+    register: PREFIX_URL + "register",
+    logout: PREFIX_URL + "logout",
+    check: PREFIX_URL + "getuser",
+    chagePassword: PREFIX_URL + "changepassword"
 };
 var GET = "GET";
 var POST = "POST";
@@ -4491,7 +4742,7 @@ var POST = "POST";
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4522,7 +4773,7 @@ function httpReq(type, uRL, sendObject) {
 /* harmony default export */ __webpack_exports__["a"] = (httpReq);
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4583,18 +4834,18 @@ var Validate = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Validate);
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_js__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_js__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
@@ -4675,18 +4926,6 @@ var LoginView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (LoginView);
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 22 */
 /***/ (function(module, exports) {
 
@@ -4700,6 +4939,18 @@ var LoginView = function (_BaseView) {
 
 /***/ }),
 /* 24 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4742,12 +4993,12 @@ var loginFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (loginFields);
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_js__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_js__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
@@ -4829,7 +5080,7 @@ var RegisterView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (RegisterView);
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4880,16 +5131,16 @@ var registerFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (registerFields);
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_js__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(6);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4962,7 +5213,7 @@ var MenuView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (MenuView);
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4996,16 +5247,16 @@ var menuFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (menuFields);
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(12);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var keyboardJS = __webpack_require__(30);
+var keyboardJS = __webpack_require__(9);
 
 
 var SinglePlayer = function () {
@@ -5115,31 +5366,13 @@ var SinglePlayer = function () {
 /* harmony default export */ __webpack_exports__["a"] = (SinglePlayer);
 
 /***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var Keyboard = __webpack_require__(31);
-var Locale = __webpack_require__(10);
-var KeyCombo = __webpack_require__(6);
-
-var keyboard = new Keyboard();
-
-keyboard.setLocale('us', __webpack_require__(32));
-
-exports = module.exports = keyboard;
-exports.Keyboard = Keyboard;
-exports.Locale = Locale;
-exports.KeyCombo = KeyCombo;
-
-/***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var Locale = __webpack_require__(10);
-var KeyCombo = __webpack_require__(6);
+var Locale = __webpack_require__(11);
+var KeyCombo = __webpack_require__(7);
 
 function Keyboard(targetWindow, targetElement, platform, userAgent) {
   this._locale = null;
@@ -5520,10 +5753,10 @@ Keyboard.prototype._handleCommandBug = function (event, platform) {
 };
 
 module.exports = Keyboard;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports) {
 
 
@@ -5668,184 +5901,6 @@ module.exports = function (locale, platform, userAgent) {
   // kill keys
   locale.setKillKey('command');
 };
-
-/***/ }),
-/* 33 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_timers__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-var Player = function () {
-    function Player(nickname, coords, actionStates) {
-        _classCallCheck(this, Player);
-
-        this.actionStates = actionStates;
-        this.health = 100;
-        this.nickname = nickname;
-        this.coords = { x: coords[0], y: coords[1] };
-        this.angle = -0.5 * Math.PI;
-        this.turretAngle = 0;
-        this.cameraCurrentType = 0;
-        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false };
-        this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
-    }
-
-    _createClass(Player, [{
-        key: "moveForward",
-        value: function moveForward() {
-            this.coords.y += 0.3 * Math.cos(this.angle);
-            this.coords.x += 0.3 * Math.sin(this.angle);
-        }
-    }, {
-        key: "moveBackward",
-        value: function moveBackward() {
-            this.coords.y -= 0.3 * Math.cos(this.angle);
-            this.coords.x -= 0.3 * Math.sin(this.angle);
-        }
-    }, {
-        key: "turnRight",
-        value: function turnRight() {
-            this.angle += 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnLeft",
-        value: function turnLeft() {
-            this.angle -= 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnTurretRight",
-        value: function turnTurretRight() {
-            this.turretAngle += 0.008 * Math.PI;
-        }
-    }, {
-        key: "turnTurretLeft",
-        value: function turnTurretLeft() {
-            this.turretAngle -= 0.008 * Math.PI;
-        }
-    }, {
-        key: "update",
-        value: function update() {
-            var _this = this;
-
-            if (this.actionStates.forward) {
-                this.deprecatedMovemants.backward = false;
-                if (!this.deprecatedMovemants.forward) {
-                    this.moveForward();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.forward = true;
-                } else {
-                    this.deprecatedMovemants.forward = false;
-                }
-            }
-            if (this.actionStates.backward) {
-                this.deprecatedMovemants.forward = false;
-                if (!this.deprecatedMovemants.backward) {
-                    this.moveBackward();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.backward = true;
-                } else {
-                    this.deprecatedMovemants.backward = false;
-                }
-            }
-            if (this.actionStates.right) {
-                if (!this.deprecatedMovemants.turnRight) {
-                    this.turnRight();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.turnRight = true;
-                } else {
-                    this.deprecatedMovemants.turnRight = false;
-                }
-            }
-            if (this.actionStates.left) {
-                if (!this.deprecatedMovemants.turnLeft) {
-                    this.turnLeft();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.turnLeft = true;
-                } else {
-                    this.deprecatedMovemants.turnLeft = false;
-                }
-            }
-            if (this.actionStates.turretLeft) {
-                this.turnTurretLeft();
-            }
-            if (this.actionStates.turretRight) {
-                this.turnTurretRight();
-            }
-            if (this.actionStates.changeCamera) {
-                this.actionStates.changeCamera = false;
-                this.cameraCurrentType++;
-                this.cameraCurrentType %= 3;
-            }
-            if (this.actionStates.fire) {
-                Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
-                    _this.actionStates.fire = false;
-                }, 500);
-            }
-        }
-    }, {
-        key: "_pointInPolygon",
-        value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
-            var leftX = polyX - polyH / 2;
-            var rightX = leftX + polyH;
-            if (pointX < rightX && pointX > leftX) {
-                var leftY = polyY - polyW / 2;
-                var rightY = leftY + polyW;
-                if (pointY < rightY && pointY > leftY) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }, {
-        key: "_tankCollisionWithHouses",
-        value: function _tankCollisionWithHouses() {
-            var _this2 = this;
-
-            var tankPoints = [{
-                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
-            }, {
-                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
-            }, {
-                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
-            }, {
-                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
-            }];
-            var flag = false;
-            this.map.some(function (key) {
-                tankPoints.some(function (tp) {
-                    flag = _this2._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
-                    return flag;
-                });
-                return flag;
-            });
-            return flag;
-        }
-    }, {
-        key: "getInstrustions",
-        value: function getInstrustions() {
-            return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire };
-        }
-    }]);
-
-    return Player;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Player);
 
 /***/ }),
 /* 34 */
@@ -6033,7 +6088,7 @@ var Player = function () {
     attachTo.setImmediate = setImmediate;
     attachTo.clearImmediate = clearImmediate;
 })(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(35)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(35)))
 
 /***/ }),
 /* 35 */
@@ -6231,10 +6286,10 @@ process.umask = function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Tank__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_load_bar__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_timers__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_timers__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_timers__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -6355,29 +6410,26 @@ var Scene = function () {
     }, {
         key: "updateObjects",
         value: function updateObjects(type, instractions) {
-            var _this2 = this;
-
+            console.log("im in updateobject" + type);
             // Object.keys(action).forEach(key => {
             //     this[type][key] = action[key];
             // });
             this[type].instractions = instractions;
-            if (instractions.fire) {
-                this.tankMe.boom.visible = true;
-                Object(__WEBPACK_IMPORTED_MODULE_4_timers__["setTimeout"])(function () {
-                    _this2.tankMe.boom.visible = false;
-                }, 500);
-            }
+            // if (instractions.fire) {
+            //     this.tankMe.boom.visible = true;
+            //     setTimeout(() => { this.tankMe.boom.visible = false }, 500);
+            // }
         }
     }, {
         key: "_startRenderAnimate",
         value: function _startRenderAnimate() {
-            var _this3 = this;
+            var _this2 = this;
 
             var innerrender = function innerrender() {
                 window.requestAnimationFrame(innerrender);
-                _this3.stats.begin();
-                _this3._render();
-                _this3.stats.end();
+                _this2.stats.begin();
+                _this2._render();
+                _this2.stats.end();
             };
 
             innerrender();
@@ -6390,10 +6442,10 @@ var Scene = function () {
     }, {
         key: "_render",
         value: function _render() {
-            var _this4 = this;
+            var _this3 = this;
 
             ["tankMe", "tankOpponent"].forEach(function (key) {
-                _this4[key].update();
+                _this3[key].update();
             });
             this.renderer.render(this.scene, this.camera);
         }
@@ -6413,7 +6465,7 @@ var Scene = function () {
     }, {
         key: "_addMap",
         value: function _addMap() {
-            var _this5 = this;
+            var _this4 = this;
 
             Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene);
             var loader = new THREE.TextureLoader();
@@ -6439,8 +6491,8 @@ var Scene = function () {
                 road2.position.y = 0;
                 road2.position.x = 500;
 
-                _this5.scene.add(coll.scene);
-                _this5.scene.add(road2);
+                _this4.scene.add(coll.scene);
+                _this4.scene.add(road2);
             });
             Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("boom/model.dae").then(function (coll) {
                 coll.scene.rotation.x = -0.5 * Math.PI;
@@ -6450,11 +6502,11 @@ var Scene = function () {
                 coll.scene.scale.y *= 0.45;
                 coll.scene.scale.x *= 0.45;
 
-                _this5.boom = coll.scene.clone();
-                _this5.boom.position.set(-10, 1.75, 0);
-                _this5.tankMe.turret.dae.add(_this5.boom);
-                _this5.tankMe.boom = _this5.boom;
-                _this5.tankMe.boom.visible = false;
+                _this4.boom = coll.scene.clone();
+                _this4.boom.position.set(-10, 1.75, 0);
+                _this4.tankMe.turret.dae.add(_this4.boom);
+                _this4.tankMe.boom = _this4.boom;
+                _this4.tankMe.boom.visible = false;
             });
             // let geometry = new THREE.BoxGeometry(7, 3, 1);
             // let material = new THREE.MeshBasicMaterial({
@@ -6482,7 +6534,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var THREE = __webpack_require__(7);
+var THREE = __webpack_require__(5);
 
 
 var Tank = function () {
@@ -6583,7 +6635,7 @@ var Tank = function () {
 "use strict";
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var THREE = __webpack_require__(7);
+var THREE = __webpack_require__(5);
 
 var Turret = function Turret(dae, coords) {
     _classCallCheck(this, Turret);
@@ -6604,7 +6656,7 @@ var Turret = function Turret(dae, coords) {
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var THREE = __webpack_require__(7);
+var THREE = __webpack_require__(5);
 
 /**
 * @author Tim Knip / http://www.floorplanner.com/ / tim at floorplanner.com
@@ -11590,7 +11642,7 @@ module.exports = ColladaLoader;
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = MapCreator;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modelLoader__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modelLoader__ = __webpack_require__(14);
 
 // const THREE = require("three");
 
@@ -11784,8 +11836,83 @@ var housePlace = [{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(12);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var keyboardJS = __webpack_require__(9);
+
+
+var MultiPlayer = function () {
+    function MultiPlayer() {
+        _classCallCheck(this, MultiPlayer);
+    }
+
+    _createClass(MultiPlayer, [{
+        key: "_initKeyListeners",
+        value: function _initKeyListeners(callback) {
+            keyboardJS.bind("m", function (e) {
+                callback({ turretRight: true });
+            }, function (e) {
+                callback({ turretRight: false });
+            });
+            keyboardJS.bind("n", function (e) {
+                callback({ turretLeft: true });
+            }, function (e) {
+                callback({ turretLeft: false });
+            });
+            keyboardJS.bind("w", function (e) {
+                callback({ forward: true });
+            }, function (e) {
+                callback({ forward: false });
+            });
+            keyboardJS.bind("s", function (e) {
+                callback({ backward: true });
+            }, function (e) {
+                callback({ backward: false });
+            });
+            keyboardJS.bind("d", function (e) {
+                callback({ right: true });
+            }, function (e) {
+                callback({ right: false });
+            });
+            keyboardJS.bind("a", function (e) {
+                callback({ left: true });
+            }, function (e) {
+                callback({ left: false });
+            });
+            keyboardJS.bind("v", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ changeCamera: true });
+            });
+            keyboardJS.bind("space", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ fire: true });
+                console.log("fire in sp");
+            });
+        }
+    }, {
+        key: "randomMovemant",
+        value: function randomMovemant(callback) {
+            callback({ left: true, forward: true });
+        }
+    }]);
+
+    return MultiPlayer;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (MultiPlayer);
+
+/***/ }),
+/* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__change_js__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__change_js__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
@@ -11865,7 +11992,7 @@ var ChangeView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (ChangeView);
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11911,16 +12038,16 @@ var changeFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (changeFields);
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_js__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_js__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__theme_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_GameManager__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_GameManager__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Router__ = __webpack_require__(1);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12000,7 +12127,7 @@ var ThemeView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (ThemeView);
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12024,22 +12151,22 @@ var themeFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (themeFields);
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameType__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameType__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(6);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12096,6 +12223,11 @@ var GameTypeView = function (_BaseView) {
                 var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
                 gameManager.start("single");
             });
+            this.multiPlayer.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayer.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+                gameManager.start("multi");
+            });
             this.changeformBtn.setCallback(function () {
                 __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
             });
@@ -12108,36 +12240,42 @@ var GameTypeView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (GameTypeView);
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 
 var gameFields = [{
-	name: "singlePlayer",
-	class: " button",
-	elemType: "a",
-	value: "Singleplayer",
-	href: "/game/"
+    name: "singlePlayer",
+    class: " button",
+    elemType: "a",
+    value: "Singleplayer",
+    href: "/game/"
 }, {
-	name: "changeformBtn",
-	class: " button",
-	elemType: "a",
-	value: "Back to menu",
-	href: "/menu/"
+    name: "multiPlayer",
+    class: " button",
+    elemType: "a",
+    value: "multiplayer",
+    href: "/game/"
+}, {
+    name: "changeformBtn",
+    class: " button",
+    elemType: "a",
+    value: "Back to menu",
+    href: "/menu/"
 }];
 /* harmony default export */ __webpack_exports__["a"] = (gameFields);
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__gameView_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12196,21 +12334,21 @@ var GameView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (GameView);
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__gameMenu_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -12277,7 +12415,7 @@ var GameMenuView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (GameMenuView);
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12303,7 +12441,7 @@ var gameMenuFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (gameMenuFields);
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
