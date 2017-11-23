@@ -3929,7 +3929,7 @@ var GameManager = function () {
                     webSocket.send(JSON.stringify(msgToSend));
                 };
 
-                var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+                var webSocket = new WebSocket("ws://salty-shelf-19870.herokuapp.com/mgame");
                 var flag = false;
 
                 webSocket.onmessage = function (message) {
