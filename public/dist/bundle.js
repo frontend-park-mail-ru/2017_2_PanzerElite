@@ -153,63 +153,63 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var Router = function () {
-    function Router() {
-        var _this = this;
+	function Router() {
+		var _this = this;
 
-        _classCallCheck(this, Router);
+		_classCallCheck(this, Router);
 
-        window.onpopstate = function (event) {
-            //this.go(document.location.pathname);
-            Object(__WEBPACK_IMPORTED_MODULE_0__RouteValidate__["a" /* default */])(document.location.pathname, _this, false);
-        };
-    }
+		window.onpopstate = function (event) {
+			//this.go(document.location.pathname);
+			Object(__WEBPACK_IMPORTED_MODULE_0__RouteValidate__["a" /* default */])(document.location.pathname, _this, false);
+		};
+	}
 
-    _createClass(Router, [{
-        key: "init",
-        value: function init(node, config) {
-            this.views = config;
-            this.node = node;
-            this.currentHref = null;
-        }
-    }, {
-        key: "startListen",
-        value: function startListen() {
-            var _this2 = this;
+	_createClass(Router, [{
+		key: "init",
+		value: function init(node, config) {
+			this.views = config;
+			this.node = node;
+			this.currentHref = null;
+		}
+	}, {
+		key: "startListen",
+		value: function startListen() {
+			var _this2 = this;
 
-            this.node.addEventListener("click", function (event) {
-                return _this2._onRouteChange(event);
-            });
-        }
-    }, {
-        key: "go",
-        value: function go(href) {
-            var saveHistory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+			this.node.addEventListener("click", function (event) {
+				return _this2._onRouteChange(event);
+			});
+		}
+	}, {
+		key: "go",
+		value: function go(href) {
+			var saveHistory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-            if (saveHistory) {
-                window.history.pushState({ path: href }, "", href); // for -> <-
-            }
-            if (href !== this.currentHref) {
-                this.views[href].view.show();
-                if (this.currentHref !== null) {
-                    this.views[this.currentHref].view.hide();
-                    if (this.views[this.currentHref].view.destroyGame !== undefined) {
-                        this.views[this.currentHref].view.destroyGame();
-                    }
-                }
-                this.currentHref = href;
-            }
-        }
-    }, {
-        key: "_onRouteChange",
-        value: function _onRouteChange(event) {
-            if (event.target instanceof HTMLAnchorElement) {
-                event.preventDefault();
-                this.go(event.target.getAttribute("href"));
-            }
-        }
-    }]);
+			if (saveHistory) {
+				window.history.pushState({ path: href }, "", href); // for -> <-
+			}
+			if (href !== this.currentHref) {
+				this.views[href].view.show();
+				if (this.currentHref !== null) {
+					this.views[this.currentHref].view.hide();
+					if (this.views[this.currentHref].view.destroyGame !== undefined) {
+						this.views[this.currentHref].view.destroyGame();
+					}
+				}
+				this.currentHref = href;
+			}
+		}
+	}, {
+		key: "_onRouteChange",
+		value: function _onRouteChange(event) {
+			if (event.target instanceof HTMLAnchorElement) {
+				event.preventDefault();
+				this.go(event.target.getAttribute("href"));
+			}
+		}
+	}]);
 
-    return Router;
+	return Router;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (new Router());
@@ -393,36 +393,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var pBar = function () {
-    function pBar() {
-        _classCallCheck(this, pBar);
+	function pBar() {
+		_classCallCheck(this, pBar);
 
-        this.elem = document.getElementsByClassName("myBar")[0];
-        this.hide();
-    }
+		this.elem = document.getElementsByClassName("myBar")[0];
+		this.hide();
+	}
 
-    /**
+	/**
      * Показать прогресс бар 
      */
 
 
-    _createClass(pBar, [{
-        key: "show",
-        value: function show() {
-            this.elem.parentElement.classList.remove("hidden");
-        }
+	_createClass(pBar, [{
+		key: "show",
+		value: function show() {
+			this.elem.parentElement.classList.remove("hidden");
+		}
 
-        /**
-         * Скрыть прогресс бар 
-         */
+		/**
+      * Скрыть прогресс бар 
+      */
 
-    }, {
-        key: "hide",
-        value: function hide() {
-            this.elem.parentElement.classList.add("hidden");
-        }
-    }]);
+	}, {
+		key: "hide",
+		value: function hide() {
+			this.elem.parentElement.classList.add("hidden");
+		}
+	}]);
 
-    return pBar;
+	return pBar;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (new pBar());
@@ -3903,117 +3903,117 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var GameManager = function () {
-    function GameManager() {
-        _classCallCheck(this, GameManager);
+	function GameManager() {
+		_classCallCheck(this, GameManager);
 
-        this._mainLoop = this._mainLoop.bind(this);
-    }
+		this._mainLoop = this._mainLoop.bind(this);
+	}
 
-    _createClass(GameManager, [{
-        key: "start",
-        value: function start(strategy) {
-            var _this = this;
+	_createClass(GameManager, [{
+		key: "start",
+		value: function start(strategy) {
+			var _this = this;
 
-            if (strategy == "single") {
-                this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
-                var playersCoords = this.strategy.getPlayersCoors();
-                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent);
-                this.strategy.startListenGameLoop(function (instractions) {
-                    // console.log(instractions);
-                    _this.scene.updateObjects("tankMe", instractions);
-                });
-                this.startLoop();
-            }
-            if (strategy == "multi") {
-                var sendMsg = function sendMsg(msgToSend) {
-                    webSocket.send(JSON.stringify(msgToSend));
-                };
+			if (strategy == "single") {
+				this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+				var playersCoords = this.strategy.getPlayersCoors();
+				this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent);
+				this.strategy.startListenGameLoop(function (instractions) {
+					// console.log(instractions);
+					_this.scene.updateObjects("tankMe", instractions);
+				});
+				this.startLoop();
+			}
+			if (strategy == "multi") {
+				var sendMsg = function sendMsg(msgToSend) {
+					webSocket.send(JSON.stringify(msgToSend));
+				};
 
-                var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
-                var flag = false;
+				var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+				var isConnected = false;
 
-                webSocket.onmessage = function (message) {
-                    // console.log(message.data);
-                    // let coords = { x: message.data.x, y: message.data.y };
-                    // if (message.data.me == true) {
-                    //     this.scene.updateObjects("tankMe", { angle: message.data.angle, turretAngle: message.data.turretAngle, coords: coords, fire: false, cameraType: 0 });
-                    // } else {
-                    //     this.scene.updateObjects("tankOpponent", { angle: message.data.angle, turretAngle: message.data.turretAngle, coords: coords, fire: false, cameraType: 0 });
-                    // }
-                    var obj = JSON.parse(message.data);
-                    var coords = { x: obj.x, y: obj.y };
-                    if (obj.me) {
-                        this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: false, cameraType: 0 });
-                    } else {
-                        this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: false, cameraType: 0 });
-                    }
-                }.bind(this);
+				webSocket.onmessage = function (message) {
+					// console.log(message.data);
+					// let coords = { x: message.data.x, y: message.data.y };
+					// if (message.data.me == true) {
+					//     this.scene.updateObjects("tankMe", { angle: message.data.angle, turretAngle: message.data.turretAngle, coords: coords, fire: false, cameraType: 0 });
+					// } else {
+					//     this.scene.updateObjects("tankOpponent", { angle: message.data.angle, turretAngle: message.data.turretAngle, coords: coords, fire: false, cameraType: 0 });
+					// }
+					var obj = JSON.parse(message.data);
+					var coords = { x: obj.x, y: obj.y };
+					if (obj.me) {
+						this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: false, cameraType: 0 });
+					} else {
+						this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: false, cameraType: 0 });
+					}
+				}.bind(this);
 
-                webSocket.onopen = function () {
-                    console.log("connection opened");
-                    flag = true;
-                };
+				webSocket.onopen = function () {
+					console.log("connection opened");
+					isConnected = true;
+				};
 
-                webSocket.onclose = function () {
-                    console.log("connection closed");
-                    flag = false;
-                };
+				webSocket.onclose = function () {
+					console.log("connection closed");
+					isConnected = false;
+				};
 
-                webSocket.onerror = function wserror(message) {
-                    console.log("error: " + message);
-                };
+				webSocket.onerror = function wserror(message) {
+					console.log("error: " + message);
+				};
 
-                // this.strategy = new MultiPlayer();
-                // this.strategy._initKeyListeners((instractions) => {
+				// this.strategy = new MultiPlayer();
+				// this.strategy._initKeyListeners((instractions) => {
 
-                //     if (flag) {
-                //         sendMsg(instractions);
-                //     }
-                // });
+				//     if (flag) {
+				//         sendMsg(instractions);
+				//     }
+				// });
 
-                console.log("im in flag");
-                this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
-                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 });
-                this.strategy._initKeyListeners(function (instractions) {
-                    // console.log(instractions);
-                    // this.scene.updateObjects("tankMe", instractions);
-                    if (flag) {
-                        sendMsg(instractions);
-                    }
-                });
-                // this.startLoop();
-            }
-        }
-    }, {
-        key: "startLoop",
-        value: function startLoop() {
-            this.mainLoopId = setInterval(this._mainLoop, 500);
-        }
-    }, {
-        key: "stopLoop",
-        value: function stopLoop() {
-            clearInterval(this.mainLoopId);
-        }
-    }, {
-        key: "destroy",
-        value: function destroy() {
-            stopLoop();
-            this.strategy.destroy();
-        }
-    }, {
-        key: "_mainLoop",
-        value: function _mainLoop() {
-            if (this.strategy.me.health <= 0 && this.strategy.opponent.health <= 0) {
-                console.log("Draw bitch");
-            } else if (this.strategy.me.health <= 0) {
-                console.log("Bot won! :(");
-            } else if (this.strategy.opponent.health <= 0) {
-                console.log("I won! ;)");
-            }
-        }
-    }]);
+				console.log("im in flag");
+				this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+				this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 });
+				this.strategy._initKeyListeners(function (instractions) {
+					// console.log(instractions);
+					// this.scene.updateObjects("tankMe", instractions);
+					if (isConnected) {
+						sendMsg(instractions);
+					}
+				});
+				// this.startLoop();
+			}
+		}
+	}, {
+		key: "startLoop",
+		value: function startLoop() {
+			this.mainLoopId = setInterval(this._mainLoop, 500);
+		}
+	}, {
+		key: "stopLoop",
+		value: function stopLoop() {
+			clearInterval(this.mainLoopId);
+		}
+	}, {
+		key: "destroy",
+		value: function destroy() {
+			stopLoop();
+			this.strategy.destroy();
+		}
+	}, {
+		key: "_mainLoop",
+		value: function _mainLoop() {
+			if (this.strategy.me.health <= 0 && this.strategy.opponent.health <= 0) {
+				console.log("Draw bitch");
+			} else if (this.strategy.me.health <= 0) {
+				console.log("Bot won! :(");
+			} else if (this.strategy.opponent.health <= 0) {
+				console.log("I won! ;)");
+			}
+		}
+	}]);
 
-    return GameManager;
+	return GameManager;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (GameManager);
@@ -4160,19 +4160,19 @@ module.exports = KeyCombo;
 var userService = new __WEBPACK_IMPORTED_MODULE_0__services_user_service__["a" /* default */]();
 
 function routeValidate(href, router, savehistory) {
-    userService.whoami().then(function () {
-        analyseHref(href, true, router, savehistory);
-    }).catch(function (error) {
-        analyseHref(href, false, router, savehistory);
-    });
+	userService.whoami().then(function () {
+		analyseHref(href, true, router, savehistory);
+	}).catch(function (error) {
+		analyseHref(href, false, router, savehistory);
+	});
 }
 
 function analyseHref(href, isLogged, router, savehistory) {
-    if (isLogged) {
-        ["/register/", "/login/", "/game/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
-    } else {
-        ["/register/", "/login/"].includes(href) ? router.go(href, savehistory) : router.go("/login/", savehistory);
-    }
+	if (isLogged) {
+		["/register/", "/login/", "/game/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
+	} else {
+		["/register/", "/login/"].includes(href) ? router.go(href, savehistory) : router.go("/login/", savehistory);
+	}
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (routeValidate);
@@ -4390,166 +4390,166 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var Player = function () {
-    function Player(nickname, coords, actionStates) {
-        _classCallCheck(this, Player);
+	function Player(nickname, coords, actionStates) {
+		_classCallCheck(this, Player);
 
-        this.actionStates = actionStates;
-        this.health = 100;
-        this.nickname = nickname;
-        this.coords = { x: coords[0], y: coords[1] };
-        this.angle = -0.5 * Math.PI;
-        this.turretAngle = 0;
-        this.cameraCurrentType = 0;
-        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false };
-        this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
-    }
+		this.actionStates = actionStates;
+		this.health = 100;
+		this.nickname = nickname;
+		this.coords = { x: coords[0], y: coords[1] };
+		this.angle = -0.5 * Math.PI;
+		this.turretAngle = 0;
+		this.cameraCurrentType = 0;
+		this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false };
+		this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
+	}
 
-    _createClass(Player, [{
-        key: "moveForward",
-        value: function moveForward() {
-            this.coords.y += 0.3 * Math.cos(this.angle);
-            this.coords.x += 0.3 * Math.sin(this.angle);
-        }
-    }, {
-        key: "moveBackward",
-        value: function moveBackward() {
-            this.coords.y -= 0.3 * Math.cos(this.angle);
-            this.coords.x -= 0.3 * Math.sin(this.angle);
-        }
-    }, {
-        key: "turnRight",
-        value: function turnRight() {
-            this.angle += 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnLeft",
-        value: function turnLeft() {
-            this.angle -= 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnTurretRight",
-        value: function turnTurretRight() {
-            this.turretAngle += 0.008 * Math.PI;
-        }
-    }, {
-        key: "turnTurretLeft",
-        value: function turnTurretLeft() {
-            this.turretAngle -= 0.008 * Math.PI;
-        }
-    }, {
-        key: "update",
-        value: function update() {
-            var _this = this;
+	_createClass(Player, [{
+		key: "moveForward",
+		value: function moveForward() {
+			this.coords.y += 0.3 * Math.cos(this.angle);
+			this.coords.x += 0.3 * Math.sin(this.angle);
+		}
+	}, {
+		key: "moveBackward",
+		value: function moveBackward() {
+			this.coords.y -= 0.3 * Math.cos(this.angle);
+			this.coords.x -= 0.3 * Math.sin(this.angle);
+		}
+	}, {
+		key: "turnRight",
+		value: function turnRight() {
+			this.angle += 0.005 * Math.PI;
+		}
+	}, {
+		key: "turnLeft",
+		value: function turnLeft() {
+			this.angle -= 0.005 * Math.PI;
+		}
+	}, {
+		key: "turnTurretRight",
+		value: function turnTurretRight() {
+			this.turretAngle += 0.008 * Math.PI;
+		}
+	}, {
+		key: "turnTurretLeft",
+		value: function turnTurretLeft() {
+			this.turretAngle -= 0.008 * Math.PI;
+		}
+	}, {
+		key: "update",
+		value: function update() {
+			var _this = this;
 
-            if (this.actionStates.forward) {
-                this.deprecatedMovemants.backward = false;
-                if (!this.deprecatedMovemants.forward) {
-                    this.moveForward();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.forward = true;
-                } else {
-                    this.deprecatedMovemants.forward = false;
-                }
-            }
-            if (this.actionStates.backward) {
-                this.deprecatedMovemants.forward = false;
-                if (!this.deprecatedMovemants.backward) {
-                    this.moveBackward();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.backward = true;
-                } else {
-                    this.deprecatedMovemants.backward = false;
-                }
-            }
-            if (this.actionStates.right) {
-                if (!this.deprecatedMovemants.turnRight) {
-                    this.turnRight();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.turnRight = true;
-                } else {
-                    this.deprecatedMovemants.turnRight = false;
-                }
-            }
-            if (this.actionStates.left) {
-                if (!this.deprecatedMovemants.turnLeft) {
-                    this.turnLeft();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.turnLeft = true;
-                } else {
-                    this.deprecatedMovemants.turnLeft = false;
-                }
-            }
-            if (this.actionStates.turretLeft) {
-                this.turnTurretLeft();
-            }
-            if (this.actionStates.turretRight) {
-                this.turnTurretRight();
-            }
-            if (this.actionStates.changeCamera) {
-                this.actionStates.changeCamera = false;
-                this.cameraCurrentType++;
-                this.cameraCurrentType %= 3;
-            }
-            if (this.actionStates.fire) {
-                Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
-                    _this.actionStates.fire = false;
-                }, 500);
-            }
-        }
-    }, {
-        key: "_pointInPolygon",
-        value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
-            var leftX = polyX - polyH / 2;
-            var rightX = leftX + polyH;
-            if (pointX < rightX && pointX > leftX) {
-                var leftY = polyY - polyW / 2;
-                var rightY = leftY + polyW;
-                if (pointY < rightY && pointY > leftY) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }, {
-        key: "_tankCollisionWithHouses",
-        value: function _tankCollisionWithHouses() {
-            var _this2 = this;
+			if (this.actionStates.forward) {
+				this.deprecatedMovemants.backward = false;
+				if (!this.deprecatedMovemants.forward) {
+					this.moveForward();
+				}
+				if (this._tankCollisionWithHouses()) {
+					this.deprecatedMovemants.forward = true;
+				} else {
+					this.deprecatedMovemants.forward = false;
+				}
+			}
+			if (this.actionStates.backward) {
+				this.deprecatedMovemants.forward = false;
+				if (!this.deprecatedMovemants.backward) {
+					this.moveBackward();
+				}
+				if (this._tankCollisionWithHouses()) {
+					this.deprecatedMovemants.backward = true;
+				} else {
+					this.deprecatedMovemants.backward = false;
+				}
+			}
+			if (this.actionStates.right) {
+				if (!this.deprecatedMovemants.turnRight) {
+					this.turnRight();
+				}
+				if (this._tankCollisionWithHouses()) {
+					this.deprecatedMovemants.turnRight = true;
+				} else {
+					this.deprecatedMovemants.turnRight = false;
+				}
+			}
+			if (this.actionStates.left) {
+				if (!this.deprecatedMovemants.turnLeft) {
+					this.turnLeft();
+				}
+				if (this._tankCollisionWithHouses()) {
+					this.deprecatedMovemants.turnLeft = true;
+				} else {
+					this.deprecatedMovemants.turnLeft = false;
+				}
+			}
+			if (this.actionStates.turretLeft) {
+				this.turnTurretLeft();
+			}
+			if (this.actionStates.turretRight) {
+				this.turnTurretRight();
+			}
+			if (this.actionStates.changeCamera) {
+				this.actionStates.changeCamera = false;
+				this.cameraCurrentType++;
+				this.cameraCurrentType %= 3;
+			}
+			if (this.actionStates.fire) {
+				Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
+					_this.actionStates.fire = false;
+				}, 500);
+			}
+		}
+	}, {
+		key: "_pointInPolygon",
+		value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
+			var leftX = polyX - polyH / 2;
+			var rightX = leftX + polyH;
+			if (pointX < rightX && pointX > leftX) {
+				var leftY = polyY - polyW / 2;
+				var rightY = leftY + polyW;
+				if (pointY < rightY && pointY > leftY) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}, {
+		key: "_tankCollisionWithHouses",
+		value: function _tankCollisionWithHouses() {
+			var _this2 = this;
 
-            var tankPoints = [{
-                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
-            }, {
-                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
-            }, {
-                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
-            }, {
-                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
-            }];
-            var flag = false;
-            this.map.some(function (key) {
-                tankPoints.some(function (tp) {
-                    flag = _this2._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
-                    return flag;
-                });
-                return flag;
-            });
-            return flag;
-        }
-    }, {
-        key: "getInstrustions",
-        value: function getInstrustions() {
-            return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire };
-        }
-    }]);
+			var tankPoints = [{
+				y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+				x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+			}, {
+				y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+				x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+			}, {
+				y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+				x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+			}, {
+				y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+				x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+			}];
+			var flag = false;
+			this.map.some(function (key) {
+				tankPoints.some(function (tp) {
+					flag = _this2._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
+					return flag;
+				});
+				return flag;
+			});
+			return flag;
+		}
+	}, {
+		key: "getInstrustions",
+		value: function getInstrustions() {
+			return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire };
+		}
+	}]);
 
-    return Player;
+	return Player;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Player);
@@ -4620,13 +4620,13 @@ exports.clearImmediate = clearImmediate;
 var ColladaLoader = __webpack_require__(39);
 
 function modelLoader(modelPath) {
-    return new Promise(function (resolve, reject) {
-        var loader = new THREE.ColladaLoader();
-        loader.options.convertUpAxis = true;
-        loader.load("./game/3dModels/" + modelPath, function (collada) {
-            resolve(collada);
-        });
-    });
+	return new Promise(function (resolve, reject) {
+		var loader = new THREE.ColladaLoader();
+		loader.options.convertUpAxis = true;
+		loader.load("./game/3dModels/" + modelPath, function (collada) {
+			resolve(collada);
+		});
+	});
 }
 
 /***/ }),
@@ -4664,6 +4664,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('../sw.js', { scope: '/' });
+// }
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.register("../../sw.js").then(function (registration) {
+		// при удачной регистрации имеем объект типа ServiceWorkerRegistration
+		console.log("ServiceWorker registration", registration);
+		// строкой ниже можно прекратить работу serviceWorker’а
+		//registration.unregister();
+	}).catch(function (err) {
+		console.error(err);
+	});
+}
+
 __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].show();
 
 var app = document.getElementById("application");
@@ -4683,27 +4697,27 @@ var gameMenu = new __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__["
 var gameView = new __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__["a" /* default */](main.el);
 
 var config = {
-    "/login/": {
-        view: login
-    },
-    "/register/": {
-        view: register
-    },
-    "/menu/": {
-        view: menu
-    },
-    "/": {
-        view: menu
-    },
-    "/changepass/": {
-        view: change
-    },
-    "/play/": {
-        view: gameType
-    },
-    "/game/": {
-        view: gameView
-    }
+	"/login/": {
+		view: login
+	},
+	"/register/": {
+		view: register
+	},
+	"/menu/": {
+		view: menu
+	},
+	"/": {
+		view: menu
+	},
+	"/changepass/": {
+		view: change
+	},
+	"/play/": {
+		view: gameType
+	},
+	"/game/": {
+		view: gameView
+	}
 };
 
 Object(__WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
@@ -4712,6 +4726,10 @@ __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].init(main.el, con
 __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
 
 __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
+
+// if ('serviceWorker' in window.navigator) {
+//     window.navigator.serviceWorker.register('../sw.js');
+// }
 
 /***/ }),
 /* 16 */
@@ -4729,11 +4747,11 @@ __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
 var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
 // const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
 var urls = {
-    login: PREFIX_URL + "login",
-    register: PREFIX_URL + "register",
-    logout: PREFIX_URL + "logout",
-    check: PREFIX_URL + "getuser",
-    chagePassword: PREFIX_URL + "changepassword"
+	login: PREFIX_URL + "login",
+	register: PREFIX_URL + "register",
+	logout: PREFIX_URL + "logout",
+	check: PREFIX_URL + "getuser",
+	chagePassword: PREFIX_URL + "changepassword"
 };
 var GET = "GET";
 var POST = "POST";
@@ -5260,107 +5278,106 @@ var keyboardJS = __webpack_require__(9);
 
 
 var SinglePlayer = function () {
-    function SinglePlayer() {
-        _classCallCheck(this, SinglePlayer);
+	function SinglePlayer() {
+		_classCallCheck(this, SinglePlayer);
 
-        this._gameLoop = this._gameLoop.bind(this);
-        this.actionStates = {};
-        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50], this.actionStates); // TODO write your original
-        this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
-    }
+		this._gameLoop = this._gameLoop.bind(this);
+		this.actionStates = {};
+		this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50], this.actionStates); // TODO write your original
+		this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
+	}
 
-    _createClass(SinglePlayer, [{
-        key: "getPlayersCoors",
-        value: function getPlayersCoors() {
-            return {
-                me: this.me.coords,
-                opponent: this.opponent.coords
-            };
-        }
-    }, {
-        key: "startListenGameLoop",
-        value: function startListenGameLoop(callback) {
-            var _this = this;
+	_createClass(SinglePlayer, [{
+		key: "getPlayersCoors",
+		value: function getPlayersCoors() {
+			return {
+				me: this.me.coords,
+				opponent: this.opponent.coords
+			};
+		}
+	}, {
+		key: "startListenGameLoop",
+		value: function startListenGameLoop(callback) {
+			var _this = this;
 
-            this.sceneInstructionCallback = callback;
-            this._startLoop();
-            this._initKeyListeners(function (newState) {
-                Object.assign(_this.actionStates, newState);
-            });
-        }
-    }, {
-        key: "_startLoop",
-        value: function _startLoop() {
-            window.requestAnimationFrame(this._gameLoop);
-        }
+			this.sceneInstructionCallback = callback;
+			this._startLoop();
+			this._initKeyListeners(function (newState) {
+				Object.assign(_this.actionStates, newState);
+			});
+		}
+	}, {
+		key: "_startLoop",
+		value: function _startLoop() {
+			window.requestAnimationFrame(this._gameLoop);
+		}
 
-        //Основной цикл, который шлет изменения
+		//Основной цикл, который шлет изменения
 
-    }, {
-        key: "_gameLoop",
-        value: function _gameLoop() {
+	}, {
+		key: "_gameLoop",
+		value: function _gameLoop() {
 
-            // Object.keys(this._actionStates).forEach(key => {
-            //     this.me[key] = this._actionStates[key];
-            // });
-            this.me.update();
-            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
-            this.me.getInstrustions());
-            window.requestAnimationFrame(this._gameLoop);
-        }
-    }, {
-        key: "_initKeyListeners",
-        value: function _initKeyListeners(callback) {
-            keyboardJS.bind("m", function (e) {
-                callback({ turretRight: true });
-            }, function (e) {
-                callback({ turretRight: false });
-            });
-            keyboardJS.bind("n", function (e) {
-                callback({ turretLeft: true });
-            }, function (e) {
-                callback({ turretLeft: false });
-            });
-            keyboardJS.bind("w", function (e) {
-                callback({ forward: true });
-            }, function (e) {
-                callback({ forward: false });
-            });
-            keyboardJS.bind("s", function (e) {
-                callback({ backward: true });
-            }, function (e) {
-                callback({ backward: false });
-            });
-            keyboardJS.bind("d", function (e) {
-                callback({ right: true });
-            }, function (e) {
-                callback({ right: false });
-            });
-            keyboardJS.bind("a", function (e) {
-                callback({ left: true });
-            }, function (e) {
-                callback({ left: false });
-            });
-            keyboardJS.bind("v", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                callback({ changeCamera: true });
-            });
-            keyboardJS.bind("space", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                callback({ fire: true });
-                console.log("fire in sp");
-            });
-        }
-    }, {
-        key: "randomMovemant",
-        value: function randomMovemant(callback) {
-            callback({ left: true, forward: true });
-        }
-    }]);
+			// Object.keys(this._actionStates).forEach(key => {
+			//     this.me[key] = this._actionStates[key];
+			// });
+			this.me.update();
+			this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+			this.me.getInstrustions());
+			window.requestAnimationFrame(this._gameLoop);
+		}
+	}, {
+		key: "_initKeyListeners",
+		value: function _initKeyListeners(callback) {
+			keyboardJS.bind("m", function (e) {
+				callback({ turretRight: true });
+			}, function (e) {
+				callback({ turretRight: false });
+			});
+			keyboardJS.bind("n", function (e) {
+				callback({ turretLeft: true });
+			}, function (e) {
+				callback({ turretLeft: false });
+			});
+			keyboardJS.bind("w", function (e) {
+				callback({ forward: true });
+			}, function (e) {
+				callback({ forward: false });
+			});
+			keyboardJS.bind("s", function (e) {
+				callback({ backward: true });
+			}, function (e) {
+				callback({ backward: false });
+			});
+			keyboardJS.bind("d", function (e) {
+				callback({ right: true });
+			}, function (e) {
+				callback({ right: false });
+			});
+			keyboardJS.bind("a", function (e) {
+				callback({ left: true });
+			}, function (e) {
+				callback({ left: false });
+			});
+			keyboardJS.bind("v", function (e) {
+				// callback({ changeCamera: false });
+			}, function (e) {
+				callback({ changeCamera: true });
+			});
+			keyboardJS.bind("space", function (e) {
+				// callback({ changeCamera: false });
+			}, function (e) {
+				callback({ fire: true });
+			});
+		}
+	}, {
+		key: "randomMovemant",
+		value: function randomMovemant(callback) {
+			callback({ left: true, forward: true });
+		}
+	}]);
 
-    return SinglePlayer;
+	return SinglePlayer;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (SinglePlayer);
@@ -6304,222 +6321,213 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // import { Math } from "../../../../Library/Caches/typescript/2.6/node_modules/@types/three";
 
 var Scene = function () {
-    function Scene(startPositionMe, startPositionOpponent) {
-        var _this = this;
+	function Scene(startPositionMe, startPositionOpponent) {
+		var _this = this;
 
-        _classCallCheck(this, Scene);
+		_classCallCheck(this, Scene);
 
-        __WEBPACK_IMPORTED_MODULE_3__modules_load_bar__["a" /* default */].show();
-        this.stats = new Stats();
-        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-        document.body.appendChild(this.stats.dom);
-        //////
-        this._resizeFunction = this._resizeFunction.bind(this);
+		__WEBPACK_IMPORTED_MODULE_3__modules_load_bar__["a" /* default */].show();
+		this.stats = new Stats();
+		this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+		document.body.appendChild(this.stats.dom);
+		//////
+		this._resizeFunction = this._resizeFunction.bind(this);
 
-        this.scene = new THREE.Scene();
-        this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
-        this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
-        // modelLoader("Hammer+Tank/model.dae").then(coll => {
-        Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("T90/model.dae").then(function (coll) {
+		this.scene = new THREE.Scene();
+		this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
+		this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
+		// modelLoader("Hammer+Tank/model.dae").then(coll => {
+		Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("T90/model.dae").then(function (coll) {
 
-            var collada = [coll.scene.clone(), coll.scene.clone()];
-            var i = 0;
-            ["tankOpponent", "tankMe"].forEach(function (key) {
-                //tank
-                var cpy1 = collada[i].clone();
-                var cpy2 = collada[i].clone();
+			var collada = [coll.scene.clone(), coll.scene.clone()];
+			var i = 0;
+			["tankOpponent", "tankMe"].forEach(function (key) {
+				//tank
+				var cpy1 = collada[i].clone();
+				var cpy2 = collada[i].clone();
 
-                cpy1.children[2] = new THREE.Object3D();
-                cpy1.children[3] = new THREE.Object3D();
-                cpy2.children[0] = new THREE.Object3D();
-                cpy2.children[1] = new THREE.Object3D();
+				cpy1.children[2] = new THREE.Object3D();
+				cpy1.children[3] = new THREE.Object3D();
+				cpy2.children[0] = new THREE.Object3D();
+				cpy2.children[1] = new THREE.Object3D();
 
-                // this[key].parent.add(cpy1);
-                _this[key].dae.add(cpy1);
+				// this[key].parent.add(cpy1);
+				_this[key].dae.add(cpy1);
 
-                _this[key].dae.rotation.x = -0.5 * Math.PI;
-                _this[key].dae.rotation.z = 1 * Math.PI;
-                _this[key].dae.rotation.y = -0.5 * Math.PI;
+				_this[key].dae.rotation.x = -0.5 * Math.PI;
+				_this[key].dae.rotation.z = 1 * Math.PI;
+				_this[key].dae.rotation.y = -0.5 * Math.PI;
 
-                // this[key].dae.castShadow = true;
-                _this.scene.add(_this[key].dae);
+				// this[key].dae.castShadow = true;
+				_this.scene.add(_this[key].dae);
 
-                //turret
-                _this[key].turret.parent.add(cpy2);
-                _this[key].turret.dae.rotation.x = -0.5 * Math.PI;
-                _this[key].turret.dae.rotation.y = +0.5 * Math.PI;
+				//turret
+				_this[key].turret.parent.add(cpy2);
+				_this[key].turret.dae.rotation.x = -0.5 * Math.PI;
+				_this[key].turret.dae.rotation.y = +0.5 * Math.PI;
 
-                _this[key].turret.dae.rotation.z = 1 * Math.PI;
-                _this.scene.add(_this[key].turret.dae);
-                i++;
-            });
-            __WEBPACK_IMPORTED_MODULE_3__modules_load_bar__["a" /* default */].hide();
-            _this._init();
-        });
-        this._addMap();
-    }
+				_this[key].turret.dae.rotation.z = 1 * Math.PI;
+				_this.scene.add(_this[key].turret.dae);
+				i++;
+			});
+			// progressBar.hide();
+			_this._init();
+			__WEBPACK_IMPORTED_MODULE_3__modules_load_bar__["a" /* default */].hide();
+		});
+		this._addMap();
+	}
 
-    _createClass(Scene, [{
-        key: "_init",
-        value: function _init() {
-            ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
+	_createClass(Scene, [{
+		key: "_init",
+		value: function _init() {
+			///////////////////////////////////////// // Camera ///////////////////////////////////////// 
 
-            this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
+			this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
 
-            this.camera.position.set(50, 7.9, 0);
-            this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
-            this.renderer = new THREE.WebGLRenderer({
-                alpha: true,
-                antialias: true
-            });
-            //this.renderer.shadowMap.enabled = true;
+			this.camera.position.set(50, 7.9, 0);
+			this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+			this.renderer = new THREE.WebGLRenderer({
+				alpha: true,
+				antialias: true
+			});
+			//this.renderer.shadowMap.enabled = true;
 
-            this.tankMe.turret.dae.add(this.camera);
-            ///
-            this.tankMe.camera = this.camera;
-            ///
+			this.tankMe.turret.dae.add(this.camera);
+			///
+			this.tankMe.camera = this.camera;
+			///
 
-            this.renderer.setPixelRatio(window.devicePixelRatio);
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-            ///
-            this.renderer.domElement.setAttribute("id", "game");
-            this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
-            this.renderer.domElement.style.position = "absolute";
-            this.renderer.domElement.style.zIndex = "1";
+			this.renderer.setPixelRatio(window.devicePixelRatio);
+			this.renderer.setSize(window.innerWidth, window.innerHeight);
+			///
+			this.renderer.domElement.setAttribute("id", "game");
+			this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
+			this.renderer.domElement.style.position = "absolute";
+			this.renderer.domElement.style.zIndex = "1";
 
-            document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
-            ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
-            var light = void 0,
-                light2 = void 0;
-            this.scene.add(new THREE.AmbientLight(0x666666));
-            light = new THREE.DirectionalLight(0xdfebff, 1.1);
-            light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
+			document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
+			///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
+			var light = void 0,
+			    light2 = void 0;
+			this.scene.add(new THREE.AmbientLight(0x666666));
+			light = new THREE.DirectionalLight(0xdfebff, 1.1);
+			light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
 
-            light.position.set(50, 200, 100);
-            light2.position.set(-150, -200, 100);
+			light.position.set(50, 200, 100);
+			light2.position.set(-150, -200, 100);
 
-            light.position.multiplyScalar(1.3);
-            light2.position.multiplyScalar(1.3);
-            this.scene.add(light);
-            this.scene.add(light2);
-            /////////light end
-            this._resizeWindow();
+			light.position.multiplyScalar(1.3);
+			light2.position.multiplyScalar(1.3);
+			this.scene.add(light);
+			this.scene.add(light2);
+			/////////light end
+			this._resizeWindow();
 
-            this._startRenderAnimate();
-        }
-    }, {
-        key: "updateObjects",
-        value: function updateObjects(type, instractions) {
-            console.log("im in updateobject" + type);
-            // Object.keys(action).forEach(key => {
-            //     this[type][key] = action[key];
-            // });
-            this[type].instractions = instractions;
-            // if (instractions.fire) {
-            //     this.tankMe.boom.visible = true;
-            //     setTimeout(() => { this.tankMe.boom.visible = false }, 500);
-            // }
-        }
-    }, {
-        key: "_startRenderAnimate",
-        value: function _startRenderAnimate() {
-            var _this2 = this;
+			this._startRenderAnimate();
+		}
+	}, {
+		key: "updateObjects",
+		value: function updateObjects(type, instractions) {
+			var _this2 = this;
 
-            var innerrender = function innerrender() {
-                window.requestAnimationFrame(innerrender);
-                _this2.stats.begin();
-                _this2._render();
-                _this2.stats.end();
-            };
+			// Object.keys(action).forEach(key => {
+			//     this[type][key] = action[key];
+			// });
+			this[type].instractions = instractions;
+			if (instractions.fire) {
+				this.tankMe.boom.visible = true;
+				Object(__WEBPACK_IMPORTED_MODULE_4_timers__["setTimeout"])(function () {
+					_this2.tankMe.boom.visible = false;
+				}, 500);
+			}
+		}
+	}, {
+		key: "_startRenderAnimate",
+		value: function _startRenderAnimate() {
+			var _this3 = this;
 
-            innerrender();
+			var innerrender = function innerrender() {
+				window.requestAnimationFrame(innerrender);
+				_this3.stats.begin();
+				_this3._render();
+				_this3.stats.end();
+			};
 
-            // monitored code goes here
+			innerrender();
+		}
+	}, {
+		key: "_render",
+		value: function _render() {
+			var _this4 = this;
 
+			["tankMe", "tankOpponent"].forEach(function (key) {
+				_this4[key].update();
+			});
+			this.renderer.render(this.scene, this.camera);
+		}
+	}, {
+		key: "_resizeWindow",
+		value: function _resizeWindow() {
+			window.addEventListener("resize", this._resizeFunction, false);
+		}
+	}, {
+		key: "_resizeFunction",
+		value: function _resizeFunction() {
+			this.camera.aspect = window.innerWidth / window.innerHeight;
+			this.camera.updateProjectionMatrix();
+			this.renderer.setSize(window.innerWidth, window.innerHeight);
+			this._render();
+		}
+	}, {
+		key: "_addMap",
+		value: function _addMap() {
+			var _this5 = this;
 
-            //requestAnimationFrame(this._startRenderAnimat);
-        }
-    }, {
-        key: "_render",
-        value: function _render() {
-            var _this3 = this;
+			Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene);
+			var loader = new THREE.TextureLoader();
+			var groundTexture = loader.load("./game/3dModels/terrain/www.jpg");
+			groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+			groundTexture.repeat.set(1900, 1900);
+			groundTexture.anisotropy = 16;
+			var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
+			var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
+			mesh.position.z = 0.01;
+			this.scene.add(mesh);
+			//
+			Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("road/model.dae").then(function (coll) {
+				coll.scene.rotation.x = -0.5 * Math.PI;
+				coll.scene.rotation.z = 1 * Math.PI;
+				coll.scene.position.z -= 0.1;
+				coll.scene.scale.z = 3;
+				coll.scene.scale.x = 0.05;
+				coll.scene.position.z = 0.11;
+				coll.scene.position.y = 500;
+				var road2 = coll.scene.clone();
+				road2.rotation.y = 0.5 * Math.PI;
+				road2.position.y = 0;
+				road2.position.x = 500;
 
-            ["tankMe", "tankOpponent"].forEach(function (key) {
-                _this3[key].update();
-            });
-            this.renderer.render(this.scene, this.camera);
-        }
-    }, {
-        key: "_resizeWindow",
-        value: function _resizeWindow() {
-            window.addEventListener("resize", this._resizeFunction, false);
-        }
-    }, {
-        key: "_resizeFunction",
-        value: function _resizeFunction() {
-            this.camera.aspect = window.innerWidth / window.innerHeight;
-            this.camera.updateProjectionMatrix();
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-            this._render();
-        }
-    }, {
-        key: "_addMap",
-        value: function _addMap() {
-            var _this4 = this;
+				_this5.scene.add(coll.scene);
+				_this5.scene.add(road2);
+			});
+			Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("boom/model.dae").then(function (coll) {
+				coll.scene.rotation.x = -0.5 * Math.PI;
+				coll.scene.rotation.z = 1 * Math.PI;
 
-            Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene);
-            var loader = new THREE.TextureLoader();
-            var groundTexture = loader.load('./game/3dModels/terrain/www.jpg');
-            groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-            groundTexture.repeat.set(1900, 1900);
-            groundTexture.anisotropy = 16;
-            var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
-            var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
-            mesh.position.z = 0.01;
-            this.scene.add(mesh);
-            //
-            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("road/model.dae").then(function (coll) {
-                coll.scene.rotation.x = -0.5 * Math.PI;
-                coll.scene.rotation.z = 1 * Math.PI;
-                coll.scene.position.z -= 0.1;
-                coll.scene.scale.z = 3;
-                coll.scene.scale.x = 0.05;
-                coll.scene.position.z = 0.11;
-                coll.scene.position.y = 500;
-                var road2 = coll.scene.clone();
-                road2.rotation.y = 0.5 * Math.PI;
-                road2.position.y = 0;
-                road2.position.x = 500;
+				coll.scene.scale.z *= 0.45;
+				coll.scene.scale.y *= 0.45;
+				coll.scene.scale.x *= 0.45;
 
-                _this4.scene.add(coll.scene);
-                _this4.scene.add(road2);
-            });
-            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("boom/model.dae").then(function (coll) {
-                coll.scene.rotation.x = -0.5 * Math.PI;
-                coll.scene.rotation.z = 1 * Math.PI;
+				_this5.boom = coll.scene.clone();
+				_this5.boom.position.set(-10, 1.75, 0);
+				_this5.tankMe.turret.dae.add(_this5.boom);
+				_this5.tankMe.boom = _this5.boom;
+				_this5.tankMe.boom.visible = false;
+			});
+		}
+	}]);
 
-                coll.scene.scale.z *= 0.45;
-                coll.scene.scale.y *= 0.45;
-                coll.scene.scale.x *= 0.45;
-
-                _this4.boom = coll.scene.clone();
-                _this4.boom.position.set(-10, 1.75, 0);
-                _this4.tankMe.turret.dae.add(_this4.boom);
-                _this4.tankMe.boom = _this4.boom;
-                _this4.tankMe.boom.visible = false;
-            });
-            // let geometry = new THREE.BoxGeometry(7, 3, 1);
-            // let material = new THREE.MeshBasicMaterial({
-            //     color: 0xFF0000
-            // });
-            // let cube = new THREE.Mesh(geometry, material);
-            // cube.position.x = 50;
-            // cube.position.y = 50;
-            // this.scene.add(cube);
-        }
-    }]);
-
-    return Scene;
+	return Scene;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Scene);
@@ -6538,92 +6546,92 @@ var THREE = __webpack_require__(5);
 
 
 var Tank = function () {
-    function Tank(dae) {
-        var _this = this;
+	function Tank(dae) {
+		var _this = this;
 
-        var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { x: 0, y: 0 };
+		var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { x: 0, y: 0 };
 
-        _classCallCheck(this, Tank);
+		_classCallCheck(this, Tank);
 
-        this.dae = new THREE.Object3D();
-        this.dae.position.x = coords.x;
-        this.dae.position.y = coords.y;
+		this.dae = new THREE.Object3D();
+		this.dae.position.x = coords.x;
+		this.dae.position.y = coords.y;
 
-        this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
+		this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
 
-        this.camera = null;
-        // this.changeCamera = false;
-        this.cameraCurrentType = 0;
+		this.camera = null;
+		// this.changeCamera = false;
+		this.cameraCurrentType = 0;
 
-        this.cameraTypes = [function () {
-            _this.camera.position.set(50, 7.9, 0);
-            _this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
-        }, function () {
-            _this.camera.position.set(5, 3, 0);
-            _this.camera.lookAt(new THREE.Vector3(0, 2.7, 0));
-        }, function () {
-            _this.camera.position.set(185, 45, 0);
-            _this.camera.lookAt(new THREE.Vector3(0, 15, 0));
-        }];
-        this.instractions = { coords: {}, angle: -0.5 * Math.PI, cameraType: 0 };
-    }
+		this.cameraTypes = [function () {
+			_this.camera.position.set(50, 7.9, 0);
+			_this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+		}, function () {
+			_this.camera.position.set(5, 3, 0);
+			_this.camera.lookAt(new THREE.Vector3(0, 2.7, 0));
+		}, function () {
+			_this.camera.position.set(185, 45, 0);
+			_this.camera.lookAt(new THREE.Vector3(0, 15, 0));
+		}];
+		this.instractions = { coords: {}, angle: -0.5 * Math.PI, cameraType: 0 };
+	}
 
-    _createClass(Tank, [{
-        key: "moveForward",
-        value: function moveForward() {
-            this.dae.position.y += 0.3 * Math.cos(this.angle);
-            this.dae.position.x += 0.3 * Math.sin(this.angle);
-            this.turret.dae.position.y += 0.3 * Math.cos(this.angle);
-            this.turret.dae.position.x += 0.3 * Math.sin(this.angle);
-        }
-    }, {
-        key: "moveBackward",
-        value: function moveBackward() {
-            this.dae.position.y -= 0.2 * Math.cos(this.angle);
-            this.dae.position.x -= 0.2 * Math.sin(this.angle);
-            this.turret.dae.position.y -= 0.2 * Math.cos(this.angle);
-            this.turret.dae.position.x -= 0.2 * Math.sin(this.angle);
-        }
-    }, {
-        key: "turnRight",
-        value: function turnRight() {
-            this.dae.rotation.y += 0.005 * Math.PI;
-            this.angle += 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnLeft",
-        value: function turnLeft() {
-            this.dae.rotation.y -= 0.005 * Math.PI;
-            this.angle -= 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnTurretRight",
-        value: function turnTurretRight() {
-            this.turret.dae.rotation.y += 0.008 * Math.PI;
-        }
-    }, {
-        key: "turnTurretLeft",
-        value: function turnTurretLeft() {
-            this.turret.dae.rotation.y -= 0.008 * Math.PI;
-        }
-    }, {
-        key: "update",
-        value: function update() {
-            this.dae.rotation.y = this.instractions.angle - Math.PI;
-            this.turret.dae.rotation.y = this.instractions.turretAngle - Math.PI;
-            this.dae.position.y = this.instractions.coords.y;
-            this.dae.position.x = this.instractions.coords.x;
-            this.turret.dae.position.y = this.instractions.coords.y;
-            this.turret.dae.position.x = this.instractions.coords.x;
+	_createClass(Tank, [{
+		key: "moveForward",
+		value: function moveForward() {
+			this.dae.position.y += 0.3 * Math.cos(this.angle);
+			this.dae.position.x += 0.3 * Math.sin(this.angle);
+			this.turret.dae.position.y += 0.3 * Math.cos(this.angle);
+			this.turret.dae.position.x += 0.3 * Math.sin(this.angle);
+		}
+	}, {
+		key: "moveBackward",
+		value: function moveBackward() {
+			this.dae.position.y -= 0.2 * Math.cos(this.angle);
+			this.dae.position.x -= 0.2 * Math.sin(this.angle);
+			this.turret.dae.position.y -= 0.2 * Math.cos(this.angle);
+			this.turret.dae.position.x -= 0.2 * Math.sin(this.angle);
+		}
+	}, {
+		key: "turnRight",
+		value: function turnRight() {
+			this.dae.rotation.y += 0.005 * Math.PI;
+			this.angle += 0.005 * Math.PI;
+		}
+	}, {
+		key: "turnLeft",
+		value: function turnLeft() {
+			this.dae.rotation.y -= 0.005 * Math.PI;
+			this.angle -= 0.005 * Math.PI;
+		}
+	}, {
+		key: "turnTurretRight",
+		value: function turnTurretRight() {
+			this.turret.dae.rotation.y += 0.008 * Math.PI;
+		}
+	}, {
+		key: "turnTurretLeft",
+		value: function turnTurretLeft() {
+			this.turret.dae.rotation.y -= 0.008 * Math.PI;
+		}
+	}, {
+		key: "update",
+		value: function update() {
+			this.dae.rotation.y = this.instractions.angle - Math.PI;
+			this.turret.dae.rotation.y = this.instractions.turretAngle - Math.PI;
+			this.dae.position.y = this.instractions.coords.y;
+			this.dae.position.x = this.instractions.coords.x;
+			this.turret.dae.position.y = this.instractions.coords.y;
+			this.turret.dae.position.x = this.instractions.coords.x;
 
-            if (this.instractions.cameraType !== this.cameraCurrentType) {
-                this.cameraTypes[this.instractions.cameraType]();
-                this.cameraCurrentType = this.instractions.cameraType;
-            }
-        }
-    }]);
+			if (this.instractions.cameraType !== this.cameraCurrentType) {
+				this.cameraTypes[this.instractions.cameraType]();
+				this.cameraCurrentType = this.instractions.cameraType;
+			}
+		}
+	}]);
 
-    return Tank;
+	return Tank;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Tank);
@@ -6638,16 +6646,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var THREE = __webpack_require__(5);
 
 var Turret = function Turret(dae, coords) {
-    _classCallCheck(this, Turret);
+	_classCallCheck(this, Turret);
 
-    this.dae = new THREE.Object3D();
-    this.parent = new THREE.Object3D();
-    this.parent.rotation.y += 0.5 * Math.PI;
-    this.dae.add(this.parent);
-    this.angle = Math.PI - Math.PI;
+	this.dae = new THREE.Object3D();
+	this.parent = new THREE.Object3D();
+	this.parent.rotation.y += 0.5 * Math.PI;
+	this.dae.add(this.parent);
+	this.angle = Math.PI - Math.PI;
 
-    this.dae.position.x = coords.x;
-    this.dae.position.y = coords.y;
+	this.dae.position.x = coords.x;
+	this.dae.position.y = coords.y;
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Turret);
@@ -11647,188 +11655,188 @@ module.exports = ColladaLoader;
 // const THREE = require("three");
 
 function MapCreator(scene) {
-    var promises = [];
+	var promises = [];
 
-    promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/church/model.dae"));
-    promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/bighouse/model.dae"));
-    promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/middlehouse/model.dae"));
-    promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/smallhouse/model.dae"));
+	promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/church/model.dae"));
+	promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/bighouse/model.dae"));
+	promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/middlehouse/model.dae"));
+	promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/smallhouse/model.dae"));
 
-    Promise.all(promises).then(function (collades) {
-        houseParams[4].house = modelInit(collades[0], 0.04);
-        houseParams[1].house = modelInit(collades[1], 0.04);
-        houseParams[2].house = modelInit(collades[2], 0.05);
-        houseParams[3].house = modelInit(collades[3], 0.05);
+	Promise.all(promises).then(function (collades) {
+		houseParams[4].house = modelInit(collades[0], 0.04);
+		houseParams[1].house = modelInit(collades[1], 0.04);
+		houseParams[2].house = modelInit(collades[2], 0.05);
+		houseParams[3].house = modelInit(collades[3], 0.05);
 
-        housePlace.forEach(function (key) {
+		housePlace.forEach(function (key) {
 
-            var house = houseParams[key.type].house.clone();
-            var geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
-            var material = new THREE.MeshBasicMaterial({
-                color: houseParams[key.type].color
-            });
-            var cube = new THREE.Mesh(geometry, material);
-            cube.position.x = key.x;
-            cube.position.y = key.y;
-            if (key.flag) {
-                cube.rotation.z = 0.5 * Math.PI;
-                house.rotation.y = 0.5 * Math.PI;
-                house.position.x = key.x + houseParams[key.type].shifty;
-                house.position.y = key.y - houseParams[key.type].shiftx;
-            } else {
-                house.position.x = key.x + houseParams[key.type].shiftx;
-                house.position.y = key.y + houseParams[key.type].shifty;
-            }
-            scene.add(cube);
+			var house = houseParams[key.type].house.clone();
+			var geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
+			var material = new THREE.MeshBasicMaterial({
+				color: houseParams[key.type].color
+			});
+			var cube = new THREE.Mesh(geometry, material);
+			cube.position.x = key.x;
+			cube.position.y = key.y;
+			if (key.flag) {
+				cube.rotation.z = 0.5 * Math.PI;
+				house.rotation.y = 0.5 * Math.PI;
+				house.position.x = key.x + houseParams[key.type].shifty;
+				house.position.y = key.y - houseParams[key.type].shiftx;
+			} else {
+				house.position.x = key.x + houseParams[key.type].shiftx;
+				house.position.y = key.y + houseParams[key.type].shifty;
+			}
+			scene.add(cube);
 
-            scene.add(house);
-        });
-    });
-    map.forEach(function (key) {
-        var geometry = new THREE.BoxGeometry(key.height, key.width, 4);
-        var material = new THREE.MeshBasicMaterial({
-            color: 0xFF0000
-        });
-        var cube = new THREE.Mesh(geometry, material);
-        cube.position.x = key.x;
-        cube.position.y = key.y;
-        // scene.add(cube);
-        // scene.add(house);
-    });
+			scene.add(house);
+		});
+	});
+	map.forEach(function (key) {
+		var geometry = new THREE.BoxGeometry(key.height, key.width, 4);
+		var material = new THREE.MeshBasicMaterial({
+			color: 0xFF0000
+		});
+		var cube = new THREE.Mesh(geometry, material);
+		cube.position.x = key.x;
+		cube.position.y = key.y;
+		// scene.add(cube);
+		// scene.add(house);
+	});
 }
 
 function modelInit(collada, size) {
-    var plc = new THREE.Object3D();
-    collada.scene.scale.x = size;
-    collada.scene.scale.y = size;
-    collada.scene.scale.z = size;
-    plc.add(collada.scene);
-    plc.rotation.x = -0.5 * Math.PI;
-    plc.rotation.z = 1 * Math.PI;
-    plc.position.z -= 0.1;
-    return plc;
-};
+	var plc = new THREE.Object3D();
+	collada.scene.scale.x = size;
+	collada.scene.scale.y = size;
+	collada.scene.scale.z = size;
+	plc.add(collada.scene);
+	plc.rotation.x = -0.5 * Math.PI;
+	plc.rotation.z = 1 * Math.PI;
+	plc.position.z -= 0.1;
+	return plc;
+}
 
 var map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
 
 var houseParams = [{}, {
-    x: 57,
-    y: 58,
-    color: 0x777777,
-    house: null,
-    shiftx: -6,
-    shifty: 25
+	x: 57,
+	y: 58,
+	color: 0x777777,
+	house: null,
+	shiftx: -6,
+	shifty: 25
 }, {
-    x: 20,
-    y: 32,
-    color: 0xCFBDAA,
-    house: null,
-    shiftx: 7,
-    shifty: 15
+	x: 20,
+	y: 32,
+	color: 0xCFBDAA,
+	house: null,
+	shiftx: 7,
+	shifty: 15
 
 }, {
-    x: 18,
-    y: 17,
-    color: 0xFFEBCD,
-    house: null,
-    shiftx: 8,
-    shifty: 10
+	x: 18,
+	y: 17,
+	color: 0xFFEBCD,
+	house: null,
+	shiftx: 8,
+	shifty: 10
 }, {
-    x: 25,
-    y: 42,
-    color: 0x888888,
-    house: null,
-    shiftx: -6,
-    shifty: 25
+	x: 25,
+	y: 42,
+	color: 0x888888,
+	house: null,
+	shiftx: -6,
+	shifty: 25
 }];
 
 var housePlace = [{
-    x: 0,
-    y: 0,
-    type: 1
+	x: 0,
+	y: 0,
+	type: 1
 }, {
-    x: -136,
-    y: 88,
-    type: 3,
-    flag: false
+	x: -136,
+	y: 88,
+	type: 3,
+	flag: false
 
 }, {
-    x: -48,
-    y: 108,
-    type: 3,
-    flag: false
+	x: -48,
+	y: 108,
+	type: 3,
+	flag: false
 
 }, {
-    x: -20,
-    y: 56,
-    type: 3,
-    flag: false
+	x: -20,
+	y: 56,
+	type: 3,
+	flag: false
 
 }, {
-    x: -136,
-    y: -20,
-    type: 3,
-    flag: false
+	x: -136,
+	y: -20,
+	type: 3,
+	flag: false
 
 }, {
-    x: 68,
-    y: 40,
-    type: 3,
-    flag: false
+	x: 68,
+	y: 40,
+	type: 3,
+	flag: false
 
 }, {
-    x: 100,
-    y: 40,
-    type: 3,
-    flag: false
+	x: 100,
+	y: 40,
+	type: 3,
+	flag: false
 
 }, {
-    x: 132,
-    y: 40,
-    type: 3,
-    flag: false
+	x: 132,
+	y: 40,
+	type: 3,
+	flag: false
 
 }, {
-    x: -100,
-    y: 24,
-    type: 2,
-    flag: true
+	x: -100,
+	y: 24,
+	type: 2,
+	flag: true
 
 }, {
-    x: -128,
-    y: -88,
-    type: 2,
-    flag: true
+	x: -128,
+	y: -88,
+	type: 2,
+	flag: true
 
 }, {
-    x: -20,
-    y: -92,
-    type: 2,
-    flag: false
+	x: -20,
+	y: -92,
+	type: 2,
+	flag: false
 
 }, {
-    x: 32,
-    y: 104,
-    type: 2,
-    flag: true
+	x: 32,
+	y: 104,
+	type: 2,
+	flag: true
 
 }, {
-    x: 140,
-    y: 84,
-    type: 2,
-    flag: false
+	x: 140,
+	y: 84,
+	type: 2,
+	flag: false
 
 }, {
-    x: -84,
-    y: 64,
-    type: 4,
-    flag: true
+	x: -84,
+	y: 64,
+	type: 4,
+	flag: true
 
 }, {
-    x: -56,
-    y: -40,
-    type: 4,
-    flag: false
+	x: -56,
+	y: -40,
+	type: 4,
+	flag: false
 }];
 
 /***/ }),
@@ -11845,63 +11853,63 @@ var keyboardJS = __webpack_require__(9);
 
 
 var MultiPlayer = function () {
-    function MultiPlayer() {
-        _classCallCheck(this, MultiPlayer);
-    }
+	function MultiPlayer() {
+		_classCallCheck(this, MultiPlayer);
+	}
 
-    _createClass(MultiPlayer, [{
-        key: "_initKeyListeners",
-        value: function _initKeyListeners(callback) {
-            keyboardJS.bind("m", function (e) {
-                callback({ turretRight: true });
-            }, function (e) {
-                callback({ turretRight: false });
-            });
-            keyboardJS.bind("n", function (e) {
-                callback({ turretLeft: true });
-            }, function (e) {
-                callback({ turretLeft: false });
-            });
-            keyboardJS.bind("w", function (e) {
-                callback({ forward: true });
-            }, function (e) {
-                callback({ forward: false });
-            });
-            keyboardJS.bind("s", function (e) {
-                callback({ backward: true });
-            }, function (e) {
-                callback({ backward: false });
-            });
-            keyboardJS.bind("d", function (e) {
-                callback({ right: true });
-            }, function (e) {
-                callback({ right: false });
-            });
-            keyboardJS.bind("a", function (e) {
-                callback({ left: true });
-            }, function (e) {
-                callback({ left: false });
-            });
-            keyboardJS.bind("v", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                callback({ changeCamera: true });
-            });
-            keyboardJS.bind("space", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                callback({ fire: true });
-                console.log("fire in sp");
-            });
-        }
-    }, {
-        key: "randomMovemant",
-        value: function randomMovemant(callback) {
-            callback({ left: true, forward: true });
-        }
-    }]);
+	_createClass(MultiPlayer, [{
+		key: "_initKeyListeners",
+		value: function _initKeyListeners(callback) {
+			keyboardJS.bind("m", function (e) {
+				callback({ turretRight: true });
+			}, function (e) {
+				callback({ turretRight: false });
+			});
+			keyboardJS.bind("n", function (e) {
+				callback({ turretLeft: true });
+			}, function (e) {
+				callback({ turretLeft: false });
+			});
+			keyboardJS.bind("w", function (e) {
+				callback({ forward: true });
+			}, function (e) {
+				callback({ forward: false });
+			});
+			keyboardJS.bind("s", function (e) {
+				callback({ backward: true });
+			}, function (e) {
+				callback({ backward: false });
+			});
+			keyboardJS.bind("d", function (e) {
+				callback({ right: true });
+			}, function (e) {
+				callback({ right: false });
+			});
+			keyboardJS.bind("a", function (e) {
+				callback({ left: true });
+			}, function (e) {
+				callback({ left: false });
+			});
+			keyboardJS.bind("v", function (e) {
+				// callback({ changeCamera: false });
+			}, function (e) {
+				callback({ changeCamera: true });
+			});
+			keyboardJS.bind("space", function (e) {
+				// callback({ changeCamera: false });
+			}, function (e) {
+				callback({ fire: true });
+				console.log("fire in sp");
+			});
+		}
+	}, {
+		key: "randomMovemant",
+		value: function randomMovemant(callback) {
+			callback({ left: true, forward: true });
+		}
+	}]);
 
-    return MultiPlayer;
+	return MultiPlayer;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (MultiPlayer);
@@ -12065,63 +12073,63 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var ThemeView = function (_BaseView) {
-    _inherits(ThemeView, _BaseView);
+	_inherits(ThemeView, _BaseView);
 
-    function ThemeView(parentNode) {
-        _classCallCheck(this, ThemeView);
+	function ThemeView(parentNode) {
+		_classCallCheck(this, ThemeView);
 
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "theme" });
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "theme" });
 
-        var _this = _possibleConstructorReturn(this, (ThemeView.__proto__ || Object.getPrototypeOf(ThemeView)).call(this, view.el));
+		var _this = _possibleConstructorReturn(this, (ThemeView.__proto__ || Object.getPrototypeOf(ThemeView)).call(this, view.el));
 
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
 
-        _this.themeFlag = true;
-        _this.wallpaper = null;
-        return _this;
-    }
+		_this.themeFlag = true;
+		_this.wallpaper = null;
+		return _this;
+	}
 
-    _createClass(ThemeView, [{
-        key: "_appendChildren",
-        value: function _appendChildren() {
-            var _this2 = this;
+	_createClass(ThemeView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1__theme_js__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            var _this3 = this;
+			__WEBPACK_IMPORTED_MODULE_1__theme_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
 
-            this.themeBtn.setCallback(function () {
-                _this3.themeFlag ? _this3.wallpaper = "url(../images/2wallpaper.jpg)" : _this3.wallpaper = "url(../images/wallpaper.jpg)";
-                document.getElementById("background").style.backgroundImage = _this3.wallpaper;
-                _this3.parentNode.childNodes.forEach(function (key) {
-                    key.childNodes.forEach(function (child) {
-                        if (child.classList.contains("button")) {
-                            _this3.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
-                        }
-                    });
-                });
-                _this3.themeFlag = !_this3.themeFlag;
-            });
-            this.playBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_5__utils_Router__["a" /* default */].go(_this3.playBtn.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_4__game_GameManager__["a" /* default */]();
-                gameManager.start("single");
-            });
-        }
-    }]);
+			this.themeBtn.setCallback(function () {
+				_this3.themeFlag ? _this3.wallpaper = "url(../images/2wallpaper.jpg)" : _this3.wallpaper = "url(../images/wallpaper.jpg)";
+				document.getElementById("background").style.backgroundImage = _this3.wallpaper;
+				_this3.parentNode.childNodes.forEach(function (key) {
+					key.childNodes.forEach(function (child) {
+						if (child.classList.contains("button")) {
+							_this3.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
+						}
+					});
+				});
+				_this3.themeFlag = !_this3.themeFlag;
+			});
+			this.playBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_5__utils_Router__["a" /* default */].go(_this3.playBtn.el.getAttribute("href"), false);
+				var gameManager = new __WEBPACK_IMPORTED_MODULE_4__game_GameManager__["a" /* default */]();
+				gameManager.start("single");
+			});
+		}
+	}]);
 
-    return ThemeView;
+	return ThemeView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (ThemeView);
@@ -12134,18 +12142,18 @@ var ThemeView = function (_BaseView) {
 
 
 var themeFields = [{
-    name: "themeBtn",
-    class: "button",
-    elemType: "input",
-    type: "button",
-    value: "Theme"
+	name: "themeBtn",
+	class: "button",
+	elemType: "input",
+	type: "button",
+	value: "Theme"
 }, {
-    name: "playBtn",
-    class: " button",
-    elemType: "input",
-    value: "Fast Game",
-    href: "/game/",
-    type: "button"
+	name: "playBtn",
+	class: " button",
+	elemType: "input",
+	value: "Fast Game",
+	href: "/game/",
+	type: "button"
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = (themeFields);
@@ -12185,56 +12193,56 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
 
 var GameTypeView = function (_BaseView) {
-    _inherits(GameTypeView, _BaseView);
+	_inherits(GameTypeView, _BaseView);
 
-    function GameTypeView(parentNode) {
-        _classCallCheck(this, GameTypeView);
+	function GameTypeView(parentNode) {
+		_classCallCheck(this, GameTypeView);
 
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
 
-        var _this = _possibleConstructorReturn(this, (GameTypeView.__proto__ || Object.getPrototypeOf(GameTypeView)).call(this, view.el));
+		var _this = _possibleConstructorReturn(this, (GameTypeView.__proto__ || Object.getPrototypeOf(GameTypeView)).call(this, view.el));
 
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
 
-    _createClass(GameTypeView, [{
-        key: "_appendChildren",
-        value: function _appendChildren() {
-            var _this2 = this;
+	_createClass(GameTypeView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1__gameType__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            var _this3 = this;
+			__WEBPACK_IMPORTED_MODULE_1__gameType__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
 
-            this.singlePlayer.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("single");
-            });
-            this.multiPlayer.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayer.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("multi");
-            });
-            this.changeformBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-            });
-        }
-    }]);
+			this.singlePlayer.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
+				var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+				gameManager.start("single");
+			});
+			this.multiPlayer.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayer.el.getAttribute("href"), false);
+				var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+				gameManager.start("multi");
+			});
+			this.changeformBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+			});
+		}
+	}]);
 
-    return GameTypeView;
+	return GameTypeView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (GameTypeView);
@@ -12247,23 +12255,23 @@ var GameTypeView = function (_BaseView) {
 
 
 var gameFields = [{
-    name: "singlePlayer",
-    class: " button",
-    elemType: "a",
-    value: "Singleplayer",
-    href: "/game/"
+	name: "singlePlayer",
+	class: " button",
+	elemType: "a",
+	value: "Singleplayer",
+	href: "/game/"
 }, {
-    name: "multiPlayer",
-    class: " button",
-    elemType: "a",
-    value: "multiplayer",
-    href: "/game/"
+	name: "multiPlayer",
+	class: " button",
+	elemType: "a",
+	value: "multiplayer",
+	href: "/game/"
 }, {
-    name: "changeformBtn",
-    class: " button",
-    elemType: "a",
-    value: "Back to menu",
-    href: "/menu/"
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "Back to menu",
+	href: "/menu/"
 }];
 /* harmony default export */ __webpack_exports__["a"] = (gameFields);
 
@@ -12291,44 +12299,44 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var GameView = function (_BaseView) {
-    _inherits(GameView, _BaseView);
+	_inherits(GameView, _BaseView);
 
-    function GameView(parentNode) {
-        _classCallCheck(this, GameView);
+	function GameView(parentNode) {
+		_classCallCheck(this, GameView);
 
-        var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "game hidden" });
+		var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "game hidden" });
 
-        var _this = _possibleConstructorReturn(this, (GameView.__proto__ || Object.getPrototypeOf(GameView)).call(this, view.el));
+		var _this = _possibleConstructorReturn(this, (GameView.__proto__ || Object.getPrototypeOf(GameView)).call(this, view.el));
 
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._buttonsInit();
-        return _this;
-    }
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._buttonsInit();
+		return _this;
+	}
 
-    _createClass(GameView, [{
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            window.addEventListener("keyup", this._enableGameMenu);
-        }
-    }, {
-        key: "_enableGameMenu",
-        value: function _enableGameMenu(e) {
-            if (e.keyCode == 27) {
-                document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
-                document.getElementById("game").classList.add("blured");
-            }
-        }
-    }, {
-        key: "destroyGame",
-        value: function destroyGame() {
-            window.removeEventListener("keyup", this._enableGameMenu);
-            this.view.el.innerHTML = "";
-        }
-    }]);
+	_createClass(GameView, [{
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			window.addEventListener("keyup", this._enableGameMenu);
+		}
+	}, {
+		key: "_enableGameMenu",
+		value: function _enableGameMenu(e) {
+			if (e.keyCode == 27) {
+				document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
+				document.getElementById("game").classList.add("blured");
+			}
+		}
+	}, {
+		key: "destroyGame",
+		value: function destroyGame() {
+			window.removeEventListener("keyup", this._enableGameMenu);
+			this.view.el.innerHTML = "";
+		}
+	}]);
 
-    return GameView;
+	return GameView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (GameView);
@@ -12365,51 +12373,51 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var GameMenuView = function (_BaseView) {
-    _inherits(GameMenuView, _BaseView);
+	_inherits(GameMenuView, _BaseView);
 
-    function GameMenuView(parentNode) {
-        _classCallCheck(this, GameMenuView);
+	function GameMenuView(parentNode) {
+		_classCallCheck(this, GameMenuView);
 
-        var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "gamemenu hidden" });
+		var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "gamemenu hidden" });
 
-        var _this = _possibleConstructorReturn(this, (GameMenuView.__proto__ || Object.getPrototypeOf(GameMenuView)).call(this, view.el));
+		var _this = _possibleConstructorReturn(this, (GameMenuView.__proto__ || Object.getPrototypeOf(GameMenuView)).call(this, view.el));
 
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
 
-    _createClass(GameMenuView, [{
-        key: "_appendChildren",
-        value: function _appendChildren() {
-            var _this2 = this;
+	_createClass(GameMenuView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_3__gameMenu__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            var _this3 = this;
+			__WEBPACK_IMPORTED_MODULE_3__gameMenu__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
 
-            this.resumeBtn.setCallback(function () {
-                _this3.hide();
-                document.getElementById("game").classList.remove("blured");
-            });
-            this.quitBtn.setCallback(function () {
-                _this3.hide();
-                __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go(_this3.quitBtn.el.getAttribute("href"), true);
-            });
-        }
-    }]);
+			this.resumeBtn.setCallback(function () {
+				_this3.hide();
+				document.getElementById("game").classList.remove("blured");
+			});
+			this.quitBtn.setCallback(function () {
+				_this3.hide();
+				__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go(_this3.quitBtn.el.getAttribute("href"), true);
+			});
+		}
+	}]);
 
-    return GameMenuView;
+	return GameMenuView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (GameMenuView);

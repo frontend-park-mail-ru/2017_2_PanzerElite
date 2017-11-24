@@ -13,6 +13,22 @@ import GameMenuView from "./views/GameMenu/GameMenuView";
 import routeValidate from "./utils/RouteValidate";
 import progressBar from "./modules/load-bar";
 
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('../sw.js', { scope: '/' });
+// }
+if ("serviceWorker" in navigator) {
+	navigator.serviceWorker.register("../../sw.js")
+		.then(function(registration) {
+			// при удачной регистрации имеем объект типа ServiceWorkerRegistration
+			console.log("ServiceWorker registration", registration);
+			// строкой ниже можно прекратить работу serviceWorker’а
+			//registration.unregister();
+		})
+		.catch(function(err) {
+			console.error(err);
+		});
+}
+
 progressBar.show();
 
 const app = document.getElementById("application");
@@ -32,27 +48,27 @@ let gameMenu = new GameMenuView(main.el);
 let gameView = new GameView(main.el);
 
 let config = {
-    "/login/": {
-        view: login
-    },
-    "/register/": {
-        view: register
-    },
-    "/menu/": {
-        view: menu
-    },
-    "/": {
-        view: menu
-    },
-    "/changepass/": {
-        view: change
-    },
-    "/play/": {
-        view: gameType
-    },
-    "/game/": {
-        view: gameView
-    }
+	"/login/": {
+		view: login
+	},
+	"/register/": {
+		view: register
+	},
+	"/menu/": {
+		view: menu
+	},
+	"/": {
+		view: menu
+	},
+	"/changepass/": {
+		view: change
+	},
+	"/play/": {
+		view: gameType
+	},
+	"/game/": {
+		view: gameView
+	}
 };
 
 routeValidate(document.location.pathname, router, true);
@@ -61,3 +77,7 @@ router.init(main.el, config);
 router.startListen();
 
 progressBar.hide();
+
+// if ('serviceWorker' in window.navigator) {
+//     window.navigator.serviceWorker.register('../sw.js');
+// }
