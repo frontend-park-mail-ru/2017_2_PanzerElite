@@ -1,36 +1,23 @@
 import "./load-bar.css";
-
 class pBar {
 
-	constructor() {
-		this.elem = document.getElementsByClassName("myBar")[0];
-		this.id;
-		this.hide();
-	}
+    constructor() {
+        this.elem = document.getElementsByClassName("myBar")[0];
+        this.hide();
+    }
 
-	/**
+    /**
      * Показать прогресс бар 
      */
-	show() {
-		this.elem.parentElement.classList.remove("hidden");
-		var shift = 1;
-		this.id = setInterval(() => {
-			if (shift >= 98) {
-				shift = 1;
-			} else {
-				shift++;
-			}
-			this.elem.style.left = shift + "%";
-		}, 10);
-	}
+    show() {
+        this.elem.parentElement.classList.remove("hidden");
+    }
 
-	/**
+    /**
      * Скрыть прогресс бар 
      */
-	hide() {
-		this.elem.parentElement.classList.add("hidden");
-		clearInterval(this.id);
-	}
+    hide() {
+        this.elem.parentElement.classList.add("hidden");
+    }
 }
 export default new pBar();
-

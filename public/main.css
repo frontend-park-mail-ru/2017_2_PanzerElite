@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
 body {
     margin: 0;
     background-size: cover;
@@ -8,9 +7,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-
 .main-container {
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -18,16 +16,13 @@ body {
     justify-content: space-around;
 }
 
-
 .background {
     z-index: 0;
     position: fixed;
     width: 100%;
     height: 100%;
     background: black no-repeat;
-
     background-image: unset;
-
     background-size: cover;
-    filter: blur(3px)
+    filter: blur(3px);
 }
