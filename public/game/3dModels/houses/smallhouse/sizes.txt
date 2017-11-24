@@ -1,0 +1,4 @@
+scale : 0.05
+size: 18 17
+qubeposition: housex - 8, housey - 10
+color: 0xFFEBCD
