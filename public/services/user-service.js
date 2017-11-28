@@ -87,19 +87,14 @@ export default class UserService {
     }
 
     whoami() {
-            return new Promise((resolve, reject) => {
-                httpReq(GET, urls.check)
-                    .then(() => {
-                        resolve();
-                    })
-                    .catch(error => {
-                        reject("its very sad");
-                    });
-            });
-        } <<
-        << << < HEAD
-
-        ===
-        === = >>>
-        >>> > working
+        return new Promise((resolve, reject) => {
+            httpReq(GET, urls.check)
+                .then(() => {
+                    resolve();
+                })
+                .catch(error => {
+                    reject("its very sad");
+                });
+        });
+    }
 }

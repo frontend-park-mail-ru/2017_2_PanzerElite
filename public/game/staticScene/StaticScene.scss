@@ -1,0 +1,151 @@
+.hpBar {
+    bottom: 3%;
+    right: 3%;
+    z-index: 95;
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 95;
+        background-color: rgba(81, 228, 81, 1); //100 hp
+    }
+    &:before {
+        top: 0;
+        left: 50%;
+        width: 20px;
+        height: 100%;
+        margin-left: -10px;
+    }
+    &:after {
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 20px;
+        margin-top: -10px;
+    }
+}
+
+.hpBarYellow {
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 95;
+        background-color: rgb(255, 230, 0); //75 hp
+    }
+}
+
+.hpBarRed {
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 95;
+        background-color: rgb(255, 0, 0); //25 hp
+    }
+}
+
+.hpBarOrange {
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 95;
+        background-color: rgb(255, 157, 0); //50 hp        
+    }
+}
+
+.sceneDiv {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 90;
+    width: 100%;
+    height: 100%;
+}
+
+.comandorDiv {
+    z-index: 90;
+    color: white;
+    font-size: 120%;
+    // display: flex;
+    position: absolute;
+    // flex-direction: row;
+    background: rgba(77, 153, 0, 0.6);
+    width: 30%;
+    height: 60%;
+    bottom: 15%;
+    left: 3%;
+    padding: 5px;
+    text-align: left;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.comandorText {
+    margin: 0;
+}
+
+.man {
+    margin: 5px;
+    width: 40%;
+    height: 40%;
+    float: left;
+}
+
+.loader {
+    font-size: 10px;
+    bottom: 26%;
+    right: 26%;
+    z-index: 92;
+    position: absolute;
+    text-indent: -9999em;
+    width: 13em;
+    height: 13em;
+    border-radius: 50%;
+    background: linear-gradient(to right, white 1%, rgba(255, 255, 255, 0) 45%);
+    position: relative;
+    -webkit-animation: load3 1.4s infinite linear;
+    animation: load3 1.4s infinite linear;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.loader:after {
+    background: rgba(0, 0, 0, 0.5);
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: '';
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@-webkit-keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

@@ -1,10 +1,13 @@
 import SinglePlayer from "./strategy/SinglePlayer";
 import Scene from "./Scene";
 import MultiPlayer from "./strategy/MultiPlayer";
+import StaticScene from "./staticScene/StaticScene";
+import textWriter from "./staticScene/textWriter"
 
 
 export default class GameManager {
     constructor() {
+        this.staticScene = new StaticScene();
         this._mainLoop = this._mainLoop.bind(this);
     }
 
@@ -17,6 +20,14 @@ export default class GameManager {
                 // console.log(instractions);
                 this.scene.updateObjects("tankMe", instractions);
             });
+            //TEST 
+            //DELETE
+            textWriter(
+                "comandorText", [
+                    "Дес, сверстай блять нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста\n",
+                    "нормально, пожалуйста\n"
+                ]
+            );
             this.startLoop();
         }
         if (strategy == "multi") {
