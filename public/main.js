@@ -16,18 +16,18 @@ import progressBar from "./modules/load-bar";
 // if ('serviceWorker' in navigator) {
 //     navigator.serviceWorker.register('../sw.js', { scope: '/' });
 // }
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("../../sw.js")
-        .then(function(registration) {
-            // при удачной регистрации имеем объект типа ServiceWorkerRegistration
-            console.log("ServiceWorker registration", registration);
-            // строкой ниже можно прекратить работу serviceWorker’а
-            //registration.unregister();
-        })
-        .catch(function(err) {
-            console.error(err);
-        });
-}
+// if ("serviceWorker" in navigator) {
+//     navigator.serviceWorker.register("../../sw.js")
+//         .then(function(registration) {
+//             // при удачной регистрации имеем объект типа ServiceWorkerRegistration
+//             console.log("ServiceWorker registration", registration);
+//             // строкой ниже можно прекратить работу serviceWorker’а
+//             //registration.unregister();
+//         })
+//         .catch(function(err) {
+//             console.error(err);
+//         });
+// }
 
 progressBar.show();
 
