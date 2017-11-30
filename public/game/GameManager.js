@@ -1,13 +1,11 @@
 import SinglePlayer from "./strategy/SinglePlayer";
 import Scene from "./Scene";
+import { MultiMaterial } from "three";
 import MultiPlayer from "./strategy/MultiPlayer";
-import StaticScene from "./staticScene/StaticScene";
-import textWriter from "./staticScene/textWriter"
 
 
 export default class GameManager {
     constructor() {
-        this.staticScene = new StaticScene();
         this._mainLoop = this._mainLoop.bind(this);
     }
 
@@ -20,18 +18,11 @@ export default class GameManager {
                 // console.log(instractions);
                 this.scene.updateObjects("tankMe", instractions);
             });
-            //TEST 
-            //DELETE
-            textWriter(
-                "comandorText", [
-                    "Дес, сверстай блять нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста\n",
-                    "нормально, пожалуйста\n"
-                ]
-            );
             this.startLoop();
         }
         if (strategy == "multi") {
             var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+            // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
             let isConnected = false;
 
             function sendMsg(msgToSend) {
@@ -85,7 +76,7 @@ export default class GameManager {
             console.log("im in flag");
             this.strategy = new MultiPlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
             this.scene = new Scene({ x: 50, y: 50 }, { x: 50, y: 50 });
-            this.strategy._initKeyListeners((instractions) => {
+            this.strategy.startListenGameLoop((instractions) => {
                 // console.log(instractions);
                 // this.scene.updateObjects("tankMe", instractions);
                 if (isConnected) {

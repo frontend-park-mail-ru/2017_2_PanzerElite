@@ -434,13 +434,11 @@ var pBar = function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scene__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__strategy_MultiPlayer__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__staticScene_textWriter__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_three__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__ = __webpack_require__(41);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 
 
 
@@ -451,7 +449,6 @@ var GameManager = function () {
     function GameManager() {
         _classCallCheck(this, GameManager);
 
-        this.staticScene = new __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__["a" /* default */]();
         this._mainLoop = this._mainLoop.bind(this);
     }
 
@@ -468,9 +465,6 @@ var GameManager = function () {
                     // console.log(instractions);
                     _this.scene.updateObjects("tankMe", instractions);
                 });
-                //TEST 
-                //DELETE
-                Object(__WEBPACK_IMPORTED_MODULE_4__staticScene_textWriter__["a" /* default */])("comandorText", ["Дес, сверстай блять нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста нормально, пожалуйста\n", "нормально, пожалуйста\n"]);
                 this.startLoop();
             }
             if (strategy == "multi") {
@@ -479,6 +473,7 @@ var GameManager = function () {
                 };
 
                 var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+                // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
                 var isConnected = false;
 
                 webSocket.onmessage = function (message) {
@@ -521,9 +516,9 @@ var GameManager = function () {
                 // });
 
                 console.log("im in flag");
-                this.strategy = new __WEBPACK_IMPORTED_MODULE_2__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+                this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
                 this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 });
-                this.strategy._initKeyListeners(function (instractions) {
+                this.strategy.startListenGameLoop(function (instractions) {
                     // console.log(instractions);
                     // this.scene.updateObjects("tankMe", instractions);
                     if (isConnected) {
@@ -4447,6 +4442,7 @@ var Player = function () {
         value: function update() {
             var _this = this;
 
+            console.log(this.actionStates);
             if (this.actionStates.forward) {
                 this.deprecatedMovemants.backward = false;
                 if (!this.deprecatedMovemants.forward) {
@@ -11859,198 +11855,114 @@ var keyboardJS = __webpack_require__(9);
 
 
 var MultiPlayer = function () {
-	function MultiPlayer() {
-		_classCallCheck(this, MultiPlayer);
-	}
+    function MultiPlayer() {
+        _classCallCheck(this, MultiPlayer);
 
-	_createClass(MultiPlayer, [{
-		key: "_initKeyListeners",
-		value: function _initKeyListeners(callback) {
-			keyboardJS.bind("m", function (e) {
-				callback({ turretRight: true });
-			}, function (e) {
-				callback({ turretRight: false });
-			});
-			keyboardJS.bind("n", function (e) {
-				callback({ turretLeft: true });
-			}, function (e) {
-				callback({ turretLeft: false });
-			});
-			keyboardJS.bind("w", function (e) {
-				callback({ forward: true });
-			}, function (e) {
-				callback({ forward: false });
-			});
-			keyboardJS.bind("s", function (e) {
-				callback({ backward: true });
-			}, function (e) {
-				callback({ backward: false });
-			});
-			keyboardJS.bind("d", function (e) {
-				callback({ right: true });
-			}, function (e) {
-				callback({ right: false });
-			});
-			keyboardJS.bind("a", function (e) {
-				callback({ left: true });
-			}, function (e) {
-				callback({ left: false });
-			});
-			keyboardJS.bind("v", function (e) {
-				// callback({ changeCamera: false });
-			}, function (e) {
-				callback({ changeCamera: true });
-			});
-			keyboardJS.bind("space", function (e) {
-				// callback({ changeCamera: false });
-			}, function (e) {
-				callback({ fire: true });
-				console.log("fire in sp");
-			});
-		}
-	}, {
-		key: "randomMovemant",
-		value: function randomMovemant(callback) {
-			callback({ left: true, forward: true });
-		}
-	}]);
+        this._gameLoop = this._gameLoop.bind(this);
+        this.actionStates = {};
+        // this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
+        // this.opponent = new Player("super bitch bot", [-10, -10], null);
+    }
 
-	return MultiPlayer;
+    // getPlayersCoors() {
+    // 	return {
+    // 		me: this.me.coords,
+    // 		opponent: this.opponent.coords
+    // 	};
+    // }
+
+    _createClass(MultiPlayer, [{
+        key: "startListenGameLoop",
+        value: function startListenGameLoop(callback) {
+            var _this = this;
+
+            this.sceneInstructionCallback = callback;
+            this._startLoop();
+            this._initKeyListeners(function (newState) {
+                Object.assign(_this.actionStates, newState);
+            });
+        }
+    }, {
+        key: "_startLoop",
+        value: function _startLoop() {
+            window.requestAnimationFrame(this._gameLoop);
+        }
+
+        //Основной цикл, который шлет изменения
+
+    }, {
+        key: "_gameLoop",
+        value: function _gameLoop() {
+
+            // Object.keys(this._actionStates).forEach(key => {
+            //     this.me[key] = this._actionStates[key];
+            // });
+            // this.me.update();
+            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+            this.actionStates);
+            window.requestAnimationFrame(this._gameLoop);
+        }
+    }, {
+        key: "_initKeyListeners",
+        value: function _initKeyListeners(callback) {
+            keyboardJS.bind("m", function (e) {
+                callback({ turretRight: true });
+            }, function (e) {
+                callback({ turretRight: false });
+            });
+            keyboardJS.bind("n", function (e) {
+                callback({ turretLeft: true });
+            }, function (e) {
+                callback({ turretLeft: false });
+            });
+            keyboardJS.bind("w", function (e) {
+                callback({ forward: true });
+            }, function (e) {
+                callback({ forward: false });
+            });
+            keyboardJS.bind("s", function (e) {
+                callback({ backward: true });
+            }, function (e) {
+                callback({ backward: false });
+            });
+            keyboardJS.bind("d", function (e) {
+                callback({ right: true });
+            }, function (e) {
+                callback({ right: false });
+            });
+            keyboardJS.bind("a", function (e) {
+                callback({ left: true });
+            }, function (e) {
+                callback({ left: false });
+            });
+            keyboardJS.bind("v", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ changeCamera: true });
+            });
+            keyboardJS.bind("space", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ fire: true });
+                console.log("fire in sp");
+            });
+        }
+    }, {
+        key: "randomMovemant",
+        value: function randomMovemant(callback) {
+            callback({ left: true, forward: true });
+        }
+    }]);
+
+    return MultiPlayer;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (MultiPlayer);
 
 /***/ }),
-/* 42 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StaticScene_scss__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StaticScene_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__StaticScene_scss__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-var StaticScene = function () {
-    function StaticScene() {
-        _classCallCheck(this, StaticScene);
-
-        this.HP = 100;
-        this.sceneDiv = document.createElement("div");
-        this.sceneDiv.classList.add("sceneDiv");
-        this.sceneDiv.setAttribute("width", "100%");
-        this.sceneDiv.setAttribute("height", "100%");
-        this.hpDiv = document.createElement("div");
-        this.hpDiv.classList.add("hpBar");
-        this.loader = document.createElement("div");
-        this.loader.classList.add("loader");
-        //this.hpBar.innerHTML = this.HP;
-        this.hpDiv.appendChild(this.loader);
-        this.sceneDiv.appendChild(this.hpDiv);
-        //
-        this.comandorDiv = document.createElement("div");
-        this.comandorDiv.classList.add("comandorDiv");
-        this.comandorImg = document.createElement("img");
-        this.comandorImg.classList.add("man");
-        this.comandorImg.setAttribute("src", "../game/staticScene/man.jpg");
-        this.comandorDiv.appendChild(this.comandorImg);
-        this.comandorText = document.createElement("p");
-        this.comandorText.classList.add("comandorText");
-        this.comandorText.innerHTML = "General: ";
-        this.comandorDiv.appendChild(this.comandorText);
-        this.sceneDiv.appendChild(this.comandorDiv);
-
-        document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
-        this.currentColor = "sdjhv";
-        this.hideReload = this.hideReload.bind(this);
-        this.hideReload();
-        this.fireReload();
-        this.fireReload();
-
-        this.fireReload();
-    }
-
-    _createClass(StaticScene, [{
-        key: "changeHP",
-        value: function changeHP(HP) {
-            this.HP = HP;
-            this.hpDiv.classList.remove(this.currentColor);
-            if (this.HP == 100) {
-                // this.hpDiv.classList.add(" ");
-            }
-            if (this.HP == 75) {
-                this.hpDiv.classList.add("hpBarYellow");
-                this.currentColor = "hpBarYellow";
-            }
-            if (this.HP == 50) {
-                this.hpDiv.classList.add("hpBarOrange");
-                this.currentColor = "hpBarOrange";
-            }
-            if (this.HP == 25) {
-                this.hpDiv.classList.add("hpBarRed");
-                this.currentColor = "hpBarRed";
-            }
-        }
-    }, {
-        key: "fireReload",
-        value: function fireReload() {
-            this.loader.classList.remove("hidden");
-            setTimeout(this.hideReload, 5000);
-        }
-    }, {
-        key: "hideReload",
-        value: function hideReload() {
-            this.loader.classList.add("hidden");
-        }
-    }]);
-
-    return StaticScene;
-}();
-
-//     textWriter(
-//         "demo", [
-//             "Дес, сверстай блять\n",
-//             "нормально, пожалуйста\n"
-//         ]
-//     );
-
-
-/* harmony default export */ __webpack_exports__["a"] = (StaticScene);
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 44 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-function textWriter(classname, text, speed) {
-
-    var ele = document.getElementsByClassName(classname)[0];
-    var txt = text.join("").split("");
-    console.log(ele);
-
-    var interval = setInterval(function () {
-
-        if (!txt[0]) {
-
-            return clearInterval(interval);
-        };
-        ele.innerHTML += txt.shift();
-    }, speed != undefined ? speed : 70);
-
-    return false;
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (textWriter);
-
-/***/ }),
+/* 42 */,
+/* 43 */,
+/* 44 */,
 /* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

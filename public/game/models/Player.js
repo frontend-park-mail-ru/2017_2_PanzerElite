@@ -50,6 +50,7 @@ export default class Player {
         this.turretAngle -= 0.008 * Math.PI;
     }
     update() {
+        console.log(this.actionStates);
         if (this.actionStates.forward) {
             this.deprecatedMovemants.backward = false;
             if (!this.deprecatedMovemants.forward) {
