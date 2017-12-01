@@ -46,7 +46,7 @@ export default class Scene {
                 //turret
                 this[key].turret.parent.add(cpy2);
                 this[key].turret.dae.rotation.x = -0.5 * Math.PI;
-                this[key].turret.dae.rotation.y = +0.5 * Math.PI;
+                // this[key].turret.dae.rotation.y = +0.5 * Math.PI;
 
                 this[key].turret.dae.rotation.z = 1 * Math.PI;
                 this.scene.add(this[key].turret.dae);
@@ -66,7 +66,7 @@ export default class Scene {
         this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
 
 
-        this.camera.position.set(50, 7.9, 0);
+        this.camera.position.set(0, 7.9, 50);
         this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
         this.renderer = new THREE.WebGLRenderer({
             alpha: true,
@@ -75,7 +75,7 @@ export default class Scene {
         //this.renderer.shadowMap.enabled = true;
 
         this.tankMe.turret.dae.add(this.camera);
-        ///
+        ///f
         this.tankMe.camera = this.camera;
         ///
 
@@ -116,10 +116,23 @@ export default class Scene {
         this[type].instractions = instractions;
         if (instractions.fire) {
             this.tankMe.boom.visible = true;
-            setTimeout(() => { this.tankMe.boom.visible = false; }, 500);
+            // this._showBoom(instractions.bulletCoords);
+            setTimeout(() => {
+                this.tankMe.boom.visible = false;
+                this._showBoom(instractions.bulletCoords);
+            }, 500);
+
+
         }
     }
 
+    _showBoom(coords = {}) {
+        // console.log(coords);
+        this.boom2.position.set(coords.bulletX, coords.bulletY, 2);
+        this.boom2.visible = true;
+        setTimeout(() => { this.boom2.visible = false; }, 500);
+
+    }
     _startRenderAnimate() {
 
 
@@ -185,13 +198,18 @@ export default class Scene {
         modelLoader("boom/model.dae").then(coll => {
             coll.scene.rotation.x = -0.5 * Math.PI;
             coll.scene.rotation.z = 1 * Math.PI;
-
+            coll.scene.rotation.y = -0.5 * Math.PI;
             coll.scene.scale.z *= 0.45;
             coll.scene.scale.y *= 0.45;
             coll.scene.scale.x *= 0.45;
 
             this.boom = coll.scene.clone();
-            this.boom.position.set(-10, 1.75, 0);
+            this.boom2 = coll.scene.clone();
+            this.boom2.scale.y *= 10;
+            this.boom2.scale.x *= 10;
+            this.boom2.scale.z *= 10;
+            this.scene.add(this.boom2);
+            this.boom.position.set(-0.75, 1.75, -6);
             this.tankMe.turret.dae.add(this.boom);
             this.tankMe.boom = this.boom;
             this.tankMe.boom.visible = false;

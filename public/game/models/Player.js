@@ -7,8 +7,9 @@ export default class Player {
         this.nickname = nickname;
         this.coords = { x: coords[0], y: coords[1] };
         this.angle = -0.5 * Math.PI;
-        this.turretAngle = 0;
+        this.turretAngle = Math.PI - Math.PI - 0.5 * Math.PI;
         this.cameraCurrentType = 0;
+        this.bulletCoords = {};
         this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false };
         this.map = [
             { x: 0, y: 0, height: 57, width: 58 },
@@ -50,7 +51,6 @@ export default class Player {
         this.turretAngle -= 0.008 * Math.PI;
     }
     update() {
-        console.log(this.actionStates);
         if (this.actionStates.forward) {
             this.deprecatedMovemants.backward = false;
             if (!this.deprecatedMovemants.forward) {
@@ -105,7 +105,9 @@ export default class Player {
             this.cameraCurrentType %= 3;
         }
         if (this.actionStates.fire) {
-            setTimeout(() => { this.actionStates.fire = false; }, 500);
+            setTimeout(() => { this.actionStates.fire = false; }, 1);
+            this.bulletCoords = this._fireCollision(); //TODO
+            console.log(this.bulletCoords);
         }
     }
 
@@ -149,7 +151,32 @@ export default class Player {
         return flag;
     }
 
-    getInstrustions() {
-        return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire };
+    _fireCollision() {
+        let cnt = 0;
+        let bulletX = this.coords.x;
+        let bulletY = this.coords.y;
+        const currentAngle = this.turretAngle;
+        while (!this._checkBulletWithHouses(bulletX, bulletY) && cnt < 100000) {
+            bulletX += 0.1 * Math.sin(currentAngle);
+            bulletY += 0.1 * Math.cos(currentAngle);
+            cnt++;
+        }
+        if (cnt < 100000) {
+            console.log("aldhvbSJDKHVB");
+            return { bulletX, bulletY };
+        }
+        return { bulletX: 0, bulletY: 0 };
     }
+
+    _checkBulletWithHouses(bulletX, bulletY) {
+        let flag = false;
+        this.map.some(key => {
+            flag = this._pointInPolygon(bulletX, bulletY, key.x, key.y, key.height, key.width);
+            return flag;
+        })
+        return flag;
+    }
+    getInstrustions() {
+        return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire, bulletCoords: this.bulletCoords }
+    };
 }

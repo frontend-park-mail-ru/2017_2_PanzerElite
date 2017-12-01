@@ -3,7 +3,7 @@ export default class Turret {
     constructor(dae, coords) {
         this.dae = new THREE.Object3D();
         this.parent = new THREE.Object3D();
-        this.parent.rotation.y += 0.5 * Math.PI;
+        // this.parent.rotation.y += 0.5 * Math.PI;
         this.dae.add(this.parent);
         this.angle = Math.PI - Math.PI;
 
