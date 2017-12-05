@@ -32,12 +32,6 @@ export default class StaticScene {
         this.currentColor = "sdjhv";
         this.hideReload = this.hideReload.bind(this);
         this.hideReload();
-        this.fireReload();
-        this.fireReload();
-
-        this.fireReload();
-
-
     };
     changeHP(HP) {
         this.HP = HP;
@@ -63,7 +57,7 @@ export default class StaticScene {
     }
     fireReload() {
         this.loader.classList.remove("hidden");
-        setTimeout(this.hideReload, 5000);
+        setTimeout(this.hideReload, 4000);
     }
     hideReload() {
         this.loader.classList.add("hidden");

@@ -15,7 +15,6 @@ export default class GameManager {
             const playersCoords = this.strategy.getPlayersCoors();
             this.scene = new Scene(playersCoords.me, playersCoords.opponent);
             this.strategy.startListenGameLoop((instractions) => {
-                // console.log(instractions);
                 this.scene.updateObjects("tankMe", instractions);
             });
             this.startLoop();

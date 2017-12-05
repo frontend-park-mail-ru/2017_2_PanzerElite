@@ -1,7 +1,7 @@
 import Tank from "./models/Tank";
 import modelLoader from "./utils/modelLoader";
 import MapCreator from "./utils/MapCreator";
-
+import StaticScene from "./staticScene/StaticScene";
 import progressBar from "../modules/load-bar";
 import { setTimeout } from "timers";
 // import { Math } from "../../../../Library/Caches/typescript/2.6/node_modules/@types/three";
@@ -105,6 +105,7 @@ export default class Scene {
         this._resizeWindow();
 
         this._startRenderAnimate();
+        this.staticScene = new StaticScene();
 
     }
 
@@ -115,6 +116,7 @@ export default class Scene {
         // });
         this[type].instractions = instractions;
         if (instractions.fire) {
+            this.staticScene.fireReload();
             this.tankMe.boom.visible = true;
             // this._showBoom(instractions.bulletCoords);
             setTimeout(() => {
@@ -128,7 +130,7 @@ export default class Scene {
 
     _showBoom(coords = {}) {
         // console.log(coords);
-        this.boom2.position.set(coords.bulletX, coords.bulletY, 2);
+        this.boom2.position.set(coords.bulletX - 5, coords.bulletY, 2);
         this.boom2.visible = true;
         setTimeout(() => { this.boom2.visible = false; }, 500);
 

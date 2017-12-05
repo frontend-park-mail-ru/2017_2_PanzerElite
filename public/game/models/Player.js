@@ -1,4 +1,5 @@
 import { setTimeout } from "timers";
+import { fail } from "assert";
 
 export default class Player {
     constructor(nickname, coords, actionStates) {
@@ -10,7 +11,7 @@ export default class Player {
         this.turretAngle = Math.PI - Math.PI - 0.5 * Math.PI;
         this.cameraCurrentType = 0;
         this.bulletCoords = {};
-        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false };
+        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false, fire: true };
         this.map = [
             { x: 0, y: 0, height: 57, width: 58 },
             { x: -136, y: 88, height: 18, width: 17 },
@@ -104,10 +105,13 @@ export default class Player {
             this.cameraCurrentType++;
             this.cameraCurrentType %= 3;
         }
-        if (this.actionStates.fire) {
+        if (this.actionStates.fire && this.deprecatedMovemants.fire) {
             setTimeout(() => { this.actionStates.fire = false; }, 1);
+            this.deprecatedMovemants.fire = false;
+            setTimeout(() => { this.deprecatedMovemants.fire = true; }, 4000);
             this.bulletCoords = this._fireCollision(); //TODO
-            console.log(this.bulletCoords);
+        } else {
+            this.actionStates.fire = false;
         }
     }
 
@@ -162,7 +166,6 @@ export default class Player {
             cnt++;
         }
         if (cnt < 100000) {
-            console.log("aldhvbSJDKHVB");
             return { bulletX, bulletY };
         }
         return { bulletX: 0, bulletY: 0 };
