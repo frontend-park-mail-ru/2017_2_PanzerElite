@@ -112,21 +112,28 @@ export default class Scene {
     updateObjects(type, instractions) {
         this[type].instractions = instractions;
         if (instractions.fire) {
-            console.log("fireeeeeeee")
-            this.staticScene.fireReload();
-            this.tankMe.boom.visible = true;
+            if (type === "tankMe") {
+                this.staticScene.fireReload();
+            }
+            this[type].boom.visible = true;
             setTimeout(() => {
-                this.tankMe.boom.visible = false;
+                this[type].boom.visible = false;
                 this._showBoom(instractions.bulletCoords);
             }, 500);
         }
+
     }
 
-    _showBoom(coords = {}) {
-        // console.log(coords);
-        this.boom2.position.set(coords.x - 5, coords.y, 2);
-        this.boom2.visible = true;
-        setTimeout(() => { this.boom2.visible = false; }, 500);
+    _showBoom(type, coords = {}) { //TODO тут косяк с оппонентом
+        if (type === "tankMe") {
+            this.boom2.position.set(coords.x - 5, coords.y, 2);
+            this.boom2.visible = true;
+            setTimeout(() => { this.boom2.visible = false; }, 300);
+        } else {
+            this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+            this.boom2Op.visible = true;
+            setTimeout(() => { this.boom2Op.visible = false; }, 300);
+        }
 
     }
     _startRenderAnimate() {
@@ -198,17 +205,23 @@ export default class Scene {
             coll.scene.scale.z *= 0.45;
             coll.scene.scale.y *= 0.45;
             coll.scene.scale.x *= 0.45;
-
             this.boom = coll.scene.clone();
+            this.boomOp = coll.scene.clone();
             this.boom2 = coll.scene.clone();
             this.boom2.scale.y *= 10;
             this.boom2.scale.x *= 10;
             this.boom2.scale.z *= 10;
+            this.boom2Op = this.boom2.clone();
             this.scene.add(this.boom2);
+            this.scene.add(this.boom2Op);
             this.boom.position.set(-0.75, 1.75, -6);
+            this.boomOp.position.set(-0.75, 1.75, -6);
             this.tankMe.turret.dae.add(this.boom);
+            this.tankOpponent.turret.dae.add(this.boomOp);
             this.tankMe.boom = this.boom;
+            this.tankOpponent.boom = this.boomOp;
             this.tankMe.boom.visible = false;
+            this.tankOpponent.boom.visible = false;
         });
 
     }

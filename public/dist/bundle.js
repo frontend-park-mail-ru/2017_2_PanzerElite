@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -220,13 +220,13 @@ var Router = function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__buttons_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__forms_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__inputFields_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__warningMsg_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -267,9 +267,9 @@ var BaseView = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configs_config_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_http_js__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_validation_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configs_config_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_http_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_validation_js__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_load_bar_js__ = __webpack_require__(4);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -384,7 +384,7 @@ var UserService = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__load_bar_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3916,11 +3916,11 @@ function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scene__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_three__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_util__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -3966,10 +3966,9 @@ var GameManager = function () {
                     var obj = JSON.parse(message.data);
                     var coords = { x: obj.x, y: obj.y };
                     if (obj.me) {
-                        this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: 0, bulletCoords: obj.bulletCoords });
-                        console.log(obj.bulletCoords);
+                        this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords });
                     } else {
-                        this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: 0, bulletCoords: obj.bulletCoords });
+                        this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords });
                     }
                 }.bind(this);
 
@@ -3987,14 +3986,6 @@ var GameManager = function () {
                     console.log("error: " + message);
                 };
 
-                // this.strategy = new MultiPlayer();
-                // this.strategy._initKeyListeners((instractions) => {
-
-                //     if (flag) {
-                //         sendMsg(instractions);
-                //     }
-                // });
-
                 console.log("im in flag");
                 this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
                 this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 });
@@ -4005,6 +3996,7 @@ var GameManager = function () {
                         sendMsg(instractions);
                     }
                     instractions.fire = false;
+                    instractions.changeCamera = false;
                 });
                 // this.startLoop();
             }
@@ -4207,13 +4199,13 @@ function analyseHref(href, isLogged, router, savehistory) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var Keyboard = __webpack_require__(33);
+var Keyboard = __webpack_require__(34);
 var Locale = __webpack_require__(11);
 var KeyCombo = __webpack_require__(8);
 
 var keyboard = new Keyboard();
 
-keyboard.setLocale('us', __webpack_require__(34));
+keyboard.setLocale('us', __webpack_require__(35));
 
 exports = module.exports = keyboard;
 exports.Keyboard = Keyboard;
@@ -4381,7 +4373,7 @@ module.exports = Locale;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_timers__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assert__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assert__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_assert__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -4644,7 +4636,7 @@ exports._unrefActive = exports.active = function (item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(35);
+__webpack_require__(36);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
@@ -4840,1983 +4832,6 @@ process.umask = function () {
 
 /***/ }),
 /* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = modelLoader;
-// const THREE = require("three");
-var ColladaLoader = __webpack_require__(43);
-
-function modelLoader(modelPath) {
-	return new Promise(function (resolve, reject) {
-		var loader = new THREE.ColladaLoader();
-		loader.options.convertUpAxis = true;
-		loader.load("./game/3dModels/" + modelPath, function (collada) {
-			resolve(collada);
-		});
-	});
-}
-
-/***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__main_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__ = __webpack_require__(4);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// if ('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('../sw.js', { scope: '/' });
-// }
-// if ("serviceWorker" in navigator) {
-//     navigator.serviceWorker.register("../../sw.js")
-//         .then(function(registration) {
-//             // при удачной регистрации имеем объект типа ServiceWorkerRegistration
-//             console.log("ServiceWorker registration", registration);
-//             // строкой ниже можно прекратить работу serviceWorker’а
-//             //registration.unregister();
-//         })
-//         .catch(function(err) {
-//             console.error(err);
-//         });
-// }
-
-__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].show();
-
-var app = document.getElementById("application");
-document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
-
-var main = new __WEBPACK_IMPORTED_MODULE_1__block_block_js__["a" /* Block */]("div", { class: "main-container" });
-app.appendChild(main.el);
-
-//config
-var login = new __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__["a" /* default */](main.el);
-var register = new __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__["a" /* default */](main.el);
-var menu = new __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__["a" /* default */](main.el);
-var change = new __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__["a" /* default */](main.el);
-var theme = new __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__["a" /* default */](main.el);
-var gameType = new __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__["a" /* default */](main.el);
-var gameMenu = new __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__["a" /* default */](main.el);
-var gameView = new __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__["a" /* default */](main.el);
-
-var config = {
-    "/login/": {
-        view: login
-    },
-    "/register/": {
-        view: register
-    },
-    "/menu/": {
-        view: menu
-    },
-    "/": {
-        view: menu
-    },
-    "/changepass/": {
-        view: change
-    },
-    "/play/": {
-        view: gameType
-    },
-    "/game/": {
-        view: gameView
-    }
-};
-
-Object(__WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
-
-__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].init(main.el, config);
-__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
-
-__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
-
-// if ('serviceWorker' in window.navigator) {
-//     window.navigator.serviceWorker.register('../sw.js');
-// }
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 18 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
-// const PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
-var PREFIX_URL = "http://127.0.0.1:8080/api/user/";
-var urls = {
-    login: PREFIX_URL + "login",
-    register: PREFIX_URL + "register",
-    logout: PREFIX_URL + "logout",
-    check: PREFIX_URL + "getuser",
-    chagePassword: PREFIX_URL + "changepassword"
-};
-var GET = "GET";
-var POST = "POST";
-
-/* harmony default export */ __webpack_exports__["c"] = (urls);
-
-
-/***/ }),
-/* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * Модуль, предоставляющий методы для выполнения HTTP-запросов
- * @module Http
- */
-function httpReq(type, uRL, sendObject) {
-    return new Promise(function (resolve, reject) {
-        fetch(uRL, {
-            method: type,
-            headers: {
-                "Content-Type": "application/json; charset=utf-8"
-            },
-            body: JSON.stringify(sendObject),
-            mode: "cors",
-            credentials: "include"
-        }).then(function (response) {
-            if (response.status === 200) {
-                resolve(response);
-                return;
-            } else {
-                reject("Something went wrong");
-            }
-        });
-    });
-}
-/* harmony default export */ __webpack_exports__["a"] = (httpReq);
-
-/***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Validate = function () {
-    function Validate() {
-        _classCallCheck(this, Validate);
-    }
-
-    /**
-     * Проверить логин(ник)
-     */
-
-
-    _createClass(Validate, null, [{
-        key: "checkLogin",
-        value: function checkLogin(nick) {
-            return nick.length < 20 && nick.length > 1;
-        }
-
-        /**
-         * Проверить пароль
-         */
-
-    }, {
-        key: "checkPassword",
-        value: function checkPassword(password) {
-            return password.length < 20 && password.length > 1;
-        }
-
-        /**
-         * Проверить совпадение паролей
-         */
-
-    }, {
-        key: "confirmPassword",
-        value: function confirmPassword(password, confirm) {
-            return password === confirm;
-        }
-
-        /**
-         * Проверить логин(ник) и пароль
-         */
-
-    }, {
-        key: "checkLogAndPas",
-        value: function checkLogAndPas(nick, password) {
-            return this.checkLogin(nick) && this.checkPassword(password);
-        }
-    }]);
-
-    return Validate;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Validate);
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_js__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var LoginView = function (_BaseView) {
-	_inherits(LoginView, _BaseView);
-
-	function LoginView(parentNode) {
-		_classCallCheck(this, LoginView);
-
-		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-		var _this = _possibleConstructorReturn(this, (LoginView.__proto__ || Object.getPrototypeOf(LoginView)).call(this, view.el));
-
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
-		return _this;
-	}
-
-	_createClass(LoginView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
-
-			__WEBPACK_IMPORTED_MODULE_1__login_js__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
-
-			this.loginBtn.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
-				userService.login(_this3.nick.el.value, _this3.password.el.value).then(function () {
-					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.loginBtn.el.getAttribute("href"));
-					_this3.warning.hide();
-					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-				}).catch(function (err) {
-					_this3.warning.setAttributes({ value: err });
-					_this3.warning.show();
-					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-				});
-			});
-			this.changeformBtn.setCallback(function () {
-				_this3.warning.hide();
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-			});
-		}
-	}]);
-
-	return LoginView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (LoginView);
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 27 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var loginFields = [{
-	name: "nick",
-	class: "input",
-	elemType: "input",
-	type: "text",
-	placeholder: "Nickname"
-}, {
-	name: "password",
-	class: "input",
-	elemType: "input",
-	type: "password",
-	placeholder: "Password"
-}, {
-	name: "loginBtn",
-	class: " button",
-	elemType: "input",
-	type: "button",
-	value: "Log In",
-	href: "/menu/"
-}, {
-	name: "changeformBtn",
-	class: " button",
-	elemType: "a",
-	value: "Havent Account?",
-	href: "/register/"
-}, {
-	name: "warning",
-	class: "warning",
-	elemType: "input",
-	type: "text",
-	value: "Invalid Data",
-	readonly: "true",
-	hidden: "true"
-}];
-/* harmony default export */ __webpack_exports__["a"] = (loginFields);
-
-/***/ }),
-/* 28 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_js__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var RegisterView = function (_BaseView) {
-    _inherits(RegisterView, _BaseView);
-
-    function RegisterView(parentNode) {
-        _classCallCheck(this, RegisterView);
-
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-        var _this = _possibleConstructorReturn(this, (RegisterView.__proto__ || Object.getPrototypeOf(RegisterView)).call(this, view.el));
-
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
-
-    _createClass(RegisterView, [{
-        key: "_appendChildren",
-        value: function _appendChildren() {
-            var _this2 = this;
-
-            __WEBPACK_IMPORTED_MODULE_1__register_js__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            var _this3 = this;
-
-            this.registerBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
-                userService.register(_this3.nick.el.value, _this3.password.el.value, _this3.confirm.el.value).then(function () {
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.registerBtn.el.getAttribute("href"));
-                    _this3.warning.hide();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                }).catch(function (err) {
-                    _this3.warning.setAttributes({ value: err });
-                    _this3.warning.show();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                });
-
-                _this3.changeformBtn.setCallback(function () {
-                    _this3.warning.hide();
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-                });
-            });
-        }
-    }]);
-
-    return RegisterView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (RegisterView);
-
-/***/ }),
-/* 29 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var registerFields = [{
-	class: "input",
-	type: "text",
-	name: "nick",
-	placeholder: "Nickname",
-	elemType: "input"
-}, {
-	class: "input",
-	type: "password",
-	name: "password",
-	placeholder: "Password",
-	elemType: "input"
-}, {
-	class: "input",
-	type: "password",
-	name: "confirm",
-	placeholder: "Confirm Password",
-	elemType: "input"
-}, {
-	name: "registerBtn",
-	class: " button",
-	elemType: "input",
-	type: "button",
-	value: "Register",
-	href: "/menu/"
-
-}, {
-	name: "changeformBtn",
-	class: " button",
-	elemType: "a",
-	value: "Already Have Account?",
-	href: "/login/"
-}, {
-	name: "warning",
-	class: "warning",
-	type: "text",
-	value: "Invalid Data",
-	elemType: "input",
-	readonly: "true",
-	hidden: "true"
-}];
-
-/* harmony default export */ __webpack_exports__["a"] = (registerFields);
-
-/***/ }),
-/* 30 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_js__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(7);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var MenuView = function (_BaseView) {
-	_inherits(MenuView, _BaseView);
-
-	function MenuView(parentNode) {
-		_classCallCheck(this, MenuView);
-
-		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-		var _this = _possibleConstructorReturn(this, (MenuView.__proto__ || Object.getPrototypeOf(MenuView)).call(this, view.el));
-
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
-		return _this;
-	}
-
-	_createClass(MenuView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
-
-			__WEBPACK_IMPORTED_MODULE_1__menu_js__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
-
-			this.changeBtn.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"), false);
-			});
-			this.logoutBtn.setCallback(function () {
-				userService.logout().then(function () {
-					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.logoutBtn.el.getAttribute("href"));
-				}).catch(function (err) {});
-			});
-
-			this.play.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.play.el.getAttribute("href"), false);
-			});
-		}
-	}]);
-
-	return MenuView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (MenuView);
-
-/***/ }),
-/* 31 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var menuFields = [{
-	name: "play",
-	class: " button",
-	elemType: "a",
-	href: "/play/",
-	value: "play"
-}, {
-	name: "changeBtn",
-	class: " button",
-	elemType: "a",
-	href: "/changepass/",
-	value: "Change Password"
-}, {
-	name: "logoutBtn",
-	class: " button",
-	elemType: "input",
-	type: "button",
-	href: "/login/",
-	value: "log out"
-}, {
-	name: "scoreboardBtn",
-	class: " button",
-	elemType: "a",
-	value: "scoreboard"
-}];
-/* harmony default export */ __webpack_exports__["a"] = (menuFields);
-
-/***/ }),
-/* 32 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(12);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var keyboardJS = __webpack_require__(10);
-
-
-var SinglePlayer = function () {
-    function SinglePlayer() {
-        _classCallCheck(this, SinglePlayer);
-
-        this._gameLoop = this._gameLoop.bind(this);
-        this.actionStates = {};
-        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50], this.actionStates); // TODO write your original
-        this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
-    }
-
-    _createClass(SinglePlayer, [{
-        key: "getPlayersCoors",
-        value: function getPlayersCoors() {
-            return {
-                me: this.me.coords,
-                opponent: this.opponent.coords
-            };
-        }
-    }, {
-        key: "startListenGameLoop",
-        value: function startListenGameLoop(callback) {
-            var _this = this;
-
-            this.sceneInstructionCallback = callback;
-            this._startLoop();
-            this._initKeyListeners(function (newState) {
-                Object.assign(_this.actionStates, newState);
-            });
-        }
-    }, {
-        key: "_startLoop",
-        value: function _startLoop() {
-            window.requestAnimationFrame(this._gameLoop);
-        }
-
-        //Основной цикл, который шлет изменения
-
-    }, {
-        key: "_gameLoop",
-        value: function _gameLoop() {
-
-            // Object.keys(this._actionStates).forEach(key => {
-            //     this.me[key] = this._actionStates[key];
-            // });
-            this.me.update();
-            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
-            this.me.getInstrustions());
-            window.requestAnimationFrame(this._gameLoop);
-        }
-    }, {
-        key: "_initKeyListeners",
-        value: function _initKeyListeners(callback) {
-            keyboardJS.bind("m", function (e) {
-                callback({ turretRight: true });
-            }, function (e) {
-                callback({ turretRight: false });
-            });
-            keyboardJS.bind("n", function (e) {
-                callback({ turretLeft: true });
-            }, function (e) {
-                callback({ turretLeft: false });
-            });
-            keyboardJS.bind("w", function (e) {
-                callback({ forward: true });
-            }, function (e) {
-                callback({ forward: false });
-            });
-            keyboardJS.bind("s", function (e) {
-                callback({ backward: true });
-            }, function (e) {
-                callback({ backward: false });
-            });
-            keyboardJS.bind("d", function (e) {
-                callback({ right: true });
-            }, function (e) {
-                callback({ right: false });
-            });
-            keyboardJS.bind("a", function (e) {
-                callback({ left: true });
-            }, function (e) {
-                callback({ left: false });
-            });
-            keyboardJS.bind("v", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                callback({ changeCamera: true });
-            });
-            keyboardJS.bind("space", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                callback({ fire: true });
-            });
-        }
-    }, {
-        key: "randomMovemant",
-        value: function randomMovemant(callback) {
-            callback({ left: true, forward: true });
-        }
-    }]);
-
-    return SinglePlayer;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (SinglePlayer);
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var Locale = __webpack_require__(11);
-var KeyCombo = __webpack_require__(8);
-
-function Keyboard(targetWindow, targetElement, platform, userAgent) {
-  this._locale = null;
-  this._currentContext = null;
-  this._contexts = {};
-  this._listeners = [];
-  this._appliedListeners = [];
-  this._locales = {};
-  this._targetElement = null;
-  this._targetWindow = null;
-  this._targetPlatform = '';
-  this._targetUserAgent = '';
-  this._isModernBrowser = false;
-  this._targetKeyDownBinding = null;
-  this._targetKeyUpBinding = null;
-  this._targetResetBinding = null;
-  this._paused = false;
-  this._callerHandler = null;
-
-  this.setContext('global');
-  this.watch(targetWindow, targetElement, platform, userAgent);
-}
-
-Keyboard.prototype.setLocale = function (localeName, localeBuilder) {
-  var locale = null;
-  if (typeof localeName === 'string') {
-
-    if (localeBuilder) {
-      locale = new Locale(localeName);
-      localeBuilder(locale, this._targetPlatform, this._targetUserAgent);
-    } else {
-      locale = this._locales[localeName] || null;
-    }
-  } else {
-    locale = localeName;
-    localeName = locale._localeName;
-  }
-
-  this._locale = locale;
-  this._locales[localeName] = locale;
-  if (locale) {
-    this._locale.pressedKeys = locale.pressedKeys;
-  }
-};
-
-Keyboard.prototype.getLocale = function (localName) {
-  localName || (localName = this._locale.localeName);
-  return this._locales[localName] || null;
-};
-
-Keyboard.prototype.bind = function (keyComboStr, pressHandler, releaseHandler, preventRepeatByDefault) {
-  if (keyComboStr === null || typeof keyComboStr === 'function') {
-    preventRepeatByDefault = releaseHandler;
-    releaseHandler = pressHandler;
-    pressHandler = keyComboStr;
-    keyComboStr = null;
-  }
-
-  if (keyComboStr && (typeof keyComboStr === 'undefined' ? 'undefined' : _typeof(keyComboStr)) === 'object' && typeof keyComboStr.length === 'number') {
-    for (var i = 0; i < keyComboStr.length; i += 1) {
-      this.bind(keyComboStr[i], pressHandler, releaseHandler);
-    }
-    return;
-  }
-
-  this._listeners.push({
-    keyCombo: keyComboStr ? new KeyCombo(keyComboStr) : null,
-    pressHandler: pressHandler || null,
-    releaseHandler: releaseHandler || null,
-    preventRepeat: preventRepeatByDefault || false,
-    preventRepeatByDefault: preventRepeatByDefault || false
-  });
-};
-Keyboard.prototype.addListener = Keyboard.prototype.bind;
-Keyboard.prototype.on = Keyboard.prototype.bind;
-
-Keyboard.prototype.unbind = function (keyComboStr, pressHandler, releaseHandler) {
-  if (keyComboStr === null || typeof keyComboStr === 'function') {
-    releaseHandler = pressHandler;
-    pressHandler = keyComboStr;
-    keyComboStr = null;
-  }
-
-  if (keyComboStr && (typeof keyComboStr === 'undefined' ? 'undefined' : _typeof(keyComboStr)) === 'object' && typeof keyComboStr.length === 'number') {
-    for (var i = 0; i < keyComboStr.length; i += 1) {
-      this.unbind(keyComboStr[i], pressHandler, releaseHandler);
-    }
-    return;
-  }
-
-  for (var i = 0; i < this._listeners.length; i += 1) {
-    var listener = this._listeners[i];
-
-    var comboMatches = !keyComboStr && !listener.keyCombo || listener.keyCombo && listener.keyCombo.isEqual(keyComboStr);
-    var pressHandlerMatches = !pressHandler && !releaseHandler || !pressHandler && !listener.pressHandler || pressHandler === listener.pressHandler;
-    var releaseHandlerMatches = !pressHandler && !releaseHandler || !releaseHandler && !listener.releaseHandler || releaseHandler === listener.releaseHandler;
-
-    if (comboMatches && pressHandlerMatches && releaseHandlerMatches) {
-      this._listeners.splice(i, 1);
-      i -= 1;
-    }
-  }
-};
-Keyboard.prototype.removeListener = Keyboard.prototype.unbind;
-Keyboard.prototype.off = Keyboard.prototype.unbind;
-
-Keyboard.prototype.setContext = function (contextName) {
-  if (this._locale) {
-    this.releaseAllKeys();
-  }
-
-  if (!this._contexts[contextName]) {
-    this._contexts[contextName] = [];
-  }
-  this._listeners = this._contexts[contextName];
-  this._currentContext = contextName;
-};
-
-Keyboard.prototype.getContext = function () {
-  return this._currentContext;
-};
-
-Keyboard.prototype.withContext = function (contextName, callback) {
-  var previousContextName = this.getContext();
-  this.setContext(contextName);
-
-  callback();
-
-  this.setContext(previousContextName);
-};
-
-Keyboard.prototype.watch = function (targetWindow, targetElement, targetPlatform, targetUserAgent) {
-  var _this = this;
-
-  this.stop();
-
-  if (!targetWindow) {
-    if (!global.addEventListener && !global.attachEvent) {
-      throw new Error('Cannot find global functions addEventListener or attachEvent.');
-    }
-    targetWindow = global;
-  }
-
-  if (typeof targetWindow.nodeType === 'number') {
-    targetUserAgent = targetPlatform;
-    targetPlatform = targetElement;
-    targetElement = targetWindow;
-    targetWindow = global;
-  }
-
-  if (!targetWindow.addEventListener && !targetWindow.attachEvent) {
-    throw new Error('Cannot find addEventListener or attachEvent methods on targetWindow.');
-  }
-
-  this._isModernBrowser = !!targetWindow.addEventListener;
-
-  var userAgent = targetWindow.navigator && targetWindow.navigator.userAgent || '';
-  var platform = targetWindow.navigator && targetWindow.navigator.platform || '';
-
-  targetElement && targetElement !== null || (targetElement = targetWindow.document);
-  targetPlatform && targetPlatform !== null || (targetPlatform = platform);
-  targetUserAgent && targetUserAgent !== null || (targetUserAgent = userAgent);
-
-  this._targetKeyDownBinding = function (event) {
-    _this.pressKey(event.keyCode, event);
-    _this._handleCommandBug(event, platform);
-  };
-  this._targetKeyUpBinding = function (event) {
-    _this.releaseKey(event.keyCode, event);
-  };
-  this._targetResetBinding = function (event) {
-    _this.releaseAllKeys(event);
-  };
-
-  this._bindEvent(targetElement, 'keydown', this._targetKeyDownBinding);
-  this._bindEvent(targetElement, 'keyup', this._targetKeyUpBinding);
-  this._bindEvent(targetWindow, 'focus', this._targetResetBinding);
-  this._bindEvent(targetWindow, 'blur', this._targetResetBinding);
-
-  this._targetElement = targetElement;
-  this._targetWindow = targetWindow;
-  this._targetPlatform = targetPlatform;
-  this._targetUserAgent = targetUserAgent;
-};
-
-Keyboard.prototype.stop = function () {
-  var _this = this;
-
-  if (!this._targetElement || !this._targetWindow) {
-    return;
-  }
-
-  this._unbindEvent(this._targetElement, 'keydown', this._targetKeyDownBinding);
-  this._unbindEvent(this._targetElement, 'keyup', this._targetKeyUpBinding);
-  this._unbindEvent(this._targetWindow, 'focus', this._targetResetBinding);
-  this._unbindEvent(this._targetWindow, 'blur', this._targetResetBinding);
-
-  this._targetWindow = null;
-  this._targetElement = null;
-};
-
-Keyboard.prototype.pressKey = function (keyCode, event) {
-  if (this._paused) {
-    return;
-  }
-  if (!this._locale) {
-    throw new Error('Locale not set');
-  }
-
-  this._locale.pressKey(keyCode);
-  this._applyBindings(event);
-};
-
-Keyboard.prototype.releaseKey = function (keyCode, event) {
-  if (this._paused) {
-    return;
-  }
-  if (!this._locale) {
-    throw new Error('Locale not set');
-  }
-
-  this._locale.releaseKey(keyCode);
-  this._clearBindings(event);
-};
-
-Keyboard.prototype.releaseAllKeys = function (event) {
-  if (this._paused) {
-    return;
-  }
-  if (!this._locale) {
-    throw new Error('Locale not set');
-  }
-
-  this._locale.pressedKeys.length = 0;
-  this._clearBindings(event);
-};
-
-Keyboard.prototype.pause = function () {
-  if (this._paused) {
-    return;
-  }
-  if (this._locale) {
-    this.releaseAllKeys();
-  }
-  this._paused = true;
-};
-
-Keyboard.prototype.resume = function () {
-  this._paused = false;
-};
-
-Keyboard.prototype.reset = function () {
-  this.releaseAllKeys();
-  this._listeners.length = 0;
-};
-
-Keyboard.prototype._bindEvent = function (targetElement, eventName, handler) {
-  return this._isModernBrowser ? targetElement.addEventListener(eventName, handler, false) : targetElement.attachEvent('on' + eventName, handler);
-};
-
-Keyboard.prototype._unbindEvent = function (targetElement, eventName, handler) {
-  return this._isModernBrowser ? targetElement.removeEventListener(eventName, handler, false) : targetElement.detachEvent('on' + eventName, handler);
-};
-
-Keyboard.prototype._getGroupedListeners = function () {
-  var listenerGroups = [];
-  var listenerGroupMap = [];
-
-  var listeners = this._listeners;
-  if (this._currentContext !== 'global') {
-    listeners = [].concat(listeners, this._contexts.global);
-  }
-
-  listeners.sort(function (a, b) {
-    return (b.keyCombo ? b.keyCombo.keyNames.length : 0) - (a.keyCombo ? a.keyCombo.keyNames.length : 0);
-  }).forEach(function (l) {
-    var mapIndex = -1;
-    for (var i = 0; i < listenerGroupMap.length; i += 1) {
-      if (listenerGroupMap[i] === null && l.keyCombo === null || listenerGroupMap[i] !== null && listenerGroupMap[i].isEqual(l.keyCombo)) {
-        mapIndex = i;
-      }
-    }
-    if (mapIndex === -1) {
-      mapIndex = listenerGroupMap.length;
-      listenerGroupMap.push(l.keyCombo);
-    }
-    if (!listenerGroups[mapIndex]) {
-      listenerGroups[mapIndex] = [];
-    }
-    listenerGroups[mapIndex].push(l);
-  });
-  return listenerGroups;
-};
-
-Keyboard.prototype._applyBindings = function (event) {
-  var preventRepeat = false;
-
-  event || (event = {});
-  event.preventRepeat = function () {
-    preventRepeat = true;
-  };
-  event.pressedKeys = this._locale.pressedKeys.slice(0);
-
-  var pressedKeys = this._locale.pressedKeys.slice(0);
-  var listenerGroups = this._getGroupedListeners();
-
-  for (var i = 0; i < listenerGroups.length; i += 1) {
-    var listeners = listenerGroups[i];
-    var keyCombo = listeners[0].keyCombo;
-
-    if (keyCombo === null || keyCombo.check(pressedKeys)) {
-      for (var j = 0; j < listeners.length; j += 1) {
-        var listener = listeners[j];
-
-        if (keyCombo === null) {
-          listener = {
-            keyCombo: new KeyCombo(pressedKeys.join('+')),
-            pressHandler: listener.pressHandler,
-            releaseHandler: listener.releaseHandler,
-            preventRepeat: listener.preventRepeat,
-            preventRepeatByDefault: listener.preventRepeatByDefault
-          };
-        }
-
-        if (listener.pressHandler && !listener.preventRepeat) {
-          listener.pressHandler.call(this, event);
-          if (preventRepeat) {
-            listener.preventRepeat = preventRepeat;
-            preventRepeat = false;
-          }
-        }
-
-        if (listener.releaseHandler && this._appliedListeners.indexOf(listener) === -1) {
-          this._appliedListeners.push(listener);
-        }
-      }
-
-      if (keyCombo) {
-        for (var j = 0; j < keyCombo.keyNames.length; j += 1) {
-          var index = pressedKeys.indexOf(keyCombo.keyNames[j]);
-          if (index !== -1) {
-            pressedKeys.splice(index, 1);
-            j -= 1;
-          }
-        }
-      }
-    }
-  }
-};
-
-Keyboard.prototype._clearBindings = function (event) {
-  event || (event = {});
-
-  for (var i = 0; i < this._appliedListeners.length; i += 1) {
-    var listener = this._appliedListeners[i];
-    var keyCombo = listener.keyCombo;
-    if (keyCombo === null || !keyCombo.check(this._locale.pressedKeys)) {
-      if (this._callerHandler !== listener.releaseHandler) {
-        var oldCaller = this._callerHandler;
-        this._callerHandler = listener.releaseHandler;
-        listener.preventRepeat = listener.preventRepeatByDefault;
-        listener.releaseHandler.call(this, event);
-        this._callerHandler = oldCaller;
-      }
-      this._appliedListeners.splice(i, 1);
-      i -= 1;
-    }
-  }
-};
-
-Keyboard.prototype._handleCommandBug = function (event, platform) {
-  // On Mac when the command key is kept pressed, keyup is not triggered for any other key.
-  // In this case force a keyup for non-modifier keys directly after the keypress.
-  var modifierKeys = ["shift", "ctrl", "alt", "capslock", "tab", "command"];
-  if (platform.match("Mac") && this._locale.pressedKeys.includes("command") && !modifierKeys.includes(this._locale.getKeyNames(event.keyCode)[0])) {
-    this._targetKeyUpBinding(event);
-  }
-};
-
-module.exports = Keyboard;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
-
-module.exports = function (locale, platform, userAgent) {
-
-  // general
-  locale.bindKeyCode(3, ['cancel']);
-  locale.bindKeyCode(8, ['backspace']);
-  locale.bindKeyCode(9, ['tab']);
-  locale.bindKeyCode(12, ['clear']);
-  locale.bindKeyCode(13, ['enter']);
-  locale.bindKeyCode(16, ['shift']);
-  locale.bindKeyCode(17, ['ctrl']);
-  locale.bindKeyCode(18, ['alt', 'menu']);
-  locale.bindKeyCode(19, ['pause', 'break']);
-  locale.bindKeyCode(20, ['capslock']);
-  locale.bindKeyCode(27, ['escape', 'esc']);
-  locale.bindKeyCode(32, ['space', 'spacebar']);
-  locale.bindKeyCode(33, ['pageup']);
-  locale.bindKeyCode(34, ['pagedown']);
-  locale.bindKeyCode(35, ['end']);
-  locale.bindKeyCode(36, ['home']);
-  locale.bindKeyCode(37, ['left']);
-  locale.bindKeyCode(38, ['up']);
-  locale.bindKeyCode(39, ['right']);
-  locale.bindKeyCode(40, ['down']);
-  locale.bindKeyCode(41, ['select']);
-  locale.bindKeyCode(42, ['printscreen']);
-  locale.bindKeyCode(43, ['execute']);
-  locale.bindKeyCode(44, ['snapshot']);
-  locale.bindKeyCode(45, ['insert', 'ins']);
-  locale.bindKeyCode(46, ['delete', 'del']);
-  locale.bindKeyCode(47, ['help']);
-  locale.bindKeyCode(145, ['scrolllock', 'scroll']);
-  locale.bindKeyCode(187, ['equal', 'equalsign', '=']);
-  locale.bindKeyCode(188, ['comma', ',']);
-  locale.bindKeyCode(190, ['period', '.']);
-  locale.bindKeyCode(191, ['slash', 'forwardslash', '/']);
-  locale.bindKeyCode(192, ['graveaccent', '`']);
-  locale.bindKeyCode(219, ['openbracket', '[']);
-  locale.bindKeyCode(220, ['backslash', '\\']);
-  locale.bindKeyCode(221, ['closebracket', ']']);
-  locale.bindKeyCode(222, ['apostrophe', '\'']);
-
-  // 0-9
-  locale.bindKeyCode(48, ['zero', '0']);
-  locale.bindKeyCode(49, ['one', '1']);
-  locale.bindKeyCode(50, ['two', '2']);
-  locale.bindKeyCode(51, ['three', '3']);
-  locale.bindKeyCode(52, ['four', '4']);
-  locale.bindKeyCode(53, ['five', '5']);
-  locale.bindKeyCode(54, ['six', '6']);
-  locale.bindKeyCode(55, ['seven', '7']);
-  locale.bindKeyCode(56, ['eight', '8']);
-  locale.bindKeyCode(57, ['nine', '9']);
-
-  // numpad
-  locale.bindKeyCode(96, ['numzero', 'num0']);
-  locale.bindKeyCode(97, ['numone', 'num1']);
-  locale.bindKeyCode(98, ['numtwo', 'num2']);
-  locale.bindKeyCode(99, ['numthree', 'num3']);
-  locale.bindKeyCode(100, ['numfour', 'num4']);
-  locale.bindKeyCode(101, ['numfive', 'num5']);
-  locale.bindKeyCode(102, ['numsix', 'num6']);
-  locale.bindKeyCode(103, ['numseven', 'num7']);
-  locale.bindKeyCode(104, ['numeight', 'num8']);
-  locale.bindKeyCode(105, ['numnine', 'num9']);
-  locale.bindKeyCode(106, ['nummultiply', 'num*']);
-  locale.bindKeyCode(107, ['numadd', 'num+']);
-  locale.bindKeyCode(108, ['numenter']);
-  locale.bindKeyCode(109, ['numsubtract', 'num-']);
-  locale.bindKeyCode(110, ['numdecimal', 'num.']);
-  locale.bindKeyCode(111, ['numdivide', 'num/']);
-  locale.bindKeyCode(144, ['numlock', 'num']);
-
-  // function keys
-  locale.bindKeyCode(112, ['f1']);
-  locale.bindKeyCode(113, ['f2']);
-  locale.bindKeyCode(114, ['f3']);
-  locale.bindKeyCode(115, ['f4']);
-  locale.bindKeyCode(116, ['f5']);
-  locale.bindKeyCode(117, ['f6']);
-  locale.bindKeyCode(118, ['f7']);
-  locale.bindKeyCode(119, ['f8']);
-  locale.bindKeyCode(120, ['f9']);
-  locale.bindKeyCode(121, ['f10']);
-  locale.bindKeyCode(122, ['f11']);
-  locale.bindKeyCode(123, ['f12']);
-
-  // secondary key symbols
-  locale.bindMacro('shift + `', ['tilde', '~']);
-  locale.bindMacro('shift + 1', ['exclamation', 'exclamationpoint', '!']);
-  locale.bindMacro('shift + 2', ['at', '@']);
-  locale.bindMacro('shift + 3', ['number', '#']);
-  locale.bindMacro('shift + 4', ['dollar', 'dollars', 'dollarsign', '$']);
-  locale.bindMacro('shift + 5', ['percent', '%']);
-  locale.bindMacro('shift + 6', ['caret', '^']);
-  locale.bindMacro('shift + 7', ['ampersand', 'and', '&']);
-  locale.bindMacro('shift + 8', ['asterisk', '*']);
-  locale.bindMacro('shift + 9', ['openparen', '(']);
-  locale.bindMacro('shift + 0', ['closeparen', ')']);
-  locale.bindMacro('shift + -', ['underscore', '_']);
-  locale.bindMacro('shift + =', ['plus', '+']);
-  locale.bindMacro('shift + [', ['opencurlybrace', 'opencurlybracket', '{']);
-  locale.bindMacro('shift + ]', ['closecurlybrace', 'closecurlybracket', '}']);
-  locale.bindMacro('shift + \\', ['verticalbar', '|']);
-  locale.bindMacro('shift + ;', ['colon', ':']);
-  locale.bindMacro('shift + \'', ['quotationmark', '\'']);
-  locale.bindMacro('shift + !,', ['openanglebracket', '<']);
-  locale.bindMacro('shift + .', ['closeanglebracket', '>']);
-  locale.bindMacro('shift + /', ['questionmark', '?']);
-
-  //a-z and A-Z
-  for (var keyCode = 65; keyCode <= 90; keyCode += 1) {
-    var keyName = String.fromCharCode(keyCode + 32);
-    var capitalKeyName = String.fromCharCode(keyCode);
-    locale.bindKeyCode(keyCode, keyName);
-    locale.bindMacro('shift + ' + keyName, capitalKeyName);
-    locale.bindMacro('capslock + ' + keyName, capitalKeyName);
-  }
-
-  // browser caveats
-  var semicolonKeyCode = userAgent.match('Firefox') ? 59 : 186;
-  var dashKeyCode = userAgent.match('Firefox') ? 173 : 189;
-  var leftCommandKeyCode;
-  var rightCommandKeyCode;
-  if (platform.match('Mac') && (userAgent.match('Safari') || userAgent.match('Chrome'))) {
-    leftCommandKeyCode = 91;
-    rightCommandKeyCode = 93;
-  } else if (platform.match('Mac') && userAgent.match('Opera')) {
-    leftCommandKeyCode = 17;
-    rightCommandKeyCode = 17;
-  } else if (platform.match('Mac') && userAgent.match('Firefox')) {
-    leftCommandKeyCode = 224;
-    rightCommandKeyCode = 224;
-  }
-  locale.bindKeyCode(semicolonKeyCode, ['semicolon', ';']);
-  locale.bindKeyCode(dashKeyCode, ['dash', '-']);
-  locale.bindKeyCode(leftCommandKeyCode, ['command', 'windows', 'win', 'super', 'leftcommand', 'leftwindows', 'leftwin', 'leftsuper']);
-  locale.bindKeyCode(rightCommandKeyCode, ['command', 'windows', 'win', 'super', 'rightcommand', 'rightwindows', 'rightwin', 'rightsuper']);
-
-  // kill keys
-  locale.setKillKey('command');
-};
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
-    "use strict";
-
-    if (global.setImmediate) {
-        return;
-    }
-
-    var nextHandle = 1; // Spec says greater than zero
-    var tasksByHandle = {};
-    var currentlyRunningATask = false;
-    var doc = global.document;
-    var registerImmediate;
-
-    function setImmediate(callback) {
-        // Callback can either be a function or a string
-        if (typeof callback !== "function") {
-            callback = new Function("" + callback);
-        }
-        // Copy function arguments
-        var args = new Array(arguments.length - 1);
-        for (var i = 0; i < args.length; i++) {
-            args[i] = arguments[i + 1];
-        }
-        // Store and register the task
-        var task = { callback: callback, args: args };
-        tasksByHandle[nextHandle] = task;
-        registerImmediate(nextHandle);
-        return nextHandle++;
-    }
-
-    function clearImmediate(handle) {
-        delete tasksByHandle[handle];
-    }
-
-    function run(task) {
-        var callback = task.callback;
-        var args = task.args;
-        switch (args.length) {
-            case 0:
-                callback();
-                break;
-            case 1:
-                callback(args[0]);
-                break;
-            case 2:
-                callback(args[0], args[1]);
-                break;
-            case 3:
-                callback(args[0], args[1], args[2]);
-                break;
-            default:
-                callback.apply(undefined, args);
-                break;
-        }
-    }
-
-    function runIfPresent(handle) {
-        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
-        // So if we're currently running a task, we'll need to delay this invocation.
-        if (currentlyRunningATask) {
-            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
-            // "too much recursion" error.
-            setTimeout(runIfPresent, 0, handle);
-        } else {
-            var task = tasksByHandle[handle];
-            if (task) {
-                currentlyRunningATask = true;
-                try {
-                    run(task);
-                } finally {
-                    clearImmediate(handle);
-                    currentlyRunningATask = false;
-                }
-            }
-        }
-    }
-
-    function installNextTickImplementation() {
-        registerImmediate = function registerImmediate(handle) {
-            process.nextTick(function () {
-                runIfPresent(handle);
-            });
-        };
-    }
-
-    function canUsePostMessage() {
-        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
-        // where `global.postMessage` means something completely different and can't be used for this purpose.
-        if (global.postMessage && !global.importScripts) {
-            var postMessageIsAsynchronous = true;
-            var oldOnMessage = global.onmessage;
-            global.onmessage = function () {
-                postMessageIsAsynchronous = false;
-            };
-            global.postMessage("", "*");
-            global.onmessage = oldOnMessage;
-            return postMessageIsAsynchronous;
-        }
-    }
-
-    function installPostMessageImplementation() {
-        // Installs an event handler on `global` for the `message` event: see
-        // * https://developer.mozilla.org/en/DOM/window.postMessage
-        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
-
-        var messagePrefix = "setImmediate$" + Math.random() + "$";
-        var onGlobalMessage = function onGlobalMessage(event) {
-            if (event.source === global && typeof event.data === "string" && event.data.indexOf(messagePrefix) === 0) {
-                runIfPresent(+event.data.slice(messagePrefix.length));
-            }
-        };
-
-        if (global.addEventListener) {
-            global.addEventListener("message", onGlobalMessage, false);
-        } else {
-            global.attachEvent("onmessage", onGlobalMessage);
-        }
-
-        registerImmediate = function registerImmediate(handle) {
-            global.postMessage(messagePrefix + handle, "*");
-        };
-    }
-
-    function installMessageChannelImplementation() {
-        var channel = new MessageChannel();
-        channel.port1.onmessage = function (event) {
-            var handle = event.data;
-            runIfPresent(handle);
-        };
-
-        registerImmediate = function registerImmediate(handle) {
-            channel.port2.postMessage(handle);
-        };
-    }
-
-    function installReadyStateChangeImplementation() {
-        var html = doc.documentElement;
-        registerImmediate = function registerImmediate(handle) {
-            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
-            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
-            var script = doc.createElement("script");
-            script.onreadystatechange = function () {
-                runIfPresent(handle);
-                script.onreadystatechange = null;
-                html.removeChild(script);
-                script = null;
-            };
-            html.appendChild(script);
-        };
-    }
-
-    function installSetTimeoutImplementation() {
-        registerImmediate = function registerImmediate(handle) {
-            setTimeout(runIfPresent, 0, handle);
-        };
-    }
-
-    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
-    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
-    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
-
-    // Don't get fooled by e.g. browserify environments.
-    if ({}.toString.call(global.process) === "[object process]") {
-        // For Node.js before 0.9
-        installNextTickImplementation();
-    } else if (canUsePostMessage()) {
-        // For non-IE10 modern browsers
-        installPostMessageImplementation();
-    } else if (global.MessageChannel) {
-        // For web workers, where supported
-        installMessageChannelImplementation();
-    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
-        // For IE 6–8
-        installReadyStateChangeImplementation();
-    } else {
-        // For older browsers
-        installSetTimeoutImplementation();
-    }
-
-    attachTo.setImmediate = setImmediate;
-    attachTo.clearImmediate = clearImmediate;
-})(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(14)))
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-
-// compare and isBuffer taken from https://github.com/feross/buffer/blob/680e9e5e488f22aac27599a57dc844a6315928dd/index.js
-// original notice:
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function compare(a, b) {
-  if (a === b) {
-    return 0;
-  }
-
-  var x = a.length;
-  var y = b.length;
-
-  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
-    if (a[i] !== b[i]) {
-      x = a[i];
-      y = b[i];
-      break;
-    }
-  }
-
-  if (x < y) {
-    return -1;
-  }
-  if (y < x) {
-    return 1;
-  }
-  return 0;
-}
-function isBuffer(b) {
-  if (global.Buffer && typeof global.Buffer.isBuffer === 'function') {
-    return global.Buffer.isBuffer(b);
-  }
-  return !!(b != null && b._isBuffer);
-}
-
-// based on node assert, original notice:
-
-// http://wiki.commonjs.org/wiki/Unit_Testing/1.0
-//
-// THIS IS NOT TESTED NOR LIKELY TO WORK OUTSIDE V8!
-//
-// Originally from narwhal.js (http://narwhaljs.org)
-// Copyright (c) 2009 Thomas Robinson <280north.com>
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the 'Software'), to
-// deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-// sell copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-// ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-var util = __webpack_require__(37);
-var hasOwn = Object.prototype.hasOwnProperty;
-var pSlice = Array.prototype.slice;
-var functionsHaveNames = function () {
-  return function foo() {}.name === 'foo';
-}();
-function pToString(obj) {
-  return Object.prototype.toString.call(obj);
-}
-function isView(arrbuf) {
-  if (isBuffer(arrbuf)) {
-    return false;
-  }
-  if (typeof global.ArrayBuffer !== 'function') {
-    return false;
-  }
-  if (typeof ArrayBuffer.isView === 'function') {
-    return ArrayBuffer.isView(arrbuf);
-  }
-  if (!arrbuf) {
-    return false;
-  }
-  if (arrbuf instanceof DataView) {
-    return true;
-  }
-  if (arrbuf.buffer && arrbuf.buffer instanceof ArrayBuffer) {
-    return true;
-  }
-  return false;
-}
-// 1. The assert module provides functions that throw
-// AssertionError's when particular conditions are not met. The
-// assert module must conform to the following interface.
-
-var assert = module.exports = ok;
-
-// 2. The AssertionError is defined in assert.
-// new assert.AssertionError({ message: message,
-//                             actual: actual,
-//                             expected: expected })
-
-var regex = /\s*function\s+([^\(\s]*)\s*/;
-// based on https://github.com/ljharb/function.prototype.name/blob/adeeeec8bfcc6068b187d7d9fb3d5bb1d3a30899/implementation.js
-function getName(func) {
-  if (!util.isFunction(func)) {
-    return;
-  }
-  if (functionsHaveNames) {
-    return func.name;
-  }
-  var str = func.toString();
-  var match = str.match(regex);
-  return match && match[1];
-}
-assert.AssertionError = function AssertionError(options) {
-  this.name = 'AssertionError';
-  this.actual = options.actual;
-  this.expected = options.expected;
-  this.operator = options.operator;
-  if (options.message) {
-    this.message = options.message;
-    this.generatedMessage = false;
-  } else {
-    this.message = getMessage(this);
-    this.generatedMessage = true;
-  }
-  var stackStartFunction = options.stackStartFunction || fail;
-  if (Error.captureStackTrace) {
-    Error.captureStackTrace(this, stackStartFunction);
-  } else {
-    // non v8 browsers so we can have a stacktrace
-    var err = new Error();
-    if (err.stack) {
-      var out = err.stack;
-
-      // try to strip useless frames
-      var fn_name = getName(stackStartFunction);
-      var idx = out.indexOf('\n' + fn_name);
-      if (idx >= 0) {
-        // once we have located the function frame
-        // we need to strip out everything before it (and its line)
-        var next_line = out.indexOf('\n', idx + 1);
-        out = out.substring(next_line + 1);
-      }
-
-      this.stack = out;
-    }
-  }
-};
-
-// assert.AssertionError instanceof Error
-util.inherits(assert.AssertionError, Error);
-
-function truncate(s, n) {
-  if (typeof s === 'string') {
-    return s.length < n ? s : s.slice(0, n);
-  } else {
-    return s;
-  }
-}
-function inspect(something) {
-  if (functionsHaveNames || !util.isFunction(something)) {
-    return util.inspect(something);
-  }
-  var rawname = getName(something);
-  var name = rawname ? ': ' + rawname : '';
-  return '[Function' + name + ']';
-}
-function getMessage(self) {
-  return truncate(inspect(self.actual), 128) + ' ' + self.operator + ' ' + truncate(inspect(self.expected), 128);
-}
-
-// At present only the three keys mentioned above are used and
-// understood by the spec. Implementations or sub modules can pass
-// other keys to the AssertionError's constructor - they will be
-// ignored.
-
-// 3. All of the following functions must throw an AssertionError
-// when a corresponding condition is not met, with a message that
-// may be undefined if not provided.  All assertion methods provide
-// both the actual and expected values to the assertion error for
-// display purposes.
-
-function fail(actual, expected, message, operator, stackStartFunction) {
-  throw new assert.AssertionError({
-    message: message,
-    actual: actual,
-    expected: expected,
-    operator: operator,
-    stackStartFunction: stackStartFunction
-  });
-}
-
-// EXTENSION! allows for well behaved errors defined elsewhere.
-assert.fail = fail;
-
-// 4. Pure assertion tests whether a value is truthy, as determined
-// by !!guard.
-// assert.ok(guard, message_opt);
-// This statement is equivalent to assert.equal(true, !!guard,
-// message_opt);. To test strictly for the value true, use
-// assert.strictEqual(true, guard, message_opt);.
-
-function ok(value, message) {
-  if (!value) fail(value, true, message, '==', assert.ok);
-}
-assert.ok = ok;
-
-// 5. The equality assertion tests shallow, coercive equality with
-// ==.
-// assert.equal(actual, expected, message_opt);
-
-assert.equal = function equal(actual, expected, message) {
-  if (actual != expected) fail(actual, expected, message, '==', assert.equal);
-};
-
-// 6. The non-equality assertion tests for whether two objects are not equal
-// with != assert.notEqual(actual, expected, message_opt);
-
-assert.notEqual = function notEqual(actual, expected, message) {
-  if (actual == expected) {
-    fail(actual, expected, message, '!=', assert.notEqual);
-  }
-};
-
-// 7. The equivalence assertion tests a deep equality relation.
-// assert.deepEqual(actual, expected, message_opt);
-
-assert.deepEqual = function deepEqual(actual, expected, message) {
-  if (!_deepEqual(actual, expected, false)) {
-    fail(actual, expected, message, 'deepEqual', assert.deepEqual);
-  }
-};
-
-assert.deepStrictEqual = function deepStrictEqual(actual, expected, message) {
-  if (!_deepEqual(actual, expected, true)) {
-    fail(actual, expected, message, 'deepStrictEqual', assert.deepStrictEqual);
-  }
-};
-
-function _deepEqual(actual, expected, strict, memos) {
-  // 7.1. All identical values are equivalent, as determined by ===.
-  if (actual === expected) {
-    return true;
-  } else if (isBuffer(actual) && isBuffer(expected)) {
-    return compare(actual, expected) === 0;
-
-    // 7.2. If the expected value is a Date object, the actual value is
-    // equivalent if it is also a Date object that refers to the same time.
-  } else if (util.isDate(actual) && util.isDate(expected)) {
-    return actual.getTime() === expected.getTime();
-
-    // 7.3 If the expected value is a RegExp object, the actual value is
-    // equivalent if it is also a RegExp object with the same source and
-    // properties (`global`, `multiline`, `lastIndex`, `ignoreCase`).
-  } else if (util.isRegExp(actual) && util.isRegExp(expected)) {
-    return actual.source === expected.source && actual.global === expected.global && actual.multiline === expected.multiline && actual.lastIndex === expected.lastIndex && actual.ignoreCase === expected.ignoreCase;
-
-    // 7.4. Other pairs that do not both pass typeof value == 'object',
-    // equivalence is determined by ==.
-  } else if ((actual === null || (typeof actual === 'undefined' ? 'undefined' : _typeof(actual)) !== 'object') && (expected === null || (typeof expected === 'undefined' ? 'undefined' : _typeof(expected)) !== 'object')) {
-    return strict ? actual === expected : actual == expected;
-
-    // If both values are instances of typed arrays, wrap their underlying
-    // ArrayBuffers in a Buffer each to increase performance
-    // This optimization requires the arrays to have the same type as checked by
-    // Object.prototype.toString (aka pToString). Never perform binary
-    // comparisons for Float*Arrays, though, since e.g. +0 === -0 but their
-    // bit patterns are not identical.
-  } else if (isView(actual) && isView(expected) && pToString(actual) === pToString(expected) && !(actual instanceof Float32Array || actual instanceof Float64Array)) {
-    return compare(new Uint8Array(actual.buffer), new Uint8Array(expected.buffer)) === 0;
-
-    // 7.5 For all other Object pairs, including Array objects, equivalence is
-    // determined by having the same number of owned properties (as verified
-    // with Object.prototype.hasOwnProperty.call), the same set of keys
-    // (although not necessarily the same order), equivalent values for every
-    // corresponding key, and an identical 'prototype' property. Note: this
-    // accounts for both named and indexed properties on Arrays.
-  } else if (isBuffer(actual) !== isBuffer(expected)) {
-    return false;
-  } else {
-    memos = memos || { actual: [], expected: [] };
-
-    var actualIndex = memos.actual.indexOf(actual);
-    if (actualIndex !== -1) {
-      if (actualIndex === memos.expected.indexOf(expected)) {
-        return true;
-      }
-    }
-
-    memos.actual.push(actual);
-    memos.expected.push(expected);
-
-    return objEquiv(actual, expected, strict, memos);
-  }
-}
-
-function isArguments(object) {
-  return Object.prototype.toString.call(object) == '[object Arguments]';
-}
-
-function objEquiv(a, b, strict, actualVisitedObjects) {
-  if (a === null || a === undefined || b === null || b === undefined) return false;
-  // if one is a primitive, the other must be same
-  if (util.isPrimitive(a) || util.isPrimitive(b)) return a === b;
-  if (strict && Object.getPrototypeOf(a) !== Object.getPrototypeOf(b)) return false;
-  var aIsArgs = isArguments(a);
-  var bIsArgs = isArguments(b);
-  if (aIsArgs && !bIsArgs || !aIsArgs && bIsArgs) return false;
-  if (aIsArgs) {
-    a = pSlice.call(a);
-    b = pSlice.call(b);
-    return _deepEqual(a, b, strict);
-  }
-  var ka = objectKeys(a);
-  var kb = objectKeys(b);
-  var key, i;
-  // having the same number of owned properties (keys incorporates
-  // hasOwnProperty)
-  if (ka.length !== kb.length) return false;
-  //the same set of keys (although not necessarily the same order),
-  ka.sort();
-  kb.sort();
-  //~~~cheap key test
-  for (i = ka.length - 1; i >= 0; i--) {
-    if (ka[i] !== kb[i]) return false;
-  }
-  //equivalent values for every corresponding key, and
-  //~~~possibly expensive deep test
-  for (i = ka.length - 1; i >= 0; i--) {
-    key = ka[i];
-    if (!_deepEqual(a[key], b[key], strict, actualVisitedObjects)) return false;
-  }
-  return true;
-}
-
-// 8. The non-equivalence assertion tests for any deep inequality.
-// assert.notDeepEqual(actual, expected, message_opt);
-
-assert.notDeepEqual = function notDeepEqual(actual, expected, message) {
-  if (_deepEqual(actual, expected, false)) {
-    fail(actual, expected, message, 'notDeepEqual', assert.notDeepEqual);
-  }
-};
-
-assert.notDeepStrictEqual = notDeepStrictEqual;
-function notDeepStrictEqual(actual, expected, message) {
-  if (_deepEqual(actual, expected, true)) {
-    fail(actual, expected, message, 'notDeepStrictEqual', notDeepStrictEqual);
-  }
-}
-
-// 9. The strict equality assertion tests strict equality, as determined by ===.
-// assert.strictEqual(actual, expected, message_opt);
-
-assert.strictEqual = function strictEqual(actual, expected, message) {
-  if (actual !== expected) {
-    fail(actual, expected, message, '===', assert.strictEqual);
-  }
-};
-
-// 10. The strict non-equality assertion tests for strict inequality, as
-// determined by !==.  assert.notStrictEqual(actual, expected, message_opt);
-
-assert.notStrictEqual = function notStrictEqual(actual, expected, message) {
-  if (actual === expected) {
-    fail(actual, expected, message, '!==', assert.notStrictEqual);
-  }
-};
-
-function expectedException(actual, expected) {
-  if (!actual || !expected) {
-    return false;
-  }
-
-  if (Object.prototype.toString.call(expected) == '[object RegExp]') {
-    return expected.test(actual);
-  }
-
-  try {
-    if (actual instanceof expected) {
-      return true;
-    }
-  } catch (e) {
-    // Ignore.  The instanceof check doesn't work for arrow functions.
-  }
-
-  if (Error.isPrototypeOf(expected)) {
-    return false;
-  }
-
-  return expected.call({}, actual) === true;
-}
-
-function _tryBlock(block) {
-  var error;
-  try {
-    block();
-  } catch (e) {
-    error = e;
-  }
-  return error;
-}
-
-function _throws(shouldThrow, block, expected, message) {
-  var actual;
-
-  if (typeof block !== 'function') {
-    throw new TypeError('"block" argument must be a function');
-  }
-
-  if (typeof expected === 'string') {
-    message = expected;
-    expected = null;
-  }
-
-  actual = _tryBlock(block);
-
-  message = (expected && expected.name ? ' (' + expected.name + ').' : '.') + (message ? ' ' + message : '.');
-
-  if (shouldThrow && !actual) {
-    fail(actual, expected, 'Missing expected exception' + message);
-  }
-
-  var userProvidedMessage = typeof message === 'string';
-  var isUnwantedException = !shouldThrow && util.isError(actual);
-  var isUnexpectedException = !shouldThrow && actual && !expected;
-
-  if (isUnwantedException && userProvidedMessage && expectedException(actual, expected) || isUnexpectedException) {
-    fail(actual, expected, 'Got unwanted exception' + message);
-  }
-
-  if (shouldThrow && actual && expected && !expectedException(actual, expected) || !shouldThrow && actual) {
-    throw actual;
-  }
-}
-
-// 11. Expected to throw an error:
-// assert.throws(block, Error_opt, message_opt);
-
-assert.throws = function (block, /*optional*/error, /*optional*/message) {
-  _throws(true, block, error, message);
-};
-
-// EXTENSION! This is annoying to write outside this module.
-assert.doesNotThrow = function (block, /*optional*/error, /*optional*/message) {
-  _throws(false, block, error, message);
-};
-
-assert.ifError = function (err) {
-  if (err) throw err;
-};
-
-var objectKeys = Object.keys || function (obj) {
-  var keys = [];
-  for (var key in obj) {
-    if (hasOwn.call(obj, key)) keys.push(key);
-  }
-  return keys;
-};
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
-
-/***/ }),
-/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -7368,6 +5383,1983 @@ function hasOwnProperty(obj, prop) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(14)))
 
 /***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = modelLoader;
+// const THREE = require("three");
+var ColladaLoader = __webpack_require__(43);
+
+function modelLoader(modelPath) {
+	return new Promise(function (resolve, reject) {
+		var loader = new THREE.ColladaLoader();
+		loader.options.convertUpAxis = true;
+		loader.load("./game/3dModels/" + modelPath, function (collada) {
+			resolve(collada);
+		});
+	});
+}
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__main_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__ = __webpack_require__(4);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('../sw.js', { scope: '/' });
+// }
+// if ("serviceWorker" in navigator) {
+//     navigator.serviceWorker.register("../../sw.js")
+//         .then(function(registration) {
+//             // при удачной регистрации имеем объект типа ServiceWorkerRegistration
+//             console.log("ServiceWorker registration", registration);
+//             // строкой ниже можно прекратить работу serviceWorker’а
+//             //registration.unregister();
+//         })
+//         .catch(function(err) {
+//             console.error(err);
+//         });
+// }
+
+__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].show();
+
+var app = document.getElementById("application");
+document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
+
+var main = new __WEBPACK_IMPORTED_MODULE_1__block_block_js__["a" /* Block */]("div", { class: "main-container" });
+app.appendChild(main.el);
+
+//config
+var login = new __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__["a" /* default */](main.el);
+var register = new __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__["a" /* default */](main.el);
+var menu = new __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__["a" /* default */](main.el);
+var change = new __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__["a" /* default */](main.el);
+var theme = new __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__["a" /* default */](main.el);
+var gameType = new __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__["a" /* default */](main.el);
+var gameMenu = new __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__["a" /* default */](main.el);
+var gameView = new __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__["a" /* default */](main.el);
+
+var config = {
+    "/login/": {
+        view: login
+    },
+    "/register/": {
+        view: register
+    },
+    "/menu/": {
+        view: menu
+    },
+    "/": {
+        view: menu
+    },
+    "/changepass/": {
+        view: change
+    },
+    "/play/": {
+        view: gameType
+    },
+    "/game/": {
+        view: gameView
+    }
+};
+
+Object(__WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
+
+__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].init(main.el, config);
+__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
+
+__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
+
+// if ('serviceWorker' in window.navigator) {
+//     window.navigator.serviceWorker.register('../sw.js');
+// }
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
+// const PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
+var PREFIX_URL = "http://127.0.0.1:8080/api/user/";
+var urls = {
+    login: PREFIX_URL + "login",
+    register: PREFIX_URL + "register",
+    logout: PREFIX_URL + "logout",
+    check: PREFIX_URL + "getuser",
+    chagePassword: PREFIX_URL + "changepassword"
+};
+var GET = "GET";
+var POST = "POST";
+
+/* harmony default export */ __webpack_exports__["c"] = (urls);
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * Модуль, предоставляющий методы для выполнения HTTP-запросов
+ * @module Http
+ */
+function httpReq(type, uRL, sendObject) {
+    return new Promise(function (resolve, reject) {
+        fetch(uRL, {
+            method: type,
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify(sendObject),
+            mode: "cors",
+            credentials: "include"
+        }).then(function (response) {
+            if (response.status === 200) {
+                resolve(response);
+                return;
+            } else {
+                reject("Something went wrong");
+            }
+        });
+    });
+}
+/* harmony default export */ __webpack_exports__["a"] = (httpReq);
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Validate = function () {
+    function Validate() {
+        _classCallCheck(this, Validate);
+    }
+
+    /**
+     * Проверить логин(ник)
+     */
+
+
+    _createClass(Validate, null, [{
+        key: "checkLogin",
+        value: function checkLogin(nick) {
+            return nick.length < 20 && nick.length > 1;
+        }
+
+        /**
+         * Проверить пароль
+         */
+
+    }, {
+        key: "checkPassword",
+        value: function checkPassword(password) {
+            return password.length < 20 && password.length > 1;
+        }
+
+        /**
+         * Проверить совпадение паролей
+         */
+
+    }, {
+        key: "confirmPassword",
+        value: function confirmPassword(password, confirm) {
+            return password === confirm;
+        }
+
+        /**
+         * Проверить логин(ник) и пароль
+         */
+
+    }, {
+        key: "checkLogAndPas",
+        value: function checkLogAndPas(nick, password) {
+            return this.checkLogin(nick) && this.checkPassword(password);
+        }
+    }]);
+
+    return Validate;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Validate);
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var LoginView = function (_BaseView) {
+	_inherits(LoginView, _BaseView);
+
+	function LoginView(parentNode) {
+		_classCallCheck(this, LoginView);
+
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+		var _this = _possibleConstructorReturn(this, (LoginView.__proto__ || Object.getPrototypeOf(LoginView)).call(this, view.el));
+
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
+
+	_createClass(LoginView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_1__login_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
+
+			this.loginBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
+				userService.login(_this3.nick.el.value, _this3.password.el.value).then(function () {
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.loginBtn.el.getAttribute("href"));
+					_this3.warning.hide();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				}).catch(function (err) {
+					_this3.warning.setAttributes({ value: err });
+					_this3.warning.show();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				});
+			});
+			this.changeformBtn.setCallback(function () {
+				_this3.warning.hide();
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+			});
+		}
+	}]);
+
+	return LoginView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (LoginView);
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var loginFields = [{
+	name: "nick",
+	class: "input",
+	elemType: "input",
+	type: "text",
+	placeholder: "Nickname"
+}, {
+	name: "password",
+	class: "input",
+	elemType: "input",
+	type: "password",
+	placeholder: "Password"
+}, {
+	name: "loginBtn",
+	class: " button",
+	elemType: "input",
+	type: "button",
+	value: "Log In",
+	href: "/menu/"
+}, {
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "Havent Account?",
+	href: "/register/"
+}, {
+	name: "warning",
+	class: "warning",
+	elemType: "input",
+	type: "text",
+	value: "Invalid Data",
+	readonly: "true",
+	hidden: "true"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (loginFields);
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var RegisterView = function (_BaseView) {
+    _inherits(RegisterView, _BaseView);
+
+    function RegisterView(parentNode) {
+        _classCallCheck(this, RegisterView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+        var _this = _possibleConstructorReturn(this, (RegisterView.__proto__ || Object.getPrototypeOf(RegisterView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        return _this;
+    }
+
+    _createClass(RegisterView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1__register_js__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.registerBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
+                userService.register(_this3.nick.el.value, _this3.password.el.value, _this3.confirm.el.value).then(function () {
+                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.registerBtn.el.getAttribute("href"));
+                    _this3.warning.hide();
+                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+                }).catch(function (err) {
+                    _this3.warning.setAttributes({ value: err });
+                    _this3.warning.show();
+                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+                });
+
+                _this3.changeformBtn.setCallback(function () {
+                    _this3.warning.hide();
+                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+                });
+            });
+        }
+    }]);
+
+    return RegisterView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (RegisterView);
+
+/***/ }),
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var registerFields = [{
+	class: "input",
+	type: "text",
+	name: "nick",
+	placeholder: "Nickname",
+	elemType: "input"
+}, {
+	class: "input",
+	type: "password",
+	name: "password",
+	placeholder: "Password",
+	elemType: "input"
+}, {
+	class: "input",
+	type: "password",
+	name: "confirm",
+	placeholder: "Confirm Password",
+	elemType: "input"
+}, {
+	name: "registerBtn",
+	class: " button",
+	elemType: "input",
+	type: "button",
+	value: "Register",
+	href: "/menu/"
+
+}, {
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "Already Have Account?",
+	href: "/login/"
+}, {
+	name: "warning",
+	class: "warning",
+	type: "text",
+	value: "Invalid Data",
+	elemType: "input",
+	readonly: "true",
+	hidden: "true"
+}];
+
+/* harmony default export */ __webpack_exports__["a"] = (registerFields);
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_js__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(7);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var MenuView = function (_BaseView) {
+	_inherits(MenuView, _BaseView);
+
+	function MenuView(parentNode) {
+		_classCallCheck(this, MenuView);
+
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+		var _this = _possibleConstructorReturn(this, (MenuView.__proto__ || Object.getPrototypeOf(MenuView)).call(this, view.el));
+
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
+
+	_createClass(MenuView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_1__menu_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
+
+			this.changeBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"), false);
+			});
+			this.logoutBtn.setCallback(function () {
+				userService.logout().then(function () {
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.logoutBtn.el.getAttribute("href"));
+				}).catch(function (err) {});
+			});
+
+			this.play.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.play.el.getAttribute("href"), false);
+			});
+		}
+	}]);
+
+	return MenuView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (MenuView);
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var menuFields = [{
+	name: "play",
+	class: " button",
+	elemType: "a",
+	href: "/play/",
+	value: "play"
+}, {
+	name: "changeBtn",
+	class: " button",
+	elemType: "a",
+	href: "/changepass/",
+	value: "Change Password"
+}, {
+	name: "logoutBtn",
+	class: " button",
+	elemType: "input",
+	type: "button",
+	href: "/login/",
+	value: "log out"
+}, {
+	name: "scoreboardBtn",
+	class: " button",
+	elemType: "a",
+	value: "scoreboard"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (menuFields);
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(12);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var keyboardJS = __webpack_require__(10);
+
+
+var SinglePlayer = function () {
+    function SinglePlayer() {
+        _classCallCheck(this, SinglePlayer);
+
+        this._gameLoop = this._gameLoop.bind(this);
+        this.actionStates = {};
+        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50], this.actionStates); // TODO write your original
+        this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
+    }
+
+    _createClass(SinglePlayer, [{
+        key: "getPlayersCoors",
+        value: function getPlayersCoors() {
+            return {
+                me: this.me.coords,
+                opponent: this.opponent.coords
+            };
+        }
+    }, {
+        key: "startListenGameLoop",
+        value: function startListenGameLoop(callback) {
+            var _this = this;
+
+            this.sceneInstructionCallback = callback;
+            this._startLoop();
+            this._initKeyListeners(function (newState) {
+                Object.assign(_this.actionStates, newState);
+            });
+        }
+    }, {
+        key: "_startLoop",
+        value: function _startLoop() {
+            window.requestAnimationFrame(this._gameLoop);
+        }
+
+        //Основной цикл, который шлет изменения
+
+    }, {
+        key: "_gameLoop",
+        value: function _gameLoop() {
+
+            // Object.keys(this._actionStates).forEach(key => {
+            //     this.me[key] = this._actionStates[key];
+            // });
+            this.me.update();
+            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+            this.me.getInstrustions());
+            window.requestAnimationFrame(this._gameLoop);
+        }
+    }, {
+        key: "_initKeyListeners",
+        value: function _initKeyListeners(callback) {
+            keyboardJS.bind("m", function (e) {
+                callback({ turretRight: true });
+            }, function (e) {
+                callback({ turretRight: false });
+            });
+            keyboardJS.bind("n", function (e) {
+                callback({ turretLeft: true });
+            }, function (e) {
+                callback({ turretLeft: false });
+            });
+            keyboardJS.bind("w", function (e) {
+                callback({ forward: true });
+            }, function (e) {
+                callback({ forward: false });
+            });
+            keyboardJS.bind("s", function (e) {
+                callback({ backward: true });
+            }, function (e) {
+                callback({ backward: false });
+            });
+            keyboardJS.bind("d", function (e) {
+                callback({ right: true });
+            }, function (e) {
+                callback({ right: false });
+            });
+            keyboardJS.bind("a", function (e) {
+                callback({ left: true });
+            }, function (e) {
+                callback({ left: false });
+            });
+            keyboardJS.bind("v", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ changeCamera: true });
+            });
+            keyboardJS.bind("space", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ fire: true });
+            });
+        }
+    }, {
+        key: "randomMovemant",
+        value: function randomMovemant(callback) {
+            callback({ left: true, forward: true });
+        }
+    }]);
+
+    return SinglePlayer;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (SinglePlayer);
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var Locale = __webpack_require__(11);
+var KeyCombo = __webpack_require__(8);
+
+function Keyboard(targetWindow, targetElement, platform, userAgent) {
+  this._locale = null;
+  this._currentContext = null;
+  this._contexts = {};
+  this._listeners = [];
+  this._appliedListeners = [];
+  this._locales = {};
+  this._targetElement = null;
+  this._targetWindow = null;
+  this._targetPlatform = '';
+  this._targetUserAgent = '';
+  this._isModernBrowser = false;
+  this._targetKeyDownBinding = null;
+  this._targetKeyUpBinding = null;
+  this._targetResetBinding = null;
+  this._paused = false;
+  this._callerHandler = null;
+
+  this.setContext('global');
+  this.watch(targetWindow, targetElement, platform, userAgent);
+}
+
+Keyboard.prototype.setLocale = function (localeName, localeBuilder) {
+  var locale = null;
+  if (typeof localeName === 'string') {
+
+    if (localeBuilder) {
+      locale = new Locale(localeName);
+      localeBuilder(locale, this._targetPlatform, this._targetUserAgent);
+    } else {
+      locale = this._locales[localeName] || null;
+    }
+  } else {
+    locale = localeName;
+    localeName = locale._localeName;
+  }
+
+  this._locale = locale;
+  this._locales[localeName] = locale;
+  if (locale) {
+    this._locale.pressedKeys = locale.pressedKeys;
+  }
+};
+
+Keyboard.prototype.getLocale = function (localName) {
+  localName || (localName = this._locale.localeName);
+  return this._locales[localName] || null;
+};
+
+Keyboard.prototype.bind = function (keyComboStr, pressHandler, releaseHandler, preventRepeatByDefault) {
+  if (keyComboStr === null || typeof keyComboStr === 'function') {
+    preventRepeatByDefault = releaseHandler;
+    releaseHandler = pressHandler;
+    pressHandler = keyComboStr;
+    keyComboStr = null;
+  }
+
+  if (keyComboStr && (typeof keyComboStr === 'undefined' ? 'undefined' : _typeof(keyComboStr)) === 'object' && typeof keyComboStr.length === 'number') {
+    for (var i = 0; i < keyComboStr.length; i += 1) {
+      this.bind(keyComboStr[i], pressHandler, releaseHandler);
+    }
+    return;
+  }
+
+  this._listeners.push({
+    keyCombo: keyComboStr ? new KeyCombo(keyComboStr) : null,
+    pressHandler: pressHandler || null,
+    releaseHandler: releaseHandler || null,
+    preventRepeat: preventRepeatByDefault || false,
+    preventRepeatByDefault: preventRepeatByDefault || false
+  });
+};
+Keyboard.prototype.addListener = Keyboard.prototype.bind;
+Keyboard.prototype.on = Keyboard.prototype.bind;
+
+Keyboard.prototype.unbind = function (keyComboStr, pressHandler, releaseHandler) {
+  if (keyComboStr === null || typeof keyComboStr === 'function') {
+    releaseHandler = pressHandler;
+    pressHandler = keyComboStr;
+    keyComboStr = null;
+  }
+
+  if (keyComboStr && (typeof keyComboStr === 'undefined' ? 'undefined' : _typeof(keyComboStr)) === 'object' && typeof keyComboStr.length === 'number') {
+    for (var i = 0; i < keyComboStr.length; i += 1) {
+      this.unbind(keyComboStr[i], pressHandler, releaseHandler);
+    }
+    return;
+  }
+
+  for (var i = 0; i < this._listeners.length; i += 1) {
+    var listener = this._listeners[i];
+
+    var comboMatches = !keyComboStr && !listener.keyCombo || listener.keyCombo && listener.keyCombo.isEqual(keyComboStr);
+    var pressHandlerMatches = !pressHandler && !releaseHandler || !pressHandler && !listener.pressHandler || pressHandler === listener.pressHandler;
+    var releaseHandlerMatches = !pressHandler && !releaseHandler || !releaseHandler && !listener.releaseHandler || releaseHandler === listener.releaseHandler;
+
+    if (comboMatches && pressHandlerMatches && releaseHandlerMatches) {
+      this._listeners.splice(i, 1);
+      i -= 1;
+    }
+  }
+};
+Keyboard.prototype.removeListener = Keyboard.prototype.unbind;
+Keyboard.prototype.off = Keyboard.prototype.unbind;
+
+Keyboard.prototype.setContext = function (contextName) {
+  if (this._locale) {
+    this.releaseAllKeys();
+  }
+
+  if (!this._contexts[contextName]) {
+    this._contexts[contextName] = [];
+  }
+  this._listeners = this._contexts[contextName];
+  this._currentContext = contextName;
+};
+
+Keyboard.prototype.getContext = function () {
+  return this._currentContext;
+};
+
+Keyboard.prototype.withContext = function (contextName, callback) {
+  var previousContextName = this.getContext();
+  this.setContext(contextName);
+
+  callback();
+
+  this.setContext(previousContextName);
+};
+
+Keyboard.prototype.watch = function (targetWindow, targetElement, targetPlatform, targetUserAgent) {
+  var _this = this;
+
+  this.stop();
+
+  if (!targetWindow) {
+    if (!global.addEventListener && !global.attachEvent) {
+      throw new Error('Cannot find global functions addEventListener or attachEvent.');
+    }
+    targetWindow = global;
+  }
+
+  if (typeof targetWindow.nodeType === 'number') {
+    targetUserAgent = targetPlatform;
+    targetPlatform = targetElement;
+    targetElement = targetWindow;
+    targetWindow = global;
+  }
+
+  if (!targetWindow.addEventListener && !targetWindow.attachEvent) {
+    throw new Error('Cannot find addEventListener or attachEvent methods on targetWindow.');
+  }
+
+  this._isModernBrowser = !!targetWindow.addEventListener;
+
+  var userAgent = targetWindow.navigator && targetWindow.navigator.userAgent || '';
+  var platform = targetWindow.navigator && targetWindow.navigator.platform || '';
+
+  targetElement && targetElement !== null || (targetElement = targetWindow.document);
+  targetPlatform && targetPlatform !== null || (targetPlatform = platform);
+  targetUserAgent && targetUserAgent !== null || (targetUserAgent = userAgent);
+
+  this._targetKeyDownBinding = function (event) {
+    _this.pressKey(event.keyCode, event);
+    _this._handleCommandBug(event, platform);
+  };
+  this._targetKeyUpBinding = function (event) {
+    _this.releaseKey(event.keyCode, event);
+  };
+  this._targetResetBinding = function (event) {
+    _this.releaseAllKeys(event);
+  };
+
+  this._bindEvent(targetElement, 'keydown', this._targetKeyDownBinding);
+  this._bindEvent(targetElement, 'keyup', this._targetKeyUpBinding);
+  this._bindEvent(targetWindow, 'focus', this._targetResetBinding);
+  this._bindEvent(targetWindow, 'blur', this._targetResetBinding);
+
+  this._targetElement = targetElement;
+  this._targetWindow = targetWindow;
+  this._targetPlatform = targetPlatform;
+  this._targetUserAgent = targetUserAgent;
+};
+
+Keyboard.prototype.stop = function () {
+  var _this = this;
+
+  if (!this._targetElement || !this._targetWindow) {
+    return;
+  }
+
+  this._unbindEvent(this._targetElement, 'keydown', this._targetKeyDownBinding);
+  this._unbindEvent(this._targetElement, 'keyup', this._targetKeyUpBinding);
+  this._unbindEvent(this._targetWindow, 'focus', this._targetResetBinding);
+  this._unbindEvent(this._targetWindow, 'blur', this._targetResetBinding);
+
+  this._targetWindow = null;
+  this._targetElement = null;
+};
+
+Keyboard.prototype.pressKey = function (keyCode, event) {
+  if (this._paused) {
+    return;
+  }
+  if (!this._locale) {
+    throw new Error('Locale not set');
+  }
+
+  this._locale.pressKey(keyCode);
+  this._applyBindings(event);
+};
+
+Keyboard.prototype.releaseKey = function (keyCode, event) {
+  if (this._paused) {
+    return;
+  }
+  if (!this._locale) {
+    throw new Error('Locale not set');
+  }
+
+  this._locale.releaseKey(keyCode);
+  this._clearBindings(event);
+};
+
+Keyboard.prototype.releaseAllKeys = function (event) {
+  if (this._paused) {
+    return;
+  }
+  if (!this._locale) {
+    throw new Error('Locale not set');
+  }
+
+  this._locale.pressedKeys.length = 0;
+  this._clearBindings(event);
+};
+
+Keyboard.prototype.pause = function () {
+  if (this._paused) {
+    return;
+  }
+  if (this._locale) {
+    this.releaseAllKeys();
+  }
+  this._paused = true;
+};
+
+Keyboard.prototype.resume = function () {
+  this._paused = false;
+};
+
+Keyboard.prototype.reset = function () {
+  this.releaseAllKeys();
+  this._listeners.length = 0;
+};
+
+Keyboard.prototype._bindEvent = function (targetElement, eventName, handler) {
+  return this._isModernBrowser ? targetElement.addEventListener(eventName, handler, false) : targetElement.attachEvent('on' + eventName, handler);
+};
+
+Keyboard.prototype._unbindEvent = function (targetElement, eventName, handler) {
+  return this._isModernBrowser ? targetElement.removeEventListener(eventName, handler, false) : targetElement.detachEvent('on' + eventName, handler);
+};
+
+Keyboard.prototype._getGroupedListeners = function () {
+  var listenerGroups = [];
+  var listenerGroupMap = [];
+
+  var listeners = this._listeners;
+  if (this._currentContext !== 'global') {
+    listeners = [].concat(listeners, this._contexts.global);
+  }
+
+  listeners.sort(function (a, b) {
+    return (b.keyCombo ? b.keyCombo.keyNames.length : 0) - (a.keyCombo ? a.keyCombo.keyNames.length : 0);
+  }).forEach(function (l) {
+    var mapIndex = -1;
+    for (var i = 0; i < listenerGroupMap.length; i += 1) {
+      if (listenerGroupMap[i] === null && l.keyCombo === null || listenerGroupMap[i] !== null && listenerGroupMap[i].isEqual(l.keyCombo)) {
+        mapIndex = i;
+      }
+    }
+    if (mapIndex === -1) {
+      mapIndex = listenerGroupMap.length;
+      listenerGroupMap.push(l.keyCombo);
+    }
+    if (!listenerGroups[mapIndex]) {
+      listenerGroups[mapIndex] = [];
+    }
+    listenerGroups[mapIndex].push(l);
+  });
+  return listenerGroups;
+};
+
+Keyboard.prototype._applyBindings = function (event) {
+  var preventRepeat = false;
+
+  event || (event = {});
+  event.preventRepeat = function () {
+    preventRepeat = true;
+  };
+  event.pressedKeys = this._locale.pressedKeys.slice(0);
+
+  var pressedKeys = this._locale.pressedKeys.slice(0);
+  var listenerGroups = this._getGroupedListeners();
+
+  for (var i = 0; i < listenerGroups.length; i += 1) {
+    var listeners = listenerGroups[i];
+    var keyCombo = listeners[0].keyCombo;
+
+    if (keyCombo === null || keyCombo.check(pressedKeys)) {
+      for (var j = 0; j < listeners.length; j += 1) {
+        var listener = listeners[j];
+
+        if (keyCombo === null) {
+          listener = {
+            keyCombo: new KeyCombo(pressedKeys.join('+')),
+            pressHandler: listener.pressHandler,
+            releaseHandler: listener.releaseHandler,
+            preventRepeat: listener.preventRepeat,
+            preventRepeatByDefault: listener.preventRepeatByDefault
+          };
+        }
+
+        if (listener.pressHandler && !listener.preventRepeat) {
+          listener.pressHandler.call(this, event);
+          if (preventRepeat) {
+            listener.preventRepeat = preventRepeat;
+            preventRepeat = false;
+          }
+        }
+
+        if (listener.releaseHandler && this._appliedListeners.indexOf(listener) === -1) {
+          this._appliedListeners.push(listener);
+        }
+      }
+
+      if (keyCombo) {
+        for (var j = 0; j < keyCombo.keyNames.length; j += 1) {
+          var index = pressedKeys.indexOf(keyCombo.keyNames[j]);
+          if (index !== -1) {
+            pressedKeys.splice(index, 1);
+            j -= 1;
+          }
+        }
+      }
+    }
+  }
+};
+
+Keyboard.prototype._clearBindings = function (event) {
+  event || (event = {});
+
+  for (var i = 0; i < this._appliedListeners.length; i += 1) {
+    var listener = this._appliedListeners[i];
+    var keyCombo = listener.keyCombo;
+    if (keyCombo === null || !keyCombo.check(this._locale.pressedKeys)) {
+      if (this._callerHandler !== listener.releaseHandler) {
+        var oldCaller = this._callerHandler;
+        this._callerHandler = listener.releaseHandler;
+        listener.preventRepeat = listener.preventRepeatByDefault;
+        listener.releaseHandler.call(this, event);
+        this._callerHandler = oldCaller;
+      }
+      this._appliedListeners.splice(i, 1);
+      i -= 1;
+    }
+  }
+};
+
+Keyboard.prototype._handleCommandBug = function (event, platform) {
+  // On Mac when the command key is kept pressed, keyup is not triggered for any other key.
+  // In this case force a keyup for non-modifier keys directly after the keypress.
+  var modifierKeys = ["shift", "ctrl", "alt", "capslock", "tab", "command"];
+  if (platform.match("Mac") && this._locale.pressedKeys.includes("command") && !modifierKeys.includes(this._locale.getKeyNames(event.keyCode)[0])) {
+    this._targetKeyUpBinding(event);
+  }
+};
+
+module.exports = Keyboard;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+
+module.exports = function (locale, platform, userAgent) {
+
+  // general
+  locale.bindKeyCode(3, ['cancel']);
+  locale.bindKeyCode(8, ['backspace']);
+  locale.bindKeyCode(9, ['tab']);
+  locale.bindKeyCode(12, ['clear']);
+  locale.bindKeyCode(13, ['enter']);
+  locale.bindKeyCode(16, ['shift']);
+  locale.bindKeyCode(17, ['ctrl']);
+  locale.bindKeyCode(18, ['alt', 'menu']);
+  locale.bindKeyCode(19, ['pause', 'break']);
+  locale.bindKeyCode(20, ['capslock']);
+  locale.bindKeyCode(27, ['escape', 'esc']);
+  locale.bindKeyCode(32, ['space', 'spacebar']);
+  locale.bindKeyCode(33, ['pageup']);
+  locale.bindKeyCode(34, ['pagedown']);
+  locale.bindKeyCode(35, ['end']);
+  locale.bindKeyCode(36, ['home']);
+  locale.bindKeyCode(37, ['left']);
+  locale.bindKeyCode(38, ['up']);
+  locale.bindKeyCode(39, ['right']);
+  locale.bindKeyCode(40, ['down']);
+  locale.bindKeyCode(41, ['select']);
+  locale.bindKeyCode(42, ['printscreen']);
+  locale.bindKeyCode(43, ['execute']);
+  locale.bindKeyCode(44, ['snapshot']);
+  locale.bindKeyCode(45, ['insert', 'ins']);
+  locale.bindKeyCode(46, ['delete', 'del']);
+  locale.bindKeyCode(47, ['help']);
+  locale.bindKeyCode(145, ['scrolllock', 'scroll']);
+  locale.bindKeyCode(187, ['equal', 'equalsign', '=']);
+  locale.bindKeyCode(188, ['comma', ',']);
+  locale.bindKeyCode(190, ['period', '.']);
+  locale.bindKeyCode(191, ['slash', 'forwardslash', '/']);
+  locale.bindKeyCode(192, ['graveaccent', '`']);
+  locale.bindKeyCode(219, ['openbracket', '[']);
+  locale.bindKeyCode(220, ['backslash', '\\']);
+  locale.bindKeyCode(221, ['closebracket', ']']);
+  locale.bindKeyCode(222, ['apostrophe', '\'']);
+
+  // 0-9
+  locale.bindKeyCode(48, ['zero', '0']);
+  locale.bindKeyCode(49, ['one', '1']);
+  locale.bindKeyCode(50, ['two', '2']);
+  locale.bindKeyCode(51, ['three', '3']);
+  locale.bindKeyCode(52, ['four', '4']);
+  locale.bindKeyCode(53, ['five', '5']);
+  locale.bindKeyCode(54, ['six', '6']);
+  locale.bindKeyCode(55, ['seven', '7']);
+  locale.bindKeyCode(56, ['eight', '8']);
+  locale.bindKeyCode(57, ['nine', '9']);
+
+  // numpad
+  locale.bindKeyCode(96, ['numzero', 'num0']);
+  locale.bindKeyCode(97, ['numone', 'num1']);
+  locale.bindKeyCode(98, ['numtwo', 'num2']);
+  locale.bindKeyCode(99, ['numthree', 'num3']);
+  locale.bindKeyCode(100, ['numfour', 'num4']);
+  locale.bindKeyCode(101, ['numfive', 'num5']);
+  locale.bindKeyCode(102, ['numsix', 'num6']);
+  locale.bindKeyCode(103, ['numseven', 'num7']);
+  locale.bindKeyCode(104, ['numeight', 'num8']);
+  locale.bindKeyCode(105, ['numnine', 'num9']);
+  locale.bindKeyCode(106, ['nummultiply', 'num*']);
+  locale.bindKeyCode(107, ['numadd', 'num+']);
+  locale.bindKeyCode(108, ['numenter']);
+  locale.bindKeyCode(109, ['numsubtract', 'num-']);
+  locale.bindKeyCode(110, ['numdecimal', 'num.']);
+  locale.bindKeyCode(111, ['numdivide', 'num/']);
+  locale.bindKeyCode(144, ['numlock', 'num']);
+
+  // function keys
+  locale.bindKeyCode(112, ['f1']);
+  locale.bindKeyCode(113, ['f2']);
+  locale.bindKeyCode(114, ['f3']);
+  locale.bindKeyCode(115, ['f4']);
+  locale.bindKeyCode(116, ['f5']);
+  locale.bindKeyCode(117, ['f6']);
+  locale.bindKeyCode(118, ['f7']);
+  locale.bindKeyCode(119, ['f8']);
+  locale.bindKeyCode(120, ['f9']);
+  locale.bindKeyCode(121, ['f10']);
+  locale.bindKeyCode(122, ['f11']);
+  locale.bindKeyCode(123, ['f12']);
+
+  // secondary key symbols
+  locale.bindMacro('shift + `', ['tilde', '~']);
+  locale.bindMacro('shift + 1', ['exclamation', 'exclamationpoint', '!']);
+  locale.bindMacro('shift + 2', ['at', '@']);
+  locale.bindMacro('shift + 3', ['number', '#']);
+  locale.bindMacro('shift + 4', ['dollar', 'dollars', 'dollarsign', '$']);
+  locale.bindMacro('shift + 5', ['percent', '%']);
+  locale.bindMacro('shift + 6', ['caret', '^']);
+  locale.bindMacro('shift + 7', ['ampersand', 'and', '&']);
+  locale.bindMacro('shift + 8', ['asterisk', '*']);
+  locale.bindMacro('shift + 9', ['openparen', '(']);
+  locale.bindMacro('shift + 0', ['closeparen', ')']);
+  locale.bindMacro('shift + -', ['underscore', '_']);
+  locale.bindMacro('shift + =', ['plus', '+']);
+  locale.bindMacro('shift + [', ['opencurlybrace', 'opencurlybracket', '{']);
+  locale.bindMacro('shift + ]', ['closecurlybrace', 'closecurlybracket', '}']);
+  locale.bindMacro('shift + \\', ['verticalbar', '|']);
+  locale.bindMacro('shift + ;', ['colon', ':']);
+  locale.bindMacro('shift + \'', ['quotationmark', '\'']);
+  locale.bindMacro('shift + !,', ['openanglebracket', '<']);
+  locale.bindMacro('shift + .', ['closeanglebracket', '>']);
+  locale.bindMacro('shift + /', ['questionmark', '?']);
+
+  //a-z and A-Z
+  for (var keyCode = 65; keyCode <= 90; keyCode += 1) {
+    var keyName = String.fromCharCode(keyCode + 32);
+    var capitalKeyName = String.fromCharCode(keyCode);
+    locale.bindKeyCode(keyCode, keyName);
+    locale.bindMacro('shift + ' + keyName, capitalKeyName);
+    locale.bindMacro('capslock + ' + keyName, capitalKeyName);
+  }
+
+  // browser caveats
+  var semicolonKeyCode = userAgent.match('Firefox') ? 59 : 186;
+  var dashKeyCode = userAgent.match('Firefox') ? 173 : 189;
+  var leftCommandKeyCode;
+  var rightCommandKeyCode;
+  if (platform.match('Mac') && (userAgent.match('Safari') || userAgent.match('Chrome'))) {
+    leftCommandKeyCode = 91;
+    rightCommandKeyCode = 93;
+  } else if (platform.match('Mac') && userAgent.match('Opera')) {
+    leftCommandKeyCode = 17;
+    rightCommandKeyCode = 17;
+  } else if (platform.match('Mac') && userAgent.match('Firefox')) {
+    leftCommandKeyCode = 224;
+    rightCommandKeyCode = 224;
+  }
+  locale.bindKeyCode(semicolonKeyCode, ['semicolon', ';']);
+  locale.bindKeyCode(dashKeyCode, ['dash', '-']);
+  locale.bindKeyCode(leftCommandKeyCode, ['command', 'windows', 'win', 'super', 'leftcommand', 'leftwindows', 'leftwin', 'leftsuper']);
+  locale.bindKeyCode(rightCommandKeyCode, ['command', 'windows', 'win', 'super', 'rightcommand', 'rightwindows', 'rightwin', 'rightsuper']);
+
+  // kill keys
+  locale.setKillKey('command');
+};
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+    "use strict";
+
+    if (global.setImmediate) {
+        return;
+    }
+
+    var nextHandle = 1; // Spec says greater than zero
+    var tasksByHandle = {};
+    var currentlyRunningATask = false;
+    var doc = global.document;
+    var registerImmediate;
+
+    function setImmediate(callback) {
+        // Callback can either be a function or a string
+        if (typeof callback !== "function") {
+            callback = new Function("" + callback);
+        }
+        // Copy function arguments
+        var args = new Array(arguments.length - 1);
+        for (var i = 0; i < args.length; i++) {
+            args[i] = arguments[i + 1];
+        }
+        // Store and register the task
+        var task = { callback: callback, args: args };
+        tasksByHandle[nextHandle] = task;
+        registerImmediate(nextHandle);
+        return nextHandle++;
+    }
+
+    function clearImmediate(handle) {
+        delete tasksByHandle[handle];
+    }
+
+    function run(task) {
+        var callback = task.callback;
+        var args = task.args;
+        switch (args.length) {
+            case 0:
+                callback();
+                break;
+            case 1:
+                callback(args[0]);
+                break;
+            case 2:
+                callback(args[0], args[1]);
+                break;
+            case 3:
+                callback(args[0], args[1], args[2]);
+                break;
+            default:
+                callback.apply(undefined, args);
+                break;
+        }
+    }
+
+    function runIfPresent(handle) {
+        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+        // So if we're currently running a task, we'll need to delay this invocation.
+        if (currentlyRunningATask) {
+            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+            // "too much recursion" error.
+            setTimeout(runIfPresent, 0, handle);
+        } else {
+            var task = tasksByHandle[handle];
+            if (task) {
+                currentlyRunningATask = true;
+                try {
+                    run(task);
+                } finally {
+                    clearImmediate(handle);
+                    currentlyRunningATask = false;
+                }
+            }
+        }
+    }
+
+    function installNextTickImplementation() {
+        registerImmediate = function registerImmediate(handle) {
+            process.nextTick(function () {
+                runIfPresent(handle);
+            });
+        };
+    }
+
+    function canUsePostMessage() {
+        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+        // where `global.postMessage` means something completely different and can't be used for this purpose.
+        if (global.postMessage && !global.importScripts) {
+            var postMessageIsAsynchronous = true;
+            var oldOnMessage = global.onmessage;
+            global.onmessage = function () {
+                postMessageIsAsynchronous = false;
+            };
+            global.postMessage("", "*");
+            global.onmessage = oldOnMessage;
+            return postMessageIsAsynchronous;
+        }
+    }
+
+    function installPostMessageImplementation() {
+        // Installs an event handler on `global` for the `message` event: see
+        // * https://developer.mozilla.org/en/DOM/window.postMessage
+        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+        var messagePrefix = "setImmediate$" + Math.random() + "$";
+        var onGlobalMessage = function onGlobalMessage(event) {
+            if (event.source === global && typeof event.data === "string" && event.data.indexOf(messagePrefix) === 0) {
+                runIfPresent(+event.data.slice(messagePrefix.length));
+            }
+        };
+
+        if (global.addEventListener) {
+            global.addEventListener("message", onGlobalMessage, false);
+        } else {
+            global.attachEvent("onmessage", onGlobalMessage);
+        }
+
+        registerImmediate = function registerImmediate(handle) {
+            global.postMessage(messagePrefix + handle, "*");
+        };
+    }
+
+    function installMessageChannelImplementation() {
+        var channel = new MessageChannel();
+        channel.port1.onmessage = function (event) {
+            var handle = event.data;
+            runIfPresent(handle);
+        };
+
+        registerImmediate = function registerImmediate(handle) {
+            channel.port2.postMessage(handle);
+        };
+    }
+
+    function installReadyStateChangeImplementation() {
+        var html = doc.documentElement;
+        registerImmediate = function registerImmediate(handle) {
+            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+            var script = doc.createElement("script");
+            script.onreadystatechange = function () {
+                runIfPresent(handle);
+                script.onreadystatechange = null;
+                html.removeChild(script);
+                script = null;
+            };
+            html.appendChild(script);
+        };
+    }
+
+    function installSetTimeoutImplementation() {
+        registerImmediate = function registerImmediate(handle) {
+            setTimeout(runIfPresent, 0, handle);
+        };
+    }
+
+    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+    // Don't get fooled by e.g. browserify environments.
+    if ({}.toString.call(global.process) === "[object process]") {
+        // For Node.js before 0.9
+        installNextTickImplementation();
+    } else if (canUsePostMessage()) {
+        // For non-IE10 modern browsers
+        installPostMessageImplementation();
+    } else if (global.MessageChannel) {
+        // For web workers, where supported
+        installMessageChannelImplementation();
+    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+        // For IE 6–8
+        installReadyStateChangeImplementation();
+    } else {
+        // For older browsers
+        installSetTimeoutImplementation();
+    }
+
+    attachTo.setImmediate = setImmediate;
+    attachTo.clearImmediate = clearImmediate;
+})(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(14)))
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+// compare and isBuffer taken from https://github.com/feross/buffer/blob/680e9e5e488f22aac27599a57dc844a6315928dd/index.js
+// original notice:
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function compare(a, b) {
+  if (a === b) {
+    return 0;
+  }
+
+  var x = a.length;
+  var y = b.length;
+
+  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+    if (a[i] !== b[i]) {
+      x = a[i];
+      y = b[i];
+      break;
+    }
+  }
+
+  if (x < y) {
+    return -1;
+  }
+  if (y < x) {
+    return 1;
+  }
+  return 0;
+}
+function isBuffer(b) {
+  if (global.Buffer && typeof global.Buffer.isBuffer === 'function') {
+    return global.Buffer.isBuffer(b);
+  }
+  return !!(b != null && b._isBuffer);
+}
+
+// based on node assert, original notice:
+
+// http://wiki.commonjs.org/wiki/Unit_Testing/1.0
+//
+// THIS IS NOT TESTED NOR LIKELY TO WORK OUTSIDE V8!
+//
+// Originally from narwhal.js (http://narwhaljs.org)
+// Copyright (c) 2009 Thomas Robinson <280north.com>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the 'Software'), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+// ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var util = __webpack_require__(15);
+var hasOwn = Object.prototype.hasOwnProperty;
+var pSlice = Array.prototype.slice;
+var functionsHaveNames = function () {
+  return function foo() {}.name === 'foo';
+}();
+function pToString(obj) {
+  return Object.prototype.toString.call(obj);
+}
+function isView(arrbuf) {
+  if (isBuffer(arrbuf)) {
+    return false;
+  }
+  if (typeof global.ArrayBuffer !== 'function') {
+    return false;
+  }
+  if (typeof ArrayBuffer.isView === 'function') {
+    return ArrayBuffer.isView(arrbuf);
+  }
+  if (!arrbuf) {
+    return false;
+  }
+  if (arrbuf instanceof DataView) {
+    return true;
+  }
+  if (arrbuf.buffer && arrbuf.buffer instanceof ArrayBuffer) {
+    return true;
+  }
+  return false;
+}
+// 1. The assert module provides functions that throw
+// AssertionError's when particular conditions are not met. The
+// assert module must conform to the following interface.
+
+var assert = module.exports = ok;
+
+// 2. The AssertionError is defined in assert.
+// new assert.AssertionError({ message: message,
+//                             actual: actual,
+//                             expected: expected })
+
+var regex = /\s*function\s+([^\(\s]*)\s*/;
+// based on https://github.com/ljharb/function.prototype.name/blob/adeeeec8bfcc6068b187d7d9fb3d5bb1d3a30899/implementation.js
+function getName(func) {
+  if (!util.isFunction(func)) {
+    return;
+  }
+  if (functionsHaveNames) {
+    return func.name;
+  }
+  var str = func.toString();
+  var match = str.match(regex);
+  return match && match[1];
+}
+assert.AssertionError = function AssertionError(options) {
+  this.name = 'AssertionError';
+  this.actual = options.actual;
+  this.expected = options.expected;
+  this.operator = options.operator;
+  if (options.message) {
+    this.message = options.message;
+    this.generatedMessage = false;
+  } else {
+    this.message = getMessage(this);
+    this.generatedMessage = true;
+  }
+  var stackStartFunction = options.stackStartFunction || fail;
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, stackStartFunction);
+  } else {
+    // non v8 browsers so we can have a stacktrace
+    var err = new Error();
+    if (err.stack) {
+      var out = err.stack;
+
+      // try to strip useless frames
+      var fn_name = getName(stackStartFunction);
+      var idx = out.indexOf('\n' + fn_name);
+      if (idx >= 0) {
+        // once we have located the function frame
+        // we need to strip out everything before it (and its line)
+        var next_line = out.indexOf('\n', idx + 1);
+        out = out.substring(next_line + 1);
+      }
+
+      this.stack = out;
+    }
+  }
+};
+
+// assert.AssertionError instanceof Error
+util.inherits(assert.AssertionError, Error);
+
+function truncate(s, n) {
+  if (typeof s === 'string') {
+    return s.length < n ? s : s.slice(0, n);
+  } else {
+    return s;
+  }
+}
+function inspect(something) {
+  if (functionsHaveNames || !util.isFunction(something)) {
+    return util.inspect(something);
+  }
+  var rawname = getName(something);
+  var name = rawname ? ': ' + rawname : '';
+  return '[Function' + name + ']';
+}
+function getMessage(self) {
+  return truncate(inspect(self.actual), 128) + ' ' + self.operator + ' ' + truncate(inspect(self.expected), 128);
+}
+
+// At present only the three keys mentioned above are used and
+// understood by the spec. Implementations or sub modules can pass
+// other keys to the AssertionError's constructor - they will be
+// ignored.
+
+// 3. All of the following functions must throw an AssertionError
+// when a corresponding condition is not met, with a message that
+// may be undefined if not provided.  All assertion methods provide
+// both the actual and expected values to the assertion error for
+// display purposes.
+
+function fail(actual, expected, message, operator, stackStartFunction) {
+  throw new assert.AssertionError({
+    message: message,
+    actual: actual,
+    expected: expected,
+    operator: operator,
+    stackStartFunction: stackStartFunction
+  });
+}
+
+// EXTENSION! allows for well behaved errors defined elsewhere.
+assert.fail = fail;
+
+// 4. Pure assertion tests whether a value is truthy, as determined
+// by !!guard.
+// assert.ok(guard, message_opt);
+// This statement is equivalent to assert.equal(true, !!guard,
+// message_opt);. To test strictly for the value true, use
+// assert.strictEqual(true, guard, message_opt);.
+
+function ok(value, message) {
+  if (!value) fail(value, true, message, '==', assert.ok);
+}
+assert.ok = ok;
+
+// 5. The equality assertion tests shallow, coercive equality with
+// ==.
+// assert.equal(actual, expected, message_opt);
+
+assert.equal = function equal(actual, expected, message) {
+  if (actual != expected) fail(actual, expected, message, '==', assert.equal);
+};
+
+// 6. The non-equality assertion tests for whether two objects are not equal
+// with != assert.notEqual(actual, expected, message_opt);
+
+assert.notEqual = function notEqual(actual, expected, message) {
+  if (actual == expected) {
+    fail(actual, expected, message, '!=', assert.notEqual);
+  }
+};
+
+// 7. The equivalence assertion tests a deep equality relation.
+// assert.deepEqual(actual, expected, message_opt);
+
+assert.deepEqual = function deepEqual(actual, expected, message) {
+  if (!_deepEqual(actual, expected, false)) {
+    fail(actual, expected, message, 'deepEqual', assert.deepEqual);
+  }
+};
+
+assert.deepStrictEqual = function deepStrictEqual(actual, expected, message) {
+  if (!_deepEqual(actual, expected, true)) {
+    fail(actual, expected, message, 'deepStrictEqual', assert.deepStrictEqual);
+  }
+};
+
+function _deepEqual(actual, expected, strict, memos) {
+  // 7.1. All identical values are equivalent, as determined by ===.
+  if (actual === expected) {
+    return true;
+  } else if (isBuffer(actual) && isBuffer(expected)) {
+    return compare(actual, expected) === 0;
+
+    // 7.2. If the expected value is a Date object, the actual value is
+    // equivalent if it is also a Date object that refers to the same time.
+  } else if (util.isDate(actual) && util.isDate(expected)) {
+    return actual.getTime() === expected.getTime();
+
+    // 7.3 If the expected value is a RegExp object, the actual value is
+    // equivalent if it is also a RegExp object with the same source and
+    // properties (`global`, `multiline`, `lastIndex`, `ignoreCase`).
+  } else if (util.isRegExp(actual) && util.isRegExp(expected)) {
+    return actual.source === expected.source && actual.global === expected.global && actual.multiline === expected.multiline && actual.lastIndex === expected.lastIndex && actual.ignoreCase === expected.ignoreCase;
+
+    // 7.4. Other pairs that do not both pass typeof value == 'object',
+    // equivalence is determined by ==.
+  } else if ((actual === null || (typeof actual === 'undefined' ? 'undefined' : _typeof(actual)) !== 'object') && (expected === null || (typeof expected === 'undefined' ? 'undefined' : _typeof(expected)) !== 'object')) {
+    return strict ? actual === expected : actual == expected;
+
+    // If both values are instances of typed arrays, wrap their underlying
+    // ArrayBuffers in a Buffer each to increase performance
+    // This optimization requires the arrays to have the same type as checked by
+    // Object.prototype.toString (aka pToString). Never perform binary
+    // comparisons for Float*Arrays, though, since e.g. +0 === -0 but their
+    // bit patterns are not identical.
+  } else if (isView(actual) && isView(expected) && pToString(actual) === pToString(expected) && !(actual instanceof Float32Array || actual instanceof Float64Array)) {
+    return compare(new Uint8Array(actual.buffer), new Uint8Array(expected.buffer)) === 0;
+
+    // 7.5 For all other Object pairs, including Array objects, equivalence is
+    // determined by having the same number of owned properties (as verified
+    // with Object.prototype.hasOwnProperty.call), the same set of keys
+    // (although not necessarily the same order), equivalent values for every
+    // corresponding key, and an identical 'prototype' property. Note: this
+    // accounts for both named and indexed properties on Arrays.
+  } else if (isBuffer(actual) !== isBuffer(expected)) {
+    return false;
+  } else {
+    memos = memos || { actual: [], expected: [] };
+
+    var actualIndex = memos.actual.indexOf(actual);
+    if (actualIndex !== -1) {
+      if (actualIndex === memos.expected.indexOf(expected)) {
+        return true;
+      }
+    }
+
+    memos.actual.push(actual);
+    memos.expected.push(expected);
+
+    return objEquiv(actual, expected, strict, memos);
+  }
+}
+
+function isArguments(object) {
+  return Object.prototype.toString.call(object) == '[object Arguments]';
+}
+
+function objEquiv(a, b, strict, actualVisitedObjects) {
+  if (a === null || a === undefined || b === null || b === undefined) return false;
+  // if one is a primitive, the other must be same
+  if (util.isPrimitive(a) || util.isPrimitive(b)) return a === b;
+  if (strict && Object.getPrototypeOf(a) !== Object.getPrototypeOf(b)) return false;
+  var aIsArgs = isArguments(a);
+  var bIsArgs = isArguments(b);
+  if (aIsArgs && !bIsArgs || !aIsArgs && bIsArgs) return false;
+  if (aIsArgs) {
+    a = pSlice.call(a);
+    b = pSlice.call(b);
+    return _deepEqual(a, b, strict);
+  }
+  var ka = objectKeys(a);
+  var kb = objectKeys(b);
+  var key, i;
+  // having the same number of owned properties (keys incorporates
+  // hasOwnProperty)
+  if (ka.length !== kb.length) return false;
+  //the same set of keys (although not necessarily the same order),
+  ka.sort();
+  kb.sort();
+  //~~~cheap key test
+  for (i = ka.length - 1; i >= 0; i--) {
+    if (ka[i] !== kb[i]) return false;
+  }
+  //equivalent values for every corresponding key, and
+  //~~~possibly expensive deep test
+  for (i = ka.length - 1; i >= 0; i--) {
+    key = ka[i];
+    if (!_deepEqual(a[key], b[key], strict, actualVisitedObjects)) return false;
+  }
+  return true;
+}
+
+// 8. The non-equivalence assertion tests for any deep inequality.
+// assert.notDeepEqual(actual, expected, message_opt);
+
+assert.notDeepEqual = function notDeepEqual(actual, expected, message) {
+  if (_deepEqual(actual, expected, false)) {
+    fail(actual, expected, message, 'notDeepEqual', assert.notDeepEqual);
+  }
+};
+
+assert.notDeepStrictEqual = notDeepStrictEqual;
+function notDeepStrictEqual(actual, expected, message) {
+  if (_deepEqual(actual, expected, true)) {
+    fail(actual, expected, message, 'notDeepStrictEqual', notDeepStrictEqual);
+  }
+}
+
+// 9. The strict equality assertion tests strict equality, as determined by ===.
+// assert.strictEqual(actual, expected, message_opt);
+
+assert.strictEqual = function strictEqual(actual, expected, message) {
+  if (actual !== expected) {
+    fail(actual, expected, message, '===', assert.strictEqual);
+  }
+};
+
+// 10. The strict non-equality assertion tests for strict inequality, as
+// determined by !==.  assert.notStrictEqual(actual, expected, message_opt);
+
+assert.notStrictEqual = function notStrictEqual(actual, expected, message) {
+  if (actual === expected) {
+    fail(actual, expected, message, '!==', assert.notStrictEqual);
+  }
+};
+
+function expectedException(actual, expected) {
+  if (!actual || !expected) {
+    return false;
+  }
+
+  if (Object.prototype.toString.call(expected) == '[object RegExp]') {
+    return expected.test(actual);
+  }
+
+  try {
+    if (actual instanceof expected) {
+      return true;
+    }
+  } catch (e) {
+    // Ignore.  The instanceof check doesn't work for arrow functions.
+  }
+
+  if (Error.isPrototypeOf(expected)) {
+    return false;
+  }
+
+  return expected.call({}, actual) === true;
+}
+
+function _tryBlock(block) {
+  var error;
+  try {
+    block();
+  } catch (e) {
+    error = e;
+  }
+  return error;
+}
+
+function _throws(shouldThrow, block, expected, message) {
+  var actual;
+
+  if (typeof block !== 'function') {
+    throw new TypeError('"block" argument must be a function');
+  }
+
+  if (typeof expected === 'string') {
+    message = expected;
+    expected = null;
+  }
+
+  actual = _tryBlock(block);
+
+  message = (expected && expected.name ? ' (' + expected.name + ').' : '.') + (message ? ' ' + message : '.');
+
+  if (shouldThrow && !actual) {
+    fail(actual, expected, 'Missing expected exception' + message);
+  }
+
+  var userProvidedMessage = typeof message === 'string';
+  var isUnwantedException = !shouldThrow && util.isError(actual);
+  var isUnexpectedException = !shouldThrow && actual && !expected;
+
+  if (isUnwantedException && userProvidedMessage && expectedException(actual, expected) || isUnexpectedException) {
+    fail(actual, expected, 'Got unwanted exception' + message);
+  }
+
+  if (shouldThrow && actual && expected && !expectedException(actual, expected) || !shouldThrow && actual) {
+    throw actual;
+  }
+}
+
+// 11. Expected to throw an error:
+// assert.throws(block, Error_opt, message_opt);
+
+assert.throws = function (block, /*optional*/error, /*optional*/message) {
+  _throws(true, block, error, message);
+};
+
+// EXTENSION! This is annoying to write outside this module.
+assert.doesNotThrow = function (block, /*optional*/error, /*optional*/message) {
+  _throws(false, block, error, message);
+};
+
+assert.ifError = function (err) {
+  if (err) throw err;
+};
+
+var objectKeys = Object.keys || function (obj) {
+  var keys = [];
+  for (var key in obj) {
+    if (hasOwn.call(obj, key)) keys.push(key);
+  }
+  return keys;
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+
+/***/ }),
 /* 38 */
 /***/ (function(module, exports) {
 
@@ -7411,7 +7403,7 @@ if (typeof Object.create === 'function') {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Tank__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__ = __webpack_require__(4);
@@ -7542,28 +7534,36 @@ var Scene = function () {
 
             this[type].instractions = instractions;
             if (instractions.fire) {
-                console.log("fireeeeeeee");
-                this.staticScene.fireReload();
-                this.tankMe.boom.visible = true;
+                if (type === "tankMe") {
+                    this.staticScene.fireReload();
+                }
+                this[type].boom.visible = true;
                 Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                    _this2.tankMe.boom.visible = false;
+                    _this2[type].boom.visible = false;
                     _this2._showBoom(instractions.bulletCoords);
                 }, 500);
             }
         }
     }, {
         key: "_showBoom",
-        value: function _showBoom() {
+        value: function _showBoom(type) {
             var _this3 = this;
 
-            var coords = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-            // console.log(coords);
-            this.boom2.position.set(coords.x - 5, coords.y, 2);
-            this.boom2.visible = true;
-            Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                _this3.boom2.visible = false;
-            }, 500);
+            var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+            //TODO тут косяк с оппонентом
+            if (type === "tankMe") {
+                this.boom2.position.set(coords.x - 5, coords.y, 2);
+                this.boom2.visible = true;
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this3.boom2.visible = false;
+                }, 300);
+            } else {
+                this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+                this.boom2Op.visible = true;
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this3.boom2Op.visible = false;
+                }, 300);
+            }
         }
     }, {
         key: "_startRenderAnimate",
@@ -7641,17 +7641,23 @@ var Scene = function () {
                 coll.scene.scale.z *= 0.45;
                 coll.scene.scale.y *= 0.45;
                 coll.scene.scale.x *= 0.45;
-
                 _this6.boom = coll.scene.clone();
+                _this6.boomOp = coll.scene.clone();
                 _this6.boom2 = coll.scene.clone();
                 _this6.boom2.scale.y *= 10;
                 _this6.boom2.scale.x *= 10;
                 _this6.boom2.scale.z *= 10;
+                _this6.boom2Op = _this6.boom2.clone();
                 _this6.scene.add(_this6.boom2);
+                _this6.scene.add(_this6.boom2Op);
                 _this6.boom.position.set(-0.75, 1.75, -6);
+                _this6.boomOp.position.set(-0.75, 1.75, -6);
                 _this6.tankMe.turret.dae.add(_this6.boom);
+                _this6.tankOpponent.turret.dae.add(_this6.boomOp);
                 _this6.tankMe.boom = _this6.boom;
+                _this6.tankOpponent.boom = _this6.boomOp;
                 _this6.tankMe.boom.visible = false;
+                _this6.tankOpponent.boom.visible = false;
             });
         }
     }]);
@@ -12741,7 +12747,7 @@ module.exports = ColladaLoader;
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = MapCreator;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modelLoader__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modelLoader__ = __webpack_require__(16);
 
 // const THREE = require("three");
 
