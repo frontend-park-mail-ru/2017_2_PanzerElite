@@ -7540,7 +7540,7 @@ var Scene = function () {
                 this[type].boom.visible = true;
                 Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
                     _this2[type].boom.visible = false;
-                    _this2._showBoom(instractions.bulletCoords);
+                    _this2._showBoom(type, instractions.bulletCoords);
                 }, 500);
             }
         }
@@ -7550,7 +7550,7 @@ var Scene = function () {
             var _this3 = this;
 
             var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-            //TODO тут косяк с оппонентом
+
             if (type === "tankMe") {
                 this.boom2.position.set(coords.x - 5, coords.y, 2);
                 this.boom2.visible = true;

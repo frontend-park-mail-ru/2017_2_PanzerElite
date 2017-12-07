@@ -118,13 +118,13 @@ export default class Scene {
             this[type].boom.visible = true;
             setTimeout(() => {
                 this[type].boom.visible = false;
-                this._showBoom(instractions.bulletCoords);
+                this._showBoom(type, instractions.bulletCoords);
             }, 500);
         }
 
     }
 
-    _showBoom(type, coords = {}) { //TODO тут косяк с оппонентом
+    _showBoom(type, coords = {}) {
         if (type === "tankMe") {
             this.boom2.position.set(coords.x - 5, coords.y, 2);
             this.boom2.visible = true;
