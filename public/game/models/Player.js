@@ -166,9 +166,9 @@ export default class Player {
             cnt++;
         }
         if (cnt < 100000) {
-            return { bulletX, bulletY };
+            return { x: bulletX, y: bulletY };
         }
-        return { bulletX: 0, bulletY: 0 };
+        return { x: 0, y: 0 };
     }
 
     _checkBulletWithHouses(bulletX, bulletY) {

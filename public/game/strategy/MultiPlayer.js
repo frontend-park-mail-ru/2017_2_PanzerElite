@@ -5,6 +5,7 @@ export default class MultiPlayer {
     constructor() {
         this._gameLoop = this._gameLoop.bind(this);
         this.actionStates = {};
+        this.allowFire = true;
         // this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
         // this.opponent = new Player("super bitch bot", [-10, -10], null);
     }
@@ -81,10 +82,12 @@ export default class MultiPlayer {
         keyboardJS.bind("space", function(e) {
             // callback({ changeCamera: false });
         }, function(e) {
-            callback({ fire: true });
-            console.log("fire in sp");
-
-        });
+            if (this.allowFire) {
+                callback({ fire: true });
+                this.allowFire = false;
+                setTimeout(() => { this.allowFire = true; }, 4000);
+            }
+        }.bind(this));
     }
     randomMovemant(callback) {
         callback({ left: true, forward: true });

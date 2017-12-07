@@ -110,27 +110,21 @@ export default class Scene {
     }
 
     updateObjects(type, instractions) {
-
-        // Object.keys(action).forEach(key => {
-        //     this[type][key] = action[key];
-        // });
         this[type].instractions = instractions;
         if (instractions.fire) {
+            console.log("fireeeeeeee")
             this.staticScene.fireReload();
             this.tankMe.boom.visible = true;
-            // this._showBoom(instractions.bulletCoords);
             setTimeout(() => {
                 this.tankMe.boom.visible = false;
                 this._showBoom(instractions.bulletCoords);
             }, 500);
-
-
         }
     }
 
     _showBoom(coords = {}) {
         // console.log(coords);
-        this.boom2.position.set(coords.bulletX - 5, coords.bulletY, 2);
+        this.boom2.position.set(coords.x - 5, coords.y, 2);
         this.boom2.visible = true;
         setTimeout(() => { this.boom2.visible = false; }, 500);
 
