@@ -74,6 +74,8 @@ export default class GameManager {
         }
     }
 
+
+
     startLoop() {
         this.mainLoopId = setInterval(this._mainLoop, 500);
     }
@@ -96,4 +98,6 @@ export default class GameManager {
             console.log("I won! ;)");
         }
     }
+
+
 }

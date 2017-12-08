@@ -124,16 +124,43 @@ export default class Scene {
 
     }
 
-    _showBoom(type, coords = {}) {
-        if (type === "tankMe") {
-            this.boom2.position.set(coords.x - 5, coords.y, 2);
-            this.boom2.visible = true;
-            setTimeout(() => { this.boom2.visible = false; }, 300);
-        } else {
-            this.boom2Op.position.set(coords.x - 5, coords.y, 2);
-            this.boom2Op.visible = true;
-            setTimeout(() => { this.boom2Op.visible = false; }, 300);
+    // _showBoom(type, coords = {}) {
+    //     if (type === "tankMe") {
+    //         this.boom2.position.set(coords.x - 5, coords.y, 2);
+    //         this.boom2.visible = true;
+    //         setTimeout(() => { this.boom2.visible = false; }, 300);
+    //     } else {
+    //         this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+    //         this.boom2Op.visible = true;
+    //         setTimeout(() => { this.boom2Op.visible = false; }, 300);
+    //     }
+
+    // }
+    _showBoom(type, coords = {}) { //TODO тут косяк с оппонентом
+        // if (type === "tankMe") {
+        // this.boom2.visible = false;
+        this.boom2.scale.y = 0.005;
+        this.boom2.scale.x = 0.005;
+        this.boom2.scale.z = 0.005;
+        this.boom2.position.set(coords.x, coords.y, 1);
+        this.boom2.visible = true;
+        let cnt = 40;
+        while (cnt != 1000) {
+            setTimeout(() => {
+                this.boom2.scale.y *= 1.1;
+                this.boom2.scale.x *= 1.1;
+                this.boom2.scale.z *= 1.1;
+                //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+            }, cnt);
+            cnt += 40;
         }
+
+        setTimeout(() => { this.boom2.visible = false; }, 1200);
+        // } else {
+        //     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+        //     this.boom2Op.visible = true;
+        //     setTimeout(() => { this.boom2Op.visible = false; }, 300);
+        // }
 
     }
     _startRenderAnimate() {
@@ -198,24 +225,32 @@ export default class Scene {
             this.scene.add(road2);
 
         });
-        modelLoader("boom/model.dae").then(coll => {
+        modelLoader("expl/model.dae").then(coll => {
             coll.scene.rotation.x = -0.5 * Math.PI;
             coll.scene.rotation.z = 1 * Math.PI;
             coll.scene.rotation.y = -0.5 * Math.PI;
-            coll.scene.scale.z *= 0.45;
-            coll.scene.scale.y *= 0.45;
-            coll.scene.scale.x *= 0.45;
+            coll.scene.scale.z *= 0.35;
+            coll.scene.scale.y *= 0.35;
+            coll.scene.scale.x *= 0.35;
             this.boom = coll.scene.clone();
             this.boomOp = coll.scene.clone();
             this.boom2 = coll.scene.clone();
-            this.boom2.scale.y *= 10;
-            this.boom2.scale.x *= 10;
-            this.boom2.scale.z *= 10;
+            // this.boom2.scale.y *= 10;
+            // this.boom2.scale.x *= 10;
+            // this.boom2.scale.z *= 10;
+            this.boom2.scale.y *= 4;
+            this.boom2.scale.x *= 4;
+            this.boom2.scale.z *= 4;
             this.boom2Op = this.boom2.clone();
+            this.boom2.position.set(-100, -100, -100);
+            this.boom2Op.position.set(-100, -100, -100);
+
             this.scene.add(this.boom2);
             this.scene.add(this.boom2Op);
-            this.boom.position.set(-0.75, 1.75, -6);
-            this.boomOp.position.set(-0.75, 1.75, -6);
+            // this.boom.position.set(-0.75, 1.75, -7);
+            // this.boomOp.position.set(-0.75, 1.75, -7);
+            this.boom.position.set(-0.1, 2, -7);
+            this.boomOp.position.set(-0.1, 2, -7);
             this.tankMe.turret.dae.add(this.boom);
             this.tankOpponent.turret.dae.add(this.boomOp);
             this.tankMe.boom = this.boom;

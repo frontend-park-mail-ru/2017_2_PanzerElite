@@ -219,6 +219,30 @@
   height: 40%;
   float: left; }
 
+.hideBtn {
+  order: 1;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #ffffff;
+  width: 20%;
+  padding: 3px;
+  border: 0;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  position: absolute;
+  bottom: 7%;
+  right: 7%; }
+
+.hideBtn:hover,
+.hideBtn:active,
+.hideBtn:focus {
+  background: rgba(0, 0, 0, 0.2);
+  color: white; }
+
 .loader {
   font-size: 10px;
   bottom: 26%;

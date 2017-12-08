@@ -7544,26 +7544,53 @@ var Scene = function () {
                 }, 500);
             }
         }
+
+        // _showBoom(type, coords = {}) {
+        //     if (type === "tankMe") {
+        //         this.boom2.position.set(coords.x - 5, coords.y, 2);
+        //         this.boom2.visible = true;
+        //         setTimeout(() => { this.boom2.visible = false; }, 300);
+        //     } else {
+        //         this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+        //         this.boom2Op.visible = true;
+        //         setTimeout(() => { this.boom2Op.visible = false; }, 300);
+        //     }
+
+        // }
+
     }, {
         key: "_showBoom",
         value: function _showBoom(type) {
             var _this3 = this;
 
             var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-            if (type === "tankMe") {
-                this.boom2.position.set(coords.x - 5, coords.y, 2);
-                this.boom2.visible = true;
+            //TODO тут косяк с оппонентом
+            // if (type === "tankMe") {
+            // this.boom2.visible = false;
+            this.boom2.scale.y = 0.005;
+            this.boom2.scale.x = 0.005;
+            this.boom2.scale.z = 0.005;
+            this.boom2.position.set(coords.x, coords.y, 1);
+            this.boom2.visible = true;
+            var cnt = 40;
+            while (cnt != 1000) {
                 Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                    _this3.boom2.visible = false;
-                }, 300);
-            } else {
-                this.boom2Op.position.set(coords.x - 5, coords.y, 2);
-                this.boom2Op.visible = true;
-                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                    _this3.boom2Op.visible = false;
-                }, 300);
+                    _this3.boom2.scale.y *= 1.1;
+                    _this3.boom2.scale.x *= 1.1;
+                    _this3.boom2.scale.z *= 1.1;
+                    //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+                }, cnt);
+                cnt += 40;
             }
+
+            Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                _this3.boom2.visible = false;
+            }, 1200);
+            // } else {
+            //     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+            //     this.boom2Op.visible = true;
+            //     setTimeout(() => { this.boom2Op.visible = false; }, 300);
+            // }
         }
     }, {
         key: "_startRenderAnimate",
@@ -7634,24 +7661,32 @@ var Scene = function () {
                 _this6.scene.add(coll.scene);
                 _this6.scene.add(road2);
             });
-            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("boom/model.dae").then(function (coll) {
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("expl/model.dae").then(function (coll) {
                 coll.scene.rotation.x = -0.5 * Math.PI;
                 coll.scene.rotation.z = 1 * Math.PI;
                 coll.scene.rotation.y = -0.5 * Math.PI;
-                coll.scene.scale.z *= 0.45;
-                coll.scene.scale.y *= 0.45;
-                coll.scene.scale.x *= 0.45;
+                coll.scene.scale.z *= 0.35;
+                coll.scene.scale.y *= 0.35;
+                coll.scene.scale.x *= 0.35;
                 _this6.boom = coll.scene.clone();
                 _this6.boomOp = coll.scene.clone();
                 _this6.boom2 = coll.scene.clone();
-                _this6.boom2.scale.y *= 10;
-                _this6.boom2.scale.x *= 10;
-                _this6.boom2.scale.z *= 10;
+                // this.boom2.scale.y *= 10;
+                // this.boom2.scale.x *= 10;
+                // this.boom2.scale.z *= 10;
+                _this6.boom2.scale.y *= 4;
+                _this6.boom2.scale.x *= 4;
+                _this6.boom2.scale.z *= 4;
                 _this6.boom2Op = _this6.boom2.clone();
+                _this6.boom2.position.set(-100, -100, -100);
+                _this6.boom2Op.position.set(-100, -100, -100);
+
                 _this6.scene.add(_this6.boom2);
                 _this6.scene.add(_this6.boom2Op);
-                _this6.boom.position.set(-0.75, 1.75, -6);
-                _this6.boomOp.position.set(-0.75, 1.75, -6);
+                // this.boom.position.set(-0.75, 1.75, -7);
+                // this.boomOp.position.set(-0.75, 1.75, -7);
+                _this6.boom.position.set(-0.1, 2, -7);
+                _this6.boomOp.position.set(-0.1, 2, -7);
                 _this6.tankMe.turret.dae.add(_this6.boom);
                 _this6.tankOpponent.turret.dae.add(_this6.boomOp);
                 _this6.tankMe.boom = _this6.boom;
@@ -12951,37 +12986,56 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var StaticScene = function () {
     function StaticScene() {
+        var _this = this;
+
         _classCallCheck(this, StaticScene);
 
         this.HP = 100;
+        //All 
         this.sceneDiv = document.createElement("div");
         this.sceneDiv.classList.add("sceneDiv");
         this.sceneDiv.setAttribute("width", "100%");
         this.sceneDiv.setAttribute("height", "100%");
+        //HP + RELOADER
         this.hpDiv = document.createElement("div");
         this.hpDiv.classList.add("hpBar");
         this.loader = document.createElement("div");
         this.loader.classList.add("loader");
-        //this.hpBar.innerHTML = this.HP;
         this.hpDiv.appendChild(this.loader);
         this.sceneDiv.appendChild(this.hpDiv);
-        //
+        //Main right div
         this.comandorDiv = document.createElement("div");
         this.comandorDiv.classList.add("comandorDiv");
+        //Commandor img
         this.comandorImg = document.createElement("img");
         this.comandorImg.classList.add("man");
         this.comandorImg.setAttribute("src", "../game/staticScene/man.jpg");
         this.comandorDiv.appendChild(this.comandorImg);
+        //Commandor text        
         this.comandorText = document.createElement("p");
         this.comandorText.classList.add("comandorText");
+        this.comandorText.setAttribute("id", "comandorText");
         this.comandorText.innerHTML = "General: ";
         this.comandorDiv.appendChild(this.comandorText);
         this.sceneDiv.appendChild(this.comandorDiv);
+        //Hide btn
+        this.hideBtn = document.createElement("button");
+        this.hideBtn.classList.add("hideBtn");
+        this.hideBtn.innerHTML = "Okay";
+        this.comandorDiv.appendChild(this.hideBtn);
+        this.hideBtn.addEventListener("click", function () {
+            _this.comandorDiv.classList.add("hidden");
+        });
 
         document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
-        this.currentColor = "sdjhv";
         this.hideReload = this.hideReload.bind(this);
         this.hideReload();
+        // textWriter(
+        //     "comandorText", [
+        //         "Дес, сверстай блять\n",
+        //         "нормально, пожалуйста\n"
+        //     ]
+        // );
     }
 
     _createClass(StaticScene, [{
@@ -13020,14 +13074,6 @@ var StaticScene = function () {
 
     return StaticScene;
 }();
-
-//     textWriter(
-//         "demo", [
-//             "Дес, сверстай блять\n",
-//             "нормально, пожалуйста\n"
-//         ]
-//     );
-
 
 /* harmony default export */ __webpack_exports__["a"] = (StaticScene);
 
