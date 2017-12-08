@@ -7572,20 +7572,20 @@ var Scene = function () {
             this.boom2.scale.z = 0.005;
             this.boom2.position.set(coords.x, coords.y, 1);
             this.boom2.visible = true;
-            var cnt = 40;
-            while (cnt != 1000) {
+            var cnt = 20;
+            while (cnt != 500) {
                 Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
                     _this3.boom2.scale.y *= 1.1;
                     _this3.boom2.scale.x *= 1.1;
                     _this3.boom2.scale.z *= 1.1;
                     //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
                 }, cnt);
-                cnt += 40;
+                cnt += 20;
             }
 
             Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
                 _this3.boom2.visible = false;
-            }, 1200);
+            }, 800);
             // } else {
             //     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
             //     this.boom2Op.visible = true;
