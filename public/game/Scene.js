@@ -137,25 +137,45 @@ export default class Scene {
 
     // }
     _showBoom(type, coords = {}) { //TODO тут косяк с оппонентом
-        // if (type === "tankMe") {
-        // this.boom2.visible = false;
-        this.boom2.scale.y = 0.005;
-        this.boom2.scale.x = 0.005;
-        this.boom2.scale.z = 0.005;
-        this.boom2.position.set(coords.x, coords.y, 1);
-        this.boom2.visible = true;
-        let cnt = 20;
-        while (cnt != 500) {
-            setTimeout(() => {
-                this.boom2.scale.y *= 1.1;
-                this.boom2.scale.x *= 1.1;
-                this.boom2.scale.z *= 1.1;
-                //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
-            }, cnt);
-            cnt += 20;
-        }
+        if (type === "tankMe") {
+            this.boom2.scale.y = 0.005;
+            this.boom2.scale.x = 0.005;
+            this.boom2.scale.z = 0.005;
+            this.boom2.position.set(coords.x, coords.y, 1);
+            this.boom2.visible = true;
+            let cnt = 20;
+            while (cnt != 500) {
+                setTimeout(() => {
+                    this.boom2.scale.y *= 1.1;
+                    this.boom2.scale.x *= 1.1;
+                    this.boom2.scale.z *= 1.1;
+                    //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+                }, cnt);
+                cnt += 20;
+            }
 
-        setTimeout(() => { this.boom2.visible = false; }, 800);
+            setTimeout(() => { this.boom2.visible = false; }, 800);
+        } else {
+            this.boom2Op.scale.y = 0.005;
+            this.boom2Op.scale.x = 0.005;
+            this.boom2Op.scale.z = 0.005;
+            this.boom2Op.position.set(coords.x, coords.y, 1);
+            this.boom2Op.visible = true;
+            let cnt = 20;
+            while (cnt != 500) {
+                setTimeout(() => {
+                    this.boom2Op.scale.y *= 1.1;
+                    this.boom2Op.scale.x *= 1.1;
+                    this.boom2Op.scale.z *= 1.1;
+                    //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+                }, cnt);
+                cnt += 20;
+            }
+
+            setTimeout(() => { this.boom2Op.visible = false; }, 800);
+        }
+        // this.boom2.visible = false;
+
         // } else {
         //     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
         //     this.boom2Op.visible = true;

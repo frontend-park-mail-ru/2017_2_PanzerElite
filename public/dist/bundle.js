@@ -7565,27 +7565,49 @@ var Scene = function () {
 
             var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
             //TODO тут косяк с оппонентом
-            // if (type === "tankMe") {
-            // this.boom2.visible = false;
-            this.boom2.scale.y = 0.005;
-            this.boom2.scale.x = 0.005;
-            this.boom2.scale.z = 0.005;
-            this.boom2.position.set(coords.x, coords.y, 1);
-            this.boom2.visible = true;
-            var cnt = 20;
-            while (cnt != 500) {
-                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                    _this3.boom2.scale.y *= 1.1;
-                    _this3.boom2.scale.x *= 1.1;
-                    _this3.boom2.scale.z *= 1.1;
-                    //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
-                }, cnt);
-                cnt += 20;
-            }
+            if (type === "tankMe") {
+                this.boom2.scale.y = 0.005;
+                this.boom2.scale.x = 0.005;
+                this.boom2.scale.z = 0.005;
+                this.boom2.position.set(coords.x, coords.y, 1);
+                this.boom2.visible = true;
+                var cnt = 20;
+                while (cnt != 500) {
+                    Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                        _this3.boom2.scale.y *= 1.1;
+                        _this3.boom2.scale.x *= 1.1;
+                        _this3.boom2.scale.z *= 1.1;
+                        //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+                    }, cnt);
+                    cnt += 20;
+                }
 
-            Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                _this3.boom2.visible = false;
-            }, 800);
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this3.boom2.visible = false;
+                }, 800);
+            } else {
+                this.boom2Op.scale.y = 0.005;
+                this.boom2Op.scale.x = 0.005;
+                this.boom2Op.scale.z = 0.005;
+                this.boom2Op.position.set(coords.x, coords.y, 1);
+                this.boom2Op.visible = true;
+                var _cnt = 20;
+                while (_cnt != 500) {
+                    Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                        _this3.boom2Op.scale.y *= 1.1;
+                        _this3.boom2Op.scale.x *= 1.1;
+                        _this3.boom2Op.scale.z *= 1.1;
+                        //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+                    }, _cnt);
+                    _cnt += 20;
+                }
+
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this3.boom2Op.visible = false;
+                }, 800);
+            }
+            // this.boom2.visible = false;
+
             // } else {
             //     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
             //     this.boom2Op.visible = true;
