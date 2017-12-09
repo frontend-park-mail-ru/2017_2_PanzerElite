@@ -1,8 +1,11 @@
 import "./StaticScene.scss";
+import textWriter from "./textWriter";
+
 
 export default class StaticScene {
-    constructor() {
+    constructor(type) {
         this.HP = 100;
+        this.type = type;
         //All 
         this.sceneDiv = document.createElement("div");
         this.sceneDiv.classList.add("sceneDiv");
@@ -48,6 +51,30 @@ export default class StaticScene {
         document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
         this.hideReload = this.hideReload.bind(this);
         this.hideReload();
+        if (this.type == "single") {
+            textWriter("comandorText", [
+                "Welcome to the military training!\n",
+                "To move the vehicle push W,A,S,D.\n",
+                "To rotate the turret push M,N.\n",
+                "You can also change view by pushing V.\n",
+                "If you want to shoot-push SPACE button.",
+                "After shooting you will see the reload bar in the right bottom corner.\n",
+                "Also in that corner you can see your health bar: ",
+                "When it comes red you have to be very careful, you can be killed with the one bullet.\n",
+                "So now you can try the controlls and watch the map.\n",
+                "When you want to quit push ESC.\n"
+            ]);
+        } else {
+            textWriter("comandorText", [
+                "Welcome to the battler ground!\n",
+                "If you don't know how to play \n",
+                "you should have some trainig in the single mode. \n",
+                "You are on the war, soldier. So you have to defeat the enemy.\n",
+                "Your enemy is the other tank. He is somewhere in the town.",
+                "Find him, shoot him and save the civilians!\n",
+                "Good luck, soldier!"
+            ]);
+        }
         // textWriter(
         //     "comandorText", [
         //         "Дес, сверстай блять\n",

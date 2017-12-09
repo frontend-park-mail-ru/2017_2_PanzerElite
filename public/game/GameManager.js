@@ -3,7 +3,6 @@ import Scene from "./Scene";
 import { MultiMaterial } from "three";
 import MultiPlayer from "./strategy/MultiPlayer";
 import { inspect } from "util";
-import textWriter from "./staticScene/TextWriter"
 
 
 export default class GameManager {
@@ -15,26 +14,11 @@ export default class GameManager {
         if (strategy == "single") {
             this.strategy = new SinglePlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
             const playersCoords = this.strategy.getPlayersCoors();
-            this.scene = new Scene(playersCoords.me, playersCoords.opponent);
+            this.scene = new Scene(playersCoords.me, playersCoords.opponent, "single");
             this.strategy.startListenGameLoop((instractions) => {
                 this.scene.updateObjects("tankMe", instractions);
             });
             this.startLoop();
-            setTimeout(() => {
-                textWriter("comandorText", [
-                    "Welcome to the military training!\n",
-                    "To move the vehicle push W,A,S,D.\n",
-                    "To rotate the turret push M,N.\n",
-                    "You can also change view by pushing V.\n",
-                    "If you want to shoot-push SPACE button.",
-                    "After shooting you will see the reload bar in the right bottom corner.\n",
-                    "Also in that corner you can see your health bar: ",
-                    "When it comes red you have to be very careful, you can be killed with the one bullet.\n",
-                    "So now you can try the controlls and watch the map.\n",
-                    "When you want to quit push ESC.\n"
-                ]);
-            }, 4000);
-
         }
         if (strategy == "multi") {
             var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
@@ -73,18 +57,7 @@ export default class GameManager {
 
             console.log("im in flag");
             this.strategy = new MultiPlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
-            this.scene = new Scene({ x: 50, y: 50 }, { x: 50, y: 50 });
-            setTimeout(() => {
-                textWriter("comandorText", [
-                    "Welcome to the battler ground!\n",
-                    "If you don't know how to play \n",
-                    "you should have some trainig in the single mode. \n",
-                    "You are on the war, soldier. So you have to defeat the enemy.\n",
-                    "Your enemy is the other tank. He is somewhere in the town.",
-                    "Find him, shoot him and save the civilians!\n",
-                    "Good luck, soldier!"
-                ]);
-            }, 4000);
+            this.scene = new Scene({ x: 50, y: 50 }, { x: 50, y: 50 }, "multi");
             this.strategy.startListenGameLoop((instractions) => {
                 // console.log(instractions);
                 // this.scene.updateObjects("tankMe", instractions);
