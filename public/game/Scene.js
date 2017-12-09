@@ -111,6 +111,11 @@ export default class Scene {
 
     updateObjects(type, instractions) {
         this[type].instractions = instractions;
+        if (type === "tankMe") {
+            if (this.staticScene !== undefined) {
+                this.staticScene.changeHP(instractions.HP);
+            }
+        }
         if (instractions.fire) {
             if (type === "tankMe") {
                 this.staticScene.fireReload();

@@ -3958,15 +3958,16 @@ var GameManager = function () {
                     webSocket.send(JSON.stringify(msgToSend));
                 };
 
-                var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
-                // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+                // var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+                var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
                 var isConnected = false;
 
                 webSocket.onmessage = function (message) {
                     var obj = JSON.parse(message.data);
                     var coords = { x: obj.x, y: obj.y };
                     if (obj.me) {
-                        this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords });
+                        // console.log(obj);
+                        this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords, HP: obj.hp });
                     } else {
                         this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords });
                     }
@@ -5518,8 +5519,8 @@ __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
-var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
-// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
+// const PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
+var PREFIX_URL = "http://127.0.0.1:8080/api/user/";
 var urls = {
     login: PREFIX_URL + "login",
     register: PREFIX_URL + "register",
@@ -7533,6 +7534,11 @@ var Scene = function () {
             var _this2 = this;
 
             this[type].instractions = instractions;
+            if (type === "tankMe") {
+                if (this.staticScene !== undefined) {
+                    this.staticScene.changeHP(instractions.HP);
+                }
+            }
             if (instractions.fire) {
                 if (type === "tankMe") {
                     this.staticScene.fireReload();

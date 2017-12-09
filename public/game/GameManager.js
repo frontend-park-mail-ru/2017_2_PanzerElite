@@ -21,8 +21,8 @@ export default class GameManager {
             this.startLoop();
         }
         if (strategy == "multi") {
-            var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
-            // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+            // var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+            var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
             let isConnected = false;
 
             function sendMsg(msgToSend) {
@@ -33,7 +33,8 @@ export default class GameManager {
                 let obj = JSON.parse(message.data);
                 let coords = { x: obj.x, y: obj.y };
                 if (obj.me) {
-                    this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords });
+                    // console.log(obj);
+                    this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords, HP: obj.hp });
                 } else {
                     this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords });
                 }
