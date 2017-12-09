@@ -289,6 +289,16 @@
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
+
+.injure {
+  bottom: 0;
+  right: 0;
+  z-index: 92;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(rgba(255, 255, 255, 0) 50%, red 99%);
+  position: relative; }
 .theme {
     position: absolute;
     width: 50px;

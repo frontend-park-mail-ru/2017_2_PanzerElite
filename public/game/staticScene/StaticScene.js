@@ -39,7 +39,12 @@ export default class StaticScene {
             this.comandorDiv.classList.add("hidden")
         })
 
-
+        //Red  Injure 
+        this.injure = document.createElement("div");
+        this.injure.classList.add("injure");
+        this.injure.classList.add("hidden");
+        this.sceneDiv.appendChild(this.injure);
+        ///
         document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
         this.hideReload = this.hideReload.bind(this);
         this.hideReload();
@@ -51,6 +56,9 @@ export default class StaticScene {
         // );
     };
     changeHP(HP) {
+        if (this.HP !== HP) {
+            this.injured();
+        }
         this.HP = HP;
         this.hpDiv.classList.remove(this.currentColor);
         if (this.HP == 100) {
@@ -68,9 +76,14 @@ export default class StaticScene {
         if (this.HP == 25) {
             this.hpDiv.classList.add("hpBarRed");
             this.currentColor = "hpBarRed";
-
         }
 
+    }
+    injured() {
+        this.injure.classList.remove("hidden");
+        setTimeout(() => {
+            this.injure.classList.add("hidden");
+        }, 1000);
     }
     fireReload() {
         this.loader.classList.remove("hidden");

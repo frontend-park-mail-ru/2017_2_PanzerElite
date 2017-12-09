@@ -3966,10 +3966,10 @@ var GameManager = function () {
                     var obj = JSON.parse(message.data);
                     var coords = { x: obj.x, y: obj.y };
                     if (obj.me) {
-                        // console.log(obj);
+                        // console.log(obj.cameraType);
                         this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords, HP: obj.hp });
                     } else {
-                        this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords });
+                        this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: 0, bulletCoords: obj.bulletCoords });
                     }
                 }.bind(this);
 
@@ -13055,6 +13055,12 @@ var StaticScene = function () {
             _this.comandorDiv.classList.add("hidden");
         });
 
+        //Red  Injure 
+        this.injure = document.createElement("div");
+        this.injure.classList.add("injure");
+        this.injure.classList.add("hidden");
+        this.sceneDiv.appendChild(this.injure);
+        ///
         document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
         this.hideReload = this.hideReload.bind(this);
         this.hideReload();
@@ -13069,6 +13075,9 @@ var StaticScene = function () {
     _createClass(StaticScene, [{
         key: "changeHP",
         value: function changeHP(HP) {
+            if (this.HP !== HP) {
+                this.injured();
+            }
             this.HP = HP;
             this.hpDiv.classList.remove(this.currentColor);
             if (this.HP == 100) {
@@ -13086,6 +13095,16 @@ var StaticScene = function () {
                 this.hpDiv.classList.add("hpBarRed");
                 this.currentColor = "hpBarRed";
             }
+        }
+    }, {
+        key: "injured",
+        value: function injured() {
+            var _this2 = this;
+
+            this.injure.classList.remove("hidden");
+            setTimeout(function () {
+                _this2.injure.classList.add("hidden");
+            }, 1000);
         }
     }, {
         key: "fireReload",
