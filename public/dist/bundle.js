@@ -3922,9 +3922,11 @@ function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_util__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__staticScene_TextWriter__ = __webpack_require__(48);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -3952,6 +3954,9 @@ var GameManager = function () {
                     _this.scene.updateObjects("tankMe", instractions);
                 });
                 this.startLoop();
+                setTimeout(function () {
+                    Object(__WEBPACK_IMPORTED_MODULE_5__staticScene_TextWriter__["a" /* default */])("comandorText", ["Welcome to the military training!\n", "To move the vehicle push W,A,S,D.\n", "To rotate the turret push M,N.\n", "You can also change view by pushing V.\n", "If you want to shoot-push SPACE button.", "After shooting you will see the reload bar in the right bottom corner.\n", "Also in that corner you can see your health bar: ", "When it comes red you have to be very careful, you can be killed with the one bullet.\n", "So now you can try the controlls and watch the map.\n", "When you want to quit push ESC.\n"]);
+                }, 4000);
             }
             if (strategy == "multi") {
                 var sendMsg = function sendMsg(msgToSend) {
@@ -3990,6 +3995,9 @@ var GameManager = function () {
                 console.log("im in flag");
                 this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
                 this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 });
+                setTimeout(function () {
+                    Object(__WEBPACK_IMPORTED_MODULE_5__staticScene_TextWriter__["a" /* default */])("comandorText", ["Welcome to the battler ground!\n", "If you don't know how to play \n", "you should have some trainig in the single mode. \n", "You are on the war, soldier. So you have to defeat the enemy.\n", "Your enemy is the other tank. He is somewhere in the town.", "Find him, shoot him and save the civilians!\n", "Good luck, soldier!"]);
+                }, 4000);
                 this.strategy.startListenGameLoop(function (instractions) {
                     // console.log(instractions);
                     // this.scene.updateObjects("tankMe", instractions);
@@ -5415,11 +5423,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__ = __webpack_require__(4);
 
@@ -13261,8 +13269,77 @@ var MultiPlayer = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = textWriter;
+// export default class TextWriter {
+//     constructor(classname, text, speed) {
+//         this.classname = classname;
+//         this.text = text;
+//         this.speed = speed;
+//     }
+
+//     write() {
+//         debugger;
+//         this.elem = document.getElementsByClassName(this.classname)[0];
+//         this.txt = text.join("").split("");
+
+//         this.interval = setInterval(this.shifting, typeof this.speed !== 'undefined' ? this.speed : 70);
+//     }
+
+//     shifting() {
+//         if (!this.txt[0]) {
+//             return clearInterval(this.interval);
+//         };
+//         this.elem.innerHTML += this.txt.shift();
+//     }
+// }
+
+// // function textWriter(classname, text, speed) {
+
+// //     const elem = document.getElementsByClassName(classname)[0];
+// //     const txt = text.join("").split("");
+// //     //console.log(elem);
+
+// //     var interval = setInterval(shiftingFunc, speed != undefined ? speed : 70);
+
+// //     return false;
+// // };
+
+// // function shifting() {
+
+// //     if (!this.txt[0]) {
+
+// //         return clearInterval(interval);
+// //     };
+// //     this.elem.innerHTML += this.txt.shift();
+// // }
+
+// // export default textWriter;
+
+function textWriter(classname, text, speed) {
+
+    var ele = document.getElementsByClassName(classname)[0];
+    var txt = text.join("").split("");
+    console.log(ele);
+
+    var interval = setInterval(function () {
+
+        if (!txt[0]) {
+
+            return clearInterval(interval);
+        };
+        ele.innerHTML += txt.shift();
+    }, speed != undefined ? speed : 35);
+
+    return false;
+};
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__change_js__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__change_js__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
@@ -13342,7 +13419,7 @@ var ChangeView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (ChangeView);
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13388,14 +13465,14 @@ var changeFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (changeFields);
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_js__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_js__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__theme_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_GameManager__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Router__ = __webpack_require__(1);
@@ -13477,7 +13554,7 @@ var ThemeView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (ThemeView);
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13501,18 +13578,18 @@ var themeFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (themeFields);
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameType__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameType__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
@@ -13590,7 +13667,7 @@ var GameTypeView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (GameTypeView);
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13618,14 +13695,14 @@ var gameFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (gameFields);
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__gameView_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -13684,21 +13761,21 @@ var GameView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (GameView);
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__gameMenu_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -13765,7 +13842,7 @@ var GameMenuView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (GameMenuView);
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13791,7 +13868,7 @@ var gameMenuFields = [{
 /* harmony default export */ __webpack_exports__["a"] = (gameMenuFields);
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
