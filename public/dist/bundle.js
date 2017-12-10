@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -145,7 +145,7 @@ function FormCreator(main) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__RouteValidate__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__RouteValidate__ = __webpack_require__(10);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -220,13 +220,13 @@ var Router = function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__buttons_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__forms_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__inputFields_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__warningMsg_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -267,9 +267,9 @@ var BaseView = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configs_config_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_http_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_validation_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configs_config_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_http_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_validation_js__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_load_bar_js__ = __webpack_require__(4);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -384,7 +384,7 @@ var UserService = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__load_bar_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -429,1349 +429,6 @@ var pBar = function () {
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scene__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_three__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_util__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-
-
-
-
-var GameManager = function () {
-    function GameManager() {
-        _classCallCheck(this, GameManager);
-
-        this._mainLoop = this._mainLoop.bind(this);
-    }
-
-    _createClass(GameManager, [{
-        key: "start",
-        value: function start(strategy) {
-            var _this = this;
-
-            if (strategy == "single") {
-                this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
-                var playersCoords = this.strategy.getPlayersCoors();
-                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent, "single");
-                this.strategy.startListenGameLoop(function (instractions) {
-                    _this.scene.updateObjects("tankMe", instractions);
-                });
-                this.startLoop();
-            }
-            if (strategy == "multi") {
-                var sendMsg = function sendMsg(msgToSend) {
-                    webSocket.send(JSON.stringify(msgToSend));
-                };
-
-                var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
-                // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
-                var isConnected = false;
-
-                webSocket.onmessage = function (message) {
-                    var obj = JSON.parse(message.data);
-                    var coords = { x: obj.x, y: obj.y };
-                    if (obj.me) {
-                        // console.log(obj.cameraType);
-                        this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords, HP: obj.hp });
-                    } else {
-                        this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: 0, bulletCoords: obj.bulletCoords });
-                    }
-                }.bind(this);
-
-                webSocket.onopen = function () {
-                    console.log("connection opened");
-                    isConnected = true;
-                };
-
-                webSocket.onclose = function () {
-                    console.log("connection closed");
-                    isConnected = false;
-                };
-
-                webSocket.onerror = function wserror(message) {
-                    console.log("error: " + message);
-                };
-
-                console.log("im in flag");
-                this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
-                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 }, "multi");
-                this.strategy.startListenGameLoop(function (instractions) {
-                    // console.log(instractions);
-                    // this.scene.updateObjects("tankMe", instractions);
-                    if (isConnected) {
-                        sendMsg(instractions);
-                    }
-                    instractions.fire = false;
-                    instractions.changeCamera = false;
-                });
-                // this.startLoop();
-            }
-        }
-    }, {
-        key: "startLoop",
-        value: function startLoop() {
-            this.mainLoopId = setInterval(this._mainLoop, 500);
-        }
-    }, {
-        key: "stopLoop",
-        value: function stopLoop() {
-            clearInterval(this.mainLoopId);
-        }
-    }, {
-        key: "destroy",
-        value: function destroy() {
-            stopLoop();
-            this.strategy.destroy();
-        }
-    }, {
-        key: "_mainLoop",
-        value: function _mainLoop() {
-            if (this.strategy.me.health <= 0 && this.strategy.opponent.health <= 0) {
-                console.log("Draw bitch");
-            } else if (this.strategy.me.health <= 0) {
-                console.log("Bot won! :(");
-            } else if (this.strategy.opponent.health <= 0) {
-                console.log("I won! ;)");
-            }
-        }
-    }]);
-
-    return GameManager;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (GameManager);
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_user_service__ = __webpack_require__(3);
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_0__services_user_service__["a" /* default */]();
-
-function routeValidate(href, router, savehistory) {
-    userService.whoami().then(function () {
-        analyseHref(href, true, router, savehistory);
-    }).catch(function (error) {
-        analyseHref(href, false, router, savehistory);
-    });
-}
-
-function analyseHref(href, isLogged, router, savehistory) {
-    if (isLogged) {
-        ["/register/", "/login/", "/game/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
-    } else {
-        ["/register/", "/login/"].includes(href) ? router.go(href, savehistory) : router.go("/login/", savehistory);
-    }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (routeValidate);
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__main_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__ = __webpack_require__(4);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// if ('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('../sw.js', { scope: '/' });
-// }
-// if ("serviceWorker" in navigator) {
-//     navigator.serviceWorker.register("../../sw.js")
-//         .then(function(registration) {
-//             // при удачной регистрации имеем объект типа ServiceWorkerRegistration
-//             console.log("ServiceWorker registration", registration);
-//             // строкой ниже можно прекратить работу serviceWorker’а
-//             //registration.unregister();
-//         })
-//         .catch(function(err) {
-//             console.error(err);
-//         });
-// }
-
-__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].show();
-
-var app = document.getElementById("application");
-document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
-
-var main = new __WEBPACK_IMPORTED_MODULE_1__block_block_js__["a" /* Block */]("div", { class: "main-container" });
-app.appendChild(main.el);
-
-//config
-var login = new __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__["a" /* default */](main.el);
-var register = new __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__["a" /* default */](main.el);
-var menu = new __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__["a" /* default */](main.el);
-var change = new __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__["a" /* default */](main.el);
-var theme = new __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__["a" /* default */](main.el);
-var gameType = new __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__["a" /* default */](main.el);
-var gameMenu = new __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__["a" /* default */](main.el);
-var gameView = new __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__["a" /* default */](main.el);
-
-var config = {
-    "/login/": {
-        view: login
-    },
-    "/register/": {
-        view: register
-    },
-    "/menu/": {
-        view: menu
-    },
-    "/": {
-        view: menu
-    },
-    "/changepass/": {
-        view: change
-    },
-    "/play/": {
-        view: gameType
-    },
-    "/game/": {
-        view: gameView
-    }
-};
-
-Object(__WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
-
-__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].init(main.el, config);
-__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
-
-__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
-
-// if ('serviceWorker' in window.navigator) {
-//     window.navigator.serviceWorker.register('../sw.js');
-// }
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
-var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
-// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
-var urls = {
-    login: PREFIX_URL + "login",
-    register: PREFIX_URL + "register",
-    logout: PREFIX_URL + "logout",
-    check: PREFIX_URL + "getuser",
-    chagePassword: PREFIX_URL + "changepassword"
-};
-var GET = "GET";
-var POST = "POST";
-
-/* harmony default export */ __webpack_exports__["c"] = (urls);
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * Модуль, предоставляющий методы для выполнения HTTP-запросов
- * @module Http
- */
-function httpReq(type, uRL, sendObject) {
-    return new Promise(function (resolve, reject) {
-        fetch(uRL, {
-            method: type,
-            headers: {
-                "Content-Type": "application/json; charset=utf-8"
-            },
-            body: JSON.stringify(sendObject),
-            mode: "cors",
-            credentials: "include"
-        }).then(function (response) {
-            if (response.status === 200) {
-                resolve(response);
-                return;
-            } else {
-                reject("Something went wrong");
-            }
-        });
-    });
-}
-/* harmony default export */ __webpack_exports__["a"] = (httpReq);
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Validate = function () {
-    function Validate() {
-        _classCallCheck(this, Validate);
-    }
-
-    /**
-     * Проверить логин(ник)
-     */
-
-
-    _createClass(Validate, null, [{
-        key: "checkLogin",
-        value: function checkLogin(nick) {
-            return nick.length < 20 && nick.length > 1;
-        }
-
-        /**
-         * Проверить пароль
-         */
-
-    }, {
-        key: "checkPassword",
-        value: function checkPassword(password) {
-            return password.length < 20 && password.length > 1;
-        }
-
-        /**
-         * Проверить совпадение паролей
-         */
-
-    }, {
-        key: "confirmPassword",
-        value: function confirmPassword(password, confirm) {
-            return password === confirm;
-        }
-
-        /**
-         * Проверить логин(ник) и пароль
-         */
-
-    }, {
-        key: "checkLogAndPas",
-        value: function checkLogAndPas(nick, password) {
-            return this.checkLogin(nick) && this.checkPassword(password);
-        }
-    }]);
-
-    return Validate;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Validate);
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var LoginView = function (_BaseView) {
-	_inherits(LoginView, _BaseView);
-
-	function LoginView(parentNode) {
-		_classCallCheck(this, LoginView);
-
-		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-		var _this = _possibleConstructorReturn(this, (LoginView.__proto__ || Object.getPrototypeOf(LoginView)).call(this, view.el));
-
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
-		return _this;
-	}
-
-	_createClass(LoginView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
-
-			__WEBPACK_IMPORTED_MODULE_1__login_js__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
-
-			this.loginBtn.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
-				userService.login(_this3.nick.el.value, _this3.password.el.value).then(function () {
-					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.loginBtn.el.getAttribute("href"));
-					_this3.warning.hide();
-					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-				}).catch(function (err) {
-					_this3.warning.setAttributes({ value: err });
-					_this3.warning.show();
-					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-				});
-			});
-			this.changeformBtn.setCallback(function () {
-				_this3.warning.hide();
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-			});
-		}
-	}]);
-
-	return LoginView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (LoginView);
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 18 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var loginFields = [{
-	name: "nick",
-	class: "input",
-	elemType: "input",
-	type: "text",
-	placeholder: "Nickname"
-}, {
-	name: "password",
-	class: "input",
-	elemType: "input",
-	type: "password",
-	placeholder: "Password"
-}, {
-	name: "loginBtn",
-	class: " button",
-	elemType: "input",
-	type: "button",
-	value: "Log In",
-	href: "/menu/"
-}, {
-	name: "changeformBtn",
-	class: " button",
-	elemType: "a",
-	value: "Havent Account?",
-	href: "/register/"
-}, {
-	name: "warning",
-	class: "warning",
-	elemType: "input",
-	type: "text",
-	value: "Invalid Data",
-	readonly: "true",
-	hidden: "true"
-}];
-/* harmony default export */ __webpack_exports__["a"] = (loginFields);
-
-/***/ }),
-/* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var RegisterView = function (_BaseView) {
-    _inherits(RegisterView, _BaseView);
-
-    function RegisterView(parentNode) {
-        _classCallCheck(this, RegisterView);
-
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-        var _this = _possibleConstructorReturn(this, (RegisterView.__proto__ || Object.getPrototypeOf(RegisterView)).call(this, view.el));
-
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
-
-    _createClass(RegisterView, [{
-        key: "_appendChildren",
-        value: function _appendChildren() {
-            var _this2 = this;
-
-            __WEBPACK_IMPORTED_MODULE_1__register_js__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            var _this3 = this;
-
-            this.registerBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
-                userService.register(_this3.nick.el.value, _this3.password.el.value, _this3.confirm.el.value).then(function () {
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.registerBtn.el.getAttribute("href"));
-                    _this3.warning.hide();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                }).catch(function (err) {
-                    _this3.warning.setAttributes({ value: err });
-                    _this3.warning.show();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                });
-
-                _this3.changeformBtn.setCallback(function () {
-                    _this3.warning.hide();
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-                });
-            });
-        }
-    }]);
-
-    return RegisterView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (RegisterView);
-
-/***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var registerFields = [{
-	class: "input",
-	type: "text",
-	name: "nick",
-	placeholder: "Nickname",
-	elemType: "input"
-}, {
-	class: "input",
-	type: "password",
-	name: "password",
-	placeholder: "Password",
-	elemType: "input"
-}, {
-	class: "input",
-	type: "password",
-	name: "confirm",
-	placeholder: "Confirm Password",
-	elemType: "input"
-}, {
-	name: "registerBtn",
-	class: " button",
-	elemType: "input",
-	type: "button",
-	value: "Register",
-	href: "/menu/"
-
-}, {
-	name: "changeformBtn",
-	class: " button",
-	elemType: "a",
-	value: "Already Have Account?",
-	href: "/login/"
-}, {
-	name: "warning",
-	class: "warning",
-	type: "text",
-	value: "Invalid Data",
-	elemType: "input",
-	readonly: "true",
-	hidden: "true"
-}];
-
-/* harmony default export */ __webpack_exports__["a"] = (registerFields);
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_js__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__game_GameManager__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var MenuView = function (_BaseView) {
-	_inherits(MenuView, _BaseView);
-
-	function MenuView(parentNode) {
-		_classCallCheck(this, MenuView);
-
-		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-		var _this = _possibleConstructorReturn(this, (MenuView.__proto__ || Object.getPrototypeOf(MenuView)).call(this, view.el));
-
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
-		return _this;
-	}
-
-	_createClass(MenuView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
-
-			__WEBPACK_IMPORTED_MODULE_1__menu_js__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
-
-			this.changeBtn.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"), false);
-			});
-			this.logoutBtn.setCallback(function () {
-				userService.logout().then(function () {
-					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.logoutBtn.el.getAttribute("href"));
-				}).catch(function (err) {});
-			});
-
-			this.play.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.play.el.getAttribute("href"), false);
-			});
-		}
-	}]);
-
-	return MenuView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (MenuView);
-
-/***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var menuFields = [{
-	name: "play",
-	class: " button",
-	elemType: "a",
-	href: "/play/",
-	value: "play"
-}, {
-	name: "changeBtn",
-	class: " button",
-	elemType: "a",
-	href: "/changepass/",
-	value: "Change Password"
-}, {
-	name: "logoutBtn",
-	class: " button",
-	elemType: "input",
-	type: "button",
-	href: "/login/",
-	value: "log out"
-}, {
-	name: "scoreboardBtn",
-	class: " button",
-	elemType: "a",
-	value: "scoreboard"
-}];
-/* harmony default export */ __webpack_exports__["a"] = (menuFields);
-
-/***/ }),
-/* 23 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__change_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var ChangeView = function (_BaseView) {
-	_inherits(ChangeView, _BaseView);
-
-	function ChangeView(parentNode) {
-		_classCallCheck(this, ChangeView);
-
-		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-		var _this = _possibleConstructorReturn(this, (ChangeView.__proto__ || Object.getPrototypeOf(ChangeView)).call(this, view.el));
-
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
-		return _this;
-	}
-
-	_createClass(ChangeView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
-
-			__WEBPACK_IMPORTED_MODULE_1__change_js__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
-
-			this.changeBtn.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
-				userService.changePassword(_this3.password.el.value, _this3.confirm.el.value).then(function () {
-					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"));
-					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-				}).catch(function (err) {
-					_this3.warning.setAttributes({ value: err });
-					_this3.warning.show();
-					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-				});
-			});
-
-			this.changeformBtn.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-			});
-		}
-	}]);
-
-	return ChangeView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (ChangeView);
-
-/***/ }),
-/* 24 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var changeFields = [{
-	elemType: "input",
-	class: "input",
-	type: "password",
-	name: "password",
-	placeholder: "Password"
-}, {
-	elemType: "input",
-	class: "input",
-	type: "password",
-	name: "confirm",
-	placeholder: "Confirm"
-
-}, {
-	name: "changeBtn",
-	class: " button",
-	elemType: "input",
-	value: "Change",
-	type: "button",
-	href: "/menu/"
-
-}, {
-	name: "changeformBtn",
-	class: " button",
-	elemType: "a",
-	value: "back to menu",
-	href: "/menu/"
-
-}, {
-	name: "warning",
-	class: "warning",
-	type: "text",
-	value: "Invalid Data",
-	readonly: "true",
-	hidden: "true"
-
-}];
-/* harmony default export */ __webpack_exports__["a"] = (changeFields);
-
-/***/ }),
-/* 25 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__theme_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_GameManager__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Router__ = __webpack_require__(1);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var ThemeView = function (_BaseView) {
-    _inherits(ThemeView, _BaseView);
-
-    function ThemeView(parentNode) {
-        _classCallCheck(this, ThemeView);
-
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "theme" });
-
-        var _this = _possibleConstructorReturn(this, (ThemeView.__proto__ || Object.getPrototypeOf(ThemeView)).call(this, view.el));
-
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-
-        _this.themeFlag = true;
-        _this.wallpaper = null;
-        return _this;
-    }
-
-    _createClass(ThemeView, [{
-        key: "_appendChildren",
-        value: function _appendChildren() {
-            var _this2 = this;
-
-            __WEBPACK_IMPORTED_MODULE_1__theme_js__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            var _this3 = this;
-
-            this.themeBtn.setCallback(function () {
-                _this3.themeFlag ? _this3.wallpaper = "url(../images/2wallpaper.jpg)" : _this3.wallpaper = "url(../images/wallpaper.jpg)";
-                document.getElementById("background").style.backgroundImage = _this3.wallpaper;
-                _this3.parentNode.childNodes.forEach(function (key) {
-                    key.childNodes.forEach(function (child) {
-                        if (child.classList.contains("button")) {
-                            _this3.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
-                        }
-                    });
-                });
-                _this3.themeFlag = !_this3.themeFlag;
-            });
-            this.playBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_5__utils_Router__["a" /* default */].go(_this3.playBtn.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_4__game_GameManager__["a" /* default */]();
-                gameManager.start("single");
-            });
-        }
-    }]);
-
-    return ThemeView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (ThemeView);
-
-/***/ }),
-/* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var themeFields = [{
-    name: "themeBtn",
-    class: "button",
-    elemType: "input",
-    type: "button",
-    value: "Theme"
-}, {
-    name: "playBtn",
-    class: " button",
-    elemType: "input",
-    value: "Fast Game",
-    href: "/game/",
-    type: "button"
-}];
-
-/* harmony default export */ __webpack_exports__["a"] = (themeFields);
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 28 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameType__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(5);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var GameTypeView = function (_BaseView) {
-    _inherits(GameTypeView, _BaseView);
-
-    function GameTypeView(parentNode) {
-        _classCallCheck(this, GameTypeView);
-
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-        var _this = _possibleConstructorReturn(this, (GameTypeView.__proto__ || Object.getPrototypeOf(GameTypeView)).call(this, view.el));
-
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
-
-    _createClass(GameTypeView, [{
-        key: "_appendChildren",
-        value: function _appendChildren() {
-            var _this2 = this;
-
-            __WEBPACK_IMPORTED_MODULE_1__gameType__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            var _this3 = this;
-
-            this.singlePlayer.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("single");
-            });
-            this.multiPlayer.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayer.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("multi");
-            });
-            this.changeformBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-            });
-        }
-    }]);
-
-    return GameTypeView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (GameTypeView);
-
-/***/ }),
-/* 29 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var gameFields = [{
-    name: "singlePlayer",
-    class: " button",
-    elemType: "a",
-    value: "Singleplayer",
-    href: "/game/"
-}, {
-    name: "multiPlayer",
-    class: " button",
-    elemType: "a",
-    value: "multiplayer",
-    href: "/game/"
-}, {
-    name: "changeformBtn",
-    class: " button",
-    elemType: "a",
-    value: "Back to menu",
-    href: "/menu/"
-}];
-/* harmony default export */ __webpack_exports__["a"] = (gameFields);
-
-/***/ }),
-/* 30 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__gameView_css__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-var GameView = function (_BaseView) {
-    _inherits(GameView, _BaseView);
-
-    function GameView(parentNode) {
-        _classCallCheck(this, GameView);
-
-        var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "game hidden" });
-
-        var _this = _possibleConstructorReturn(this, (GameView.__proto__ || Object.getPrototypeOf(GameView)).call(this, view.el));
-
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._buttonsInit();
-        return _this;
-    }
-
-    _createClass(GameView, [{
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            window.addEventListener("keyup", this._enableGameMenu);
-        }
-    }, {
-        key: "_enableGameMenu",
-        value: function _enableGameMenu(e) {
-            if (e.keyCode == 27) {
-                document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
-                document.getElementById("game").classList.add("blured");
-            }
-        }
-    }, {
-        key: "destroyGame",
-        value: function destroyGame() {
-            window.removeEventListener("keyup", this._enableGameMenu);
-            this.view.el.innerHTML = "";
-        }
-    }]);
-
-    return GameView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (GameView);
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 32 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__gameMenu_css__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-var GameMenuView = function (_BaseView) {
-	_inherits(GameMenuView, _BaseView);
-
-	function GameMenuView(parentNode) {
-		_classCallCheck(this, GameMenuView);
-
-		var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "gamemenu hidden" });
-
-		var _this = _possibleConstructorReturn(this, (GameMenuView.__proto__ || Object.getPrototypeOf(GameMenuView)).call(this, view.el));
-
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
-		return _this;
-	}
-
-	_createClass(GameMenuView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
-
-			__WEBPACK_IMPORTED_MODULE_3__gameMenu__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
-
-			this.resumeBtn.setCallback(function () {
-				_this3.hide();
-				document.getElementById("game").classList.remove("blured");
-			});
-			this.quitBtn.setCallback(function () {
-				_this3.hide();
-				__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go(_this3.quitBtn.el.getAttribute("href"), true);
-			});
-		}
-	}]);
-
-	return GameMenuView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (GameMenuView);
-
-/***/ }),
-/* 33 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var gameMenuFields = [{
-	name: "resumeBtn",
-	class: " button",
-	elemType: "input",
-	value: "resume",
-	type: "button",
-	href: "/menu/"
-
-}, {
-	name: "quitBtn",
-	class: " button",
-	elemType: "input",
-	value: "quit",
-	type: "button",
-	href: "/menu/"
-
-}];
-/* harmony default export */ __webpack_exports__["a"] = (gameMenuFields);
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -1798,7 +455,7 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 48 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5255,7 +3912,148 @@ function Projector(){console.error('THREE.Projector has been moved to /examples/
 function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to /examples/js/renderers/CanvasRenderer.js');this.domElement=document.createElementNS('http://www.w3.org/1999/xhtml','canvas');this.clear=function(){};this.render=function(){};this.setClearColor=function(){};this.setSize=function(){};}
 
 /***/ }),
-/* 49 */
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scene__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_three__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_util__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+
+
+var GameManager = function () {
+    function GameManager() {
+        _classCallCheck(this, GameManager);
+
+        this._mainLoop = this._mainLoop.bind(this);
+    }
+
+    _createClass(GameManager, [{
+        key: "start",
+        value: function start(strategy) {
+            var _this = this;
+
+            if (strategy == "single") {
+                this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+                var playersCoords = this.strategy.getPlayersCoors();
+                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent, "single");
+                this.strategy.startListenGameLoop(function (instractions) {
+                    _this.scene.updateObjects("tankMe", instractions);
+                });
+                this.startLoop();
+            }
+            if (strategy == "multi") {
+                var sendMsg = function sendMsg(msgToSend) {
+                    webSocket.send(JSON.stringify(msgToSend));
+                };
+
+                var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+                // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+                var isConnected = false;
+
+                webSocket.onmessage = function (message) {
+                    var obj = JSON.parse(message.data);
+                    var coords = { x: obj.x, y: obj.y };
+                    if (obj.me) {
+                        // console.log(obj.victory);
+                        this.scene.updateObjects("tankMe", {
+                            angle: obj.angle,
+                            turretAngle: obj.turretAngle,
+                            coords: coords,
+                            fire: obj.fire,
+                            cameraType: obj.cameraType,
+                            bulletCoords: obj.bulletCoords,
+                            HP: obj.hp,
+                            state: obj.victory
+                        });
+                    } else {
+                        this.scene.updateObjects("tankOpponent", {
+                            angle: obj.angle,
+                            turretAngle: obj.turretAngle,
+                            coords: coords,
+                            fire: obj.fire,
+                            cameraType: 0,
+                            bulletCoords: obj.bulletCoords
+                        });
+                    }
+                }.bind(this);
+
+                webSocket.onopen = function () {
+                    console.log("connection opened");
+                    isConnected = true;
+                };
+
+                webSocket.onclose = function () {
+                    console.log("connection closed");
+                    isConnected = false;
+                };
+
+                webSocket.onerror = function wserror(message) {
+                    console.log("error: " + message);
+                };
+
+                console.log("im in flag");
+                this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 }, "multi");
+                this.strategy.startListenGameLoop(function (instractions) {
+                    // console.log(instractions);
+                    // this.scene.updateObjects("tankMe", instractions);
+                    if (isConnected) {
+                        sendMsg(instractions);
+                    }
+                    instractions.fire = false;
+                    instractions.changeCamera = false;
+                });
+                // this.startLoop();
+            }
+        }
+    }, {
+        key: "startLoop",
+        value: function startLoop() {
+            this.mainLoopId = setInterval(this._mainLoop, 500);
+        }
+    }, {
+        key: "stopLoop",
+        value: function stopLoop() {
+            clearInterval(this.mainLoopId);
+        }
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            stopLoop();
+            this.strategy.destroy();
+        }
+    }, {
+        key: "_mainLoop",
+        value: function _mainLoop() {
+            if (this.strategy.me.health <= 0 && this.strategy.opponent.health <= 0) {
+                console.log("Draw bitch");
+            } else if (this.strategy.me.health <= 0) {
+                console.log("Bot won! :(");
+            } else if (this.strategy.opponent.health <= 0) {
+                console.log("I won! ;)");
+            }
+        }
+    }]);
+
+    return GameManager;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (GameManager);
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -5386,17 +4184,101 @@ KeyCombo.prototype._checkSubCombo = function (subCombo, startingKeyNameIndex, pr
 module.exports = KeyCombo;
 
 /***/ }),
-/* 50 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var apply = Function.prototype.apply;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function () {
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+};
+exports.setInterval = function () {
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+};
+exports.clearTimeout = exports.clearInterval = function (timeout) {
+  if (timeout) {
+    timeout.close();
+  }
+};
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function () {};
+Timeout.prototype.close = function () {
+  this._clearFn.call(window, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function (item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function (item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function (item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout) item._onTimeout();
+    }, msecs);
+  }
+};
+
+// setimmediate attaches itself to the global object
+__webpack_require__(36);
+exports.setImmediate = setImmediate;
+exports.clearImmediate = clearImmediate;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_user_service__ = __webpack_require__(3);
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_0__services_user_service__["a" /* default */]();
+
+function routeValidate(href, router, savehistory) {
+    userService.whoami().then(function () {
+        analyseHref(href, true, router, savehistory);
+    }).catch(function (error) {
+        analyseHref(href, false, router, savehistory);
+    });
+}
+
+function analyseHref(href, isLogged, router, savehistory) {
+    if (isLogged) {
+        ["/register/", "/login/", "/game/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
+    } else {
+        ["/register/", "/login/"].includes(href) ? router.go(href, savehistory) : router.go("/login/", savehistory);
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (routeValidate);
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var Keyboard = __webpack_require__(58);
-var Locale = __webpack_require__(51);
-var KeyCombo = __webpack_require__(49);
+var Keyboard = __webpack_require__(34);
+var Locale = __webpack_require__(12);
+var KeyCombo = __webpack_require__(8);
 
 var keyboard = new Keyboard();
 
-keyboard.setLocale('us', __webpack_require__(59));
+keyboard.setLocale('us', __webpack_require__(35));
 
 exports = module.exports = keyboard;
 exports.Keyboard = Keyboard;
@@ -5404,11 +4286,11 @@ exports.Locale = Locale;
 exports.KeyCombo = KeyCombo;
 
 /***/ }),
-/* 51 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var KeyCombo = __webpack_require__(49);
+var KeyCombo = __webpack_require__(8);
 
 function Locale(name) {
   this.localeName = name;
@@ -5558,13 +4440,13 @@ Locale.prototype._clearMacros = function () {
 module.exports = Locale;
 
 /***/ }),
-/* 52 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_timers__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assert__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assert__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_assert__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -5776,63 +4658,7 @@ var Player = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Player);
 
 /***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var apply = Function.prototype.apply;
-
-// DOM APIs, for completeness
-
-exports.setTimeout = function () {
-  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
-};
-exports.setInterval = function () {
-  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
-};
-exports.clearTimeout = exports.clearInterval = function (timeout) {
-  if (timeout) {
-    timeout.close();
-  }
-};
-
-function Timeout(id, clearFn) {
-  this._id = id;
-  this._clearFn = clearFn;
-}
-Timeout.prototype.unref = Timeout.prototype.ref = function () {};
-Timeout.prototype.close = function () {
-  this._clearFn.call(window, this._id);
-};
-
-// Does not start the time, just sets up the members needed.
-exports.enroll = function (item, msecs) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = msecs;
-};
-
-exports.unenroll = function (item) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = -1;
-};
-
-exports._unrefActive = exports.active = function (item) {
-  clearTimeout(item._idleTimeoutId);
-
-  var msecs = item._idleTimeout;
-  if (msecs >= 0) {
-    item._idleTimeoutId = setTimeout(function onTimeout() {
-      if (item._onTimeout) item._onTimeout();
-    }, msecs);
-  }
-};
-
-// setimmediate attaches itself to the global object
-__webpack_require__(60);
-exports.setImmediate = setImmediate;
-exports.clearImmediate = clearImmediate;
-
-/***/ }),
-/* 54 */
+/* 14 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -6022,7 +4848,7 @@ process.umask = function () {
 };
 
 /***/ }),
-/* 55 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -6517,7 +5343,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(62);
+exports.isBuffer = __webpack_require__(38);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -6554,7 +5380,7 @@ exports.log = function () {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(63);
+exports.inherits = __webpack_require__(39);
 
 exports._extend = function (origin, add) {
   // Don't do anything if add isn't an object
@@ -6571,16 +5397,16 @@ exports._extend = function (origin, add) {
 function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47), __webpack_require__(54)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(14)))
 
 /***/ }),
-/* 56 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = modelLoader;
 // const THREE = require("three");
-var ColladaLoader = __webpack_require__(67);
+var ColladaLoader = __webpack_require__(43);
 
 function modelLoader(modelPath) {
 	return new Promise(function (resolve, reject) {
@@ -6593,16 +5419,653 @@ function modelLoader(modelPath) {
 }
 
 /***/ }),
-/* 57 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(52);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__main_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__ = __webpack_require__(4);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('../sw.js', { scope: '/' });
+// }
+// if ("serviceWorker" in navigator) {
+//     navigator.serviceWorker.register("../../sw.js")
+//         .then(function(registration) {
+//             // при удачной регистрации имеем объект типа ServiceWorkerRegistration
+//             console.log("ServiceWorker registration", registration);
+//             // строкой ниже можно прекратить работу serviceWorker’а
+//             //registration.unregister();
+//         })
+//         .catch(function(err) {
+//             console.error(err);
+//         });
+// }
+
+__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].show();
+
+var app = document.getElementById("application");
+document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
+
+var main = new __WEBPACK_IMPORTED_MODULE_1__block_block_js__["a" /* Block */]("div", { class: "main-container" });
+app.appendChild(main.el);
+
+//config
+var login = new __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__["a" /* default */](main.el);
+var register = new __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__["a" /* default */](main.el);
+var menu = new __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__["a" /* default */](main.el);
+var change = new __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__["a" /* default */](main.el);
+var theme = new __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__["a" /* default */](main.el);
+var gameType = new __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__["a" /* default */](main.el);
+var gameMenu = new __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__["a" /* default */](main.el);
+var gameView = new __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__["a" /* default */](main.el);
+
+var config = {
+    "/login/": {
+        view: login
+    },
+    "/register/": {
+        view: register
+    },
+    "/menu/": {
+        view: menu
+    },
+    "/": {
+        view: menu
+    },
+    "/changepass/": {
+        view: change
+    },
+    "/play/": {
+        view: gameType
+    },
+    "/game/": {
+        view: gameView
+    }
+};
+
+Object(__WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
+
+__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].init(main.el, config);
+__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
+
+__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
+
+// if ('serviceWorker' in window.navigator) {
+//     window.navigator.serviceWorker.register('../sw.js');
+// }
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
+var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
+// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
+var urls = {
+    login: PREFIX_URL + "login",
+    register: PREFIX_URL + "register",
+    logout: PREFIX_URL + "logout",
+    check: PREFIX_URL + "getuser",
+    chagePassword: PREFIX_URL + "changepassword"
+};
+var GET = "GET";
+var POST = "POST";
+
+/* harmony default export */ __webpack_exports__["c"] = (urls);
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * Модуль, предоставляющий методы для выполнения HTTP-запросов
+ * @module Http
+ */
+function httpReq(type, uRL, sendObject) {
+    return new Promise(function (resolve, reject) {
+        fetch(uRL, {
+            method: type,
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify(sendObject),
+            mode: "cors",
+            credentials: "include"
+        }).then(function (response) {
+            if (response.status === 200) {
+                resolve(response);
+                return;
+            } else {
+                reject("Something went wrong");
+            }
+        });
+    });
+}
+/* harmony default export */ __webpack_exports__["a"] = (httpReq);
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var keyboardJS = __webpack_require__(50);
+var Validate = function () {
+    function Validate() {
+        _classCallCheck(this, Validate);
+    }
+
+    /**
+     * Проверить логин(ник)
+     */
+
+
+    _createClass(Validate, null, [{
+        key: "checkLogin",
+        value: function checkLogin(nick) {
+            return nick.length < 20 && nick.length > 1;
+        }
+
+        /**
+         * Проверить пароль
+         */
+
+    }, {
+        key: "checkPassword",
+        value: function checkPassword(password) {
+            return password.length < 20 && password.length > 1;
+        }
+
+        /**
+         * Проверить совпадение паролей
+         */
+
+    }, {
+        key: "confirmPassword",
+        value: function confirmPassword(password, confirm) {
+            return password === confirm;
+        }
+
+        /**
+         * Проверить логин(ник) и пароль
+         */
+
+    }, {
+        key: "checkLogAndPas",
+        value: function checkLogAndPas(nick, password) {
+            return this.checkLogin(nick) && this.checkPassword(password);
+        }
+    }]);
+
+    return Validate;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Validate);
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var LoginView = function (_BaseView) {
+	_inherits(LoginView, _BaseView);
+
+	function LoginView(parentNode) {
+		_classCallCheck(this, LoginView);
+
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+		var _this = _possibleConstructorReturn(this, (LoginView.__proto__ || Object.getPrototypeOf(LoginView)).call(this, view.el));
+
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
+
+	_createClass(LoginView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_1__login_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
+
+			this.loginBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
+				userService.login(_this3.nick.el.value, _this3.password.el.value).then(function () {
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.loginBtn.el.getAttribute("href"));
+					_this3.warning.hide();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				}).catch(function (err) {
+					_this3.warning.setAttributes({ value: err });
+					_this3.warning.show();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				});
+			});
+			this.changeformBtn.setCallback(function () {
+				_this3.warning.hide();
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+			});
+		}
+	}]);
+
+	return LoginView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (LoginView);
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var loginFields = [{
+	name: "nick",
+	class: "input",
+	elemType: "input",
+	type: "text",
+	placeholder: "Nickname"
+}, {
+	name: "password",
+	class: "input",
+	elemType: "input",
+	type: "password",
+	placeholder: "Password"
+}, {
+	name: "loginBtn",
+	class: " button",
+	elemType: "input",
+	type: "button",
+	value: "Log In",
+	href: "/menu/"
+}, {
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "Havent Account?",
+	href: "/register/"
+}, {
+	name: "warning",
+	class: "warning",
+	elemType: "input",
+	type: "text",
+	value: "Invalid Data",
+	readonly: "true",
+	hidden: "true"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (loginFields);
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var RegisterView = function (_BaseView) {
+    _inherits(RegisterView, _BaseView);
+
+    function RegisterView(parentNode) {
+        _classCallCheck(this, RegisterView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+        var _this = _possibleConstructorReturn(this, (RegisterView.__proto__ || Object.getPrototypeOf(RegisterView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        return _this;
+    }
+
+    _createClass(RegisterView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1__register_js__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.registerBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
+                userService.register(_this3.nick.el.value, _this3.password.el.value, _this3.confirm.el.value).then(function () {
+                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.registerBtn.el.getAttribute("href"));
+                    _this3.warning.hide();
+                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+                }).catch(function (err) {
+                    _this3.warning.setAttributes({ value: err });
+                    _this3.warning.show();
+                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+                });
+
+                _this3.changeformBtn.setCallback(function () {
+                    _this3.warning.hide();
+                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+                });
+            });
+        }
+    }]);
+
+    return RegisterView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (RegisterView);
+
+/***/ }),
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var registerFields = [{
+	class: "input",
+	type: "text",
+	name: "nick",
+	placeholder: "Nickname",
+	elemType: "input"
+}, {
+	class: "input",
+	type: "password",
+	name: "password",
+	placeholder: "Password",
+	elemType: "input"
+}, {
+	class: "input",
+	type: "password",
+	name: "confirm",
+	placeholder: "Confirm Password",
+	elemType: "input"
+}, {
+	name: "registerBtn",
+	class: " button",
+	elemType: "input",
+	type: "button",
+	value: "Register",
+	href: "/menu/"
+
+}, {
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "Already Have Account?",
+	href: "/login/"
+}, {
+	name: "warning",
+	class: "warning",
+	type: "text",
+	value: "Invalid Data",
+	elemType: "input",
+	readonly: "true",
+	hidden: "true"
+}];
+
+/* harmony default export */ __webpack_exports__["a"] = (registerFields);
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_js__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(7);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var MenuView = function (_BaseView) {
+	_inherits(MenuView, _BaseView);
+
+	function MenuView(parentNode) {
+		_classCallCheck(this, MenuView);
+
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+		var _this = _possibleConstructorReturn(this, (MenuView.__proto__ || Object.getPrototypeOf(MenuView)).call(this, view.el));
+
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
+
+	_createClass(MenuView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_1__menu_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
+
+			this.changeBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"), false);
+			});
+			this.logoutBtn.setCallback(function () {
+				userService.logout().then(function () {
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.logoutBtn.el.getAttribute("href"));
+				}).catch(function (err) {});
+			});
+
+			this.play.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.play.el.getAttribute("href"), false);
+			});
+		}
+	}]);
+
+	return MenuView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (MenuView);
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var menuFields = [{
+	name: "play",
+	class: " button",
+	elemType: "a",
+	href: "/play/",
+	value: "play"
+}, {
+	name: "changeBtn",
+	class: " button",
+	elemType: "a",
+	href: "/changepass/",
+	value: "Change Password"
+}, {
+	name: "logoutBtn",
+	class: " button",
+	elemType: "input",
+	type: "button",
+	href: "/login/",
+	value: "log out"
+}, {
+	name: "scoreboardBtn",
+	class: " button",
+	elemType: "a",
+	value: "scoreboard"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (menuFields);
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(13);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var keyboardJS = __webpack_require__(11);
 
 
 var SinglePlayer = function () {
@@ -6711,13 +6174,13 @@ var SinglePlayer = function () {
 /* harmony default export */ __webpack_exports__["a"] = (SinglePlayer);
 
 /***/ }),
-/* 58 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var Locale = __webpack_require__(51);
-var KeyCombo = __webpack_require__(49);
+var Locale = __webpack_require__(12);
+var KeyCombo = __webpack_require__(8);
 
 function Keyboard(targetWindow, targetElement, platform, userAgent) {
   this._locale = null;
@@ -7098,10 +6561,10 @@ Keyboard.prototype._handleCommandBug = function (event, platform) {
 };
 
 module.exports = Keyboard;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 59 */
+/* 35 */
 /***/ (function(module, exports) {
 
 
@@ -7248,7 +6711,7 @@ module.exports = function (locale, platform, userAgent) {
 };
 
 /***/ }),
-/* 60 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -7433,10 +6896,10 @@ module.exports = function (locale, platform, userAgent) {
     attachTo.setImmediate = setImmediate;
     attachTo.clearImmediate = clearImmediate;
 })(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47), __webpack_require__(54)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(14)))
 
 /***/ }),
-/* 61 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7511,7 +6974,7 @@ function isBuffer(b) {
 // ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-var util = __webpack_require__(55);
+var util = __webpack_require__(15);
 var hasOwn = Object.prototype.hasOwnProperty;
 var pSlice = Array.prototype.slice;
 var functionsHaveNames = function () {
@@ -7911,10 +7374,10 @@ var objectKeys = Object.keys || function (obj) {
   }
   return keys;
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(47)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 62 */
+/* 38 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -7924,7 +7387,7 @@ module.exports = function isBuffer(arg) {
 };
 
 /***/ }),
-/* 63 */
+/* 39 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -7952,16 +7415,16 @@ if (typeof Object.create === 'function') {
 }
 
 /***/ }),
-/* 64 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Tank__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Tank__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_timers__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_timers__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_timers__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -8087,6 +7550,9 @@ var Scene = function () {
         value: function updateObjects(type, instractions) {
             var _this2 = this;
 
+            if (instractions.state === 1 || instractions.state === 0 || instractions.state === -1) {
+                this.staticScene.showGameState(instractions.state);
+            }
             this[type].instractions = instractions;
             if (type === "tankMe") {
                 if (this.staticScene !== undefined) {
@@ -8285,16 +7751,16 @@ var Scene = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Scene);
 
 /***/ }),
-/* 65 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Turret__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Turret__ = __webpack_require__(42);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var THREE = __webpack_require__(48);
+var THREE = __webpack_require__(6);
 
 
 var Tank = function () {
@@ -8351,13 +7817,13 @@ var Tank = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Tank);
 
 /***/ }),
-/* 66 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var THREE = __webpack_require__(48);
+var THREE = __webpack_require__(6);
 
 var Turret = function Turret(dae, coords) {
     _classCallCheck(this, Turret);
@@ -8375,10 +7841,10 @@ var Turret = function Turret(dae, coords) {
 /* harmony default export */ __webpack_exports__["a"] = (Turret);
 
 /***/ }),
-/* 67 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var THREE = __webpack_require__(48);
+var THREE = __webpack_require__(6);
 
 /**
 * @author Tim Knip / http://www.floorplanner.com/ / tim at floorplanner.com
@@ -13359,12 +12825,12 @@ var ColladaLoader = function ColladaLoader() {
 module.exports = ColladaLoader;
 
 /***/ }),
-/* 68 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = MapCreator;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modelLoader__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modelLoader__ = __webpack_require__(16);
 
 // const THREE = require("three");
 
@@ -13554,16 +13020,21 @@ var housePlace = [{
 }];
 
 /***/ }),
-/* 69 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StaticScene_scss__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StaticScene_scss__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StaticScene_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__StaticScene_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__textWriter__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__textWriter__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_timers__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_timers__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 
 
@@ -13618,13 +13089,18 @@ var StaticScene = function () {
         this.injure.classList.add("hidden");
         this.sceneDiv.appendChild(this.injure);
         ///
+        this.gameState = document.createElement("p");
+        this.gameState.classList.add("state");
+        this.gameState.classList.add("hidden");
+        this.injure.appendChild(this.gameState);
+        ///
         document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
         this.hideReload = this.hideReload.bind(this);
         this.hideReload();
         if (this.type == "single") {
             Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the military training!\n", "To move the vehicle push W,A,S,D.\n", "To rotate the turret push M,N.\n", "You can also change view by pushing V.\n", "If you want to shoot-push SPACE button.", "After shooting you will see the reload bar in the right bottom corner.\n", "Also in that corner you can see your health bar: ", "When it comes red you have to be very careful, you can be killed with the one bullet.\n", "So now you can try the controlls and watch the map.\n", "When you want to quit push ESC.\n"]);
         } else {
-            Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the battler ground!\n", "If you don't know how to play \n", "you should have some trainig in the single mode. \n", "You are on the war, soldier. So you have to defeat the enemy.\n", "Your enemy is the other tank. He is somewhere in the town.", "Find him, shoot him and save the civilians!\n", "Good luck, soldier!"]);
+            Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the battle ground!\n", "If you don't know how to play \n", "you should have some trainig in the single mode. \n", "You are on the war, soldier. So you have to defeat the enemy.\n", "Your enemy is the other tank. He is somewhere in the town.", "Find him, shoot him and save the civilians!\n", "Good luck, soldier!"]);
         }
         // textWriter(
         //     "comandorText", [
@@ -13632,6 +13108,7 @@ var StaticScene = function () {
         //         "нормально, пожалуйста\n"
         //     ]
         // );
+        ////new scenes
     }
 
     _createClass(StaticScene, [{
@@ -13664,15 +13141,36 @@ var StaticScene = function () {
             var _this2 = this;
 
             this.injure.classList.remove("hidden");
-            setTimeout(function () {
+            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
                 _this2.injure.classList.add("hidden");
             }, 1000);
+        }
+    }, {
+        key: "showGameState",
+        value: function showGameState(state) {
+            if (state === -1) {
+                this.injure.classList.add("injure-defeat");
+                this.gameState.innerHTML = "YOU LOSE!";
+            }
+            if (state === 0) {
+                this.injure.classList.add("injure-draw");
+                this.gameState.innerHTML = "DRAW!";
+            }
+            if (state === 1) {
+                this.injure.classList.add("injure-victory");
+                this.gameState.innerHTML = "YOU WIN!";
+            }
+            this.gameState.classList.remove("hidden");
+            this.injure.classList.remove("hidden");
+            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
+                __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go("/menu/", true);
+            }, 5000);
         }
     }, {
         key: "fireReload",
         value: function fireReload() {
             this.loader.classList.remove("hidden");
-            setTimeout(this.hideReload, 4000);
+            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(this.hideReload, 4000);
         }
     }, {
         key: "hideReload",
@@ -13687,22 +13185,42 @@ var StaticScene = function () {
 /* harmony default export */ __webpack_exports__["a"] = (StaticScene);
 
 /***/ }),
-/* 70 */
+/* 46 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 71 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(52);
+/* harmony export (immutable) */ __webpack_exports__["a"] = textWriter;
+function textWriter(classname, text, speed) {
+
+    var ele = document.getElementsByClassName(classname)[0];
+    var txt = text.join("").split("");
+    var interval = setInterval(function () {
+        if (!txt[0]) {
+            return clearInterval(interval);
+        };
+        ele.innerHTML += txt.shift();
+    }, speed != undefined ? speed : 10);
+
+    return false;
+};
+
+/***/ }),
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(13);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var keyboardJS = __webpack_require__(50);
+var keyboardJS = __webpack_require__(11);
 
 
 var MultiPlayer = function () {
@@ -13819,26 +13337,544 @@ var MultiPlayer = function () {
 /* harmony default export */ __webpack_exports__["a"] = (MultiPlayer);
 
 /***/ }),
-/* 72 */,
-/* 73 */,
-/* 74 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = textWriter;
-function textWriter(classname, text, speed) {
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__change_js__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-    var ele = document.getElementsByClassName(classname)[0];
-    var txt = text.join("").split("");
-    var interval = setInterval(function () {
-        if (!txt[0]) {
-            return clearInterval(interval);
-        };
-        ele.innerHTML += txt.shift();
-    }, speed != undefined ? speed : 10);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    return false;
-};
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var ChangeView = function (_BaseView) {
+	_inherits(ChangeView, _BaseView);
+
+	function ChangeView(parentNode) {
+		_classCallCheck(this, ChangeView);
+
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+		var _this = _possibleConstructorReturn(this, (ChangeView.__proto__ || Object.getPrototypeOf(ChangeView)).call(this, view.el));
+
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
+
+	_createClass(ChangeView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_1__change_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
+
+			this.changeBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
+				userService.changePassword(_this3.password.el.value, _this3.confirm.el.value).then(function () {
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"));
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				}).catch(function (err) {
+					_this3.warning.setAttributes({ value: err });
+					_this3.warning.show();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				});
+			});
+
+			this.changeformBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+			});
+		}
+	}]);
+
+	return ChangeView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (ChangeView);
+
+/***/ }),
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var changeFields = [{
+	elemType: "input",
+	class: "input",
+	type: "password",
+	name: "password",
+	placeholder: "Password"
+}, {
+	elemType: "input",
+	class: "input",
+	type: "password",
+	name: "confirm",
+	placeholder: "Confirm"
+
+}, {
+	name: "changeBtn",
+	class: " button",
+	elemType: "input",
+	value: "Change",
+	type: "button",
+	href: "/menu/"
+
+}, {
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "back to menu",
+	href: "/menu/"
+
+}, {
+	name: "warning",
+	class: "warning",
+	type: "text",
+	value: "Invalid Data",
+	readonly: "true",
+	hidden: "true"
+
+}];
+/* harmony default export */ __webpack_exports__["a"] = (changeFields);
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_js__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__theme_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_GameManager__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Router__ = __webpack_require__(1);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var ThemeView = function (_BaseView) {
+    _inherits(ThemeView, _BaseView);
+
+    function ThemeView(parentNode) {
+        _classCallCheck(this, ThemeView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "theme" });
+
+        var _this = _possibleConstructorReturn(this, (ThemeView.__proto__ || Object.getPrototypeOf(ThemeView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+
+        _this.themeFlag = true;
+        _this.wallpaper = null;
+        return _this;
+    }
+
+    _createClass(ThemeView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1__theme_js__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.themeBtn.setCallback(function () {
+                _this3.themeFlag ? _this3.wallpaper = "url(../images/2wallpaper.jpg)" : _this3.wallpaper = "url(../images/wallpaper.jpg)";
+                document.getElementById("background").style.backgroundImage = _this3.wallpaper;
+                _this3.parentNode.childNodes.forEach(function (key) {
+                    key.childNodes.forEach(function (child) {
+                        if (child.classList.contains("button")) {
+                            _this3.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
+                        }
+                    });
+                });
+                _this3.themeFlag = !_this3.themeFlag;
+            });
+            this.playBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_5__utils_Router__["a" /* default */].go(_this3.playBtn.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_4__game_GameManager__["a" /* default */]();
+                gameManager.start("single");
+            });
+        }
+    }]);
+
+    return ThemeView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (ThemeView);
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var themeFields = [{
+    name: "themeBtn",
+    class: "button",
+    elemType: "input",
+    type: "button",
+    value: "Theme"
+}, {
+    name: "playBtn",
+    class: " button",
+    elemType: "input",
+    value: "Fast Game",
+    href: "/game/",
+    type: "button"
+}];
+
+/* harmony default export */ __webpack_exports__["a"] = (themeFields);
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 54 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameType__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(7);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var GameTypeView = function (_BaseView) {
+    _inherits(GameTypeView, _BaseView);
+
+    function GameTypeView(parentNode) {
+        _classCallCheck(this, GameTypeView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+        var _this = _possibleConstructorReturn(this, (GameTypeView.__proto__ || Object.getPrototypeOf(GameTypeView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        return _this;
+    }
+
+    _createClass(GameTypeView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1__gameType__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.singlePlayer.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+                gameManager.start("single");
+            });
+            this.multiPlayer.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayer.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+                gameManager.start("multi");
+            });
+            this.changeformBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+            });
+        }
+    }]);
+
+    return GameTypeView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (GameTypeView);
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var gameFields = [{
+    name: "singlePlayer",
+    class: " button",
+    elemType: "a",
+    value: "Singleplayer",
+    href: "/game/"
+}, {
+    name: "multiPlayer",
+    class: " button",
+    elemType: "a",
+    value: "multiplayer",
+    href: "/game/"
+}, {
+    name: "changeformBtn",
+    class: " button",
+    elemType: "a",
+    value: "Back to menu",
+    href: "/menu/"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (gameFields);
+
+/***/ }),
+/* 56 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__gameView_css__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var GameView = function (_BaseView) {
+    _inherits(GameView, _BaseView);
+
+    function GameView(parentNode) {
+        _classCallCheck(this, GameView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "game hidden" });
+
+        var _this = _possibleConstructorReturn(this, (GameView.__proto__ || Object.getPrototypeOf(GameView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._buttonsInit();
+        return _this;
+    }
+
+    _createClass(GameView, [{
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            window.addEventListener("keyup", this._enableGameMenu);
+        }
+    }, {
+        key: "_enableGameMenu",
+        value: function _enableGameMenu(e) {
+            if (e.keyCode == 27) {
+                document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
+                document.getElementById("game").classList.add("blured");
+            }
+        }
+    }, {
+        key: "destroyGame",
+        value: function destroyGame() {
+            window.removeEventListener("keyup", this._enableGameMenu);
+            this.view.el.innerHTML = "";
+        }
+    }]);
+
+    return GameView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (GameView);
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__gameMenu_css__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+var GameMenuView = function (_BaseView) {
+	_inherits(GameMenuView, _BaseView);
+
+	function GameMenuView(parentNode) {
+		_classCallCheck(this, GameMenuView);
+
+		var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "gamemenu hidden" });
+
+		var _this = _possibleConstructorReturn(this, (GameMenuView.__proto__ || Object.getPrototypeOf(GameMenuView)).call(this, view.el));
+
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
+
+	_createClass(GameMenuView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_3__gameMenu__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
+
+			this.resumeBtn.setCallback(function () {
+				_this3.hide();
+				document.getElementById("game").classList.remove("blured");
+			});
+			this.quitBtn.setCallback(function () {
+				_this3.hide();
+				__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go(_this3.quitBtn.el.getAttribute("href"), true);
+			});
+		}
+	}]);
+
+	return GameMenuView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (GameMenuView);
+
+/***/ }),
+/* 59 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var gameMenuFields = [{
+	name: "resumeBtn",
+	class: " button",
+	elemType: "input",
+	value: "resume",
+	type: "button",
+	href: "/menu/"
+
+}, {
+	name: "quitBtn",
+	class: " button",
+	elemType: "input",
+	value: "quit",
+	type: "button",
+	href: "/menu/"
+
+}];
+/* harmony default export */ __webpack_exports__["a"] = (gameMenuFields);
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

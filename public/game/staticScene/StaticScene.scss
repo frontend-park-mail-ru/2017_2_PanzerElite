@@ -201,3 +201,27 @@
     background: radial-gradient( rgba(255, 255, 255, 0) 50%, red 99%);
     position: relative;
 }
+
+.injure-victory {
+    background: radial-gradient( rgba(255, 255, 255, 0) 50%, rgb(128, 230, 13) 99%);
+    color: rgb(128, 230, 13);
+}
+
+.injure-draw {
+    background: radial-gradient( rgba(255, 255, 255, 0) 50%, rgb(0, 255, 255) 99%);
+    color: rgb(0, 255, 255);
+}
+
+.injure-defeat {
+    background: radial-gradient( rgba(255, 255, 255, 0) 50%, rgb(192, 0, 0) 99%);
+    color: rgb(192, 0, 0);
+}
+
+.state {
+    font-weight: 600;
+    font-size: 500%;
+    position: absolute;
+    z-index: 99;
+    left: 40%;
+    top: 15%;
+}

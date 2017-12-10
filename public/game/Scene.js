@@ -111,6 +111,9 @@ export default class Scene {
     }
 
     updateObjects(type, instractions) {
+        if (instractions.state === 1 || instractions.state === 0 || instractions.state === -1) {
+            this.staticScene.showGameState(instractions.state);
+        }
         this[type].instractions = instractions;
         if (type === "tankMe") {
             if (this.staticScene !== undefined) {

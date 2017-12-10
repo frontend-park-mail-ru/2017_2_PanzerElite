@@ -33,10 +33,26 @@ export default class GameManager {
                 let obj = JSON.parse(message.data);
                 let coords = { x: obj.x, y: obj.y };
                 if (obj.me) {
-                    // console.log(obj.cameraType);
-                    this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: obj.cameraType, bulletCoords: obj.bulletCoords, HP: obj.hp });
+                    // console.log(obj.victory);
+                    this.scene.updateObjects("tankMe", {
+                        angle: obj.angle,
+                        turretAngle: obj.turretAngle,
+                        coords: coords,
+                        fire: obj.fire,
+                        cameraType: obj.cameraType,
+                        bulletCoords: obj.bulletCoords,
+                        HP: obj.hp,
+                        state: obj.victory
+                    });
                 } else {
-                    this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: obj.fire, cameraType: 0, bulletCoords: obj.bulletCoords });
+                    this.scene.updateObjects("tankOpponent", {
+                        angle: obj.angle,
+                        turretAngle: obj.turretAngle,
+                        coords: coords,
+                        fire: obj.fire,
+                        cameraType: 0,
+                        bulletCoords: obj.bulletCoords
+                    });
                 }
             }.bind(this);
 

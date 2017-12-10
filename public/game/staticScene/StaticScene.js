@@ -1,5 +1,7 @@
 import "./StaticScene.scss";
 import textWriter from "./textWriter";
+import go from "../../utils/Router";
+import { setTimeout } from "timers";
 
 
 export default class StaticScene {
@@ -48,6 +50,11 @@ export default class StaticScene {
         this.injure.classList.add("hidden");
         this.sceneDiv.appendChild(this.injure);
         ///
+        this.gameState = document.createElement("p");
+        this.gameState.classList.add("state");
+        this.gameState.classList.add("hidden");
+        this.injure.appendChild(this.gameState);
+        ///
         document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
         this.hideReload = this.hideReload.bind(this);
         this.hideReload();
@@ -66,7 +73,7 @@ export default class StaticScene {
             ]);
         } else {
             textWriter("comandorText", [
-                "Welcome to the battler ground!\n",
+                "Welcome to the battle ground!\n",
                 "If you don't know how to play \n",
                 "you should have some trainig in the single mode. \n",
                 "You are on the war, soldier. So you have to defeat the enemy.\n",
@@ -81,6 +88,8 @@ export default class StaticScene {
         //         "нормально, пожалуйста\n"
         //     ]
         // );
+        ////new scenes
+
     };
     changeHP(HP) {
         if (this.HP !== HP) {
@@ -104,13 +113,30 @@ export default class StaticScene {
             this.hpDiv.classList.add("hpBarRed");
             this.currentColor = "hpBarRed";
         }
-
     }
     injured() {
         this.injure.classList.remove("hidden");
         setTimeout(() => {
             this.injure.classList.add("hidden");
         }, 1000);
+    }
+    showGameState(state) {
+        if (state === -1) {
+            this.injure.classList.add("injure-defeat");
+            this.gameState.innerHTML = "YOU LOSE!";
+        }
+        if (state === 0) {
+            this.injure.classList.add("injure-draw");
+            this.gameState.innerHTML = "DRAW!";
+        }
+        if (state === 1) {
+            this.injure.classList.add("injure-victory");
+            this.gameState.innerHTML = "YOU WIN!";
+        }
+        this.gameState.classList.remove("hidden");
+        this.injure.classList.remove("hidden");
+        setTimeout(() => { go.go("/menu/", true); }, 5000);
+
     }
     fireReload() {
         this.loader.classList.remove("hidden");

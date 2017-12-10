@@ -299,6 +299,26 @@
   height: 100%;
   background: radial-gradient(rgba(255, 255, 255, 0) 50%, red 99%);
   position: relative; }
+
+.injure-victory {
+  background: radial-gradient(rgba(255, 255, 255, 0) 50%, #80e60d 99%);
+  color: #80e60d; }
+
+.injure-draw {
+  background: radial-gradient(rgba(255, 255, 255, 0) 50%, cyan 99%);
+  color: cyan; }
+
+.injure-defeat {
+  background: radial-gradient(rgba(255, 255, 255, 0) 50%, #c00000 99%);
+  color: #c00000; }
+
+.state {
+  font-weight: 600;
+  font-size: 500%;
+  position: absolute;
+  z-index: 99;
+  left: 40%;
+  top: 15%; }
 .theme {
     position: absolute;
     width: 50px;
