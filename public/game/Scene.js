@@ -7,9 +7,10 @@ import { setTimeout } from "timers";
 // import { Math } from "../../../../Library/Caches/typescript/2.6/node_modules/@types/three";
 
 export default class Scene {
-    constructor(startPositionMe, startPositionOpponent, type) {
+    constructor(startPositionMe, startPositionOpponent, type, liteVersion) {
         progressBar.show();
         this.type = type;
+        this.liteVersion = liteVersion;
         this.stats = new Stats();
         this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild(this.stats.dom);
@@ -226,7 +227,7 @@ export default class Scene {
     }
 
     _addMap() {
-        MapCreator(this.scene);
+        MapCreator(this.scene, this.liteVersion);
         let loader = new THREE.TextureLoader();
         let groundTexture = loader.load("./game/3dModels/terrain/www.jpg");
         groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;

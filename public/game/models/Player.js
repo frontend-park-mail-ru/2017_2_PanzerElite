@@ -28,6 +28,13 @@ export default class Player {
             { x: 140, y: 84, height: 20, width: 32 },
             { x: -84, y: 64, height: 42, width: 25 },
             { x: -56, y: -40, height: 25, width: 42 },
+            { x: -250, y: 0, height: 2, width: 500 },
+            { x: 250, y: 0, height: 2, width: 500 },
+            { x: 0, y: -250, height: 500, width: 2 },
+            { x: 0, y: 250, height: 500, width: 2 },
+
+
+
         ];
     }
 

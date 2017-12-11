@@ -10,11 +10,11 @@ export default class GameManager {
         this._mainLoop = this._mainLoop.bind(this);
     }
 
-    start(strategy) {
+    start(strategy, liteVersion) {
         if (strategy == "single") {
             this.strategy = new SinglePlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
             const playersCoords = this.strategy.getPlayersCoors();
-            this.scene = new Scene(playersCoords.me, playersCoords.opponent, "single");
+            this.scene = new Scene(playersCoords.me, playersCoords.opponent, "single", liteVersion);
             this.strategy.startListenGameLoop((instractions) => {
                 this.scene.updateObjects("tankMe", instractions);
             });
@@ -73,7 +73,7 @@ export default class GameManager {
 
             console.log("im in flag");
             this.strategy = new MultiPlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
-            this.scene = new Scene({ x: 50, y: 50 }, { x: 50, y: 50 }, "multi");
+            this.scene = new Scene({ x: 50, y: 50 }, { x: 50, y: 50 }, "multi", liteVersion);
             this.strategy.startListenGameLoop((instractions) => {
                 // console.log(instractions);
                 // this.scene.updateObjects("tankMe", instractions);

@@ -3941,13 +3941,13 @@ var GameManager = function () {
 
     _createClass(GameManager, [{
         key: "start",
-        value: function start(strategy) {
+        value: function start(strategy, liteVersion) {
             var _this = this;
 
             if (strategy == "single") {
                 this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
                 var playersCoords = this.strategy.getPlayersCoors();
-                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent, "single");
+                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent, "single", liteVersion);
                 this.strategy.startListenGameLoop(function (instractions) {
                     _this.scene.updateObjects("tankMe", instractions);
                 });
@@ -4005,7 +4005,7 @@ var GameManager = function () {
 
                 console.log("im in flag");
                 this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
-                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 }, "multi");
+                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 }, "multi", liteVersion);
                 this.strategy.startListenGameLoop(function (instractions) {
                     // console.log(instractions);
                     // this.scene.updateObjects("tankMe", instractions);
@@ -4468,7 +4468,7 @@ var Player = function () {
         this.cameraCurrentType = 0;
         this.bulletCoords = {};
         this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false, fire: true };
-        this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
+        this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }, { x: -250, y: 0, height: 2, width: 500 }, { x: 250, y: 0, height: 2, width: 500 }, { x: 0, y: -250, height: 500, width: 2 }, { x: 0, y: 250, height: 500, width: 2 }];
     }
 
     _createClass(Player, [{
@@ -7439,13 +7439,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // import { Math } from "../../../../Library/Caches/typescript/2.6/node_modules/@types/three";
 
 var Scene = function () {
-    function Scene(startPositionMe, startPositionOpponent, type) {
+    function Scene(startPositionMe, startPositionOpponent, type, liteVersion) {
         var _this = this;
 
         _classCallCheck(this, Scene);
 
         __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].show();
         this.type = type;
+        this.liteVersion = liteVersion;
         this.stats = new Stats();
         this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild(this.stats.dom);
@@ -7682,7 +7683,7 @@ var Scene = function () {
         value: function _addMap() {
             var _this6 = this;
 
-            Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene);
+            Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene, this.liteVersion);
             var loader = new THREE.TextureLoader();
             var groundTexture = loader.load("./game/3dModels/terrain/www.jpg");
             groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
@@ -12834,189 +12835,226 @@ module.exports = ColladaLoader;
 
 // const THREE = require("three");
 
-function MapCreator(scene) {
-	var promises = [];
+function MapCreator(scene, liteVersion) {
+    var promises = [];
+    if (!liteVersion) {
+        promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/church/model.dae"));
+        promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/bighouse/model.dae"));
+        promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/middlehouse/model.dae"));
+        promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/smallhouse/model.dae"));
 
-	promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/church/model.dae"));
-	promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/bighouse/model.dae"));
-	promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/middlehouse/model.dae"));
-	promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/smallhouse/model.dae"));
+        Promise.all(promises).then(function (collades) {
+            houseParams[4].house = modelInit(collades[0], 0.04);
+            houseParams[1].house = modelInit(collades[1], 0.04);
+            houseParams[2].house = modelInit(collades[2], 0.05);
+            houseParams[3].house = modelInit(collades[3], 0.05);
 
-	Promise.all(promises).then(function (collades) {
-		houseParams[4].house = modelInit(collades[0], 0.04);
-		houseParams[1].house = modelInit(collades[1], 0.04);
-		houseParams[2].house = modelInit(collades[2], 0.05);
-		houseParams[3].house = modelInit(collades[3], 0.05);
+            housePlace.forEach(function (key) {
 
-		housePlace.forEach(function (key) {
+                var house = houseParams[key.type].house.clone();
+                var geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
+                var material = new THREE.MeshBasicMaterial({
+                    color: houseParams[key.type].color
+                });
+                var cube = new THREE.Mesh(geometry, material);
+                cube.position.x = key.x;
+                cube.position.y = key.y;
+                if (key.flag) {
+                    cube.rotation.z = 0.5 * Math.PI;
+                    house.rotation.y = 0.5 * Math.PI;
+                    house.position.x = key.x + houseParams[key.type].shifty;
+                    house.position.y = key.y - houseParams[key.type].shiftx;
+                } else {
+                    house.position.x = key.x + houseParams[key.type].shiftx;
+                    house.position.y = key.y + houseParams[key.type].shifty;
+                }
+                scene.add(cube);
 
-			var house = houseParams[key.type].house.clone();
-			var geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
-			var material = new THREE.MeshBasicMaterial({
-				color: houseParams[key.type].color
-			});
-			var cube = new THREE.Mesh(geometry, material);
-			cube.position.x = key.x;
-			cube.position.y = key.y;
-			if (key.flag) {
-				cube.rotation.z = 0.5 * Math.PI;
-				house.rotation.y = 0.5 * Math.PI;
-				house.position.x = key.x + houseParams[key.type].shifty;
-				house.position.y = key.y - houseParams[key.type].shiftx;
-			} else {
-				house.position.x = key.x + houseParams[key.type].shiftx;
-				house.position.y = key.y + houseParams[key.type].shifty;
-			}
-			scene.add(cube);
+                scene.add(house);
+            });
+        });
+    }
+    var index = 0;
+    map.forEach(function (key) {
+        if (!liteVersion) {
+            if (key.width < 1 || key.height < 1) {
+                var geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
+                var material = new THREE.MeshBasicMaterial({
+                    color: 0xFF0000
+                });
+                material.transparent = true;
+                material.opacity = 0.2;
+                var cube = new THREE.Mesh(geometry, material);
+                cube.position.x = key.x;
+                cube.position.y = key.y;
+                scene.add(cube);
+            }
+        } else {
+            if (index >= 15) {
+                index = 0;
+            }
+            var _material = void 0;
+            var _geometry = void 0;
+            // console.log(housePlace[index++].type);
 
-			scene.add(house);
-		});
-	});
-	map.forEach(function (key) {
-		var geometry = new THREE.BoxGeometry(key.height, key.width, 4);
-		var material = new THREE.MeshBasicMaterial({
-			color: 0xFF0000
-		});
-		var cube = new THREE.Mesh(geometry, material);
-		cube.position.x = key.x;
-		cube.position.y = key.y;
-		// scene.add(cube);
-		// scene.add(house);
-	});
+            if (key.width < 1 || key.height < 1) {
+                _geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
+                _material = new THREE.MeshBasicMaterial({
+                    color: 0xFF0000
+                });
+                _material.transparent = true;
+                _material.opacity = 0.2;
+            } else {
+                _geometry = new THREE.BoxGeometry(key.height, key.width, 20);
+                _material = new THREE.MeshBasicMaterial({
+                    //color: 0xFFEBCD,
+                    color: houseParams[housePlace[index++].type].color
+
+                });
+                // index++;
+            }
+            var _cube = new THREE.Mesh(_geometry, _material);
+            _cube.position.x = key.x;
+            _cube.position.y = key.y;
+            scene.add(_cube);
+        }
+
+        // scene.add(house);
+    });
 }
 
 function modelInit(collada, size) {
-	var plc = new THREE.Object3D();
-	collada.scene.scale.x = size;
-	collada.scene.scale.y = size;
-	collada.scene.scale.z = size;
-	plc.add(collada.scene);
-	plc.rotation.x = -0.5 * Math.PI;
-	plc.rotation.z = 1 * Math.PI;
-	plc.position.z -= 0.1;
-	return plc;
+    var plc = new THREE.Object3D();
+    collada.scene.scale.x = size;
+    collada.scene.scale.y = size;
+    collada.scene.scale.z = size;
+    plc.add(collada.scene);
+    plc.rotation.x = -0.5 * Math.PI;
+    plc.rotation.z = 1 * Math.PI;
+    plc.position.z -= 0.1;
+    return plc;
 }
 
-var map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }];
+var map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }, { x: -250, y: 0, height: 0.5, width: 500 }, { x: 250, y: 0, height: 0.5, width: 500 }, { x: 0, y: -250, height: 500, width: 0.5 }, { x: 0, y: 250, height: 500, width: 0.5 }];
 
 var houseParams = [{}, {
-	x: 57,
-	y: 58,
-	color: 0x777777,
-	house: null,
-	shiftx: -6,
-	shifty: 25
+    x: 57,
+    y: 58,
+    color: 0x777777,
+    house: null,
+    shiftx: -6,
+    shifty: 25
 }, {
-	x: 20,
-	y: 32,
-	color: 0xCFBDAA,
-	house: null,
-	shiftx: 7,
-	shifty: 15
+    x: 20,
+    y: 32,
+    color: 0xCFBDAA,
+    house: null,
+    shiftx: 7,
+    shifty: 15
 
 }, {
-	x: 18,
-	y: 17,
-	color: 0xFFEBCD,
-	house: null,
-	shiftx: 8,
-	shifty: 10
+    x: 18,
+    y: 17,
+    color: 0xFFEBCD,
+    house: null,
+    shiftx: 8,
+    shifty: 10
 }, {
-	x: 25,
-	y: 42,
-	color: 0x888888,
-	house: null,
-	shiftx: -6,
-	shifty: 25
+    x: 25,
+    y: 42,
+    color: 0x888888,
+    house: null,
+    shiftx: -6,
+    shifty: 25
 }];
 
 var housePlace = [{
-	x: 0,
-	y: 0,
-	type: 1
+    x: 0,
+    y: 0,
+    type: 1
 }, {
-	x: -136,
-	y: 88,
-	type: 3,
-	flag: false
+    x: -136,
+    y: 88,
+    type: 3,
+    flag: false
 
 }, {
-	x: -48,
-	y: 108,
-	type: 3,
-	flag: false
+    x: -48,
+    y: 108,
+    type: 3,
+    flag: false
 
 }, {
-	x: -20,
-	y: 56,
-	type: 3,
-	flag: false
+    x: -20,
+    y: 56,
+    type: 3,
+    flag: false
 
 }, {
-	x: -136,
-	y: -20,
-	type: 3,
-	flag: false
+    x: -136,
+    y: -20,
+    type: 3,
+    flag: false
 
 }, {
-	x: 68,
-	y: 40,
-	type: 3,
-	flag: false
+    x: 68,
+    y: 40,
+    type: 3,
+    flag: false
 
 }, {
-	x: 100,
-	y: 40,
-	type: 3,
-	flag: false
+    x: 100,
+    y: 40,
+    type: 3,
+    flag: false
 
 }, {
-	x: 132,
-	y: 40,
-	type: 3,
-	flag: false
+    x: 132,
+    y: 40,
+    type: 3,
+    flag: false
 
 }, {
-	x: -100,
-	y: 24,
-	type: 2,
-	flag: true
+    x: -100,
+    y: 24,
+    type: 2,
+    flag: true
 
 }, {
-	x: -128,
-	y: -88,
-	type: 2,
-	flag: true
+    x: -128,
+    y: -88,
+    type: 2,
+    flag: true
 
 }, {
-	x: -20,
-	y: -92,
-	type: 2,
-	flag: false
+    x: -20,
+    y: -92,
+    type: 2,
+    flag: false
 
 }, {
-	x: 32,
-	y: 104,
-	type: 2,
-	flag: true
+    x: 32,
+    y: 104,
+    type: 2,
+    flag: true
 
 }, {
-	x: 140,
-	y: 84,
-	type: 2,
-	flag: false
+    x: 140,
+    y: 84,
+    type: 2,
+    flag: false
 
 }, {
-	x: -84,
-	y: 64,
-	type: 4,
-	flag: true
+    x: -84,
+    y: 64,
+    type: 4,
+    flag: true
 
 }, {
-	x: -56,
-	y: -40,
-	type: 4,
-	flag: false
+    x: -56,
+    y: -40,
+    type: 4,
+    flag: false
 }];
 
 /***/ }),
@@ -13651,12 +13689,22 @@ var GameTypeView = function (_BaseView) {
             this.singlePlayer.setCallback(function () {
                 __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
                 var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("single");
+                gameManager.start("single", false);
             });
             this.multiPlayer.setCallback(function () {
                 __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayer.el.getAttribute("href"), false);
                 var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("multi");
+                gameManager.start("multi", false);
+            });
+            this.singlePlayerLite.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayerLite.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+                gameManager.start("single", true);
+            });
+            this.multiPlayerLite.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayerLite.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+                gameManager.start("multi", true);
             });
             this.changeformBtn.setCallback(function () {
                 __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
@@ -13683,10 +13731,22 @@ var gameFields = [{
     value: "Singleplayer",
     href: "/game/"
 }, {
+    name: "singlePlayerLite",
+    class: " button",
+    elemType: "a",
+    value: "Singleplayer Lite",
+    href: "/game/"
+}, {
     name: "multiPlayer",
     class: " button",
     elemType: "a",
     value: "multiplayer",
+    href: "/game/"
+}, {
+    name: "multiPlayerLite",
+    class: " button",
+    elemType: "a",
+    value: "multiplayer lite",
     href: "/game/"
 }, {
     name: "changeformBtn",
