@@ -189,6 +189,7 @@ var Router = function () {
                 window.history.pushState({ path: href }, "", href); // for -> <-
             }
             if (href !== this.currentHref) {
+                window.updateUserData();
                 this.views[href].view.show();
                 if (this.currentHref !== null) {
                     this.views[this.currentHref].view.hide();
@@ -365,8 +366,21 @@ var UserService = function () {
         key: "whoami",
         value: function whoami() {
             return new Promise(function (resolve, reject) {
-                Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].check).then(function () {
-                    resolve();
+                Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].check).then(function (responce) {
+                    resolve(responce);
+                    // return responce;
+                }).catch(function (error) {
+                    reject("its very sad");
+                });
+            });
+        }
+    }, {
+        key: "getScoreBoard",
+        value: function getScoreBoard() {
+            return new Promise(function (resolve, reject) {
+                Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].scoreboard).then(function (responce) {
+                    resolve(responce);
+                    // return responce;
                 }).catch(function (error) {
                     reject("its very sad");
                 });
@@ -393,36 +407,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var pBar = function () {
-    function pBar() {
-        _classCallCheck(this, pBar);
+	function pBar() {
+		_classCallCheck(this, pBar);
 
-        this.elem = document.getElementsByClassName("myBar")[0];
-        this.hide();
-    }
+		this.elem = document.getElementsByClassName("myBar")[0];
+		this.hide();
+	}
 
-    /**
+	/**
      * Показать прогресс бар 
      */
 
 
-    _createClass(pBar, [{
-        key: "show",
-        value: function show() {
-            this.elem.parentElement.classList.remove("hidden");
-        }
+	_createClass(pBar, [{
+		key: "show",
+		value: function show() {
+			this.elem.parentElement.classList.remove("hidden");
+		}
 
-        /**
-         * Скрыть прогресс бар 
-         */
+		/**
+      * Скрыть прогресс бар 
+      */
 
-    }, {
-        key: "hide",
-        value: function hide() {
-            this.elem.parentElement.classList.add("hidden");
-        }
-    }]);
+	}, {
+		key: "hide",
+		value: function hide() {
+			this.elem.parentElement.classList.add("hidden");
+		}
+	}]);
 
-    return pBar;
+	return pBar;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (new pBar());
@@ -3958,8 +3972,8 @@ var GameManager = function () {
                     webSocket.send(JSON.stringify(msgToSend));
                 };
 
-                var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
-                // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+                // var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+                var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
                 var isConnected = false;
 
                 webSocket.onmessage = function (message) {
@@ -4259,7 +4273,7 @@ function routeValidate(href, router, savehistory) {
 
 function analyseHref(href, isLogged, router, savehistory) {
     if (isLogged) {
-        ["/register/", "/login/", "/game/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
+        ["/register/", "/login/", "/game/", "/scoreboard/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
     } else {
         ["/register/", "/login/"].includes(href) ? router.go(href, savehistory) : router.go("/login/", savehistory);
     }
@@ -4456,203 +4470,203 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var Player = function () {
-    function Player(nickname, coords, actionStates) {
-        _classCallCheck(this, Player);
+	function Player(nickname, coords, actionStates) {
+		_classCallCheck(this, Player);
 
-        this.actionStates = actionStates;
-        this.health = 100;
-        this.nickname = nickname;
-        this.coords = { x: coords[0], y: coords[1] };
-        this.angle = -0.5 * Math.PI;
-        this.turretAngle = Math.PI - Math.PI - 0.5 * Math.PI;
-        this.cameraCurrentType = 0;
-        this.bulletCoords = {};
-        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false, fire: true };
-        this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }, { x: -250, y: 0, height: 2, width: 500 }, { x: 250, y: 0, height: 2, width: 500 }, { x: 0, y: -250, height: 500, width: 2 }, { x: 0, y: 250, height: 500, width: 2 }];
-    }
+		this.actionStates = actionStates;
+		this.health = 100;
+		this.nickname = nickname;
+		this.coords = { x: coords[0], y: coords[1] };
+		this.angle = -0.5 * Math.PI;
+		this.turretAngle = Math.PI - Math.PI - 0.5 * Math.PI;
+		this.cameraCurrentType = 0;
+		this.bulletCoords = {};
+		this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false, fire: true };
+		this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }, { x: -250, y: 0, height: 2, width: 500 }, { x: 250, y: 0, height: 2, width: 500 }, { x: 0, y: -250, height: 500, width: 2 }, { x: 0, y: 250, height: 500, width: 2 }];
+	}
 
-    _createClass(Player, [{
-        key: "moveForward",
-        value: function moveForward() {
-            this.coords.y += 0.3 * Math.cos(this.angle);
-            this.coords.x += 0.3 * Math.sin(this.angle);
-        }
-    }, {
-        key: "moveBackward",
-        value: function moveBackward() {
-            this.coords.y -= 0.3 * Math.cos(this.angle);
-            this.coords.x -= 0.3 * Math.sin(this.angle);
-        }
-    }, {
-        key: "turnRight",
-        value: function turnRight() {
-            this.angle += 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnLeft",
-        value: function turnLeft() {
-            this.angle -= 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnTurretRight",
-        value: function turnTurretRight() {
-            this.turretAngle += 0.008 * Math.PI;
-        }
-    }, {
-        key: "turnTurretLeft",
-        value: function turnTurretLeft() {
-            this.turretAngle -= 0.008 * Math.PI;
-        }
-    }, {
-        key: "update",
-        value: function update() {
-            var _this = this;
+	_createClass(Player, [{
+		key: "moveForward",
+		value: function moveForward() {
+			this.coords.y += 0.3 * Math.cos(this.angle);
+			this.coords.x += 0.3 * Math.sin(this.angle);
+		}
+	}, {
+		key: "moveBackward",
+		value: function moveBackward() {
+			this.coords.y -= 0.3 * Math.cos(this.angle);
+			this.coords.x -= 0.3 * Math.sin(this.angle);
+		}
+	}, {
+		key: "turnRight",
+		value: function turnRight() {
+			this.angle += 0.005 * Math.PI;
+		}
+	}, {
+		key: "turnLeft",
+		value: function turnLeft() {
+			this.angle -= 0.005 * Math.PI;
+		}
+	}, {
+		key: "turnTurretRight",
+		value: function turnTurretRight() {
+			this.turretAngle += 0.008 * Math.PI;
+		}
+	}, {
+		key: "turnTurretLeft",
+		value: function turnTurretLeft() {
+			this.turretAngle -= 0.008 * Math.PI;
+		}
+	}, {
+		key: "update",
+		value: function update() {
+			var _this = this;
 
-            if (this.actionStates.forward) {
-                this.deprecatedMovemants.backward = false;
-                if (!this.deprecatedMovemants.forward) {
-                    this.moveForward();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.forward = true;
-                } else {
-                    this.deprecatedMovemants.forward = false;
-                }
-            }
-            if (this.actionStates.backward) {
-                this.deprecatedMovemants.forward = false;
-                if (!this.deprecatedMovemants.backward) {
-                    this.moveBackward();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.backward = true;
-                } else {
-                    this.deprecatedMovemants.backward = false;
-                }
-            }
-            if (this.actionStates.right) {
-                if (!this.deprecatedMovemants.turnRight) {
-                    this.turnRight();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.turnRight = true;
-                } else {
-                    this.deprecatedMovemants.turnRight = false;
-                }
-            }
-            if (this.actionStates.left) {
-                if (!this.deprecatedMovemants.turnLeft) {
-                    this.turnLeft();
-                }
-                if (this._tankCollisionWithHouses()) {
-                    this.deprecatedMovemants.turnLeft = true;
-                } else {
-                    this.deprecatedMovemants.turnLeft = false;
-                }
-            }
-            if (this.actionStates.turretLeft) {
-                this.turnTurretLeft();
-            }
-            if (this.actionStates.turretRight) {
-                this.turnTurretRight();
-            }
-            if (this.actionStates.changeCamera) {
-                this.actionStates.changeCamera = false;
-                this.cameraCurrentType++;
-                this.cameraCurrentType %= 3;
-            }
-            if (this.actionStates.fire && this.deprecatedMovemants.fire) {
-                Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
-                    _this.actionStates.fire = false;
-                }, 1);
-                this.deprecatedMovemants.fire = false;
-                Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
-                    _this.deprecatedMovemants.fire = true;
-                }, 4000);
-                this.bulletCoords = this._fireCollision(); //TODO
-            } else {
-                this.actionStates.fire = false;
-            }
-        }
-    }, {
-        key: "_pointInPolygon",
-        value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
-            var leftX = polyX - polyH / 2;
-            var rightX = leftX + polyH;
-            if (pointX < rightX && pointX > leftX) {
-                var leftY = polyY - polyW / 2;
-                var rightY = leftY + polyW;
-                if (pointY < rightY && pointY > leftY) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }, {
-        key: "_tankCollisionWithHouses",
-        value: function _tankCollisionWithHouses() {
-            var _this2 = this;
+			if (this.actionStates.forward) {
+				this.deprecatedMovemants.backward = false;
+				if (!this.deprecatedMovemants.forward) {
+					this.moveForward();
+				}
+				if (this._tankCollisionWithHouses()) {
+					this.deprecatedMovemants.forward = true;
+				} else {
+					this.deprecatedMovemants.forward = false;
+				}
+			}
+			if (this.actionStates.backward) {
+				this.deprecatedMovemants.forward = false;
+				if (!this.deprecatedMovemants.backward) {
+					this.moveBackward();
+				}
+				if (this._tankCollisionWithHouses()) {
+					this.deprecatedMovemants.backward = true;
+				} else {
+					this.deprecatedMovemants.backward = false;
+				}
+			}
+			if (this.actionStates.right) {
+				if (!this.deprecatedMovemants.turnRight) {
+					this.turnRight();
+				}
+				if (this._tankCollisionWithHouses()) {
+					this.deprecatedMovemants.turnRight = true;
+				} else {
+					this.deprecatedMovemants.turnRight = false;
+				}
+			}
+			if (this.actionStates.left) {
+				if (!this.deprecatedMovemants.turnLeft) {
+					this.turnLeft();
+				}
+				if (this._tankCollisionWithHouses()) {
+					this.deprecatedMovemants.turnLeft = true;
+				} else {
+					this.deprecatedMovemants.turnLeft = false;
+				}
+			}
+			if (this.actionStates.turretLeft) {
+				this.turnTurretLeft();
+			}
+			if (this.actionStates.turretRight) {
+				this.turnTurretRight();
+			}
+			if (this.actionStates.changeCamera) {
+				this.actionStates.changeCamera = false;
+				this.cameraCurrentType++;
+				this.cameraCurrentType %= 3;
+			}
+			if (this.actionStates.fire && this.deprecatedMovemants.fire) {
+				Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
+					_this.actionStates.fire = false;
+				}, 1);
+				this.deprecatedMovemants.fire = false;
+				Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
+					_this.deprecatedMovemants.fire = true;
+				}, 4000);
+				this.bulletCoords = this._fireCollision(); //TODO
+			} else {
+				this.actionStates.fire = false;
+			}
+		}
+	}, {
+		key: "_pointInPolygon",
+		value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
+			var leftX = polyX - polyH / 2;
+			var rightX = leftX + polyH;
+			if (pointX < rightX && pointX > leftX) {
+				var leftY = polyY - polyW / 2;
+				var rightY = leftY + polyW;
+				if (pointY < rightY && pointY > leftY) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}, {
+		key: "_tankCollisionWithHouses",
+		value: function _tankCollisionWithHouses() {
+			var _this2 = this;
 
-            var tankPoints = [{
-                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
-            }, {
-                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
-            }, {
-                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
-            }, {
-                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
-                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
-            }];
-            var flag = false;
-            this.map.some(function (key) {
-                tankPoints.some(function (tp) {
-                    flag = _this2._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
-                    return flag;
-                });
-                return flag;
-            });
-            return flag;
-        }
-    }, {
-        key: "_fireCollision",
-        value: function _fireCollision() {
-            var cnt = 0;
-            var bulletX = this.coords.x;
-            var bulletY = this.coords.y;
-            var currentAngle = this.turretAngle;
-            while (!this._checkBulletWithHouses(bulletX, bulletY) && cnt < 100000) {
-                bulletX += 0.1 * Math.sin(currentAngle);
-                bulletY += 0.1 * Math.cos(currentAngle);
-                cnt++;
-            }
-            if (cnt < 100000) {
-                return { x: bulletX, y: bulletY };
-            }
-            return { x: 0, y: 0 };
-        }
-    }, {
-        key: "_checkBulletWithHouses",
-        value: function _checkBulletWithHouses(bulletX, bulletY) {
-            var _this3 = this;
+			var tankPoints = [{
+				y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+				x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+			}, {
+				y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+				x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+			}, {
+				y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+				x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+			}, {
+				y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+				x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+			}];
+			var flag = false;
+			this.map.some(function (key) {
+				tankPoints.some(function (tp) {
+					flag = _this2._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
+					return flag;
+				});
+				return flag;
+			});
+			return flag;
+		}
+	}, {
+		key: "_fireCollision",
+		value: function _fireCollision() {
+			var cnt = 0;
+			var bulletX = this.coords.x;
+			var bulletY = this.coords.y;
+			var currentAngle = this.turretAngle;
+			while (!this._checkBulletWithHouses(bulletX, bulletY) && cnt < 100000) {
+				bulletX += 0.1 * Math.sin(currentAngle);
+				bulletY += 0.1 * Math.cos(currentAngle);
+				cnt++;
+			}
+			if (cnt < 100000) {
+				return { x: bulletX, y: bulletY };
+			}
+			return { x: 0, y: 0 };
+		}
+	}, {
+		key: "_checkBulletWithHouses",
+		value: function _checkBulletWithHouses(bulletX, bulletY) {
+			var _this3 = this;
 
-            var flag = false;
-            this.map.some(function (key) {
-                flag = _this3._pointInPolygon(bulletX, bulletY, key.x, key.y, key.height, key.width);
-                return flag;
-            });
-            return flag;
-        }
-    }, {
-        key: "getInstrustions",
-        value: function getInstrustions() {
-            return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire, bulletCoords: this.bulletCoords };
-        }
-    }]);
+			var flag = false;
+			this.map.some(function (key) {
+				flag = _this3._pointInPolygon(bulletX, bulletY, key.x, key.y, key.height, key.width);
+				return flag;
+			});
+			return flag;
+		}
+	}, {
+		key: "getInstrustions",
+		value: function getInstrustions() {
+			return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire, bulletCoords: this.bulletCoords };
+		}
+	}]);
 
-    return Player;
+	return Player;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Player);
@@ -5435,9 +5449,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_ScoreboardView_ScoreboardView__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_GameMenu_GameMenuView__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__utils_RouteValidate__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_load_bar__ = __webpack_require__(4);
+
 
 
 
@@ -5469,7 +5485,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //         });
 // }
 
-__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].show();
+__WEBPACK_IMPORTED_MODULE_13__modules_load_bar__["a" /* default */].show();
 
 var app = document.getElementById("application");
 document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
@@ -5484,8 +5500,9 @@ var menu = new __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__["a" /* def
 var change = new __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__["a" /* default */](main.el);
 var theme = new __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__["a" /* default */](main.el);
 var gameType = new __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__["a" /* default */](main.el);
-var gameMenu = new __WEBPACK_IMPORTED_MODULE_10__views_GameMenu_GameMenuView__["a" /* default */](main.el);
+var gameMenu = new __WEBPACK_IMPORTED_MODULE_11__views_GameMenu_GameMenuView__["a" /* default */](main.el);
 var gameView = new __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__["a" /* default */](main.el);
+var scoreboardView = new __WEBPACK_IMPORTED_MODULE_10__views_ScoreboardView_ScoreboardView__["a" /* default */](main.el);
 
 var config = {
     "/login/": {
@@ -5508,15 +5525,18 @@ var config = {
     },
     "/game/": {
         view: gameView
+    },
+    "/scoreboard/": {
+        view: scoreboardView
     }
 };
 
-Object(__WEBPACK_IMPORTED_MODULE_11__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
+Object(__WEBPACK_IMPORTED_MODULE_12__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
 
 __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].init(main.el, config);
 __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
 
-__WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
+__WEBPACK_IMPORTED_MODULE_13__modules_load_bar__["a" /* default */].hide();
 
 // if ('serviceWorker' in window.navigator) {
 //     window.navigator.serviceWorker.register('../sw.js');
@@ -5535,10 +5555,11 @@ __WEBPACK_IMPORTED_MODULE_12__modules_load_bar__["a" /* default */].hide();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
-var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
-// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
+// const PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
+var PREFIX_URL = "http://127.0.0.1:8080/api/user/";
 var urls = {
     login: PREFIX_URL + "login",
+    scoreboard: PREFIX_URL + "scoreboard",
     register: PREFIX_URL + "register",
     logout: PREFIX_URL + "logout",
     check: PREFIX_URL + "getuser",
@@ -5571,8 +5592,8 @@ function httpReq(type, uRL, sendObject) {
             credentials: "include"
         }).then(function (response) {
             if (response.status === 200) {
-                resolve(response);
-                return;
+                resolve(response.json());
+                // return response;
             } else {
                 reject("Something went wrong");
             }
@@ -5591,53 +5612,53 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Validate = function () {
-    function Validate() {
-        _classCallCheck(this, Validate);
-    }
+	function Validate() {
+		_classCallCheck(this, Validate);
+	}
 
-    /**
+	/**
      * Проверить логин(ник)
      */
 
 
-    _createClass(Validate, null, [{
-        key: "checkLogin",
-        value: function checkLogin(nick) {
-            return nick.length < 20 && nick.length > 1;
-        }
+	_createClass(Validate, null, [{
+		key: "checkLogin",
+		value: function checkLogin(nick) {
+			return nick.length < 20 && nick.length > 1;
+		}
 
-        /**
-         * Проверить пароль
-         */
+		/**
+      * Проверить пароль
+      */
 
-    }, {
-        key: "checkPassword",
-        value: function checkPassword(password) {
-            return password.length < 20 && password.length > 1;
-        }
+	}, {
+		key: "checkPassword",
+		value: function checkPassword(password) {
+			return password.length < 20 && password.length > 1;
+		}
 
-        /**
-         * Проверить совпадение паролей
-         */
+		/**
+      * Проверить совпадение паролей
+      */
 
-    }, {
-        key: "confirmPassword",
-        value: function confirmPassword(password, confirm) {
-            return password === confirm;
-        }
+	}, {
+		key: "confirmPassword",
+		value: function confirmPassword(password, confirm) {
+			return password === confirm;
+		}
 
-        /**
-         * Проверить логин(ник) и пароль
-         */
+		/**
+      * Проверить логин(ник) и пароль
+      */
 
-    }, {
-        key: "checkLogAndPas",
-        value: function checkLogAndPas(nick, password) {
-            return this.checkLogin(nick) && this.checkPassword(password);
-        }
-    }]);
+	}, {
+		key: "checkLogAndPas",
+		value: function checkLogAndPas(nick, password) {
+			return this.checkLogin(nick) && this.checkPassword(password);
+		}
+	}]);
 
-    return Validate;
+	return Validate;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Validate);
@@ -5830,60 +5851,60 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
 
 var RegisterView = function (_BaseView) {
-    _inherits(RegisterView, _BaseView);
+	_inherits(RegisterView, _BaseView);
 
-    function RegisterView(parentNode) {
-        _classCallCheck(this, RegisterView);
+	function RegisterView(parentNode) {
+		_classCallCheck(this, RegisterView);
 
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
 
-        var _this = _possibleConstructorReturn(this, (RegisterView.__proto__ || Object.getPrototypeOf(RegisterView)).call(this, view.el));
+		var _this = _possibleConstructorReturn(this, (RegisterView.__proto__ || Object.getPrototypeOf(RegisterView)).call(this, view.el));
 
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
 
-    _createClass(RegisterView, [{
-        key: "_appendChildren",
-        value: function _appendChildren() {
-            var _this2 = this;
+	_createClass(RegisterView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1__register_js__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            var _this3 = this;
+			__WEBPACK_IMPORTED_MODULE_1__register_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
 
-            this.registerBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
-                userService.register(_this3.nick.el.value, _this3.password.el.value, _this3.confirm.el.value).then(function () {
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.registerBtn.el.getAttribute("href"));
-                    _this3.warning.hide();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                }).catch(function (err) {
-                    _this3.warning.setAttributes({ value: err });
-                    _this3.warning.show();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                });
+			this.registerBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
+				userService.register(_this3.nick.el.value, _this3.password.el.value, _this3.confirm.el.value).then(function () {
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.registerBtn.el.getAttribute("href"));
+					_this3.warning.hide();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				}).catch(function (err) {
+					_this3.warning.setAttributes({ value: err });
+					_this3.warning.show();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				});
 
-                _this3.changeformBtn.setCallback(function () {
-                    _this3.warning.hide();
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-                });
-            });
-        }
-    }]);
+				_this3.changeformBtn.setCallback(function () {
+					_this3.warning.hide();
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+				});
+			});
+		}
+	}]);
 
-    return RegisterView;
+	return RegisterView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (RegisterView);
@@ -5968,55 +5989,61 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
 
 var MenuView = function (_BaseView) {
-	_inherits(MenuView, _BaseView);
+    _inherits(MenuView, _BaseView);
 
-	function MenuView(parentNode) {
-		_classCallCheck(this, MenuView);
+    function MenuView(parentNode) {
+        _classCallCheck(this, MenuView);
 
-		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
 
-		var _this = _possibleConstructorReturn(this, (MenuView.__proto__ || Object.getPrototypeOf(MenuView)).call(this, view.el));
+        var _this = _possibleConstructorReturn(this, (MenuView.__proto__ || Object.getPrototypeOf(MenuView)).call(this, view.el));
 
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
-		return _this;
-	}
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        return _this;
+    }
 
-	_createClass(MenuView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
+    _createClass(MenuView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
 
-			__WEBPACK_IMPORTED_MODULE_1__menu_js__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
+            __WEBPACK_IMPORTED_MODULE_1__menu_js__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
 
-			this.changeBtn.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"), false);
-			});
-			this.logoutBtn.setCallback(function () {
-				userService.logout().then(function () {
-					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.logoutBtn.el.getAttribute("href"));
-				}).catch(function (err) {});
-			});
+            this.changeBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"), false);
+            });
+            this.logoutBtn.setCallback(function () {
+                userService.logout().then(function () {
+                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.logoutBtn.el.getAttribute("href"));
+                }).catch(function (err) {});
+            });
 
-			this.play.setCallback(function () {
-				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.play.el.getAttribute("href"), false);
-			});
-		}
-	}]);
+            this.play.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.play.el.getAttribute("href"), false);
+            });
+            this.scoreboardBtn.setCallback(function () {
+                userService.getScoreBoard().then(function (res) {
+                    // console.log(res)
+                    window.updateScoreboard(res);
+                });
+            });
+        }
+    }]);
 
-	return MenuView;
+    return MenuView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (MenuView);
@@ -6029,29 +6056,31 @@ var MenuView = function (_BaseView) {
 
 
 var menuFields = [{
-	name: "play",
-	class: " button",
-	elemType: "a",
-	href: "/play/",
-	value: "play"
+    name: "play",
+    class: " button",
+    elemType: "a",
+    href: "/play/",
+    value: "play"
 }, {
-	name: "changeBtn",
-	class: " button",
-	elemType: "a",
-	href: "/changepass/",
-	value: "Change Password"
+    name: "changeBtn",
+    class: " button",
+    elemType: "a",
+    href: "/changepass/",
+    value: "Change Password"
 }, {
-	name: "logoutBtn",
-	class: " button",
-	elemType: "input",
-	type: "button",
-	href: "/login/",
-	value: "log out"
+    name: "scoreboardBtn",
+    class: " button",
+    elemType: "a",
+    value: "scoreboard",
+    href: "/scoreboard/",
+    type: "button"
 }, {
-	name: "scoreboardBtn",
-	class: " button",
-	elemType: "a",
-	value: "scoreboard"
+    name: "logoutBtn",
+    class: " button",
+    elemType: "input",
+    type: "button",
+    href: "/login/",
+    value: "log out"
 }];
 /* harmony default export */ __webpack_exports__["a"] = (menuFields);
 
@@ -6069,106 +6098,106 @@ var keyboardJS = __webpack_require__(11);
 
 
 var SinglePlayer = function () {
-    function SinglePlayer() {
-        _classCallCheck(this, SinglePlayer);
+	function SinglePlayer() {
+		_classCallCheck(this, SinglePlayer);
 
-        this._gameLoop = this._gameLoop.bind(this);
-        this.actionStates = {};
-        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50], this.actionStates); // TODO write your original
-        this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
-    }
+		this._gameLoop = this._gameLoop.bind(this);
+		this.actionStates = {};
+		this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50], this.actionStates); // TODO write your original
+		this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
+	}
 
-    _createClass(SinglePlayer, [{
-        key: "getPlayersCoors",
-        value: function getPlayersCoors() {
-            return {
-                me: this.me.coords,
-                opponent: this.opponent.coords
-            };
-        }
-    }, {
-        key: "startListenGameLoop",
-        value: function startListenGameLoop(callback) {
-            var _this = this;
+	_createClass(SinglePlayer, [{
+		key: "getPlayersCoors",
+		value: function getPlayersCoors() {
+			return {
+				me: this.me.coords,
+				opponent: this.opponent.coords
+			};
+		}
+	}, {
+		key: "startListenGameLoop",
+		value: function startListenGameLoop(callback) {
+			var _this = this;
 
-            this.sceneInstructionCallback = callback;
-            this._startLoop();
-            this._initKeyListeners(function (newState) {
-                Object.assign(_this.actionStates, newState);
-            });
-        }
-    }, {
-        key: "_startLoop",
-        value: function _startLoop() {
-            window.requestAnimationFrame(this._gameLoop);
-        }
+			this.sceneInstructionCallback = callback;
+			this._startLoop();
+			this._initKeyListeners(function (newState) {
+				Object.assign(_this.actionStates, newState);
+			});
+		}
+	}, {
+		key: "_startLoop",
+		value: function _startLoop() {
+			window.requestAnimationFrame(this._gameLoop);
+		}
 
-        //Основной цикл, который шлет изменения
+		//Основной цикл, который шлет изменения
 
-    }, {
-        key: "_gameLoop",
-        value: function _gameLoop() {
+	}, {
+		key: "_gameLoop",
+		value: function _gameLoop() {
 
-            // Object.keys(this._actionStates).forEach(key => {
-            //     this.me[key] = this._actionStates[key];
-            // });
-            this.me.update();
-            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
-            this.me.getInstrustions());
-            window.requestAnimationFrame(this._gameLoop);
-        }
-    }, {
-        key: "_initKeyListeners",
-        value: function _initKeyListeners(callback) {
-            keyboardJS.bind("m", function (e) {
-                callback({ turretRight: true });
-            }, function (e) {
-                callback({ turretRight: false });
-            });
-            keyboardJS.bind("n", function (e) {
-                callback({ turretLeft: true });
-            }, function (e) {
-                callback({ turretLeft: false });
-            });
-            keyboardJS.bind("w", function (e) {
-                callback({ forward: true });
-            }, function (e) {
-                callback({ forward: false });
-            });
-            keyboardJS.bind("s", function (e) {
-                callback({ backward: true });
-            }, function (e) {
-                callback({ backward: false });
-            });
-            keyboardJS.bind("d", function (e) {
-                callback({ right: true });
-            }, function (e) {
-                callback({ right: false });
-            });
-            keyboardJS.bind("a", function (e) {
-                callback({ left: true });
-            }, function (e) {
-                callback({ left: false });
-            });
-            keyboardJS.bind("v", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                callback({ changeCamera: true });
-            });
-            keyboardJS.bind("space", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                callback({ fire: true });
-            });
-        }
-    }, {
-        key: "randomMovemant",
-        value: function randomMovemant(callback) {
-            callback({ left: true, forward: true });
-        }
-    }]);
+			// Object.keys(this._actionStates).forEach(key => {
+			//     this.me[key] = this._actionStates[key];
+			// });
+			this.me.update();
+			this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+			this.me.getInstrustions());
+			window.requestAnimationFrame(this._gameLoop);
+		}
+	}, {
+		key: "_initKeyListeners",
+		value: function _initKeyListeners(callback) {
+			keyboardJS.bind("m", function (e) {
+				callback({ turretRight: true });
+			}, function (e) {
+				callback({ turretRight: false });
+			});
+			keyboardJS.bind("n", function (e) {
+				callback({ turretLeft: true });
+			}, function (e) {
+				callback({ turretLeft: false });
+			});
+			keyboardJS.bind("w", function (e) {
+				callback({ forward: true });
+			}, function (e) {
+				callback({ forward: false });
+			});
+			keyboardJS.bind("s", function (e) {
+				callback({ backward: true });
+			}, function (e) {
+				callback({ backward: false });
+			});
+			keyboardJS.bind("d", function (e) {
+				callback({ right: true });
+			}, function (e) {
+				callback({ right: false });
+			});
+			keyboardJS.bind("a", function (e) {
+				callback({ left: true });
+			}, function (e) {
+				callback({ left: false });
+			});
+			keyboardJS.bind("v", function (e) {
+				// callback({ changeCamera: false });
+			}, function (e) {
+				callback({ changeCamera: true });
+			});
+			keyboardJS.bind("space", function (e) {
+				// callback({ changeCamera: false });
+			}, function (e) {
+				callback({ fire: true });
+			});
+		}
+	}, {
+		key: "randomMovemant",
+		value: function randomMovemant(callback) {
+			callback({ left: true, forward: true });
+		}
+	}]);
 
-    return SinglePlayer;
+	return SinglePlayer;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (SinglePlayer);
@@ -7439,314 +7468,314 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // import { Math } from "../../../../Library/Caches/typescript/2.6/node_modules/@types/three";
 
 var Scene = function () {
-    function Scene(startPositionMe, startPositionOpponent, type, liteVersion) {
-        var _this = this;
+	function Scene(startPositionMe, startPositionOpponent, type, liteVersion) {
+		var _this = this;
 
-        _classCallCheck(this, Scene);
+		_classCallCheck(this, Scene);
 
-        __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].show();
-        this.type = type;
-        this.liteVersion = liteVersion;
-        this.stats = new Stats();
-        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-        document.body.appendChild(this.stats.dom);
-        //////
-        this._resizeFunction = this._resizeFunction.bind(this);
+		__WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].show();
+		this.type = type;
+		this.liteVersion = liteVersion;
+		this.stats = new Stats();
+		this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+		document.body.appendChild(this.stats.dom);
+		//////
+		this._resizeFunction = this._resizeFunction.bind(this);
 
-        this.scene = new THREE.Scene();
-        this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
-        this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
-        // modelLoader("Hammer+Tank/model.dae").then(coll => {
-        Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("T90/model.dae").then(function (coll) {
+		this.scene = new THREE.Scene();
+		this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
+		this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
+		// modelLoader("Hammer+Tank/model.dae").then(coll => {
+		Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("T90/model.dae").then(function (coll) {
 
-            var collada = [coll.scene.clone(), coll.scene.clone()];
-            var i = 0;
-            ["tankOpponent", "tankMe"].forEach(function (key) {
-                //tank
-                var cpy1 = collada[i].clone();
-                var cpy2 = collada[i].clone();
+			var collada = [coll.scene.clone(), coll.scene.clone()];
+			var i = 0;
+			["tankOpponent", "tankMe"].forEach(function (key) {
+				//tank
+				var cpy1 = collada[i].clone();
+				var cpy2 = collada[i].clone();
 
-                cpy1.children[2] = new THREE.Object3D();
-                cpy1.children[3] = new THREE.Object3D();
-                cpy2.children[0] = new THREE.Object3D();
-                cpy2.children[1] = new THREE.Object3D();
+				cpy1.children[2] = new THREE.Object3D();
+				cpy1.children[3] = new THREE.Object3D();
+				cpy2.children[0] = new THREE.Object3D();
+				cpy2.children[1] = new THREE.Object3D();
 
-                // this[key].parent.add(cpy1);
-                _this[key].dae.add(cpy1);
+				// this[key].parent.add(cpy1);
+				_this[key].dae.add(cpy1);
 
-                _this[key].dae.rotation.x = -0.5 * Math.PI;
-                _this[key].dae.rotation.z = 1 * Math.PI;
-                _this[key].dae.rotation.y = -0.5 * Math.PI;
+				_this[key].dae.rotation.x = -0.5 * Math.PI;
+				_this[key].dae.rotation.z = 1 * Math.PI;
+				_this[key].dae.rotation.y = -0.5 * Math.PI;
 
-                // this[key].dae.castShadow = true;
-                _this.scene.add(_this[key].dae);
+				// this[key].dae.castShadow = true;
+				_this.scene.add(_this[key].dae);
 
-                //turret
-                _this[key].turret.parent.add(cpy2);
-                _this[key].turret.dae.rotation.x = -0.5 * Math.PI;
-                // this[key].turret.dae.rotation.y = +0.5 * Math.PI;
+				//turret
+				_this[key].turret.parent.add(cpy2);
+				_this[key].turret.dae.rotation.x = -0.5 * Math.PI;
+				// this[key].turret.dae.rotation.y = +0.5 * Math.PI;
 
-                _this[key].turret.dae.rotation.z = 1 * Math.PI;
-                _this.scene.add(_this[key].turret.dae);
-                i++;
-            });
-            // progressBar.hide();
-            _this._init();
-            __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].hide();
-        });
-        this._addMap();
-    }
+				_this[key].turret.dae.rotation.z = 1 * Math.PI;
+				_this.scene.add(_this[key].turret.dae);
+				i++;
+			});
+			// progressBar.hide();
+			_this._init();
+			__WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].hide();
+		});
+		this._addMap();
+	}
 
-    _createClass(Scene, [{
-        key: "_init",
-        value: function _init() {
-            ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
+	_createClass(Scene, [{
+		key: "_init",
+		value: function _init() {
+			///////////////////////////////////////// // Camera ///////////////////////////////////////// 
 
-            this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
+			this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
 
-            this.camera.position.set(0, 7.9, 50);
-            this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
-            this.renderer = new THREE.WebGLRenderer({
-                alpha: true,
-                antialias: true
-            });
-            //this.renderer.shadowMap.enabled = true;
+			this.camera.position.set(0, 7.9, 50);
+			this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+			this.renderer = new THREE.WebGLRenderer({
+				alpha: true,
+				antialias: true
+			});
+			//this.renderer.shadowMap.enabled = true;
 
-            this.tankMe.turret.dae.add(this.camera);
-            ///f
-            this.tankMe.camera = this.camera;
-            ///
+			this.tankMe.turret.dae.add(this.camera);
+			///f
+			this.tankMe.camera = this.camera;
+			///
 
-            this.renderer.setPixelRatio(window.devicePixelRatio);
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-            ///
-            this.renderer.domElement.setAttribute("id", "game");
-            this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
-            this.renderer.domElement.style.position = "absolute";
-            this.renderer.domElement.style.zIndex = "1";
+			this.renderer.setPixelRatio(window.devicePixelRatio);
+			this.renderer.setSize(window.innerWidth, window.innerHeight);
+			///
+			this.renderer.domElement.setAttribute("id", "game");
+			this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
+			this.renderer.domElement.style.position = "absolute";
+			this.renderer.domElement.style.zIndex = "1";
 
-            document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
-            ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
-            var light = void 0,
-                light2 = void 0;
-            this.scene.add(new THREE.AmbientLight(0x666666));
-            light = new THREE.DirectionalLight(0xdfebff, 1.1);
-            light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
+			document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
+			///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
+			var light = void 0,
+			    light2 = void 0;
+			this.scene.add(new THREE.AmbientLight(0x666666));
+			light = new THREE.DirectionalLight(0xdfebff, 1.1);
+			light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
 
-            light.position.set(50, 200, 100);
-            light2.position.set(-150, -200, 100);
+			light.position.set(50, 200, 100);
+			light2.position.set(-150, -200, 100);
 
-            light.position.multiplyScalar(1.3);
-            light2.position.multiplyScalar(1.3);
-            this.scene.add(light);
-            this.scene.add(light2);
-            /////////light end
-            this._resizeWindow();
+			light.position.multiplyScalar(1.3);
+			light2.position.multiplyScalar(1.3);
+			this.scene.add(light);
+			this.scene.add(light2);
+			/////////light end
+			this._resizeWindow();
 
-            this._startRenderAnimate();
-            this.staticScene = new __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__["a" /* default */](this.type);
-        }
-    }, {
-        key: "updateObjects",
-        value: function updateObjects(type, instractions) {
-            var _this2 = this;
+			this._startRenderAnimate();
+			this.staticScene = new __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__["a" /* default */](this.type);
+		}
+	}, {
+		key: "updateObjects",
+		value: function updateObjects(type, instractions) {
+			var _this2 = this;
 
-            if (instractions.state === 1 || instractions.state === 0 || instractions.state === -1) {
-                this.staticScene.showGameState(instractions.state);
-            }
-            this[type].instractions = instractions;
-            if (type === "tankMe") {
-                if (this.staticScene !== undefined) {
-                    this.staticScene.changeHP(instractions.HP);
-                }
-            }
-            if (instractions.fire) {
-                if (type === "tankMe") {
-                    this.staticScene.fireReload();
-                }
-                this[type].boom.visible = true;
-                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                    _this2[type].boom.visible = false;
-                    _this2._showBoom(type, instractions.bulletCoords);
-                }, 500);
-            }
-        }
+			if (instractions.state === 1 || instractions.state === 0 || instractions.state === -1) {
+				this.staticScene.showGameState(instractions.state);
+			}
+			this[type].instractions = instractions;
+			if (type === "tankMe") {
+				if (this.staticScene !== undefined) {
+					this.staticScene.changeHP(instractions.HP);
+				}
+			}
+			if (instractions.fire) {
+				if (type === "tankMe") {
+					this.staticScene.fireReload();
+				}
+				this[type].boom.visible = true;
+				Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+					_this2[type].boom.visible = false;
+					_this2._showBoom(type, instractions.bulletCoords);
+				}, 500);
+			}
+		}
 
-        // _showBoom(type, coords = {}) {
-        //     if (type === "tankMe") {
-        //         this.boom2.position.set(coords.x - 5, coords.y, 2);
-        //         this.boom2.visible = true;
-        //         setTimeout(() => { this.boom2.visible = false; }, 300);
-        //     } else {
-        //         this.boom2Op.position.set(coords.x - 5, coords.y, 2);
-        //         this.boom2Op.visible = true;
-        //         setTimeout(() => { this.boom2Op.visible = false; }, 300);
-        //     }
+		// _showBoom(type, coords = {}) {
+		//     if (type === "tankMe") {
+		//         this.boom2.position.set(coords.x - 5, coords.y, 2);
+		//         this.boom2.visible = true;
+		//         setTimeout(() => { this.boom2.visible = false; }, 300);
+		//     } else {
+		//         this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+		//         this.boom2Op.visible = true;
+		//         setTimeout(() => { this.boom2Op.visible = false; }, 300);
+		//     }
 
-        // }
+		// }
 
-    }, {
-        key: "_showBoom",
-        value: function _showBoom(type) {
-            var _this3 = this;
+	}, {
+		key: "_showBoom",
+		value: function _showBoom(type) {
+			var _this3 = this;
 
-            var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-            //TODO тут косяк с оппонентом
-            if (type === "tankMe") {
-                this.boom2.scale.y = 0.005;
-                this.boom2.scale.x = 0.005;
-                this.boom2.scale.z = 0.005;
-                this.boom2.position.set(coords.x, coords.y, 1);
-                this.boom2.visible = true;
-                var cnt = 20;
-                while (cnt != 500) {
-                    Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                        _this3.boom2.scale.y *= 1.1;
-                        _this3.boom2.scale.x *= 1.1;
-                        _this3.boom2.scale.z *= 1.1;
-                        //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
-                    }, cnt);
-                    cnt += 20;
-                }
+			var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+			//TODO тут косяк с оппонентом
+			if (type === "tankMe") {
+				this.boom2.scale.y = 0.005;
+				this.boom2.scale.x = 0.005;
+				this.boom2.scale.z = 0.005;
+				this.boom2.position.set(coords.x, coords.y, 1);
+				this.boom2.visible = true;
+				var cnt = 20;
+				while (cnt != 500) {
+					Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+						_this3.boom2.scale.y *= 1.1;
+						_this3.boom2.scale.x *= 1.1;
+						_this3.boom2.scale.z *= 1.1;
+						//this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+					}, cnt);
+					cnt += 20;
+				}
 
-                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                    _this3.boom2.visible = false;
-                }, 800);
-            } else {
-                this.boom2Op.scale.y = 0.005;
-                this.boom2Op.scale.x = 0.005;
-                this.boom2Op.scale.z = 0.005;
-                this.boom2Op.position.set(coords.x, coords.y, 1);
-                this.boom2Op.visible = true;
-                var _cnt = 20;
-                while (_cnt != 500) {
-                    Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                        _this3.boom2Op.scale.y *= 1.1;
-                        _this3.boom2Op.scale.x *= 1.1;
-                        _this3.boom2Op.scale.z *= 1.1;
-                        //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
-                    }, _cnt);
-                    _cnt += 20;
-                }
+				Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+					_this3.boom2.visible = false;
+				}, 800);
+			} else {
+				this.boom2Op.scale.y = 0.005;
+				this.boom2Op.scale.x = 0.005;
+				this.boom2Op.scale.z = 0.005;
+				this.boom2Op.position.set(coords.x, coords.y, 1);
+				this.boom2Op.visible = true;
+				var _cnt = 20;
+				while (_cnt != 500) {
+					Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+						_this3.boom2Op.scale.y *= 1.1;
+						_this3.boom2Op.scale.x *= 1.1;
+						_this3.boom2Op.scale.z *= 1.1;
+						//this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+					}, _cnt);
+					_cnt += 20;
+				}
 
-                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-                    _this3.boom2Op.visible = false;
-                }, 800);
-            }
-            // this.boom2.visible = false;
+				Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+					_this3.boom2Op.visible = false;
+				}, 800);
+			}
+			// this.boom2.visible = false;
 
-            // } else {
-            //     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
-            //     this.boom2Op.visible = true;
-            //     setTimeout(() => { this.boom2Op.visible = false; }, 300);
-            // }
-        }
-    }, {
-        key: "_startRenderAnimate",
-        value: function _startRenderAnimate() {
-            var _this4 = this;
+			// } else {
+			//     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+			//     this.boom2Op.visible = true;
+			//     setTimeout(() => { this.boom2Op.visible = false; }, 300);
+			// }
+		}
+	}, {
+		key: "_startRenderAnimate",
+		value: function _startRenderAnimate() {
+			var _this4 = this;
 
-            var innerrender = function innerrender() {
-                window.requestAnimationFrame(innerrender);
-                _this4.stats.begin();
-                _this4._render();
-                _this4.stats.end();
-            };
+			var innerrender = function innerrender() {
+				window.requestAnimationFrame(innerrender);
+				_this4.stats.begin();
+				_this4._render();
+				_this4.stats.end();
+			};
 
-            innerrender();
-        }
-    }, {
-        key: "_render",
-        value: function _render() {
-            var _this5 = this;
+			innerrender();
+		}
+	}, {
+		key: "_render",
+		value: function _render() {
+			var _this5 = this;
 
-            ["tankMe", "tankOpponent"].forEach(function (key) {
-                _this5[key].update();
-            });
-            this.renderer.render(this.scene, this.camera);
-        }
-    }, {
-        key: "_resizeWindow",
-        value: function _resizeWindow() {
-            window.addEventListener("resize", this._resizeFunction, false);
-        }
-    }, {
-        key: "_resizeFunction",
-        value: function _resizeFunction() {
-            this.camera.aspect = window.innerWidth / window.innerHeight;
-            this.camera.updateProjectionMatrix();
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-            this._render();
-        }
-    }, {
-        key: "_addMap",
-        value: function _addMap() {
-            var _this6 = this;
+			["tankMe", "tankOpponent"].forEach(function (key) {
+				_this5[key].update();
+			});
+			this.renderer.render(this.scene, this.camera);
+		}
+	}, {
+		key: "_resizeWindow",
+		value: function _resizeWindow() {
+			window.addEventListener("resize", this._resizeFunction, false);
+		}
+	}, {
+		key: "_resizeFunction",
+		value: function _resizeFunction() {
+			this.camera.aspect = window.innerWidth / window.innerHeight;
+			this.camera.updateProjectionMatrix();
+			this.renderer.setSize(window.innerWidth, window.innerHeight);
+			this._render();
+		}
+	}, {
+		key: "_addMap",
+		value: function _addMap() {
+			var _this6 = this;
 
-            Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene, this.liteVersion);
-            var loader = new THREE.TextureLoader();
-            var groundTexture = loader.load("./game/3dModels/terrain/www.jpg");
-            groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-            groundTexture.repeat.set(1900, 1900);
-            groundTexture.anisotropy = 16;
-            var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
-            var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
-            mesh.position.z = 0.01;
-            this.scene.add(mesh);
-            //
-            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("road/model.dae").then(function (coll) {
-                coll.scene.rotation.x = -0.5 * Math.PI;
-                coll.scene.rotation.z = 1 * Math.PI;
-                coll.scene.position.z -= 0.1;
-                coll.scene.scale.z = 3;
-                coll.scene.scale.x = 0.05;
-                coll.scene.position.z = 0.11;
-                coll.scene.position.y = 500;
-                var road2 = coll.scene.clone();
-                road2.rotation.y = 0.5 * Math.PI;
-                road2.position.y = 0;
-                road2.position.x = 500;
+			Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene, this.liteVersion);
+			var loader = new THREE.TextureLoader();
+			var groundTexture = loader.load("./game/3dModels/terrain/www.jpg");
+			groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+			groundTexture.repeat.set(1900, 1900);
+			groundTexture.anisotropy = 16;
+			var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
+			var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
+			mesh.position.z = 0.01;
+			this.scene.add(mesh);
+			//
+			Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("road/model.dae").then(function (coll) {
+				coll.scene.rotation.x = -0.5 * Math.PI;
+				coll.scene.rotation.z = 1 * Math.PI;
+				coll.scene.position.z -= 0.1;
+				coll.scene.scale.z = 3;
+				coll.scene.scale.x = 0.05;
+				coll.scene.position.z = 0.11;
+				coll.scene.position.y = 500;
+				var road2 = coll.scene.clone();
+				road2.rotation.y = 0.5 * Math.PI;
+				road2.position.y = 0;
+				road2.position.x = 500;
 
-                _this6.scene.add(coll.scene);
-                _this6.scene.add(road2);
-            });
-            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("expl/model.dae").then(function (coll) {
-                coll.scene.rotation.x = -0.5 * Math.PI;
-                coll.scene.rotation.z = 1 * Math.PI;
-                coll.scene.rotation.y = -0.5 * Math.PI;
-                coll.scene.scale.z *= 0.35;
-                coll.scene.scale.y *= 0.35;
-                coll.scene.scale.x *= 0.35;
-                _this6.boom = coll.scene.clone();
-                _this6.boomOp = coll.scene.clone();
-                _this6.boom2 = coll.scene.clone();
-                // this.boom2.scale.y *= 10;
-                // this.boom2.scale.x *= 10;
-                // this.boom2.scale.z *= 10;
-                _this6.boom2.scale.y *= 4;
-                _this6.boom2.scale.x *= 4;
-                _this6.boom2.scale.z *= 4;
-                _this6.boom2Op = _this6.boom2.clone();
-                _this6.boom2.position.set(-100, -100, -100);
-                _this6.boom2Op.position.set(-100, -100, -100);
+				_this6.scene.add(coll.scene);
+				_this6.scene.add(road2);
+			});
+			Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("expl/model.dae").then(function (coll) {
+				coll.scene.rotation.x = -0.5 * Math.PI;
+				coll.scene.rotation.z = 1 * Math.PI;
+				coll.scene.rotation.y = -0.5 * Math.PI;
+				coll.scene.scale.z *= 0.35;
+				coll.scene.scale.y *= 0.35;
+				coll.scene.scale.x *= 0.35;
+				_this6.boom = coll.scene.clone();
+				_this6.boomOp = coll.scene.clone();
+				_this6.boom2 = coll.scene.clone();
+				// this.boom2.scale.y *= 10;
+				// this.boom2.scale.x *= 10;
+				// this.boom2.scale.z *= 10;
+				_this6.boom2.scale.y *= 4;
+				_this6.boom2.scale.x *= 4;
+				_this6.boom2.scale.z *= 4;
+				_this6.boom2Op = _this6.boom2.clone();
+				_this6.boom2.position.set(-100, -100, -100);
+				_this6.boom2Op.position.set(-100, -100, -100);
 
-                _this6.scene.add(_this6.boom2);
-                _this6.scene.add(_this6.boom2Op);
-                // this.boom.position.set(-0.75, 1.75, -7);
-                // this.boomOp.position.set(-0.75, 1.75, -7);
-                _this6.boom.position.set(-0.1, 2, -7);
-                _this6.boomOp.position.set(-0.1, 2, -7);
-                _this6.tankMe.turret.dae.add(_this6.boom);
-                _this6.tankOpponent.turret.dae.add(_this6.boomOp);
-                _this6.tankMe.boom = _this6.boom;
-                _this6.tankOpponent.boom = _this6.boomOp;
-                _this6.tankMe.boom.visible = false;
-                _this6.tankOpponent.boom.visible = false;
-            });
-        }
-    }]);
+				_this6.scene.add(_this6.boom2);
+				_this6.scene.add(_this6.boom2Op);
+				// this.boom.position.set(-0.75, 1.75, -7);
+				// this.boomOp.position.set(-0.75, 1.75, -7);
+				_this6.boom.position.set(-0.1, 2, -7);
+				_this6.boomOp.position.set(-0.1, 2, -7);
+				_this6.tankMe.turret.dae.add(_this6.boom);
+				_this6.tankOpponent.turret.dae.add(_this6.boomOp);
+				_this6.tankMe.boom = _this6.boom;
+				_this6.tankOpponent.boom = _this6.boomOp;
+				_this6.tankMe.boom.visible = false;
+				_this6.tankOpponent.boom.visible = false;
+			});
+		}
+	}]);
 
-    return Scene;
+	return Scene;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Scene);
@@ -7765,54 +7794,54 @@ var THREE = __webpack_require__(6);
 
 
 var Tank = function () {
-    function Tank(dae) {
-        var _this = this;
+	function Tank(dae) {
+		var _this = this;
 
-        var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { x: 0, y: 0 };
+		var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { x: 0, y: 0 };
 
-        _classCallCheck(this, Tank);
+		_classCallCheck(this, Tank);
 
-        this.dae = new THREE.Object3D();
-        this.dae.position.x = coords.x;
-        this.dae.position.y = coords.y;
+		this.dae = new THREE.Object3D();
+		this.dae.position.x = coords.x;
+		this.dae.position.y = coords.y;
 
-        this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
+		this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
 
-        this.camera = null;
-        // this.changeCamera = false;
-        this.cameraCurrentType = 0;
+		this.camera = null;
+		// this.changeCamera = false;
+		this.cameraCurrentType = 0;
 
-        this.cameraTypes = [function () {
-            _this.camera.position.set(0, 7.9, 50);
-            _this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
-        }, function () {
-            _this.camera.position.set(0, 3, 5);
-            _this.camera.lookAt(new THREE.Vector3(0, 2.7, 0));
-        }, function () {
-            _this.camera.position.set(0, 45, 185);
-            _this.camera.lookAt(new THREE.Vector3(0, 15, 0));
-        }];
-        this.instractions = { coords: {}, angle: -0.5 * Math.PI, cameraType: 0 };
-    }
+		this.cameraTypes = [function () {
+			_this.camera.position.set(0, 7.9, 50);
+			_this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+		}, function () {
+			_this.camera.position.set(0, 3, 5);
+			_this.camera.lookAt(new THREE.Vector3(0, 2.7, 0));
+		}, function () {
+			_this.camera.position.set(0, 45, 185);
+			_this.camera.lookAt(new THREE.Vector3(0, 15, 0));
+		}];
+		this.instractions = { coords: {}, angle: -0.5 * Math.PI, cameraType: 0 };
+	}
 
-    _createClass(Tank, [{
-        key: "update",
-        value: function update() {
-            this.dae.rotation.y = this.instractions.angle - Math.PI;
-            this.turret.dae.rotation.y = this.instractions.turretAngle - Math.PI;
-            this.dae.position.y = this.instractions.coords.y;
-            this.dae.position.x = this.instractions.coords.x;
-            this.turret.dae.position.y = this.instractions.coords.y;
-            this.turret.dae.position.x = this.instractions.coords.x;
+	_createClass(Tank, [{
+		key: "update",
+		value: function update() {
+			this.dae.rotation.y = this.instractions.angle - Math.PI;
+			this.turret.dae.rotation.y = this.instractions.turretAngle - Math.PI;
+			this.dae.position.y = this.instractions.coords.y;
+			this.dae.position.x = this.instractions.coords.x;
+			this.turret.dae.position.y = this.instractions.coords.y;
+			this.turret.dae.position.x = this.instractions.coords.x;
 
-            if (this.instractions.cameraType !== this.cameraCurrentType) {
-                this.cameraTypes[this.instractions.cameraType]();
-                this.cameraCurrentType = this.instractions.cameraType;
-            }
-        }
-    }]);
+			if (this.instractions.cameraType !== this.cameraCurrentType) {
+				this.cameraTypes[this.instractions.cameraType]();
+				this.cameraCurrentType = this.instractions.cameraType;
+			}
+		}
+	}]);
 
-    return Tank;
+	return Tank;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Tank);
@@ -7827,16 +7856,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var THREE = __webpack_require__(6);
 
 var Turret = function Turret(dae, coords) {
-    _classCallCheck(this, Turret);
+	_classCallCheck(this, Turret);
 
-    this.dae = new THREE.Object3D();
-    this.parent = new THREE.Object3D();
-    // this.parent.rotation.y += 0.5 * Math.PI;
-    this.dae.add(this.parent);
-    this.angle = Math.PI - Math.PI;
+	this.dae = new THREE.Object3D();
+	this.parent = new THREE.Object3D();
+	// this.parent.rotation.y += 0.5 * Math.PI;
+	this.dae.add(this.parent);
+	this.angle = Math.PI - Math.PI;
 
-    this.dae.position.x = coords.x;
-    this.dae.position.y = coords.y;
+	this.dae.position.x = coords.x;
+	this.dae.position.y = coords.y;
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Turret);
@@ -12836,225 +12865,225 @@ module.exports = ColladaLoader;
 // const THREE = require("three");
 
 function MapCreator(scene, liteVersion) {
-    var promises = [];
-    if (!liteVersion) {
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/church/model.dae"));
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/bighouse/model.dae"));
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/middlehouse/model.dae"));
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/smallhouse/model.dae"));
+	var promises = [];
+	if (!liteVersion) {
+		promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/church/model.dae"));
+		promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/bighouse/model.dae"));
+		promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/middlehouse/model.dae"));
+		promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/smallhouse/model.dae"));
 
-        Promise.all(promises).then(function (collades) {
-            houseParams[4].house = modelInit(collades[0], 0.04);
-            houseParams[1].house = modelInit(collades[1], 0.04);
-            houseParams[2].house = modelInit(collades[2], 0.05);
-            houseParams[3].house = modelInit(collades[3], 0.05);
+		Promise.all(promises).then(function (collades) {
+			houseParams[4].house = modelInit(collades[0], 0.04);
+			houseParams[1].house = modelInit(collades[1], 0.04);
+			houseParams[2].house = modelInit(collades[2], 0.05);
+			houseParams[3].house = modelInit(collades[3], 0.05);
 
-            housePlace.forEach(function (key) {
+			housePlace.forEach(function (key) {
 
-                var house = houseParams[key.type].house.clone();
-                var geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
-                var material = new THREE.MeshBasicMaterial({
-                    color: houseParams[key.type].color
-                });
-                var cube = new THREE.Mesh(geometry, material);
-                cube.position.x = key.x;
-                cube.position.y = key.y;
-                if (key.flag) {
-                    cube.rotation.z = 0.5 * Math.PI;
-                    house.rotation.y = 0.5 * Math.PI;
-                    house.position.x = key.x + houseParams[key.type].shifty;
-                    house.position.y = key.y - houseParams[key.type].shiftx;
-                } else {
-                    house.position.x = key.x + houseParams[key.type].shiftx;
-                    house.position.y = key.y + houseParams[key.type].shifty;
-                }
-                scene.add(cube);
+				var house = houseParams[key.type].house.clone();
+				var geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
+				var material = new THREE.MeshBasicMaterial({
+					color: houseParams[key.type].color
+				});
+				var cube = new THREE.Mesh(geometry, material);
+				cube.position.x = key.x;
+				cube.position.y = key.y;
+				if (key.flag) {
+					cube.rotation.z = 0.5 * Math.PI;
+					house.rotation.y = 0.5 * Math.PI;
+					house.position.x = key.x + houseParams[key.type].shifty;
+					house.position.y = key.y - houseParams[key.type].shiftx;
+				} else {
+					house.position.x = key.x + houseParams[key.type].shiftx;
+					house.position.y = key.y + houseParams[key.type].shifty;
+				}
+				scene.add(cube);
 
-                scene.add(house);
-            });
-        });
-    }
-    var index = 0;
-    map.forEach(function (key) {
-        if (!liteVersion) {
-            if (key.width < 1 || key.height < 1) {
-                var geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
-                var material = new THREE.MeshBasicMaterial({
-                    color: 0xFF0000
-                });
-                material.transparent = true;
-                material.opacity = 0.2;
-                var cube = new THREE.Mesh(geometry, material);
-                cube.position.x = key.x;
-                cube.position.y = key.y;
-                scene.add(cube);
-            }
-        } else {
-            if (index >= 15) {
-                index = 0;
-            }
-            var _material = void 0;
-            var _geometry = void 0;
-            // console.log(housePlace[index++].type);
+				scene.add(house);
+			});
+		});
+	}
+	var index = 0;
+	map.forEach(function (key) {
+		if (!liteVersion) {
+			if (key.width < 1 || key.height < 1) {
+				var geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
+				var material = new THREE.MeshBasicMaterial({
+					color: 0xFF0000
+				});
+				material.transparent = true;
+				material.opacity = 0.2;
+				var cube = new THREE.Mesh(geometry, material);
+				cube.position.x = key.x;
+				cube.position.y = key.y;
+				scene.add(cube);
+			}
+		} else {
+			if (index >= 15) {
+				index = 0;
+			}
+			var _material = void 0;
+			var _geometry = void 0;
+			// console.log(housePlace[index++].type);
 
-            if (key.width < 1 || key.height < 1) {
-                _geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
-                _material = new THREE.MeshBasicMaterial({
-                    color: 0xFF0000
-                });
-                _material.transparent = true;
-                _material.opacity = 0.2;
-            } else {
-                _geometry = new THREE.BoxGeometry(key.height, key.width, 20);
-                _material = new THREE.MeshBasicMaterial({
-                    //color: 0xFFEBCD,
-                    color: houseParams[housePlace[index++].type].color
+			if (key.width < 1 || key.height < 1) {
+				_geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
+				_material = new THREE.MeshBasicMaterial({
+					color: 0xFF0000
+				});
+				_material.transparent = true;
+				_material.opacity = 0.2;
+			} else {
+				_geometry = new THREE.BoxGeometry(key.height, key.width, 20);
+				_material = new THREE.MeshBasicMaterial({
+					//color: 0xFFEBCD,
+					color: houseParams[housePlace[index++].type].color
 
-                });
-                // index++;
-            }
-            var _cube = new THREE.Mesh(_geometry, _material);
-            _cube.position.x = key.x;
-            _cube.position.y = key.y;
-            scene.add(_cube);
-        }
+				});
+				// index++;
+			}
+			var _cube = new THREE.Mesh(_geometry, _material);
+			_cube.position.x = key.x;
+			_cube.position.y = key.y;
+			scene.add(_cube);
+		}
 
-        // scene.add(house);
-    });
+		// scene.add(house);
+	});
 }
 
 function modelInit(collada, size) {
-    var plc = new THREE.Object3D();
-    collada.scene.scale.x = size;
-    collada.scene.scale.y = size;
-    collada.scene.scale.z = size;
-    plc.add(collada.scene);
-    plc.rotation.x = -0.5 * Math.PI;
-    plc.rotation.z = 1 * Math.PI;
-    plc.position.z -= 0.1;
-    return plc;
+	var plc = new THREE.Object3D();
+	collada.scene.scale.x = size;
+	collada.scene.scale.y = size;
+	collada.scene.scale.z = size;
+	plc.add(collada.scene);
+	plc.rotation.x = -0.5 * Math.PI;
+	plc.rotation.z = 1 * Math.PI;
+	plc.position.z -= 0.1;
+	return plc;
 }
 
 var map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }, { x: -250, y: 0, height: 0.5, width: 500 }, { x: 250, y: 0, height: 0.5, width: 500 }, { x: 0, y: -250, height: 500, width: 0.5 }, { x: 0, y: 250, height: 500, width: 0.5 }];
 
 var houseParams = [{}, {
-    x: 57,
-    y: 58,
-    color: 0x777777,
-    house: null,
-    shiftx: -6,
-    shifty: 25
+	x: 57,
+	y: 58,
+	color: 0x777777,
+	house: null,
+	shiftx: -6,
+	shifty: 25
 }, {
-    x: 20,
-    y: 32,
-    color: 0xCFBDAA,
-    house: null,
-    shiftx: 7,
-    shifty: 15
+	x: 20,
+	y: 32,
+	color: 0xCFBDAA,
+	house: null,
+	shiftx: 7,
+	shifty: 15
 
 }, {
-    x: 18,
-    y: 17,
-    color: 0xFFEBCD,
-    house: null,
-    shiftx: 8,
-    shifty: 10
+	x: 18,
+	y: 17,
+	color: 0xFFEBCD,
+	house: null,
+	shiftx: 8,
+	shifty: 10
 }, {
-    x: 25,
-    y: 42,
-    color: 0x888888,
-    house: null,
-    shiftx: -6,
-    shifty: 25
+	x: 25,
+	y: 42,
+	color: 0x888888,
+	house: null,
+	shiftx: -6,
+	shifty: 25
 }];
 
 var housePlace = [{
-    x: 0,
-    y: 0,
-    type: 1
+	x: 0,
+	y: 0,
+	type: 1
 }, {
-    x: -136,
-    y: 88,
-    type: 3,
-    flag: false
+	x: -136,
+	y: 88,
+	type: 3,
+	flag: false
 
 }, {
-    x: -48,
-    y: 108,
-    type: 3,
-    flag: false
+	x: -48,
+	y: 108,
+	type: 3,
+	flag: false
 
 }, {
-    x: -20,
-    y: 56,
-    type: 3,
-    flag: false
+	x: -20,
+	y: 56,
+	type: 3,
+	flag: false
 
 }, {
-    x: -136,
-    y: -20,
-    type: 3,
-    flag: false
+	x: -136,
+	y: -20,
+	type: 3,
+	flag: false
 
 }, {
-    x: 68,
-    y: 40,
-    type: 3,
-    flag: false
+	x: 68,
+	y: 40,
+	type: 3,
+	flag: false
 
 }, {
-    x: 100,
-    y: 40,
-    type: 3,
-    flag: false
+	x: 100,
+	y: 40,
+	type: 3,
+	flag: false
 
 }, {
-    x: 132,
-    y: 40,
-    type: 3,
-    flag: false
+	x: 132,
+	y: 40,
+	type: 3,
+	flag: false
 
 }, {
-    x: -100,
-    y: 24,
-    type: 2,
-    flag: true
+	x: -100,
+	y: 24,
+	type: 2,
+	flag: true
 
 }, {
-    x: -128,
-    y: -88,
-    type: 2,
-    flag: true
+	x: -128,
+	y: -88,
+	type: 2,
+	flag: true
 
 }, {
-    x: -20,
-    y: -92,
-    type: 2,
-    flag: false
+	x: -20,
+	y: -92,
+	type: 2,
+	flag: false
 
 }, {
-    x: 32,
-    y: 104,
-    type: 2,
-    flag: true
+	x: 32,
+	y: 104,
+	type: 2,
+	flag: true
 
 }, {
-    x: 140,
-    y: 84,
-    type: 2,
-    flag: false
+	x: 140,
+	y: 84,
+	type: 2,
+	flag: false
 
 }, {
-    x: -84,
-    y: 64,
-    type: 4,
-    flag: true
+	x: -84,
+	y: 64,
+	type: 4,
+	flag: true
 
 }, {
-    x: -56,
-    y: -40,
-    type: 4,
-    flag: false
+	x: -56,
+	y: -40,
+	type: 4,
+	flag: false
 }];
 
 /***/ }),
@@ -13078,146 +13107,146 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var StaticScene = function () {
-    function StaticScene(type) {
-        var _this = this;
+	function StaticScene(type) {
+		var _this = this;
 
-        _classCallCheck(this, StaticScene);
+		_classCallCheck(this, StaticScene);
 
-        this.HP = 100;
-        this.type = type;
-        //All 
-        this.sceneDiv = document.createElement("div");
-        this.sceneDiv.classList.add("sceneDiv");
-        this.sceneDiv.setAttribute("width", "100%");
-        this.sceneDiv.setAttribute("height", "100%");
-        //HP + RELOADER
-        this.hpDiv = document.createElement("div");
-        this.hpDiv.classList.add("hpBar");
-        this.loader = document.createElement("div");
-        this.loader.classList.add("loader");
-        this.hpDiv.appendChild(this.loader);
-        this.sceneDiv.appendChild(this.hpDiv);
-        //Main right div
-        this.comandorDiv = document.createElement("div");
-        this.comandorDiv.classList.add("comandorDiv");
-        //Commandor img
-        this.comandorImg = document.createElement("img");
-        this.comandorImg.classList.add("man");
-        this.comandorImg.setAttribute("src", "../game/staticScene/man.jpg");
-        this.comandorDiv.appendChild(this.comandorImg);
-        //Commandor text        
-        this.comandorText = document.createElement("p");
-        this.comandorText.classList.add("comandorText");
-        this.comandorText.setAttribute("id", "comandorText");
-        this.comandorText.innerHTML = "General: ";
-        this.comandorDiv.appendChild(this.comandorText);
-        this.sceneDiv.appendChild(this.comandorDiv);
-        //Hide btn
-        this.hideBtn = document.createElement("button");
-        this.hideBtn.classList.add("hideBtn");
-        this.hideBtn.innerHTML = "Okay";
-        this.comandorDiv.appendChild(this.hideBtn);
-        this.hideBtn.addEventListener("click", function () {
-            _this.comandorDiv.classList.add("hidden");
-        });
+		this.HP = 100;
+		this.type = type;
+		//All 
+		this.sceneDiv = document.createElement("div");
+		this.sceneDiv.classList.add("sceneDiv");
+		this.sceneDiv.setAttribute("width", "100%");
+		this.sceneDiv.setAttribute("height", "100%");
+		//HP + RELOADER
+		this.hpDiv = document.createElement("div");
+		this.hpDiv.classList.add("hpBar");
+		this.loader = document.createElement("div");
+		this.loader.classList.add("loader");
+		this.hpDiv.appendChild(this.loader);
+		this.sceneDiv.appendChild(this.hpDiv);
+		//Main right div
+		this.comandorDiv = document.createElement("div");
+		this.comandorDiv.classList.add("comandorDiv");
+		//Commandor img
+		this.comandorImg = document.createElement("img");
+		this.comandorImg.classList.add("man");
+		this.comandorImg.setAttribute("src", "../game/staticScene/man.jpg");
+		this.comandorDiv.appendChild(this.comandorImg);
+		//Commandor text        
+		this.comandorText = document.createElement("p");
+		this.comandorText.classList.add("comandorText");
+		this.comandorText.setAttribute("id", "comandorText");
+		this.comandorText.innerHTML = "General: ";
+		this.comandorDiv.appendChild(this.comandorText);
+		this.sceneDiv.appendChild(this.comandorDiv);
+		//Hide btn
+		this.hideBtn = document.createElement("button");
+		this.hideBtn.classList.add("hideBtn");
+		this.hideBtn.innerHTML = "Okay";
+		this.comandorDiv.appendChild(this.hideBtn);
+		this.hideBtn.addEventListener("click", function () {
+			_this.comandorDiv.classList.add("hidden");
+		});
 
-        //Red  Injure 
-        this.injure = document.createElement("div");
-        this.injure.classList.add("injure");
-        this.injure.classList.add("hidden");
-        this.sceneDiv.appendChild(this.injure);
-        ///
-        this.gameState = document.createElement("p");
-        this.gameState.classList.add("state");
-        this.gameState.classList.add("hidden");
-        this.injure.appendChild(this.gameState);
-        ///
-        document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
-        this.hideReload = this.hideReload.bind(this);
-        this.hideReload();
-        if (this.type == "single") {
-            Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the military training!\n", "To move the vehicle push W,A,S,D.\n", "To rotate the turret push M,N.\n", "You can also change view by pushing V.\n", "If you want to shoot-push SPACE button.", "After shooting you will see the reload bar in the right bottom corner.\n", "Also in that corner you can see your health bar: ", "When it comes red you have to be very careful, you can be killed with the one bullet.\n", "So now you can try the controlls and watch the map.\n", "When you want to quit push ESC.\n"]);
-        } else {
-            Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the battle ground!\n", "If you don't know how to play \n", "you should have some trainig in the single mode. \n", "You are on the war, soldier. So you have to defeat the enemy.\n", "Your enemy is the other tank. He is somewhere in the town.", "Find him, shoot him and save the civilians!\n", "Good luck, soldier!"]);
-        }
-        // textWriter(
-        //     "comandorText", [
-        //         "Дес, сверстай блять\n",
-        //         "нормально, пожалуйста\n"
-        //     ]
-        // );
-        ////new scenes
-    }
+		//Red  Injure 
+		this.injure = document.createElement("div");
+		this.injure.classList.add("injure");
+		this.injure.classList.add("hidden");
+		this.sceneDiv.appendChild(this.injure);
+		///
+		this.gameState = document.createElement("p");
+		this.gameState.classList.add("state");
+		this.gameState.classList.add("hidden");
+		this.injure.appendChild(this.gameState);
+		///
+		document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
+		this.hideReload = this.hideReload.bind(this);
+		this.hideReload();
+		if (this.type == "single") {
+			Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the military training!\n", "To move the vehicle push W,A,S,D.\n", "To rotate the turret push M,N.\n", "You can also change view by pushing V.\n", "If you want to shoot-push SPACE button.", "After shooting you will see the reload bar in the right bottom corner.\n", "Also in that corner you can see your health bar: ", "When it comes red you have to be very careful, you can be killed with the one bullet.\n", "So now you can try the controlls and watch the map.\n", "When you want to quit push ESC.\n"]);
+		} else {
+			Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the battle ground!\n", "If you don't know how to play \n", "you should have some trainig in the single mode. \n", "You are on the war, soldier. So you have to defeat the enemy.\n", "Your enemy is the other tank. He is somewhere in the town.", "Find him, shoot him and save the civilians!\n", "Good luck, soldier!"]);
+		}
+		// textWriter(
+		//     "comandorText", [
+		//         "Дес, сверстай блять\n",
+		//         "нормально, пожалуйста\n"
+		//     ]
+		// );
+		////new scenes
+	}
 
-    _createClass(StaticScene, [{
-        key: "changeHP",
-        value: function changeHP(HP) {
-            if (this.HP !== HP) {
-                this.injured();
-            }
-            this.HP = HP;
-            this.hpDiv.classList.remove(this.currentColor);
-            if (this.HP == 100) {
-                // this.hpDiv.classList.add(" ");
-            }
-            if (this.HP == 75) {
-                this.hpDiv.classList.add("hpBarYellow");
-                this.currentColor = "hpBarYellow";
-            }
-            if (this.HP == 50) {
-                this.hpDiv.classList.add("hpBarOrange");
-                this.currentColor = "hpBarOrange";
-            }
-            if (this.HP == 25) {
-                this.hpDiv.classList.add("hpBarRed");
-                this.currentColor = "hpBarRed";
-            }
-        }
-    }, {
-        key: "injured",
-        value: function injured() {
-            var _this2 = this;
+	_createClass(StaticScene, [{
+		key: "changeHP",
+		value: function changeHP(HP) {
+			if (this.HP !== HP) {
+				this.injured();
+			}
+			this.HP = HP;
+			this.hpDiv.classList.remove(this.currentColor);
+			if (this.HP == 100) {
+				// this.hpDiv.classList.add(" ");
+			}
+			if (this.HP == 75) {
+				this.hpDiv.classList.add("hpBarYellow");
+				this.currentColor = "hpBarYellow";
+			}
+			if (this.HP == 50) {
+				this.hpDiv.classList.add("hpBarOrange");
+				this.currentColor = "hpBarOrange";
+			}
+			if (this.HP == 25) {
+				this.hpDiv.classList.add("hpBarRed");
+				this.currentColor = "hpBarRed";
+			}
+		}
+	}, {
+		key: "injured",
+		value: function injured() {
+			var _this2 = this;
 
-            this.injure.classList.remove("hidden");
-            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
-                _this2.injure.classList.add("hidden");
-            }, 1000);
-        }
-    }, {
-        key: "showGameState",
-        value: function showGameState(state) {
-            if (state === -1) {
-                this.injure.classList.add("injure-defeat");
-                this.gameState.innerHTML = "YOU LOSE!";
-            }
-            if (state === 0) {
-                this.injure.classList.add("injure-draw");
-                this.gameState.innerHTML = "DRAW!";
-            }
-            if (state === 1) {
-                this.injure.classList.add("injure-victory");
-                this.gameState.innerHTML = "YOU WIN!";
-            }
-            this.gameState.classList.remove("hidden");
-            this.injure.classList.remove("hidden");
-            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
-                __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go("/menu/", true);
-            }, 5000);
-        }
-    }, {
-        key: "fireReload",
-        value: function fireReload() {
-            this.loader.classList.remove("hidden");
-            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(this.hideReload, 4000);
-        }
-    }, {
-        key: "hideReload",
-        value: function hideReload() {
-            this.loader.classList.add("hidden");
-        }
-    }]);
+			this.injure.classList.remove("hidden");
+			Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
+				_this2.injure.classList.add("hidden");
+			}, 1000);
+		}
+	}, {
+		key: "showGameState",
+		value: function showGameState(state) {
+			if (state === -1) {
+				this.injure.classList.add("injure-defeat");
+				this.gameState.innerHTML = "YOU LOSE!";
+			}
+			if (state === 0) {
+				this.injure.classList.add("injure-draw");
+				this.gameState.innerHTML = "DRAW!";
+			}
+			if (state === 1) {
+				this.injure.classList.add("injure-victory");
+				this.gameState.innerHTML = "YOU WIN!";
+			}
+			this.gameState.classList.remove("hidden");
+			this.injure.classList.remove("hidden");
+			Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
+				__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go("/menu/", true);
+			}, 5000);
+		}
+	}, {
+		key: "fireReload",
+		value: function fireReload() {
+			this.loader.classList.remove("hidden");
+			Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(this.hideReload, 4000);
+		}
+	}, {
+		key: "hideReload",
+		value: function hideReload() {
+			this.loader.classList.add("hidden");
+		}
+	}]);
 
-    return StaticScene;
+	return StaticScene;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (StaticScene);
@@ -13236,17 +13265,17 @@ var StaticScene = function () {
 /* harmony export (immutable) */ __webpack_exports__["a"] = textWriter;
 function textWriter(classname, text, speed) {
 
-    var ele = document.getElementsByClassName(classname)[0];
-    var txt = text.join("").split("");
-    var interval = setInterval(function () {
-        if (!txt[0]) {
-            return clearInterval(interval);
-        };
-        ele.innerHTML += txt.shift();
-    }, speed != undefined ? speed : 10);
+	var ele = document.getElementsByClassName(classname)[0];
+	var txt = text.join("").split("");
+	var interval = setInterval(function () {
+		if (!txt[0]) {
+			return clearInterval(interval);
+		}
+		ele.innerHTML += txt.shift();
+	}, speed != undefined ? speed : 10);
 
-    return false;
-};
+	return false;
+}
 
 /***/ }),
 /* 48 */
@@ -13262,114 +13291,114 @@ var keyboardJS = __webpack_require__(11);
 
 
 var MultiPlayer = function () {
-    function MultiPlayer() {
-        _classCallCheck(this, MultiPlayer);
+	function MultiPlayer() {
+		_classCallCheck(this, MultiPlayer);
 
-        this._gameLoop = this._gameLoop.bind(this);
-        this.actionStates = {};
-        this.allowFire = true;
-        // this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
-        // this.opponent = new Player("super bitch bot", [-10, -10], null);
-    }
+		this._gameLoop = this._gameLoop.bind(this);
+		this.actionStates = {};
+		this.allowFire = true;
+		// this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
+		// this.opponent = new Player("super bitch bot", [-10, -10], null);
+	}
 
-    // getPlayersCoors() {
-    // 	return {
-    // 		me: this.me.coords,
-    // 		opponent: this.opponent.coords
-    // 	};
-    // }
+	// getPlayersCoors() {
+	// 	return {
+	// 		me: this.me.coords,
+	// 		opponent: this.opponent.coords
+	// 	};
+	// }
 
-    _createClass(MultiPlayer, [{
-        key: "startListenGameLoop",
-        value: function startListenGameLoop(callback) {
-            var _this = this;
+	_createClass(MultiPlayer, [{
+		key: "startListenGameLoop",
+		value: function startListenGameLoop(callback) {
+			var _this = this;
 
-            this.sceneInstructionCallback = callback;
-            this._startLoop();
-            this._initKeyListeners(function (newState) {
-                Object.assign(_this.actionStates, newState);
-            });
-        }
-    }, {
-        key: "_startLoop",
-        value: function _startLoop() {
-            window.requestAnimationFrame(this._gameLoop);
-        }
+			this.sceneInstructionCallback = callback;
+			this._startLoop();
+			this._initKeyListeners(function (newState) {
+				Object.assign(_this.actionStates, newState);
+			});
+		}
+	}, {
+		key: "_startLoop",
+		value: function _startLoop() {
+			window.requestAnimationFrame(this._gameLoop);
+		}
 
-        //Основной цикл, который шлет изменения
+		//Основной цикл, который шлет изменения
 
-    }, {
-        key: "_gameLoop",
-        value: function _gameLoop() {
+	}, {
+		key: "_gameLoop",
+		value: function _gameLoop() {
 
-            // Object.keys(this._actionStates).forEach(key => {
-            //     this.me[key] = this._actionStates[key];
-            // });
-            // this.me.update();
-            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
-            this.actionStates);
-            window.requestAnimationFrame(this._gameLoop);
-        }
-    }, {
-        key: "_initKeyListeners",
-        value: function _initKeyListeners(callback) {
-            keyboardJS.bind("m", function (e) {
-                callback({ turretRight: true });
-            }, function (e) {
-                callback({ turretRight: false });
-            });
-            keyboardJS.bind("n", function (e) {
-                callback({ turretLeft: true });
-            }, function (e) {
-                callback({ turretLeft: false });
-            });
-            keyboardJS.bind("w", function (e) {
-                callback({ forward: true });
-            }, function (e) {
-                callback({ forward: false });
-            });
-            keyboardJS.bind("s", function (e) {
-                callback({ backward: true });
-            }, function (e) {
-                callback({ backward: false });
-            });
-            keyboardJS.bind("d", function (e) {
-                callback({ right: true });
-            }, function (e) {
-                callback({ right: false });
-            });
-            keyboardJS.bind("a", function (e) {
-                callback({ left: true });
-            }, function (e) {
-                callback({ left: false });
-            });
-            keyboardJS.bind("v", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                callback({ changeCamera: true });
-            });
-            keyboardJS.bind("space", function (e) {
-                // callback({ changeCamera: false });
-            }, function (e) {
-                var _this2 = this;
+			// Object.keys(this._actionStates).forEach(key => {
+			//     this.me[key] = this._actionStates[key];
+			// });
+			// this.me.update();
+			this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+			this.actionStates);
+			window.requestAnimationFrame(this._gameLoop);
+		}
+	}, {
+		key: "_initKeyListeners",
+		value: function _initKeyListeners(callback) {
+			keyboardJS.bind("m", function (e) {
+				callback({ turretRight: true });
+			}, function (e) {
+				callback({ turretRight: false });
+			});
+			keyboardJS.bind("n", function (e) {
+				callback({ turretLeft: true });
+			}, function (e) {
+				callback({ turretLeft: false });
+			});
+			keyboardJS.bind("w", function (e) {
+				callback({ forward: true });
+			}, function (e) {
+				callback({ forward: false });
+			});
+			keyboardJS.bind("s", function (e) {
+				callback({ backward: true });
+			}, function (e) {
+				callback({ backward: false });
+			});
+			keyboardJS.bind("d", function (e) {
+				callback({ right: true });
+			}, function (e) {
+				callback({ right: false });
+			});
+			keyboardJS.bind("a", function (e) {
+				callback({ left: true });
+			}, function (e) {
+				callback({ left: false });
+			});
+			keyboardJS.bind("v", function (e) {
+				// callback({ changeCamera: false });
+			}, function (e) {
+				callback({ changeCamera: true });
+			});
+			keyboardJS.bind("space", function (e) {
+				// callback({ changeCamera: false });
+			}, function (e) {
+				var _this2 = this;
 
-                if (this.allowFire) {
-                    callback({ fire: true });
-                    this.allowFire = false;
-                    setTimeout(function () {
-                        _this2.allowFire = true;
-                    }, 4000);
-                }
-            }.bind(this));
-        }
-    }, {
-        key: "randomMovemant",
-        value: function randomMovemant(callback) {
-            callback({ left: true, forward: true });
-        }
-    }]);
+				if (this.allowFire) {
+					callback({ fire: true });
+					this.allowFire = false;
+					setTimeout(function () {
+						_this2.allowFire = true;
+					}, 4000);
+				}
+			}.bind(this));
+		}
+	}, {
+		key: "randomMovemant",
+		value: function randomMovemant(callback) {
+			callback({ left: true, forward: true });
+		}
+	}]);
 
-    return MultiPlayer;
+	return MultiPlayer;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (MultiPlayer);
@@ -13517,6 +13546,7 @@ var changeFields = [{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__theme_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_GameManager__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_user_service__ = __webpack_require__(3);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13524,6 +13554,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -13542,6 +13573,8 @@ var ThemeView = function (_BaseView) {
 
         var _this = _possibleConstructorReturn(this, (ThemeView.__proto__ || Object.getPrototypeOf(ThemeView)).call(this, view.el));
 
+        _this.userService = new __WEBPACK_IMPORTED_MODULE_6__services_user_service__["a" /* default */]();
+
         _this.view = view;
         _this.parentNode = parentNode;
         _this.parentNode.appendChild(_this.view.el);
@@ -13550,6 +13583,7 @@ var ThemeView = function (_BaseView) {
 
         _this.themeFlag = true;
         _this.wallpaper = null;
+        window.updateUserData = _this.updateUserData.bind(_this);
         return _this;
     }
 
@@ -13569,22 +13603,39 @@ var ThemeView = function (_BaseView) {
         value: function _buttonsInit() {
             var _this3 = this;
 
-            this.themeBtn.setCallback(function () {
-                _this3.themeFlag ? _this3.wallpaper = "url(../images/2wallpaper.jpg)" : _this3.wallpaper = "url(../images/wallpaper.jpg)";
-                document.getElementById("background").style.backgroundImage = _this3.wallpaper;
-                _this3.parentNode.childNodes.forEach(function (key) {
-                    key.childNodes.forEach(function (child) {
-                        if (child.classList.contains("button")) {
-                            _this3.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
-                        }
-                    });
-                });
-                _this3.themeFlag = !_this3.themeFlag;
-            });
+            // this.themeBtn.setCallback(() => {
+            // 	this.themeFlag ? this.wallpaper = "url(../images/2wallpaper.jpg)" : this.wallpaper = "url(../images/wallpaper.jpg)";
+            // 	document.getElementById("background").style.backgroundImage = this.wallpaper;
+            // 	this.parentNode.childNodes.forEach(key => {
+            // 		key.childNodes.forEach(child => {
+            // 			if (child.classList.contains("button")) {
+            // 				this.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
+            // 			}
+            // 		});
+            // 	});
+            // 	this.themeFlag = !this.themeFlag;
+            // });
+
+            // this.nickname.setCallback(() => {
+            this.updateUserData();
+            // });
             this.playBtn.setCallback(function () {
                 __WEBPACK_IMPORTED_MODULE_5__utils_Router__["a" /* default */].go(_this3.playBtn.el.getAttribute("href"), false);
                 var gameManager = new __WEBPACK_IMPORTED_MODULE_4__game_GameManager__["a" /* default */]();
                 gameManager.start("single");
+            });
+        }
+    }, {
+        key: "updateUserData",
+        value: function updateUserData() {
+            var _this4 = this;
+
+            this.userService.whoami().then(function (responce) {
+                _this4.nickname.setAttributes({ value: "Nick: " + responce.login });
+                _this4.rank.setAttributes({ value: "Rank: " + responce.rank });
+            }).catch(function () {
+                _this4.nickname.setAttributes({ value: "Nick: " + "------" });
+                _this4.rank.setAttributes({ value: "Rank: " + "---" });
             });
         }
     }]);
@@ -13601,12 +13652,35 @@ var ThemeView = function (_BaseView) {
 "use strict";
 
 
+// const themeFields = [{
+// 	name: "themeBtn",
+// 	class: "button",
+// 	elemType: "input",
+// 	type: "button",
+// 	value: "Theme",
+// }, {
+// 	name: "playBtn",
+// 	class: " button",
+// 	elemType: "input",
+// 	value: "Fast Game",
+// 	href: "/game/",
+// 	type: "button"
+// }, ];
+
 var themeFields = [{
-    name: "themeBtn",
-    class: "button",
+    name: "nickname",
+    class: " userdata",
     elemType: "input",
-    type: "button",
-    value: "Theme"
+    value: "Fast Game",
+    href: "/game/",
+    type: "button"
+},, {
+    name: "rank",
+    class: " userdata",
+    elemType: "input",
+    value: "Fast Game",
+    href: "/game/",
+    type: "button"
 }, {
     name: "playBtn",
     class: " button",
@@ -13653,66 +13727,66 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
 
 var GameTypeView = function (_BaseView) {
-    _inherits(GameTypeView, _BaseView);
+	_inherits(GameTypeView, _BaseView);
 
-    function GameTypeView(parentNode) {
-        _classCallCheck(this, GameTypeView);
+	function GameTypeView(parentNode) {
+		_classCallCheck(this, GameTypeView);
 
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
 
-        var _this = _possibleConstructorReturn(this, (GameTypeView.__proto__ || Object.getPrototypeOf(GameTypeView)).call(this, view.el));
+		var _this = _possibleConstructorReturn(this, (GameTypeView.__proto__ || Object.getPrototypeOf(GameTypeView)).call(this, view.el));
 
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
 
-    _createClass(GameTypeView, [{
-        key: "_appendChildren",
-        value: function _appendChildren() {
-            var _this2 = this;
+	_createClass(GameTypeView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1__gameType__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            var _this3 = this;
+			__WEBPACK_IMPORTED_MODULE_1__gameType__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
 
-            this.singlePlayer.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("single", false);
-            });
-            this.multiPlayer.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayer.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("multi", false);
-            });
-            this.singlePlayerLite.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayerLite.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("single", true);
-            });
-            this.multiPlayerLite.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayerLite.el.getAttribute("href"), false);
-                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("multi", true);
-            });
-            this.changeformBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-            });
-        }
-    }]);
+			this.singlePlayer.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
+				var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+				gameManager.start("single", false);
+			});
+			this.multiPlayer.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayer.el.getAttribute("href"), false);
+				var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+				gameManager.start("multi", false);
+			});
+			this.singlePlayerLite.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayerLite.el.getAttribute("href"), false);
+				var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+				gameManager.start("single", true);
+			});
+			this.multiPlayerLite.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayerLite.el.getAttribute("href"), false);
+				var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+				gameManager.start("multi", true);
+			});
+			this.changeformBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+			});
+		}
+	}]);
 
-    return GameTypeView;
+	return GameTypeView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (GameTypeView);
@@ -13725,35 +13799,35 @@ var GameTypeView = function (_BaseView) {
 
 
 var gameFields = [{
-    name: "singlePlayer",
-    class: " button",
-    elemType: "a",
-    value: "Singleplayer",
-    href: "/game/"
+	name: "singlePlayer",
+	class: " button",
+	elemType: "a",
+	value: "Singleplayer",
+	href: "/game/"
 }, {
-    name: "singlePlayerLite",
-    class: " button",
-    elemType: "a",
-    value: "Singleplayer Lite",
-    href: "/game/"
+	name: "singlePlayerLite",
+	class: " button",
+	elemType: "a",
+	value: "Singleplayer Lite",
+	href: "/game/"
 }, {
-    name: "multiPlayer",
-    class: " button",
-    elemType: "a",
-    value: "multiplayer",
-    href: "/game/"
+	name: "multiPlayer",
+	class: " button",
+	elemType: "a",
+	value: "multiplayer",
+	href: "/game/"
 }, {
-    name: "multiPlayerLite",
-    class: " button",
-    elemType: "a",
-    value: "multiplayer lite",
-    href: "/game/"
+	name: "multiPlayerLite",
+	class: " button",
+	elemType: "a",
+	value: "multiplayer lite",
+	href: "/game/"
 }, {
-    name: "changeformBtn",
-    class: " button",
-    elemType: "a",
-    value: "Back to menu",
-    href: "/menu/"
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "Back to menu",
+	href: "/menu/"
 }];
 /* harmony default export */ __webpack_exports__["a"] = (gameFields);
 
@@ -13781,44 +13855,44 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var GameView = function (_BaseView) {
-    _inherits(GameView, _BaseView);
+	_inherits(GameView, _BaseView);
 
-    function GameView(parentNode) {
-        _classCallCheck(this, GameView);
+	function GameView(parentNode) {
+		_classCallCheck(this, GameView);
 
-        var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "game hidden" });
+		var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "game hidden" });
 
-        var _this = _possibleConstructorReturn(this, (GameView.__proto__ || Object.getPrototypeOf(GameView)).call(this, view.el));
+		var _this = _possibleConstructorReturn(this, (GameView.__proto__ || Object.getPrototypeOf(GameView)).call(this, view.el));
 
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._buttonsInit();
-        return _this;
-    }
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._buttonsInit();
+		return _this;
+	}
 
-    _createClass(GameView, [{
-        key: "_buttonsInit",
-        value: function _buttonsInit() {
-            window.addEventListener("keyup", this._enableGameMenu);
-        }
-    }, {
-        key: "_enableGameMenu",
-        value: function _enableGameMenu(e) {
-            if (e.keyCode == 27) {
-                document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
-                document.getElementById("game").classList.add("blured");
-            }
-        }
-    }, {
-        key: "destroyGame",
-        value: function destroyGame() {
-            window.removeEventListener("keyup", this._enableGameMenu);
-            this.view.el.innerHTML = "";
-        }
-    }]);
+	_createClass(GameView, [{
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			window.addEventListener("keyup", this._enableGameMenu);
+		}
+	}, {
+		key: "_enableGameMenu",
+		value: function _enableGameMenu(e) {
+			if (e.keyCode == 27) {
+				document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
+				document.getElementById("game").classList.add("blured");
+			}
+		}
+	}, {
+		key: "destroyGame",
+		value: function destroyGame() {
+			window.removeEventListener("keyup", this._enableGameMenu);
+			this.view.el.innerHTML = "";
+		}
+	}]);
 
-    return GameView;
+	return GameView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (GameView);
@@ -13935,6 +14009,168 @@ var gameMenuFields = [{
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scoreboard__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var ScoreboardView = function (_BaseView) {
+    _inherits(ScoreboardView, _BaseView);
+
+    function ScoreboardView(parentNode) {
+        _classCallCheck(this, ScoreboardView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+        var _this = _possibleConstructorReturn(this, (ScoreboardView.__proto__ || Object.getPrototypeOf(ScoreboardView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        window.updateScoreboard = _this.updateScoreboard.bind(_this);
+        return _this;
+    }
+
+    _createClass(ScoreboardView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1__scoreboard__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.changeformBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+            });
+        }
+    }, {
+        key: "updateScoreboard",
+        value: function updateScoreboard(array) {
+            this.view.el.innerHTML = "";
+            this._appendChildren();
+            this._buttonsInit;
+            // let cnt = 1;
+            // array.forEach(key => {
+            //     let ch = new Block("input", {
+            //         class: " userdata",
+            //         elemType: "input",
+            //         value: cnt + ")  " + key.login + ": " + key.rank,
+            //         href: "/game/",
+            //         type: "button"
+            //     });
+            //     this.view.el.appendChild(ch.el);
+            //     cnt++;
+            // });
+            this._createTable(array);
+        }
+    }, {
+        key: "_createTable",
+        value: function _createTable(array) {
+            var table = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("table", { class: "scoreboard" });
+            table.setAttributes(_defineProperty({
+                align: "left",
+                width: "100%",
+                rules: 'rows'
+            }, "rules", 'cols'));
+            var cnt = 1;
+            var row = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("tr", { class: "scoredata" });
+            var num = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("th");
+            num.el.innerHTML = "#";
+            var nick = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("th");
+            nick.el.innerHTML = "Nickname";
+            var rank = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+            rank.el.innerHTML = "Rank";
+            row.el.appendChild(num.el);
+            row.el.appendChild(nick.el);
+            row.el.appendChild(rank.el);
+            table.el.appendChild(row.el);
+            array.forEach(function (key) {
+                var row = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("tr", { class: "scoredata" });
+                var num = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+                num.el.innerHTML = cnt;
+                var nick = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+                nick.el.innerHTML = key.login;
+                var rank = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+                rank.el.innerHTML = key.rank;
+                row.el.appendChild(num.el);
+                row.el.appendChild(nick.el);
+                row.el.appendChild(rank.el);
+                table.el.appendChild(row.el);
+                cnt++;
+            });
+            this.view.el.appendChild(table.el);
+        }
+    }]);
+
+    return ScoreboardView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (ScoreboardView);
+
+/***/ }),
+/* 75 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var scoreboardfields = [{
+    name: "changeformBtn",
+    class: " button",
+    elemType: "a",
+    value: "back to menu",
+    href: "/menu/"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (scoreboardfields);
 
 /***/ })
 /******/ ]);

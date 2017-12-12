@@ -8,6 +8,7 @@ import ChangeView from "./views/ChangeView/ChangeView";
 import ThemeView from "./views/ThemeView/ThemeView";
 import GameTypeView from "./views/GameType/GameTypeView";
 import GameView from "./views/GameView/GameView";
+import ScoreboardView from "./views/ScoreboardView/ScoreboardView";
 import GameMenuView from "./views/GameMenu/GameMenuView";
 
 import routeValidate from "./utils/RouteValidate";
@@ -46,6 +47,7 @@ let theme = new ThemeView(main.el);
 let gameType = new GameTypeView(main.el);
 let gameMenu = new GameMenuView(main.el);
 let gameView = new GameView(main.el);
+let scoreboardView = new ScoreboardView(main.el);
 
 let config = {
     "/login/": {
@@ -68,6 +70,9 @@ let config = {
     },
     "/game/": {
         view: gameView
+    },
+    "/scoreboard/": {
+        view: scoreboardView
     }
 };
 

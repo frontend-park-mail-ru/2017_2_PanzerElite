@@ -14,7 +14,7 @@ function routeValidate(href, router, savehistory) {
 
 function analyseHref(href, isLogged, router, savehistory) {
     if (isLogged) {
-        ["/register/", "/login/", "/game/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
+        ["/register/", "/login/", "/game/", "/scoreboard/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
     } else {
         ["/register/", "/login/"].includes(href) ? router.go(href, savehistory) : router.go("/login/", savehistory);
     }
