@@ -18,14 +18,14 @@ const themeFields = [{
     name: "nickname",
     class: " userdata",
     elemType: "input",
-    value: "Fast Game",
+    value: "Nick",
     href: "/game/",
     type: "button"
 }, , {
     name: "rank",
     class: " userdata",
     elemType: "input",
-    value: "Fast Game",
+    value: "Rank",
     href: "/game/",
     type: "button"
 }, {
