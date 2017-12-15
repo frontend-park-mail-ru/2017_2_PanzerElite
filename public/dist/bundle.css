@@ -337,6 +337,11 @@
     text-align: center;
 }
 
+.scorediv {
+    height: 200px;
+    overflow: scroll;
+}
+
 .scoredata {
     /* width: 350; */
     margin-top: 5%;

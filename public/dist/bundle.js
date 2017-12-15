@@ -5449,8 +5449,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_ScoreboardView_ScoreboardView__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_GameMenu_GameMenuView__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_ScoreboardView_ScoreboardView__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_GameMenu_GameMenuView__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__utils_RouteValidate__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_load_bar__ = __webpack_require__(4);
 
@@ -13671,14 +13671,14 @@ var themeFields = [{
     name: "nickname",
     class: " userdata",
     elemType: "input",
-    value: "Fast Game",
+    value: "Nick",
     href: "/game/",
     type: "button"
 },, {
     name: "rank",
     class: " userdata",
     elemType: "input",
-    value: "Fast Game",
+    value: "Rank",
     href: "/game/",
     type: "button"
 }, {
@@ -13909,127 +13909,7 @@ var GameView = function (_BaseView) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__gameMenu_css__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-var GameMenuView = function (_BaseView) {
-	_inherits(GameMenuView, _BaseView);
-
-	function GameMenuView(parentNode) {
-		_classCallCheck(this, GameMenuView);
-
-		var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "gamemenu hidden" });
-
-		var _this = _possibleConstructorReturn(this, (GameMenuView.__proto__ || Object.getPrototypeOf(GameMenuView)).call(this, view.el));
-
-		_this.view = view;
-		_this.parentNode = parentNode;
-		_this.parentNode.appendChild(_this.view.el);
-		_this._appendChildren();
-		_this._buttonsInit();
-		return _this;
-	}
-
-	_createClass(GameMenuView, [{
-		key: "_appendChildren",
-		value: function _appendChildren() {
-			var _this2 = this;
-
-			__WEBPACK_IMPORTED_MODULE_3__gameMenu__["a" /* default */].forEach(function (key) {
-				var ch = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */](key.elemType, key);
-				_this2.view.el.appendChild(ch.el);
-				_this2[key.name] = ch;
-			});
-		}
-	}, {
-		key: "_buttonsInit",
-		value: function _buttonsInit() {
-			var _this3 = this;
-
-			this.resumeBtn.setCallback(function () {
-				_this3.hide();
-				document.getElementById("game").classList.remove("blured");
-			});
-			this.quitBtn.setCallback(function () {
-				_this3.hide();
-				__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go(_this3.quitBtn.el.getAttribute("href"), true);
-			});
-		}
-	}]);
-
-	return GameMenuView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (GameMenuView);
-
-/***/ }),
-/* 59 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var gameMenuFields = [{
-	name: "resumeBtn",
-	class: " button",
-	elemType: "input",
-	value: "resume",
-	type: "button",
-	href: "/menu/"
-
-}, {
-	name: "quitBtn",
-	class: " button",
-	elemType: "input",
-	value: "quit",
-	type: "button",
-	href: "/menu/"
-
-}];
-/* harmony default export */ __webpack_exports__["a"] = (gameMenuFields);
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scoreboard__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scoreboard__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
@@ -14116,23 +13996,30 @@ var ScoreboardView = function (_BaseView) {
         key: "_createTable",
         value: function _createTable(array) {
             var table = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("table", { class: "scoreboard" });
+            var tableHead = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("table", { class: "scoreboard" });
+            var tablediv = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "scorediv" });
             table.setAttributes(_defineProperty({
                 align: "left",
                 width: "100%",
                 rules: 'rows'
             }, "rules", 'cols'));
+            tableHead.setAttributes({
+                align: "left",
+                width: "115%"
+
+            });
             var cnt = 1;
             var row = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("tr", { class: "scoredata" });
-            var num = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("th");
+            var num = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
             num.el.innerHTML = "#";
-            var nick = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("th");
+            var nick = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
             nick.el.innerHTML = "Nickname";
             var rank = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
             rank.el.innerHTML = "Rank";
             row.el.appendChild(num.el);
             row.el.appendChild(nick.el);
             row.el.appendChild(rank.el);
-            table.el.appendChild(row.el);
+            tableHead.el.appendChild(row.el);
             array.forEach(function (key) {
                 var row = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("tr", { class: "scoredata" });
                 var num = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
@@ -14147,7 +14034,9 @@ var ScoreboardView = function (_BaseView) {
                 table.el.appendChild(row.el);
                 cnt++;
             });
-            this.view.el.appendChild(table.el);
+            this.view.el.appendChild(tableHead.el);
+            this.view.el.appendChild(tablediv.el);
+            tablediv.el.appendChild(table.el);
         }
     }]);
 
@@ -14157,7 +14046,7 @@ var ScoreboardView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (ScoreboardView);
 
 /***/ }),
-/* 75 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14171,6 +14060,113 @@ var scoreboardfields = [{
     href: "/menu/"
 }];
 /* harmony default export */ __webpack_exports__["a"] = (scoreboardfields);
+
+/***/ }),
+/* 60 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__gameMenu_css__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+var GameMenuView = function (_BaseView) {
+	_inherits(GameMenuView, _BaseView);
+
+	function GameMenuView(parentNode) {
+		_classCallCheck(this, GameMenuView);
+
+		var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "gamemenu hidden" });
+
+		var _this = _possibleConstructorReturn(this, (GameMenuView.__proto__ || Object.getPrototypeOf(GameMenuView)).call(this, view.el));
+
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
+
+	_createClass(GameMenuView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_3__gameMenu__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
+
+			this.resumeBtn.setCallback(function () {
+				_this3.hide();
+				document.getElementById("game").classList.remove("blured");
+			});
+			this.quitBtn.setCallback(function () {
+				_this3.hide();
+				__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go(_this3.quitBtn.el.getAttribute("href"), true);
+			});
+		}
+	}]);
+
+	return GameMenuView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (GameMenuView);
+
+/***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var gameMenuFields = [{
+	name: "resumeBtn",
+	class: " button",
+	elemType: "input",
+	value: "resume",
+	type: "button",
+	href: "/menu/"
+
+}, {
+	name: "quitBtn",
+	class: " button",
+	elemType: "input",
+	value: "quit",
+	type: "button",
+	href: "/menu/"
+
+}];
+/* harmony default export */ __webpack_exports__["a"] = (gameMenuFields);
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

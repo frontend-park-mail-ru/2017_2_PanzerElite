@@ -53,24 +53,31 @@ export default class ScoreboardView extends BaseView {
     }
     _createTable(array) {
         const table = new Block("table", { class: "scoreboard" });
+        const tableHead = new Block("table", { class: "scoreboard" });
+        const tablediv = new Block("div", { class: "scorediv" });
         table.setAttributes({
             align: "left",
             width: "100%",
             rules: 'rows',
             rules: 'cols',
         });
+        tableHead.setAttributes({
+            align: "left",
+            width: "115%",
+
+        });
         let cnt = 1;
         const row = new Block("tr", { class: "scoredata" });
-        const num = new Block("th");
+        const num = new Block("td");
         num.el.innerHTML = "#";
-        const nick = new Block("th");
+        const nick = new Block("td");
         nick.el.innerHTML = "Nickname";
         const rank = new Block("td");
         rank.el.innerHTML = "Rank";
         row.el.appendChild(num.el);
         row.el.appendChild(nick.el);
         row.el.appendChild(rank.el);
-        table.el.appendChild(row.el);
+        tableHead.el.appendChild(row.el);
         array.forEach(key => {
             const row = new Block("tr", { class: "scoredata" });
             const num = new Block("td");
@@ -85,6 +92,8 @@ export default class ScoreboardView extends BaseView {
             table.el.appendChild(row.el);
             cnt++;
         });
-        this.view.el.appendChild(table.el);
+        this.view.el.appendChild(tableHead.el);
+        this.view.el.appendChild(tablediv.el);
+        tablediv.el.appendChild(table.el);
     }
 }
