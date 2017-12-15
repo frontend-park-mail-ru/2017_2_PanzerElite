@@ -4470,203 +4470,205 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var Player = function () {
-	function Player(nickname, coords, actionStates) {
-		_classCallCheck(this, Player);
+    function Player(nickname, coords, actionStates) {
+        _classCallCheck(this, Player);
 
-		this.actionStates = actionStates;
-		this.health = 100;
-		this.nickname = nickname;
-		this.coords = { x: coords[0], y: coords[1] };
-		this.angle = -0.5 * Math.PI;
-		this.turretAngle = Math.PI - Math.PI - 0.5 * Math.PI;
-		this.cameraCurrentType = 0;
-		this.bulletCoords = {};
-		this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false, fire: true };
-		this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }, { x: -250, y: 0, height: 2, width: 500 }, { x: 250, y: 0, height: 2, width: 500 }, { x: 0, y: -250, height: 500, width: 2 }, { x: 0, y: 250, height: 500, width: 2 }];
-	}
+        this.actionStates = actionStates;
+        this.health = 100;
+        this.nickname = nickname;
+        this.coords = { x: coords[0], y: coords[1] };
+        this.angle = -0.5 * Math.PI;
+        this.turretAngle = Math.PI - Math.PI - 0.5 * Math.PI;
+        this.cameraCurrentType = 0;
 
-	_createClass(Player, [{
-		key: "moveForward",
-		value: function moveForward() {
-			this.coords.y += 0.3 * Math.cos(this.angle);
-			this.coords.x += 0.3 * Math.sin(this.angle);
-		}
-	}, {
-		key: "moveBackward",
-		value: function moveBackward() {
-			this.coords.y -= 0.3 * Math.cos(this.angle);
-			this.coords.x -= 0.3 * Math.sin(this.angle);
-		}
-	}, {
-		key: "turnRight",
-		value: function turnRight() {
-			this.angle += 0.005 * Math.PI;
-		}
-	}, {
-		key: "turnLeft",
-		value: function turnLeft() {
-			this.angle -= 0.005 * Math.PI;
-		}
-	}, {
-		key: "turnTurretRight",
-		value: function turnTurretRight() {
-			this.turretAngle += 0.008 * Math.PI;
-		}
-	}, {
-		key: "turnTurretLeft",
-		value: function turnTurretLeft() {
-			this.turretAngle -= 0.008 * Math.PI;
-		}
-	}, {
-		key: "update",
-		value: function update() {
-			var _this = this;
+        this.bulletCoords = {};
+        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false, fire: true };
+        this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }, { x: -250, y: 0, height: 2, width: 500 }, { x: 250, y: 0, height: 2, width: 500 }, { x: 0, y: -250, height: 500, width: 2 }, { x: 0, y: 250, height: 500, width: 2 }];
+    }
 
-			if (this.actionStates.forward) {
-				this.deprecatedMovemants.backward = false;
-				if (!this.deprecatedMovemants.forward) {
-					this.moveForward();
-				}
-				if (this._tankCollisionWithHouses()) {
-					this.deprecatedMovemants.forward = true;
-				} else {
-					this.deprecatedMovemants.forward = false;
-				}
-			}
-			if (this.actionStates.backward) {
-				this.deprecatedMovemants.forward = false;
-				if (!this.deprecatedMovemants.backward) {
-					this.moveBackward();
-				}
-				if (this._tankCollisionWithHouses()) {
-					this.deprecatedMovemants.backward = true;
-				} else {
-					this.deprecatedMovemants.backward = false;
-				}
-			}
-			if (this.actionStates.right) {
-				if (!this.deprecatedMovemants.turnRight) {
-					this.turnRight();
-				}
-				if (this._tankCollisionWithHouses()) {
-					this.deprecatedMovemants.turnRight = true;
-				} else {
-					this.deprecatedMovemants.turnRight = false;
-				}
-			}
-			if (this.actionStates.left) {
-				if (!this.deprecatedMovemants.turnLeft) {
-					this.turnLeft();
-				}
-				if (this._tankCollisionWithHouses()) {
-					this.deprecatedMovemants.turnLeft = true;
-				} else {
-					this.deprecatedMovemants.turnLeft = false;
-				}
-			}
-			if (this.actionStates.turretLeft) {
-				this.turnTurretLeft();
-			}
-			if (this.actionStates.turretRight) {
-				this.turnTurretRight();
-			}
-			if (this.actionStates.changeCamera) {
-				this.actionStates.changeCamera = false;
-				this.cameraCurrentType++;
-				this.cameraCurrentType %= 3;
-			}
-			if (this.actionStates.fire && this.deprecatedMovemants.fire) {
-				Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
-					_this.actionStates.fire = false;
-				}, 1);
-				this.deprecatedMovemants.fire = false;
-				Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
-					_this.deprecatedMovemants.fire = true;
-				}, 4000);
-				this.bulletCoords = this._fireCollision(); //TODO
-			} else {
-				this.actionStates.fire = false;
-			}
-		}
-	}, {
-		key: "_pointInPolygon",
-		value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
-			var leftX = polyX - polyH / 2;
-			var rightX = leftX + polyH;
-			if (pointX < rightX && pointX > leftX) {
-				var leftY = polyY - polyW / 2;
-				var rightY = leftY + polyW;
-				if (pointY < rightY && pointY > leftY) {
-					return true;
-				}
-			}
-			return false;
-		}
-	}, {
-		key: "_tankCollisionWithHouses",
-		value: function _tankCollisionWithHouses() {
-			var _this2 = this;
+    _createClass(Player, [{
+        key: "moveForward",
+        value: function moveForward() {
+            this.coords.y += 0.3 * Math.cos(this.angle);
+            this.coords.x += 0.3 * Math.sin(this.angle);
+        }
+    }, {
+        key: "moveBackward",
+        value: function moveBackward() {
+            this.coords.y -= 0.3 * Math.cos(this.angle);
+            this.coords.x -= 0.3 * Math.sin(this.angle);
+        }
+    }, {
+        key: "turnRight",
+        value: function turnRight() {
+            this.angle += 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnLeft",
+        value: function turnLeft() {
+            this.angle -= 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnTurretRight",
+        value: function turnTurretRight() {
+            this.turretAngle += 0.008 * Math.PI;
+        }
+    }, {
+        key: "turnTurretLeft",
+        value: function turnTurretLeft() {
+            this.turretAngle -= 0.008 * Math.PI;
+        }
+    }, {
+        key: "update",
+        value: function update() {
+            var _this = this;
 
-			var tankPoints = [{
-				y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
-				x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
-			}, {
-				y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
-				x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
-			}, {
-				y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
-				x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
-			}, {
-				y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
-				x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
-			}];
-			var flag = false;
-			this.map.some(function (key) {
-				tankPoints.some(function (tp) {
-					flag = _this2._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
-					return flag;
-				});
-				return flag;
-			});
-			return flag;
-		}
-	}, {
-		key: "_fireCollision",
-		value: function _fireCollision() {
-			var cnt = 0;
-			var bulletX = this.coords.x;
-			var bulletY = this.coords.y;
-			var currentAngle = this.turretAngle;
-			while (!this._checkBulletWithHouses(bulletX, bulletY) && cnt < 100000) {
-				bulletX += 0.1 * Math.sin(currentAngle);
-				bulletY += 0.1 * Math.cos(currentAngle);
-				cnt++;
-			}
-			if (cnt < 100000) {
-				return { x: bulletX, y: bulletY };
-			}
-			return { x: 0, y: 0 };
-		}
-	}, {
-		key: "_checkBulletWithHouses",
-		value: function _checkBulletWithHouses(bulletX, bulletY) {
-			var _this3 = this;
+            if (this.actionStates.forward) {
+                this.deprecatedMovemants.backward = false;
+                if (!this.deprecatedMovemants.forward) {
+                    this.moveForward();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.forward = true;
+                } else {
+                    this.deprecatedMovemants.forward = false;
+                }
+            }
+            if (this.actionStates.backward) {
+                this.deprecatedMovemants.forward = false;
+                if (!this.deprecatedMovemants.backward) {
+                    this.moveBackward();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.backward = true;
+                } else {
+                    this.deprecatedMovemants.backward = false;
+                }
+            }
+            if (this.actionStates.right) {
+                if (!this.deprecatedMovemants.turnRight) {
+                    this.turnRight();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.turnRight = true;
+                } else {
+                    this.deprecatedMovemants.turnRight = false;
+                }
+            }
+            if (this.actionStates.left) {
+                if (!this.deprecatedMovemants.turnLeft) {
+                    this.turnLeft();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.turnLeft = true;
+                } else {
+                    this.deprecatedMovemants.turnLeft = false;
+                }
+            }
+            if (this.actionStates.turretLeft) {
+                this.turnTurretLeft();
+            }
+            if (this.actionStates.turretRight) {
+                this.turnTurretRight();
+            }
+            if (this.actionStates.changeCamera) {
+                this.actionStates.changeCamera = false;
+                this.cameraCurrentType++;
+                this.cameraCurrentType %= 3;
+            }
+            if (this.actionStates.fire && this.deprecatedMovemants.fire) {
 
-			var flag = false;
-			this.map.some(function (key) {
-				flag = _this3._pointInPolygon(bulletX, bulletY, key.x, key.y, key.height, key.width);
-				return flag;
-			});
-			return flag;
-		}
-	}, {
-		key: "getInstrustions",
-		value: function getInstrustions() {
-			return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire, bulletCoords: this.bulletCoords };
-		}
-	}]);
+                Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
+                    _this.actionStates.fire = false;
+                }, 1);
+                this.deprecatedMovemants.fire = false;
+                Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
+                    _this.deprecatedMovemants.fire = true;
+                }, 4000);
+                this.bulletCoords = this._fireCollision(); //TODO
+            } else {
+                this.actionStates.fire = false;
+            }
+        }
+    }, {
+        key: "_pointInPolygon",
+        value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
+            var leftX = polyX - polyH / 2;
+            var rightX = leftX + polyH;
+            if (pointX < rightX && pointX > leftX) {
+                var leftY = polyY - polyW / 2;
+                var rightY = leftY + polyW;
+                if (pointY < rightY && pointY > leftY) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }, {
+        key: "_tankCollisionWithHouses",
+        value: function _tankCollisionWithHouses() {
+            var _this2 = this;
 
-	return Player;
+            var tankPoints = [{
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            }];
+            var flag = false;
+            this.map.some(function (key) {
+                tankPoints.some(function (tp) {
+                    flag = _this2._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
+                    return flag;
+                });
+                return flag;
+            });
+            return flag;
+        }
+    }, {
+        key: "_fireCollision",
+        value: function _fireCollision() {
+            var cnt = 0;
+            var bulletX = this.coords.x;
+            var bulletY = this.coords.y;
+            var currentAngle = this.turretAngle;
+            while (!this._checkBulletWithHouses(bulletX, bulletY) && cnt < 100000) {
+                bulletX += 0.1 * Math.sin(currentAngle);
+                bulletY += 0.1 * Math.cos(currentAngle);
+                cnt++;
+            }
+            if (cnt < 100000) {
+                return { x: bulletX, y: bulletY };
+            }
+            return { x: 0, y: 0 };
+        }
+    }, {
+        key: "_checkBulletWithHouses",
+        value: function _checkBulletWithHouses(bulletX, bulletY) {
+            var _this3 = this;
+
+            var flag = false;
+            this.map.some(function (key) {
+                flag = _this3._pointInPolygon(bulletX, bulletY, key.x, key.y, key.height, key.width);
+                return flag;
+            });
+            return flag;
+        }
+    }, {
+        key: "getInstrustions",
+        value: function getInstrustions() {
+            return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire, bulletCoords: this.bulletCoords };
+        }
+    }]);
+
+    return Player;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Player);
@@ -6098,106 +6100,124 @@ var keyboardJS = __webpack_require__(11);
 
 
 var SinglePlayer = function () {
-	function SinglePlayer() {
-		_classCallCheck(this, SinglePlayer);
+    function SinglePlayer() {
+        _classCallCheck(this, SinglePlayer);
 
-		this._gameLoop = this._gameLoop.bind(this);
-		this.actionStates = {};
-		this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50], this.actionStates); // TODO write your original
-		this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
-	}
+        this._gameLoop = this._gameLoop.bind(this);
+        this.actionStates = {};
+        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50], this.actionStates); // TODO write your original
+        this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
+        window.movingSound = new Audio("./sounds/move.mp3");
+        window.stayingSound = new Audio("./sounds/move.mp3");
+        window.stayingSound.loop = true;
+        window.stayingSound.volume = 0.2;
+        window.movingSound.loop = true;
+        window.movingSound.volume = 0.2;
+        window.movingSound.play();
+        setTimeout(function () {
+            window.stayingSound.play();
+        }, 1000);
+    }
 
-	_createClass(SinglePlayer, [{
-		key: "getPlayersCoors",
-		value: function getPlayersCoors() {
-			return {
-				me: this.me.coords,
-				opponent: this.opponent.coords
-			};
-		}
-	}, {
-		key: "startListenGameLoop",
-		value: function startListenGameLoop(callback) {
-			var _this = this;
+    _createClass(SinglePlayer, [{
+        key: "getPlayersCoors",
+        value: function getPlayersCoors() {
+            return {
+                me: this.me.coords,
+                opponent: this.opponent.coords
+            };
+        }
+    }, {
+        key: "startListenGameLoop",
+        value: function startListenGameLoop(callback) {
+            var _this = this;
 
-			this.sceneInstructionCallback = callback;
-			this._startLoop();
-			this._initKeyListeners(function (newState) {
-				Object.assign(_this.actionStates, newState);
-			});
-		}
-	}, {
-		key: "_startLoop",
-		value: function _startLoop() {
-			window.requestAnimationFrame(this._gameLoop);
-		}
+            this.sceneInstructionCallback = callback;
+            this._startLoop();
+            this._initKeyListeners(function (newState) {
+                Object.assign(_this.actionStates, newState);
+            });
+        }
+    }, {
+        key: "_startLoop",
+        value: function _startLoop() {
+            window.requestAnimationFrame(this._gameLoop);
+        }
 
-		//Основной цикл, который шлет изменения
+        //Основной цикл, который шлет изменения
 
-	}, {
-		key: "_gameLoop",
-		value: function _gameLoop() {
+    }, {
+        key: "_gameLoop",
+        value: function _gameLoop() {
 
-			// Object.keys(this._actionStates).forEach(key => {
-			//     this.me[key] = this._actionStates[key];
-			// });
-			this.me.update();
-			this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
-			this.me.getInstrustions());
-			window.requestAnimationFrame(this._gameLoop);
-		}
-	}, {
-		key: "_initKeyListeners",
-		value: function _initKeyListeners(callback) {
-			keyboardJS.bind("m", function (e) {
-				callback({ turretRight: true });
-			}, function (e) {
-				callback({ turretRight: false });
-			});
-			keyboardJS.bind("n", function (e) {
-				callback({ turretLeft: true });
-			}, function (e) {
-				callback({ turretLeft: false });
-			});
-			keyboardJS.bind("w", function (e) {
-				callback({ forward: true });
-			}, function (e) {
-				callback({ forward: false });
-			});
-			keyboardJS.bind("s", function (e) {
-				callback({ backward: true });
-			}, function (e) {
-				callback({ backward: false });
-			});
-			keyboardJS.bind("d", function (e) {
-				callback({ right: true });
-			}, function (e) {
-				callback({ right: false });
-			});
-			keyboardJS.bind("a", function (e) {
-				callback({ left: true });
-			}, function (e) {
-				callback({ left: false });
-			});
-			keyboardJS.bind("v", function (e) {
-				// callback({ changeCamera: false });
-			}, function (e) {
-				callback({ changeCamera: true });
-			});
-			keyboardJS.bind("space", function (e) {
-				// callback({ changeCamera: false });
-			}, function (e) {
-				callback({ fire: true });
-			});
-		}
-	}, {
-		key: "randomMovemant",
-		value: function randomMovemant(callback) {
-			callback({ left: true, forward: true });
-		}
-	}]);
+            // Object.keys(this._actionStates).forEach(key => {
+            //     this.me[key] = this._actionStates[key];
+            // });
+            this.me.update();
+            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+            this.me.getInstrustions());
+            window.requestAnimationFrame(this._gameLoop);
+        }
+    }, {
+        key: "_initKeyListeners",
+        value: function _initKeyListeners(callback) {
+            keyboardJS.bind("m", function (e) {
+                callback({ turretRight: true });
+            }, function (e) {
+                callback({ turretRight: false });
+            });
+            keyboardJS.bind("n", function (e) {
+                callback({ turretLeft: true });
+            }, function (e) {
+                callback({ turretLeft: false });
+            });
+            keyboardJS.bind("w", function (e) {
+                callback({ forward: true });
+                window.movingSound.volume = 0.65;
+                window.stayingSound.volume = 0.65;
+            }, function (e) {
+                callback({ forward: false });
+                window.movingSound.volume = 0.2;
+                window.stayingSound.volume = 0.2;
+            });
+            keyboardJS.bind("s", function (e) {
+                callback({ backward: true });
+                window.movingSound.volume = 0.65;
+                window.stayingSound.volume = 0.65;
+            }, function (e) {
+                callback({ backward: false });
+                window.movingSound.volume = 0.2;
+                window.stayingSound.volume = 0.2;
+            });
+            keyboardJS.bind("d", function (e) {
+                callback({ right: true });
+            }, function (e) {
+                callback({ right: false });
+            });
+            keyboardJS.bind("a", function (e) {
+                callback({ left: true });
+            }, function (e) {
+                callback({ left: false });
+            });
+            keyboardJS.bind("v", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ changeCamera: true });
+            });
+            keyboardJS.bind("space", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ fire: true });
+            });
+        }
+    }, {
+        key: "randomMovemant",
+        value: function randomMovemant(callback) {
+            callback({ left: true, forward: true });
+        }
+    }]);
 
-	return SinglePlayer;
+    return SinglePlayer;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (SinglePlayer);
@@ -7468,314 +7488,319 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // import { Math } from "../../../../Library/Caches/typescript/2.6/node_modules/@types/three";
 
 var Scene = function () {
-	function Scene(startPositionMe, startPositionOpponent, type, liteVersion) {
-		var _this = this;
+    function Scene(startPositionMe, startPositionOpponent, type, liteVersion) {
+        var _this = this;
 
-		_classCallCheck(this, Scene);
+        _classCallCheck(this, Scene);
 
-		__WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].show();
-		this.type = type;
-		this.liteVersion = liteVersion;
-		this.stats = new Stats();
-		this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-		document.body.appendChild(this.stats.dom);
-		//////
-		this._resizeFunction = this._resizeFunction.bind(this);
+        __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].show();
+        this.type = type;
+        this.liteVersion = liteVersion;
+        this.fireSound = new Audio("./sounds/fire.mp3");
+        this.stats = new Stats();
+        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(this.stats.dom);
+        //////
+        this._resizeFunction = this._resizeFunction.bind(this);
 
-		this.scene = new THREE.Scene();
-		this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
-		this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
-		// modelLoader("Hammer+Tank/model.dae").then(coll => {
-		Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("T90/model.dae").then(function (coll) {
+        this.scene = new THREE.Scene();
+        this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
+        this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
+        // modelLoader("Hammer+Tank/model.dae").then(coll => {
+        Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("T90/model.dae").then(function (coll) {
 
-			var collada = [coll.scene.clone(), coll.scene.clone()];
-			var i = 0;
-			["tankOpponent", "tankMe"].forEach(function (key) {
-				//tank
-				var cpy1 = collada[i].clone();
-				var cpy2 = collada[i].clone();
+            var collada = [coll.scene.clone(), coll.scene.clone()];
+            var i = 0;
+            ["tankOpponent", "tankMe"].forEach(function (key) {
+                //tank
+                var cpy1 = collada[i].clone();
+                var cpy2 = collada[i].clone();
 
-				cpy1.children[2] = new THREE.Object3D();
-				cpy1.children[3] = new THREE.Object3D();
-				cpy2.children[0] = new THREE.Object3D();
-				cpy2.children[1] = new THREE.Object3D();
+                cpy1.children[2] = new THREE.Object3D();
+                cpy1.children[3] = new THREE.Object3D();
+                cpy2.children[0] = new THREE.Object3D();
+                cpy2.children[1] = new THREE.Object3D();
 
-				// this[key].parent.add(cpy1);
-				_this[key].dae.add(cpy1);
+                // this[key].parent.add(cpy1);
+                _this[key].dae.add(cpy1);
 
-				_this[key].dae.rotation.x = -0.5 * Math.PI;
-				_this[key].dae.rotation.z = 1 * Math.PI;
-				_this[key].dae.rotation.y = -0.5 * Math.PI;
+                _this[key].dae.rotation.x = -0.5 * Math.PI;
+                _this[key].dae.rotation.z = 1 * Math.PI;
+                _this[key].dae.rotation.y = -0.5 * Math.PI;
 
-				// this[key].dae.castShadow = true;
-				_this.scene.add(_this[key].dae);
+                // this[key].dae.castShadow = true;
+                _this.scene.add(_this[key].dae);
 
-				//turret
-				_this[key].turret.parent.add(cpy2);
-				_this[key].turret.dae.rotation.x = -0.5 * Math.PI;
-				// this[key].turret.dae.rotation.y = +0.5 * Math.PI;
+                //turret
+                _this[key].turret.parent.add(cpy2);
+                _this[key].turret.dae.rotation.x = -0.5 * Math.PI;
+                // this[key].turret.dae.rotation.y = +0.5 * Math.PI;
 
-				_this[key].turret.dae.rotation.z = 1 * Math.PI;
-				_this.scene.add(_this[key].turret.dae);
-				i++;
-			});
-			// progressBar.hide();
-			_this._init();
-			__WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].hide();
-		});
-		this._addMap();
-	}
+                _this[key].turret.dae.rotation.z = 1 * Math.PI;
+                _this.scene.add(_this[key].turret.dae);
+                i++;
+            });
+            // progressBar.hide();
+            _this._init();
+            __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].hide();
+        });
+        this._addMap();
+    }
 
-	_createClass(Scene, [{
-		key: "_init",
-		value: function _init() {
-			///////////////////////////////////////// // Camera ///////////////////////////////////////// 
+    _createClass(Scene, [{
+        key: "_init",
+        value: function _init() {
+            ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
 
-			this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
+            this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
 
-			this.camera.position.set(0, 7.9, 50);
-			this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
-			this.renderer = new THREE.WebGLRenderer({
-				alpha: true,
-				antialias: true
-			});
-			//this.renderer.shadowMap.enabled = true;
+            this.camera.position.set(0, 7.9, 50);
+            this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+            this.renderer = new THREE.WebGLRenderer({
+                alpha: true,
+                antialias: true
+            });
+            //this.renderer.shadowMap.enabled = true;
 
-			this.tankMe.turret.dae.add(this.camera);
-			///f
-			this.tankMe.camera = this.camera;
-			///
+            this.tankMe.turret.dae.add(this.camera);
+            ///f
+            this.tankMe.camera = this.camera;
+            ///
 
-			this.renderer.setPixelRatio(window.devicePixelRatio);
-			this.renderer.setSize(window.innerWidth, window.innerHeight);
-			///
-			this.renderer.domElement.setAttribute("id", "game");
-			this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
-			this.renderer.domElement.style.position = "absolute";
-			this.renderer.domElement.style.zIndex = "1";
+            this.renderer.setPixelRatio(window.devicePixelRatio);
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            ///
+            this.renderer.domElement.setAttribute("id", "game");
+            this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
+            this.renderer.domElement.style.position = "absolute";
+            this.renderer.domElement.style.zIndex = "1";
 
-			document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
-			///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
-			var light = void 0,
-			    light2 = void 0;
-			this.scene.add(new THREE.AmbientLight(0x666666));
-			light = new THREE.DirectionalLight(0xdfebff, 1.1);
-			light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
+            document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
+            ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
+            var light = void 0,
+                light2 = void 0;
+            this.scene.add(new THREE.AmbientLight(0x666666));
+            light = new THREE.DirectionalLight(0xdfebff, 1.1);
+            light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
 
-			light.position.set(50, 200, 100);
-			light2.position.set(-150, -200, 100);
+            light.position.set(50, 200, 100);
+            light2.position.set(-150, -200, 100);
 
-			light.position.multiplyScalar(1.3);
-			light2.position.multiplyScalar(1.3);
-			this.scene.add(light);
-			this.scene.add(light2);
-			/////////light end
-			this._resizeWindow();
+            light.position.multiplyScalar(1.3);
+            light2.position.multiplyScalar(1.3);
+            this.scene.add(light);
+            this.scene.add(light2);
+            /////////light end
+            this._resizeWindow();
 
-			this._startRenderAnimate();
-			this.staticScene = new __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__["a" /* default */](this.type);
-		}
-	}, {
-		key: "updateObjects",
-		value: function updateObjects(type, instractions) {
-			var _this2 = this;
+            this._startRenderAnimate();
+            this.staticScene = new __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__["a" /* default */](this.type);
+        }
+    }, {
+        key: "updateObjects",
+        value: function updateObjects(type, instractions) {
+            var _this2 = this;
 
-			if (instractions.state === 1 || instractions.state === 0 || instractions.state === -1) {
-				this.staticScene.showGameState(instractions.state);
-			}
-			this[type].instractions = instractions;
-			if (type === "tankMe") {
-				if (this.staticScene !== undefined) {
-					this.staticScene.changeHP(instractions.HP);
-				}
-			}
-			if (instractions.fire) {
-				if (type === "tankMe") {
-					this.staticScene.fireReload();
-				}
-				this[type].boom.visible = true;
-				Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-					_this2[type].boom.visible = false;
-					_this2._showBoom(type, instractions.bulletCoords);
-				}, 500);
-			}
-		}
+            if (instractions.state === 1 || instractions.state === 0 || instractions.state === -1) {
+                this.staticScene.showGameState(instractions.state);
+            }
+            this[type].instractions = instractions;
+            if (type === "tankMe") {
+                if (this.staticScene !== undefined) {
+                    this.staticScene.changeHP(instractions.HP);
+                }
+            }
+            if (instractions.fire) {
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this2.fireSound.play();
+                }, 0);
 
-		// _showBoom(type, coords = {}) {
-		//     if (type === "tankMe") {
-		//         this.boom2.position.set(coords.x - 5, coords.y, 2);
-		//         this.boom2.visible = true;
-		//         setTimeout(() => { this.boom2.visible = false; }, 300);
-		//     } else {
-		//         this.boom2Op.position.set(coords.x - 5, coords.y, 2);
-		//         this.boom2Op.visible = true;
-		//         setTimeout(() => { this.boom2Op.visible = false; }, 300);
-		//     }
+                if (type === "tankMe") {
+                    this.staticScene.fireReload();
+                }
+                this[type].boom.visible = true;
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this2[type].boom.visible = false;
+                    _this2._showBoom(type, instractions.bulletCoords);
+                }, 500);
+            }
+        }
 
-		// }
+        // _showBoom(type, coords = {}) {
+        //     if (type === "tankMe") {
+        //         this.boom2.position.set(coords.x - 5, coords.y, 2);
+        //         this.boom2.visible = true;
+        //         setTimeout(() => { this.boom2.visible = false; }, 300);
+        //     } else {
+        //         this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+        //         this.boom2Op.visible = true;
+        //         setTimeout(() => { this.boom2Op.visible = false; }, 300);
+        //     }
 
-	}, {
-		key: "_showBoom",
-		value: function _showBoom(type) {
-			var _this3 = this;
+        // }
 
-			var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-			//TODO тут косяк с оппонентом
-			if (type === "tankMe") {
-				this.boom2.scale.y = 0.005;
-				this.boom2.scale.x = 0.005;
-				this.boom2.scale.z = 0.005;
-				this.boom2.position.set(coords.x, coords.y, 1);
-				this.boom2.visible = true;
-				var cnt = 20;
-				while (cnt != 500) {
-					Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-						_this3.boom2.scale.y *= 1.1;
-						_this3.boom2.scale.x *= 1.1;
-						_this3.boom2.scale.z *= 1.1;
-						//this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
-					}, cnt);
-					cnt += 20;
-				}
+    }, {
+        key: "_showBoom",
+        value: function _showBoom(type) {
+            var _this3 = this;
 
-				Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-					_this3.boom2.visible = false;
-				}, 800);
-			} else {
-				this.boom2Op.scale.y = 0.005;
-				this.boom2Op.scale.x = 0.005;
-				this.boom2Op.scale.z = 0.005;
-				this.boom2Op.position.set(coords.x, coords.y, 1);
-				this.boom2Op.visible = true;
-				var _cnt = 20;
-				while (_cnt != 500) {
-					Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-						_this3.boom2Op.scale.y *= 1.1;
-						_this3.boom2Op.scale.x *= 1.1;
-						_this3.boom2Op.scale.z *= 1.1;
-						//this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
-					}, _cnt);
-					_cnt += 20;
-				}
+            var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+            //TODO тут косяк с оппонентом
+            if (type === "tankMe") {
+                this.boom2.scale.y = 0.005;
+                this.boom2.scale.x = 0.005;
+                this.boom2.scale.z = 0.005;
+                this.boom2.position.set(coords.x, coords.y, 1);
+                this.boom2.visible = true;
+                var cnt = 20;
+                while (cnt != 500) {
+                    Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                        _this3.boom2.scale.y *= 1.1;
+                        _this3.boom2.scale.x *= 1.1;
+                        _this3.boom2.scale.z *= 1.1;
+                        //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+                    }, cnt);
+                    cnt += 20;
+                }
 
-				Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
-					_this3.boom2Op.visible = false;
-				}, 800);
-			}
-			// this.boom2.visible = false;
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this3.boom2.visible = false;
+                }, 800);
+            } else {
+                this.boom2Op.scale.y = 0.005;
+                this.boom2Op.scale.x = 0.005;
+                this.boom2Op.scale.z = 0.005;
+                this.boom2Op.position.set(coords.x, coords.y, 1);
+                this.boom2Op.visible = true;
+                var _cnt = 20;
+                while (_cnt != 500) {
+                    Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                        _this3.boom2Op.scale.y *= 1.1;
+                        _this3.boom2Op.scale.x *= 1.1;
+                        _this3.boom2Op.scale.z *= 1.1;
+                        //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+                    }, _cnt);
+                    _cnt += 20;
+                }
 
-			// } else {
-			//     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
-			//     this.boom2Op.visible = true;
-			//     setTimeout(() => { this.boom2Op.visible = false; }, 300);
-			// }
-		}
-	}, {
-		key: "_startRenderAnimate",
-		value: function _startRenderAnimate() {
-			var _this4 = this;
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this3.boom2Op.visible = false;
+                }, 800);
+            }
+            // this.boom2.visible = false;
 
-			var innerrender = function innerrender() {
-				window.requestAnimationFrame(innerrender);
-				_this4.stats.begin();
-				_this4._render();
-				_this4.stats.end();
-			};
+            // } else {
+            //     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+            //     this.boom2Op.visible = true;
+            //     setTimeout(() => { this.boom2Op.visible = false; }, 300);
+            // }
+        }
+    }, {
+        key: "_startRenderAnimate",
+        value: function _startRenderAnimate() {
+            var _this4 = this;
 
-			innerrender();
-		}
-	}, {
-		key: "_render",
-		value: function _render() {
-			var _this5 = this;
+            var innerrender = function innerrender() {
+                window.requestAnimationFrame(innerrender);
+                _this4.stats.begin();
+                _this4._render();
+                _this4.stats.end();
+            };
 
-			["tankMe", "tankOpponent"].forEach(function (key) {
-				_this5[key].update();
-			});
-			this.renderer.render(this.scene, this.camera);
-		}
-	}, {
-		key: "_resizeWindow",
-		value: function _resizeWindow() {
-			window.addEventListener("resize", this._resizeFunction, false);
-		}
-	}, {
-		key: "_resizeFunction",
-		value: function _resizeFunction() {
-			this.camera.aspect = window.innerWidth / window.innerHeight;
-			this.camera.updateProjectionMatrix();
-			this.renderer.setSize(window.innerWidth, window.innerHeight);
-			this._render();
-		}
-	}, {
-		key: "_addMap",
-		value: function _addMap() {
-			var _this6 = this;
+            innerrender();
+        }
+    }, {
+        key: "_render",
+        value: function _render() {
+            var _this5 = this;
 
-			Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene, this.liteVersion);
-			var loader = new THREE.TextureLoader();
-			var groundTexture = loader.load("./game/3dModels/terrain/www.jpg");
-			groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-			groundTexture.repeat.set(1900, 1900);
-			groundTexture.anisotropy = 16;
-			var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
-			var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
-			mesh.position.z = 0.01;
-			this.scene.add(mesh);
-			//
-			Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("road/model.dae").then(function (coll) {
-				coll.scene.rotation.x = -0.5 * Math.PI;
-				coll.scene.rotation.z = 1 * Math.PI;
-				coll.scene.position.z -= 0.1;
-				coll.scene.scale.z = 3;
-				coll.scene.scale.x = 0.05;
-				coll.scene.position.z = 0.11;
-				coll.scene.position.y = 500;
-				var road2 = coll.scene.clone();
-				road2.rotation.y = 0.5 * Math.PI;
-				road2.position.y = 0;
-				road2.position.x = 500;
+            ["tankMe", "tankOpponent"].forEach(function (key) {
+                _this5[key].update();
+            });
+            this.renderer.render(this.scene, this.camera);
+        }
+    }, {
+        key: "_resizeWindow",
+        value: function _resizeWindow() {
+            window.addEventListener("resize", this._resizeFunction, false);
+        }
+    }, {
+        key: "_resizeFunction",
+        value: function _resizeFunction() {
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            this._render();
+        }
+    }, {
+        key: "_addMap",
+        value: function _addMap() {
+            var _this6 = this;
 
-				_this6.scene.add(coll.scene);
-				_this6.scene.add(road2);
-			});
-			Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("expl/model.dae").then(function (coll) {
-				coll.scene.rotation.x = -0.5 * Math.PI;
-				coll.scene.rotation.z = 1 * Math.PI;
-				coll.scene.rotation.y = -0.5 * Math.PI;
-				coll.scene.scale.z *= 0.35;
-				coll.scene.scale.y *= 0.35;
-				coll.scene.scale.x *= 0.35;
-				_this6.boom = coll.scene.clone();
-				_this6.boomOp = coll.scene.clone();
-				_this6.boom2 = coll.scene.clone();
-				// this.boom2.scale.y *= 10;
-				// this.boom2.scale.x *= 10;
-				// this.boom2.scale.z *= 10;
-				_this6.boom2.scale.y *= 4;
-				_this6.boom2.scale.x *= 4;
-				_this6.boom2.scale.z *= 4;
-				_this6.boom2Op = _this6.boom2.clone();
-				_this6.boom2.position.set(-100, -100, -100);
-				_this6.boom2Op.position.set(-100, -100, -100);
+            Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene, this.liteVersion);
+            var loader = new THREE.TextureLoader();
+            var groundTexture = loader.load("./game/3dModels/terrain/www.jpg");
+            groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+            groundTexture.repeat.set(1900, 1900);
+            groundTexture.anisotropy = 16;
+            var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
+            var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
+            mesh.position.z = 0.01;
+            this.scene.add(mesh);
+            //
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("road/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                coll.scene.scale.z = 3;
+                coll.scene.scale.x = 0.05;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.y = 500;
+                var road2 = coll.scene.clone();
+                road2.rotation.y = 0.5 * Math.PI;
+                road2.position.y = 0;
+                road2.position.x = 500;
 
-				_this6.scene.add(_this6.boom2);
-				_this6.scene.add(_this6.boom2Op);
-				// this.boom.position.set(-0.75, 1.75, -7);
-				// this.boomOp.position.set(-0.75, 1.75, -7);
-				_this6.boom.position.set(-0.1, 2, -7);
-				_this6.boomOp.position.set(-0.1, 2, -7);
-				_this6.tankMe.turret.dae.add(_this6.boom);
-				_this6.tankOpponent.turret.dae.add(_this6.boomOp);
-				_this6.tankMe.boom = _this6.boom;
-				_this6.tankOpponent.boom = _this6.boomOp;
-				_this6.tankMe.boom.visible = false;
-				_this6.tankOpponent.boom.visible = false;
-			});
-		}
-	}]);
+                _this6.scene.add(coll.scene);
+                _this6.scene.add(road2);
+            });
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("expl/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.rotation.y = -0.5 * Math.PI;
+                coll.scene.scale.z *= 0.35;
+                coll.scene.scale.y *= 0.35;
+                coll.scene.scale.x *= 0.35;
+                _this6.boom = coll.scene.clone();
+                _this6.boomOp = coll.scene.clone();
+                _this6.boom2 = coll.scene.clone();
+                // this.boom2.scale.y *= 10;
+                // this.boom2.scale.x *= 10;
+                // this.boom2.scale.z *= 10;
+                _this6.boom2.scale.y *= 4;
+                _this6.boom2.scale.x *= 4;
+                _this6.boom2.scale.z *= 4;
+                _this6.boom2Op = _this6.boom2.clone();
+                _this6.boom2.position.set(-100, -100, -100);
+                _this6.boom2Op.position.set(-100, -100, -100);
 
-	return Scene;
+                _this6.scene.add(_this6.boom2);
+                _this6.scene.add(_this6.boom2Op);
+                // this.boom.position.set(-0.75, 1.75, -7);
+                // this.boomOp.position.set(-0.75, 1.75, -7);
+                _this6.boom.position.set(-0.1, 2, -7);
+                _this6.boomOp.position.set(-0.1, 2, -7);
+                _this6.tankMe.turret.dae.add(_this6.boom);
+                _this6.tankOpponent.turret.dae.add(_this6.boomOp);
+                _this6.tankMe.boom = _this6.boom;
+                _this6.tankOpponent.boom = _this6.boomOp;
+                _this6.tankMe.boom.visible = false;
+                _this6.tankOpponent.boom.visible = false;
+            });
+        }
+    }]);
+
+    return Scene;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Scene);
@@ -7794,54 +7819,54 @@ var THREE = __webpack_require__(6);
 
 
 var Tank = function () {
-	function Tank(dae) {
-		var _this = this;
+    function Tank(dae) {
+        var _this = this;
 
-		var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { x: 0, y: 0 };
+        var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { x: 0, y: 0 };
 
-		_classCallCheck(this, Tank);
+        _classCallCheck(this, Tank);
 
-		this.dae = new THREE.Object3D();
-		this.dae.position.x = coords.x;
-		this.dae.position.y = coords.y;
+        this.dae = new THREE.Object3D();
+        this.dae.position.x = coords.x;
+        this.dae.position.y = coords.y;
 
-		this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
+        this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
 
-		this.camera = null;
-		// this.changeCamera = false;
-		this.cameraCurrentType = 0;
+        this.camera = null;
+        // this.changeCamera = false;
+        this.cameraCurrentType = 0;
 
-		this.cameraTypes = [function () {
-			_this.camera.position.set(0, 7.9, 50);
-			_this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
-		}, function () {
-			_this.camera.position.set(0, 3, 5);
-			_this.camera.lookAt(new THREE.Vector3(0, 2.7, 0));
-		}, function () {
-			_this.camera.position.set(0, 45, 185);
-			_this.camera.lookAt(new THREE.Vector3(0, 15, 0));
-		}];
-		this.instractions = { coords: {}, angle: -0.5 * Math.PI, cameraType: 0 };
-	}
+        this.cameraTypes = [function () {
+            _this.camera.position.set(0, 7.9, 50);
+            _this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+        }, function () {
+            _this.camera.position.set(0, 3, 5);
+            _this.camera.lookAt(new THREE.Vector3(0, 2.7, 0));
+        }, function () {
+            _this.camera.position.set(0, 45, 185);
+            _this.camera.lookAt(new THREE.Vector3(0, 15, 0));
+        }];
+        this.instractions = { coords: { x: 0, y: 0 }, angle: -0.5 * Math.PI, cameraType: 0 };
+    }
 
-	_createClass(Tank, [{
-		key: "update",
-		value: function update() {
-			this.dae.rotation.y = this.instractions.angle - Math.PI;
-			this.turret.dae.rotation.y = this.instractions.turretAngle - Math.PI;
-			this.dae.position.y = this.instractions.coords.y;
-			this.dae.position.x = this.instractions.coords.x;
-			this.turret.dae.position.y = this.instractions.coords.y;
-			this.turret.dae.position.x = this.instractions.coords.x;
+    _createClass(Tank, [{
+        key: "update",
+        value: function update() {
+            this.dae.rotation.y = this.instractions.angle - Math.PI;
+            this.turret.dae.rotation.y = this.instractions.turretAngle - Math.PI;
+            this.dae.position.y = this.instractions.coords.y;
+            this.dae.position.x = this.instractions.coords.x;
+            this.turret.dae.position.y = this.instractions.coords.y;
+            this.turret.dae.position.x = this.instractions.coords.x;
 
-			if (this.instractions.cameraType !== this.cameraCurrentType) {
-				this.cameraTypes[this.instractions.cameraType]();
-				this.cameraCurrentType = this.instractions.cameraType;
-			}
-		}
-	}]);
+            if (this.instractions.cameraType !== this.cameraCurrentType) {
+                this.cameraTypes[this.instractions.cameraType]();
+                this.cameraCurrentType = this.instractions.cameraType;
+            }
+        }
+    }]);
 
-	return Tank;
+    return Tank;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Tank);
@@ -13291,114 +13316,132 @@ var keyboardJS = __webpack_require__(11);
 
 
 var MultiPlayer = function () {
-	function MultiPlayer() {
-		_classCallCheck(this, MultiPlayer);
+    function MultiPlayer() {
+        _classCallCheck(this, MultiPlayer);
 
-		this._gameLoop = this._gameLoop.bind(this);
-		this.actionStates = {};
-		this.allowFire = true;
-		// this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
-		// this.opponent = new Player("super bitch bot", [-10, -10], null);
-	}
+        this._gameLoop = this._gameLoop.bind(this);
+        this.actionStates = {};
+        this.allowFire = true;
+        window.movingSound = new Audio("./sounds/move.mp3");
+        window.stayingSound = new Audio("./sounds/move.mp3");
+        window.stayingSound.loop = true;
+        window.stayingSound.volume = 0.2;
+        window.movingSound.loop = true;
+        window.movingSound.volume = 0.2;
+        window.movingSound.play();
+        setTimeout(function () {
+            window.stayingSound.play();
+        }, 1000);
+        // this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
+        // this.opponent = new Player("super bitch bot", [-10, -10], null);
+    }
 
-	// getPlayersCoors() {
-	// 	return {
-	// 		me: this.me.coords,
-	// 		opponent: this.opponent.coords
-	// 	};
-	// }
+    // getPlayersCoors() {
+    // 	return {
+    // 		me: this.me.coords,
+    // 		opponent: this.opponent.coords
+    // 	};
+    // }
 
-	_createClass(MultiPlayer, [{
-		key: "startListenGameLoop",
-		value: function startListenGameLoop(callback) {
-			var _this = this;
+    _createClass(MultiPlayer, [{
+        key: "startListenGameLoop",
+        value: function startListenGameLoop(callback) {
+            var _this = this;
 
-			this.sceneInstructionCallback = callback;
-			this._startLoop();
-			this._initKeyListeners(function (newState) {
-				Object.assign(_this.actionStates, newState);
-			});
-		}
-	}, {
-		key: "_startLoop",
-		value: function _startLoop() {
-			window.requestAnimationFrame(this._gameLoop);
-		}
+            this.sceneInstructionCallback = callback;
+            this._startLoop();
+            this._initKeyListeners(function (newState) {
+                Object.assign(_this.actionStates, newState);
+            });
+        }
+    }, {
+        key: "_startLoop",
+        value: function _startLoop() {
+            window.requestAnimationFrame(this._gameLoop);
+        }
 
-		//Основной цикл, который шлет изменения
+        //Основной цикл, который шлет изменения
 
-	}, {
-		key: "_gameLoop",
-		value: function _gameLoop() {
+    }, {
+        key: "_gameLoop",
+        value: function _gameLoop() {
 
-			// Object.keys(this._actionStates).forEach(key => {
-			//     this.me[key] = this._actionStates[key];
-			// });
-			// this.me.update();
-			this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
-			this.actionStates);
-			window.requestAnimationFrame(this._gameLoop);
-		}
-	}, {
-		key: "_initKeyListeners",
-		value: function _initKeyListeners(callback) {
-			keyboardJS.bind("m", function (e) {
-				callback({ turretRight: true });
-			}, function (e) {
-				callback({ turretRight: false });
-			});
-			keyboardJS.bind("n", function (e) {
-				callback({ turretLeft: true });
-			}, function (e) {
-				callback({ turretLeft: false });
-			});
-			keyboardJS.bind("w", function (e) {
-				callback({ forward: true });
-			}, function (e) {
-				callback({ forward: false });
-			});
-			keyboardJS.bind("s", function (e) {
-				callback({ backward: true });
-			}, function (e) {
-				callback({ backward: false });
-			});
-			keyboardJS.bind("d", function (e) {
-				callback({ right: true });
-			}, function (e) {
-				callback({ right: false });
-			});
-			keyboardJS.bind("a", function (e) {
-				callback({ left: true });
-			}, function (e) {
-				callback({ left: false });
-			});
-			keyboardJS.bind("v", function (e) {
-				// callback({ changeCamera: false });
-			}, function (e) {
-				callback({ changeCamera: true });
-			});
-			keyboardJS.bind("space", function (e) {
-				// callback({ changeCamera: false });
-			}, function (e) {
-				var _this2 = this;
+            // Object.keys(this._actionStates).forEach(key => {
+            //     this.me[key] = this._actionStates[key];
+            // });
+            // this.me.update();
+            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+            this.actionStates);
+            window.requestAnimationFrame(this._gameLoop);
+        }
+    }, {
+        key: "_initKeyListeners",
+        value: function _initKeyListeners(callback) {
+            keyboardJS.bind("m", function (e) {
+                callback({ turretRight: true });
+            }, function (e) {
+                callback({ turretRight: false });
+            });
+            keyboardJS.bind("n", function (e) {
+                callback({ turretLeft: true });
+            }, function (e) {
+                callback({ turretLeft: false });
+            });
+            keyboardJS.bind("w", function (e) {
+                callback({ forward: true });
+                window.movingSound.volume = 0.65;
+                window.stayingSound.volume = 0.65;
+            }, function (e) {
+                callback({ forward: false });
+                window.movingSound.volume = 0.2;
+                window.stayingSound.volume = 0.2;
+            });
+            keyboardJS.bind("s", function (e) {
+                callback({ backward: true });
+                window.movingSound.volume = 0.65;
+                window.stayingSound.volume = 0.65;
+            }, function (e) {
+                callback({ backward: false });
+                window.movingSound.volume = 0.2;
+                window.stayingSound.volume = 0.2;
+            });
+            keyboardJS.bind("d", function (e) {
+                callback({ right: true });
+            }, function (e) {
+                callback({ right: false });
+            });
+            keyboardJS.bind("a", function (e) {
+                callback({ left: true });
+            }, function (e) {
+                callback({ left: false });
+            });
+            keyboardJS.bind("v", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ changeCamera: true });
+            });
+            keyboardJS.bind("space", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                var _this2 = this;
 
-				if (this.allowFire) {
-					callback({ fire: true });
-					this.allowFire = false;
-					setTimeout(function () {
-						_this2.allowFire = true;
-					}, 4000);
-				}
-			}.bind(this));
-		}
-	}, {
-		key: "randomMovemant",
-		value: function randomMovemant(callback) {
-			callback({ left: true, forward: true });
-		}
-	}]);
+                if (this.allowFire) {
+                    callback({ fire: true });
+                    this.allowFire = false;
+                    setTimeout(function () {
+                        _this2.allowFire = true;
+                    }, 4000);
+                }
+            }.bind(this));
+        }
+    }, {
+        key: "randomMovemant",
+        value: function randomMovemant(callback) {
+            callback({ left: true, forward: true });
+        }
+    }]);
 
-	return MultiPlayer;
+    return MultiPlayer;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (MultiPlayer);
