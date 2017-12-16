@@ -14,6 +14,8 @@ export default class MultiPlayer {
         window.movingSound.volume = 0.2;
         window.movingSound.play();
         setTimeout(() => { window.stayingSound.play(); }, 1000);
+        window.reloadSound = new Audio("./sounds/reload.mp3")
+
         // this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
         // this.opponent = new Player("super bitch bot", [-10, -10], null);
     }
@@ -100,6 +102,8 @@ export default class MultiPlayer {
             // callback({ changeCamera: false });
         }, function(e) {
             if (this.allowFire) {
+                setTimeout(() => { window.reloadSound.play(); }, 2000);
+
                 callback({ fire: true });
                 this.allowFire = false;
                 setTimeout(() => { this.allowFire = true; }, 4000);

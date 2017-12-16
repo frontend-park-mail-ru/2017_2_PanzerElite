@@ -15,7 +15,7 @@ export default class SinglePlayer {
         window.movingSound.volume = 0.2;
         window.movingSound.play();
         setTimeout(() => { window.stayingSound.play(); }, 1000);
-
+        window.reloadSound = new Audio("./sounds/reload.mp3")
     }
 
     getPlayersCoors() {
@@ -104,6 +104,8 @@ export default class SinglePlayer {
             // callback({ changeCamera: false });
         }, function(e) {
             callback({ fire: true });
+            setTimeout(() => { window.reloadSound.play(); }, 2000);
+
         });
     }
     randomMovemant(callback) {
