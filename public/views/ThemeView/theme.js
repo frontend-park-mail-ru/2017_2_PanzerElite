@@ -21,7 +21,7 @@ const themeFields = [{
     value: "Nick",
     href: "/game/",
     type: "button"
-}, , {
+}, {
     name: "rank",
     class: " userdata",
     elemType: "input",

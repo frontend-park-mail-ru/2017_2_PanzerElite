@@ -23,7 +23,7 @@
     background: black no-repeat;
     background-image: unset;
     background-size: cover;
-    filter: blur(3px);
+    /* filter: blur(3px); */
 }/* .myProgress {
     z-index: 2;
     position: absolute;
@@ -124,7 +124,7 @@
     left: 38%;
     padding: 45px;
     text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.42), 0 5px 5px 0 rgba(0, 0, 0, 0.424);
 }.input {
     font-family: "Roboto", sans-serif;
     outline: 0;
@@ -327,7 +327,7 @@
 }
 
 .userdata {
-    width: 350;
+    text-decoration: none;
     margin-top: 5%;
     border-color: white;
     background-color: rgba(255, 255, 255, 0);

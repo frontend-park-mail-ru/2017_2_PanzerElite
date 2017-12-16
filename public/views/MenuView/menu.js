@@ -24,6 +24,14 @@ const menuFields = [{
         type: "button",
     },
     {
+        name: "aboutBtn",
+        class: " button",
+        elemType: "a",
+        value: "about",
+        href: "/about/",
+        type: "button",
+    },
+    {
         name: "logoutBtn",
         class: " button",
         elemType: "input",

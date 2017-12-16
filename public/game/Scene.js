@@ -11,10 +11,9 @@ export default class Scene {
         progressBar.show();
         this.type = type;
         this.liteVersion = liteVersion;
-        this.fireSound = new Audio("./sounds/fire.mp3")
+        window.fireSound = new Audio("./sounds/fire.mp3")
         this.stats = new Stats();
         this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-        document.body.appendChild(this.stats.dom);
         //////
         this._resizeFunction = this._resizeFunction.bind(this);
 
@@ -57,7 +56,14 @@ export default class Scene {
             });
             // progressBar.hide();
             this._init();
-            progressBar.hide();
+            setTimeout(() => {
+                progressBar.hide();
+                document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
+                this.staticScene = new StaticScene(this.type);
+                document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
+                document.getElementsByClassName("game")[0].appendChild(this.stats.dom);
+
+            }, 7000);
         });
         this._addMap();
 
@@ -90,7 +96,6 @@ export default class Scene {
         this.renderer.domElement.style.position = "absolute";
         this.renderer.domElement.style.zIndex = "1";
 
-        document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
         ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
         let light, light2;
         this.scene.add(new THREE.AmbientLight(0x666666));
@@ -108,8 +113,6 @@ export default class Scene {
         this._resizeWindow();
 
         this._startRenderAnimate();
-        this.staticScene = new StaticScene(this.type);
-
     }
 
     updateObjects(type, instractions) {
@@ -123,7 +126,7 @@ export default class Scene {
             }
         }
         if (instractions.fire) {
-            setTimeout(() => { this.fireSound.play(); }, 0);
+            setTimeout(() => { window.fireSound.play(); }, 0);
 
             if (type === "tankMe") {
                 this.staticScene.fireReload();

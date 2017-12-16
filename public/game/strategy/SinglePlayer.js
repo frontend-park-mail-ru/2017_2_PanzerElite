@@ -16,6 +16,7 @@ export default class SinglePlayer {
         window.movingSound.play();
         setTimeout(() => { window.stayingSound.play(); }, 1000);
         window.reloadSound = new Audio("./sounds/reload.mp3")
+        window.stopGame = this.stop.bind(this);
     }
 
     getPlayersCoors() {
@@ -34,7 +35,13 @@ export default class SinglePlayer {
     }
 
     _startLoop() {
-        window.requestAnimationFrame(this._gameLoop);
+        this.requestId = window.requestAnimationFrame(this._gameLoop);
+    }
+    stop() {
+        if (this.requestId) {
+            window.cancelAnimationFrame(this.requestId);
+            this.requestId = undefined;
+        }
     }
 
     //Основной цикл, который шлет изменения
