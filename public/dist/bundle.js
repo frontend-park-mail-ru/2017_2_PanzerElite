@@ -3972,8 +3972,8 @@ var GameManager = function () {
                     webSocket.send(JSON.stringify(msgToSend));
                 };
 
-                // var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
-                var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+                var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+                // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
                 var isConnected = false;
 
                 webSocket.onmessage = function (message) {
@@ -5564,8 +5564,8 @@ __WEBPACK_IMPORTED_MODULE_14__modules_load_bar__["a" /* default */].hide();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
-// const PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
-var PREFIX_URL = "http://127.0.0.1:8080/api/user/";
+var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
+// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
 var urls = {
     login: PREFIX_URL + "login",
     scoreboard: PREFIX_URL + "scoreboard",
@@ -6119,7 +6119,7 @@ var SinglePlayer = function () {
 
         this._gameLoop = this._gameLoop.bind(this);
         this.actionStates = {};
-        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [50, 50], this.actionStates); // TODO write your original
+        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [80, 60], this.actionStates); // TODO write your original
         this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
         window.movingSound = new Audio("./sounds/move.mp3");
         window.stayingSound = new Audio("./sounds/move.mp3");
@@ -7796,6 +7796,33 @@ var Scene = function () {
                 _this6.scene.add(coll.scene);
                 _this6.scene.add(road2);
             });
+
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("flagRed/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                coll.scene.scale.z = 0.04;
+                coll.scene.scale.x = 0.04;
+                coll.scene.scale.y = 0.04;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.x = 85;
+                coll.scene.position.y = 65;
+                _this6.scene.add(coll.scene);
+            });
+
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("flagBlue/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                coll.scene.scale.z = 0.04;
+                coll.scene.scale.x = 0.04;
+                coll.scene.scale.y = 0.04;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.x = -85;
+                coll.scene.position.y = -60;
+                _this6.scene.add(coll.scene);
+            });
+
             Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("expl/model.dae").then(function (coll) {
                 coll.scene.rotation.x = -0.5 * Math.PI;
                 coll.scene.rotation.z = 1 * Math.PI;

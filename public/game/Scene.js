@@ -262,6 +262,33 @@ export default class Scene {
             this.scene.add(road2);
 
         });
+
+        modelLoader("flagRed/model.dae").then(coll => {
+            coll.scene.rotation.x = -0.5 * Math.PI;
+            coll.scene.rotation.z = 1 * Math.PI;
+            coll.scene.position.z -= 0.1;
+            coll.scene.scale.z = 0.04;
+            coll.scene.scale.x = 0.04;
+            coll.scene.scale.y = 0.04;
+            coll.scene.position.z = 0.11;
+            coll.scene.position.x = 85;
+            coll.scene.position.y = 65;
+            this.scene.add(coll.scene);
+        });
+
+        modelLoader("flagBlue/model.dae").then(coll => {
+            coll.scene.rotation.x = -0.5 * Math.PI;
+            coll.scene.rotation.z = 1 * Math.PI;
+            coll.scene.position.z -= 0.1;
+            coll.scene.scale.z = 0.04;
+            coll.scene.scale.x = 0.04;
+            coll.scene.scale.y = 0.04;
+            coll.scene.position.z = 0.11;
+            coll.scene.position.x = -85;
+            coll.scene.position.y = -60;
+            this.scene.add(coll.scene);
+        });
+
         modelLoader("expl/model.dae").then(coll => {
             coll.scene.rotation.x = -0.5 * Math.PI;
             coll.scene.rotation.z = 1 * Math.PI;

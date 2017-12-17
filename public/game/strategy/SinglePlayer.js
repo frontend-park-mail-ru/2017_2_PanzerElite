@@ -5,7 +5,7 @@ export default class SinglePlayer {
     constructor() {
         this._gameLoop = this._gameLoop.bind(this);
         this.actionStates = {};
-        this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
+        this.me = new Player("me", [80, 60], this.actionStates); // TODO write your original
         this.opponent = new Player("super bitch bot", [-10, -10], null);
         window.movingSound = new Audio("./sounds/move.mp3");
         window.stayingSound = new Audio("./sounds/move.mp3");
