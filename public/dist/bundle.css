@@ -319,6 +319,14 @@
   z-index: 99;
   left: 40%;
   top: 15%; }
+
+.enemynick {
+  top: 1%;
+  right: 3%;
+  color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  font-weight: 900;
+  font-size: 200%; }
 .theme {
     position: absolute;
     width: 50px;

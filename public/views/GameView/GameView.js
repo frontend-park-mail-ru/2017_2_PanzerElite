@@ -16,6 +16,7 @@ export default class GameView extends BaseView {
         window.addEventListener("keyup", this._enableGameMenu);
     }
     _enableGameMenu(e) {
+        e.preventDefault();
         if (document.location.pathname === "/game/") {
             if (e.keyCode == 27) {
                 document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");

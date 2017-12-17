@@ -123,6 +123,7 @@ export default class Scene {
         if (type === "tankMe") {
             if (this.staticScene !== undefined) {
                 this.staticScene.changeHP(instractions.HP);
+                this.staticScene.setEnemyName(instractions.enemyNick);
             }
         }
         if (instractions.fire) {

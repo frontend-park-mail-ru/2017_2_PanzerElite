@@ -71,7 +71,7 @@ export default class ScoreboardView extends BaseView {
         const num = new Block("td");
         num.el.innerHTML = "#";
         const nick = new Block("td");
-        nick.el.innerHTML = "Nickname";
+        nick.el.innerHTML = "Nick";
         const rank = new Block("td");
         rank.el.innerHTML = "Rank";
         row.el.appendChild(num.el);
@@ -84,8 +84,9 @@ export default class ScoreboardView extends BaseView {
             num.el.innerHTML = cnt;
             const nick = new Block("td");
             nick.el.innerHTML = key.login;
+
             const rank = new Block("td");
-            rank.el.innerHTML = key.rank;
+            rank.el.innerHTML = key.rank.toFixed(2);
             row.el.appendChild(num.el);
             row.el.appendChild(nick.el);
             row.el.appendChild(rank.el);

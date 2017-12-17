@@ -59,6 +59,7 @@ export default class SinglePlayer {
     }
 
     _initKeyListeners(callback) {
+        callback({ enemyNick: "NoEnemy" });
         keyboardJS.bind("m", function(e) {
             callback({ turretRight: true });
         }, function(e) {

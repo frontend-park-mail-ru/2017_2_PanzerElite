@@ -22,6 +22,13 @@ const themeFields = [{
     href: "/game/",
     type: "button"
 }, {
+    name: "position",
+    class: " userdata",
+    elemType: "input",
+    value: "Position",
+    href: "/game/",
+    type: "button"
+}, {
     name: "rank",
     class: " userdata",
     elemType: "input",

@@ -21,8 +21,8 @@ export default class GameManager {
             this.startLoop();
         }
         if (strategy == "multi") {
-            var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
-            // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+            // var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+            var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
             let isConnected = false;
 
             function sendMsg(msgToSend) {
@@ -42,7 +42,8 @@ export default class GameManager {
                         cameraType: obj.cameraType,
                         bulletCoords: obj.bulletCoords,
                         HP: obj.hp,
-                        state: obj.victory
+                        state: obj.victory,
+                        enemyNick: obj.enemyNick
                     });
                 } else {
                     this.scene.updateObjects("tankOpponent", {

@@ -59,10 +59,12 @@ export default class ThemeView extends BaseView {
     updateUserData() {
         this.userService.whoami().then((responce) => {
             this.nickname.setAttributes({ value: ("Nick: " + responce.login) });
-            this.rank.setAttributes({ value: ("Rank: " + responce.rank) });
+            this.rank.setAttributes({ value: ("Rank: " + responce.rank.toFixed(2)) });
+            this.position.setAttributes({ value: ("Position: " + responce.position) });
         }).catch(() => {
             this.nickname.setAttributes({ value: "Nick: " + "------" });
             this.rank.setAttributes({ value: "Rank: " + "---" });
+            this.position.setAttributes({ value: ("Position: " + "---") });
         });
     }
 }

@@ -3972,8 +3972,8 @@ var GameManager = function () {
                     webSocket.send(JSON.stringify(msgToSend));
                 };
 
-                var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
-                // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+                // var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+                var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
                 var isConnected = false;
 
                 webSocket.onmessage = function (message) {
@@ -3989,7 +3989,8 @@ var GameManager = function () {
                             cameraType: obj.cameraType,
                             bulletCoords: obj.bulletCoords,
                             HP: obj.hp,
-                            state: obj.victory
+                            state: obj.victory,
+                            enemyNick: obj.enemyNick
                         });
                     } else {
                         this.scene.updateObjects("tankOpponent", {
@@ -5453,7 +5454,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_ScoreboardView_ScoreboardView__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_GameMenu_GameMenuView__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__views_AboutView_AboutView__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__views_AboutView_AboutView__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__utils_RouteValidate__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_load_bar__ = __webpack_require__(4);
 
@@ -5563,8 +5564,8 @@ __WEBPACK_IMPORTED_MODULE_14__modules_load_bar__["a" /* default */].hide();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
-var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
-// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
+// const PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
+var PREFIX_URL = "http://127.0.0.1:8080/api/user/";
 var urls = {
     login: PREFIX_URL + "login",
     scoreboard: PREFIX_URL + "scoreboard",
@@ -6184,6 +6185,7 @@ var SinglePlayer = function () {
     }, {
         key: "_initKeyListeners",
         value: function _initKeyListeners(callback) {
+            callback({ enemyNick: "NoEnemy" });
             keyboardJS.bind("m", function (e) {
                 callback({ turretRight: true });
             }, function (e) {
@@ -7637,6 +7639,7 @@ var Scene = function () {
             if (type === "tankMe") {
                 if (this.staticScene !== undefined) {
                     this.staticScene.changeHP(instractions.HP);
+                    this.staticScene.setEnemyName(instractions.enemyNick);
                 }
             }
             if (instractions.fire) {
@@ -13161,146 +13164,161 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var StaticScene = function () {
-	function StaticScene(type) {
-		var _this = this;
+    function StaticScene(type) {
+        var _this = this;
 
-		_classCallCheck(this, StaticScene);
+        _classCallCheck(this, StaticScene);
 
-		this.HP = 100;
-		this.type = type;
-		//All 
-		this.sceneDiv = document.createElement("div");
-		this.sceneDiv.classList.add("sceneDiv");
-		this.sceneDiv.setAttribute("width", "100%");
-		this.sceneDiv.setAttribute("height", "100%");
-		//HP + RELOADER
-		this.hpDiv = document.createElement("div");
-		this.hpDiv.classList.add("hpBar");
-		this.loader = document.createElement("div");
-		this.loader.classList.add("loader");
-		this.hpDiv.appendChild(this.loader);
-		this.sceneDiv.appendChild(this.hpDiv);
-		//Main right div
-		this.comandorDiv = document.createElement("div");
-		this.comandorDiv.classList.add("comandorDiv");
-		//Commandor img
-		this.comandorImg = document.createElement("img");
-		this.comandorImg.classList.add("man");
-		this.comandorImg.setAttribute("src", "../game/staticScene/man.jpg");
-		this.comandorDiv.appendChild(this.comandorImg);
-		//Commandor text        
-		this.comandorText = document.createElement("p");
-		this.comandorText.classList.add("comandorText");
-		this.comandorText.setAttribute("id", "comandorText");
-		this.comandorText.innerHTML = "General: ";
-		this.comandorDiv.appendChild(this.comandorText);
-		this.sceneDiv.appendChild(this.comandorDiv);
-		//Hide btn
-		this.hideBtn = document.createElement("button");
-		this.hideBtn.classList.add("hideBtn");
-		this.hideBtn.innerHTML = "Okay";
-		this.comandorDiv.appendChild(this.hideBtn);
-		this.hideBtn.addEventListener("click", function () {
-			_this.comandorDiv.classList.add("hidden");
-		});
+        this.HP = 100;
+        this.type = type;
+        this.enemyNickValue = "";
+        //All 
+        this.sceneDiv = document.createElement("div");
+        this.sceneDiv.classList.add("sceneDiv");
+        this.sceneDiv.setAttribute("width", "100%");
+        this.sceneDiv.setAttribute("height", "100%");
+        //HP + RELOADER
+        this.hpDiv = document.createElement("div");
+        this.hpDiv.classList.add("hpBar");
+        this.loader = document.createElement("div");
+        this.loader.classList.add("loader");
+        this.hpDiv.appendChild(this.loader);
+        this.sceneDiv.appendChild(this.hpDiv);
+        //Main right div
+        this.comandorDiv = document.createElement("div");
+        this.comandorDiv.classList.add("comandorDiv");
+        //Commandor img
+        this.comandorImg = document.createElement("img");
+        this.comandorImg.classList.add("man");
+        this.comandorImg.setAttribute("src", "../game/staticScene/man.jpg");
+        this.comandorDiv.appendChild(this.comandorImg);
+        //Commandor text        
+        this.comandorText = document.createElement("p");
+        this.comandorText.classList.add("comandorText");
+        this.comandorText.setAttribute("id", "comandorText");
+        this.comandorText.innerHTML = "General: ";
+        this.comandorDiv.appendChild(this.comandorText);
+        this.sceneDiv.appendChild(this.comandorDiv);
+        //Hide btn
+        this.hideBtn = document.createElement("button");
+        this.hideBtn.classList.add("hideBtn");
+        this.hideBtn.innerHTML = "Okay";
+        this.comandorDiv.appendChild(this.hideBtn);
+        this.hideBtn.addEventListener("click", function () {
+            _this.comandorDiv.classList.add("hidden");
+        });
 
-		//Red  Injure 
-		this.injure = document.createElement("div");
-		this.injure.classList.add("injure");
-		this.injure.classList.add("hidden");
-		this.sceneDiv.appendChild(this.injure);
-		///
-		this.gameState = document.createElement("p");
-		this.gameState.classList.add("state");
-		this.gameState.classList.add("hidden");
-		this.injure.appendChild(this.gameState);
-		///
-		document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
-		this.hideReload = this.hideReload.bind(this);
-		this.hideReload();
-		if (this.type == "single") {
-			Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the military training!\n", "To move the vehicle push W,A,S,D.\n", "To rotate the turret push M,N.\n", "You can also change view by pushing V.\n", "If you want to shoot-push SPACE button.", "After shooting you will see the reload bar in the right bottom corner.\n", "Also in that corner you can see your health bar: ", "When it comes red you have to be very careful, you can be killed with the one bullet.\n", "So now you can try the controlls and watch the map.\n", "When you want to quit push ESC.\n"]);
-		} else {
-			Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the battle ground!\n", "If you don't know how to play \n", "you should have some trainig in the single mode. \n", "You are on the war, soldier. So you have to defeat the enemy.\n", "Your enemy is the other tank. He is somewhere in the town.", "Find him, shoot him and save the civilians!\n", "Good luck, soldier!"]);
-		}
-		// textWriter(
-		//     "comandorText", [
-		//         "Дес, сверстай блять\n",
-		//         "нормально, пожалуйста\n"
-		//     ]
-		// );
-		////new scenes
-	}
+        //Red  Injure 
+        this.injure = document.createElement("div");
+        this.injure.classList.add("injure");
+        this.injure.classList.add("hidden");
+        this.sceneDiv.appendChild(this.injure);
+        ///VICTORY
+        this.gameState = document.createElement("p");
+        this.gameState.classList.add("state");
+        this.gameState.classList.add("hidden");
+        this.injure.appendChild(this.gameState);
+        ///ENEMY nick
+        this.enemyNick = document.createElement("p");
+        this.enemyNick.classList.add("enemynick");
+        // this.enemyNick.innerHTML = "Enemy: XUYxuy";
+        // this.gameState.classList.add("hidden");
+        this.sceneDiv.appendChild(this.enemyNick);
+        ///
+        document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
+        this.hideReload = this.hideReload.bind(this);
+        this.hideReload();
+        if (this.type == "single") {
+            Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the military training!\n", "To move the vehicle push W,A,S,D.\n", "To rotate the turret push M,N.\n", "You can also change view by pushing V.\n", "If you want to shoot-push SPACE button.", "After shooting you will see the reload bar in the right bottom corner.\n", "Also in that corner you can see your health bar: ", "When it comes red you have to be very careful, you can be killed with the one bullet.\n", "So now you can try the controlls and watch the map.\n", "When you want to quit push ESC.\n"]);
+        } else {
+            Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the battle ground!\n", "If you don't know how to play \n", "you should have some trainig in the single mode. \n", "You are on the war, soldier. So you have to defeat the enemy.\n", "Your enemy is the other tank. He is somewhere in the town.", "Find him, shoot him and save the civilians!\n", "Good luck, soldier!"]);
+        }
+        // textWriter(
+        //     "comandorText", [
+        //         "Дес, сверстай блять\n",
+        //         "нормально, пожалуйста\n"
+        //     ]
+        // );
+        ////new scenes
+    }
 
-	_createClass(StaticScene, [{
-		key: "changeHP",
-		value: function changeHP(HP) {
-			if (this.HP !== HP) {
-				this.injured();
-			}
-			this.HP = HP;
-			this.hpDiv.classList.remove(this.currentColor);
-			if (this.HP == 100) {
-				// this.hpDiv.classList.add(" ");
-			}
-			if (this.HP == 75) {
-				this.hpDiv.classList.add("hpBarYellow");
-				this.currentColor = "hpBarYellow";
-			}
-			if (this.HP == 50) {
-				this.hpDiv.classList.add("hpBarOrange");
-				this.currentColor = "hpBarOrange";
-			}
-			if (this.HP == 25) {
-				this.hpDiv.classList.add("hpBarRed");
-				this.currentColor = "hpBarRed";
-			}
-		}
-	}, {
-		key: "injured",
-		value: function injured() {
-			var _this2 = this;
+    _createClass(StaticScene, [{
+        key: "changeHP",
+        value: function changeHP(HP) {
+            if (this.HP !== HP) {
+                this.injured();
+            }
+            this.HP = HP;
+            this.hpDiv.classList.remove(this.currentColor);
+            if (this.HP == 100) {
+                // this.hpDiv.classList.add(" ");
+            }
+            if (this.HP == 75) {
+                this.hpDiv.classList.add("hpBarYellow");
+                this.currentColor = "hpBarYellow";
+            }
+            if (this.HP == 50) {
+                this.hpDiv.classList.add("hpBarOrange");
+                this.currentColor = "hpBarOrange";
+            }
+            if (this.HP == 25) {
+                this.hpDiv.classList.add("hpBarRed");
+                this.currentColor = "hpBarRed";
+            }
+        }
+    }, {
+        key: "injured",
+        value: function injured() {
+            var _this2 = this;
 
-			this.injure.classList.remove("hidden");
-			Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
-				_this2.injure.classList.add("hidden");
-			}, 1000);
-		}
-	}, {
-		key: "showGameState",
-		value: function showGameState(state) {
-			if (state === -1) {
-				this.injure.classList.add("injure-defeat");
-				this.gameState.innerHTML = "YOU LOSE!";
-			}
-			if (state === 0) {
-				this.injure.classList.add("injure-draw");
-				this.gameState.innerHTML = "DRAW!";
-			}
-			if (state === 1) {
-				this.injure.classList.add("injure-victory");
-				this.gameState.innerHTML = "YOU WIN!";
-			}
-			this.gameState.classList.remove("hidden");
-			this.injure.classList.remove("hidden");
-			Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
-				__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go("/menu/", true);
-			}, 5000);
-		}
-	}, {
-		key: "fireReload",
-		value: function fireReload() {
-			this.loader.classList.remove("hidden");
-			Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(this.hideReload, 4000);
-		}
-	}, {
-		key: "hideReload",
-		value: function hideReload() {
-			this.loader.classList.add("hidden");
-		}
-	}]);
+            this.injure.classList.remove("hidden");
+            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
+                _this2.injure.classList.add("hidden");
+            }, 1000);
+        }
+    }, {
+        key: "showGameState",
+        value: function showGameState(state) {
+            if (state === -1) {
+                this.injure.classList.add("injure-defeat");
+                this.gameState.innerHTML = "YOU LOSE!";
+            }
+            if (state === 0) {
+                this.injure.classList.add("injure-draw");
+                this.gameState.innerHTML = "DRAW!";
+            }
+            if (state === 1) {
+                this.injure.classList.add("injure-victory");
+                this.gameState.innerHTML = "YOU WIN!";
+            }
+            this.gameState.classList.remove("hidden");
+            this.injure.classList.remove("hidden");
+            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
+                __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go("/menu/", true);
+            }, 5000);
+        }
+    }, {
+        key: "fireReload",
+        value: function fireReload() {
+            this.loader.classList.remove("hidden");
+            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(this.hideReload, 4000);
+        }
+    }, {
+        key: "hideReload",
+        value: function hideReload() {
+            this.loader.classList.add("hidden");
+        }
+    }, {
+        key: "setEnemyName",
+        value: function setEnemyName(name) {
+            if (this.enemyNickValue !== name) {
+                this.enemyNick.innerHTML = "Enemy: " + name;
+                this.enemyNickValue = name;
+            }
+        }
+    }]);
 
-	return StaticScene;
+    return StaticScene;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (StaticScene);
@@ -13710,10 +13728,12 @@ var ThemeView = function (_BaseView) {
 
             this.userService.whoami().then(function (responce) {
                 _this4.nickname.setAttributes({ value: "Nick: " + responce.login });
-                _this4.rank.setAttributes({ value: "Rank: " + responce.rank });
+                _this4.rank.setAttributes({ value: "Rank: " + responce.rank.toFixed(2) });
+                _this4.position.setAttributes({ value: "Position: " + responce.position });
             }).catch(function () {
                 _this4.nickname.setAttributes({ value: "Nick: " + "------" });
                 _this4.rank.setAttributes({ value: "Rank: " + "---" });
+                _this4.position.setAttributes({ value: "Position: " + "---" });
             });
         }
     }]);
@@ -13750,6 +13770,13 @@ var themeFields = [{
     class: " userdata",
     elemType: "input",
     value: "Nick",
+    href: "/game/",
+    type: "button"
+}, {
+    name: "position",
+    class: " userdata",
+    elemType: "input",
+    value: "Position",
     href: "/game/",
     type: "button"
 }, {
@@ -13966,6 +13993,7 @@ var GameView = function (_BaseView) {
     }, {
         key: "_enableGameMenu",
         value: function _enableGameMenu(e) {
+            e.preventDefault();
             if (document.location.pathname === "/game/") {
                 if (e.keyCode == 27) {
                     document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
@@ -14107,7 +14135,7 @@ var ScoreboardView = function (_BaseView) {
             var num = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
             num.el.innerHTML = "#";
             var nick = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
-            nick.el.innerHTML = "Nickname";
+            nick.el.innerHTML = "Nick";
             var rank = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
             rank.el.innerHTML = "Rank";
             row.el.appendChild(num.el);
@@ -14120,8 +14148,9 @@ var ScoreboardView = function (_BaseView) {
                 num.el.innerHTML = cnt;
                 var nick = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
                 nick.el.innerHTML = key.login;
+
                 var rank = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
-                rank.el.innerHTML = key.rank;
+                rank.el.innerHTML = key.rank.toFixed(2);
                 row.el.appendChild(num.el);
                 row.el.appendChild(nick.el);
                 row.el.appendChild(rank.el);
@@ -14284,25 +14313,12 @@ var gameMenuFields = [{
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__about_js__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__about_js__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__ = __webpack_require__(4);
@@ -14366,7 +14382,7 @@ var AboutView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (AboutView);
 
 /***/ }),
-/* 77 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
