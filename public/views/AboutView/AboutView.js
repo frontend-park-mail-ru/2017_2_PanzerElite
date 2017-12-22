@@ -1,13 +1,12 @@
 import BaseView from "../BaseView";
+import aboutFields from "./about.js";
 import { Block } from "../../block/block";
 import router from "../../utils/Router";
-import gameMenuFields from "./gameMenu";
-import "./gameMenu.css";
+import progressBar from "../../modules/load-bar";
 
-
-export default class GameMenuView extends BaseView {
+export default class AboutView extends BaseView {
     constructor(parentNode) {
-        const view = new Block("div", { class: "gamemenu hidden" });
+        const view = new Block("div", { class: "form hidden" });
         super(view.el);
         this.view = view;
         this.parentNode = parentNode;
@@ -17,21 +16,16 @@ export default class GameMenuView extends BaseView {
     }
 
     _appendChildren() {
-        gameMenuFields.forEach(key => {
+        aboutFields.forEach(key => {
             let ch = new Block(key.elemType, key);
             this.view.el.appendChild(ch.el);
             this[key.name] = ch;
         });
     }
-    _buttonsInit() {
-        this.resumeBtn.setCallback(() => {
-            this.hide();
-            document.getElementById("game").classList.remove("blured");
 
-        });
-        this.quitBtn.setCallback(() => {
-            this.hide();
-            router.go(this.quitBtn.el.getAttribute("href"), true);
+    _buttonsInit() {
+        this.changeformBtn.setCallback(() => {
+            router.go(this.changeformBtn.el.getAttribute("href"), false);
         });
     }
 }

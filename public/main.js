@@ -45,7 +45,12 @@ let change = new ChangeView(main.el);
 let theme = new ThemeView(main.el);
 let gameType = new GameTypeView(main.el);
 let gameMenu = new GameMenuView(main.el);
-let gameView = new GameView(main.el);
+let gameView = new GameView(main.el); <<
+<< << < HEAD
+let aboutView = new AboutView(main.el);
+let scoreboardView = new ScoreboardView(main.el); ===
+=== = >>>
+>>> > master
 
 let config = {
     "/login/": {
@@ -67,7 +72,16 @@ let config = {
         view: gameType
     },
     "/game/": {
-        view: gameView
+        view: gameView <<
+            << << < HEAD
+    },
+    "/scoreboard/": {
+        view: scoreboardView
+    },
+    "/about/": {
+        view: aboutView ===
+            === = >>>
+            >>> > master
     }
 };
 

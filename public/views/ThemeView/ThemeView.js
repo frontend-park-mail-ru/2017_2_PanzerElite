@@ -41,15 +41,11 @@ export default class ThemeView extends BaseView {
                 });
             });
             this.themeFlag = !this.themeFlag;
-        }); <<
-        << << < HEAD
-            ===
-            === =
-            this.playBtn.setCallback(() => {
-                router.go(this.playBtn.el.getAttribute("href"), false);
-                const gameManager = new GameManager();
-                gameManager.start("single");
-            }); >>>
-        >>> > working
+        });
+        this.playBtn.setCallback(() => {
+            router.go(this.playBtn.el.getAttribute("href"), false);
+            const gameManager = new GameManager();
+            gameManager.start("single");
+        });
     }
 }
