@@ -30,33 +30,15 @@ export default class GameTypeView extends BaseView {
         this.singlePlayer.setCallback(() => {
             router.go(this.singlePlayer.el.getAttribute("href"), false);
             const gameManager = new GameManager();
-            gameManager.start("single", false);
-            this._setControlsBackground();
+            gameManager.start("single");
         });
         this.multiPlayer.setCallback(() => {
             router.go(this.multiPlayer.el.getAttribute("href"), false);
             const gameManager = new GameManager();
-            gameManager.start("multi", false);
-            this._setControlsBackground();
-        });
-        this.singlePlayerLite.setCallback(() => {
-            router.go(this.singlePlayerLite.el.getAttribute("href"), false);
-            const gameManager = new GameManager();
-            gameManager.start("single", true);
-            this._setControlsBackground();
-        });
-        this.multiPlayerLite.setCallback(() => {
-            router.go(this.multiPlayerLite.el.getAttribute("href"), false);
-            const gameManager = new GameManager();
-            gameManager.start("multi", true);
-            this._setControlsBackground();
+            gameManager.start("multi");
         });
         this.changeformBtn.setCallback(() => {
             router.go(this.changeformBtn.el.getAttribute("href"), false);
         });
-    }
-
-    _setControlsBackground() {
-        document.getElementById("background").style.backgroundImage = "url(../images/controls.jpg)";
     }
 }

@@ -89,21 +89,8 @@ export default class UserService {
     whoami() {
         return new Promise((resolve, reject) => {
             httpReq(GET, urls.check)
-                .then((responce) => {
-                    resolve(responce);
-                    // return responce;
-                })
-                .catch(error => {
-                    reject("its very sad");
-                });
-        });
-    }
-    getScoreBoard() {
-        return new Promise((resolve, reject) => {
-            httpReq(GET, urls.scoreboard)
-                .then((responce) => {
-                    resolve(responce);
-                    // return responce;
+                .then(() => {
+                    resolve();
                 })
                 .catch(error => {
                     reject("its very sad");

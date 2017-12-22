@@ -26,7 +26,9 @@ app.use("/about", express.static("public"));
 
 
 
-// app.use("/sw.js", express.static("sw.js"));
+
+
+app.use("/sw.js", express.static("sw.js"));
 
 app.use(cors({
     origin: true,

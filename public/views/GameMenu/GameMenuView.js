@@ -14,7 +14,6 @@ export default class GameMenuView extends BaseView {
         this.parentNode.appendChild(this.view.el);
         this._appendChildren();
         this._buttonsInit();
-        this.muteflag = true;
     }
 
     _appendChildren() {
@@ -34,18 +33,5 @@ export default class GameMenuView extends BaseView {
             this.hide();
             router.go(this.quitBtn.el.getAttribute("href"), true);
         });
-        this.muteBtn.setCallback(() => {
-            window.movingSound.muted = this.muteflag;
-            window.stayingSound.muted = this.muteflag;
-            window.fireSound.muted = this.muteflag;
-            window.reloadSound.muted = this.muteflag;
-            this.muteflag = !this.muteflag;
-            if (!this.muteflag) {
-                this.muteBtn.el.value = "unmute";
-            } else {
-                this.muteBtn.el.value = "mute";
-            }
-        });
-
     }
 }

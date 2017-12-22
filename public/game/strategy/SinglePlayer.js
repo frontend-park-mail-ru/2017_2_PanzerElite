@@ -5,18 +5,8 @@ export default class SinglePlayer {
     constructor() {
         this._gameLoop = this._gameLoop.bind(this);
         this.actionStates = {};
-        this.me = new Player("me", [80, 60], this.actionStates); // TODO write your original
+        this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
         this.opponent = new Player("super bitch bot", [-10, -10], null);
-        window.movingSound = new Audio("./sounds/move.mp3");
-        window.stayingSound = new Audio("./sounds/move.mp3");
-        window.stayingSound.loop = true;
-        window.stayingSound.volume = 0.2;
-        window.movingSound.loop = true;
-        window.movingSound.volume = 0.2;
-        window.movingSound.play();
-        setTimeout(() => { window.stayingSound.play(); }, 1000);
-        window.reloadSound = new Audio("./sounds/reload.mp3")
-        window.stopGame = this.stop.bind(this);
     }
 
     getPlayersCoors() {
@@ -35,13 +25,7 @@ export default class SinglePlayer {
     }
 
     _startLoop() {
-        this.requestId = window.requestAnimationFrame(this._gameLoop);
-    }
-    stop() {
-        if (this.requestId) {
-            window.cancelAnimationFrame(this.requestId);
-            this.requestId = undefined;
-        }
+        window.requestAnimationFrame(this._gameLoop);
     }
 
     //Основной цикл, который шлет изменения
@@ -59,7 +43,6 @@ export default class SinglePlayer {
     }
 
     _initKeyListeners(callback) {
-        callback({ enemyNick: "NoEnemy" });
         keyboardJS.bind("m", function(e) {
             callback({ turretRight: true });
         }, function(e) {
@@ -72,34 +55,21 @@ export default class SinglePlayer {
         });
         keyboardJS.bind("w", function(e) {
             callback({ forward: true });
-            window.movingSound.volume = 0.65;
-            window.stayingSound.volume = 0.65;
-
         }, function(e) {
             callback({ forward: false });
-            window.movingSound.volume = 0.2;
-            window.stayingSound.volume = 0.2;
-
         });
         keyboardJS.bind("s", function(e) {
             callback({ backward: true });
-            window.movingSound.volume = 0.65;
-            window.stayingSound.volume = 0.65;
-
         }, function(e) {
             callback({ backward: false });
-            window.movingSound.volume = 0.2;
-            window.stayingSound.volume = 0.2;
         });
         keyboardJS.bind("d", function(e) {
             callback({ right: true });
-
         }, function(e) {
             callback({ right: false });
         });
         keyboardJS.bind("a", function(e) {
             callback({ left: true });
-
         }, function(e) {
             callback({ left: false });
         });
@@ -112,8 +82,6 @@ export default class SinglePlayer {
             // callback({ changeCamera: false });
         }, function(e) {
             callback({ fire: true });
-            setTimeout(() => { window.reloadSound.play(); }, 2000);
-
         });
     }
     randomMovemant(callback) {

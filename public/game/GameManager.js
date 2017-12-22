@@ -1,8 +1,6 @@
 import SinglePlayer from "./strategy/SinglePlayer";
 import Scene from "./Scene";
-import { MultiMaterial } from "three";
 import MultiPlayer from "./strategy/MultiPlayer";
-import { inspect } from "util";
 
 
 export default class GameManager {
@@ -10,19 +8,19 @@ export default class GameManager {
         this._mainLoop = this._mainLoop.bind(this);
     }
 
-    start(strategy, liteVersion) {
+    start(strategy) {
         if (strategy == "single") {
             this.strategy = new SinglePlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
             const playersCoords = this.strategy.getPlayersCoors();
-            this.scene = new Scene(playersCoords.me, playersCoords.opponent, "single", liteVersion);
+            this.scene = new Scene(playersCoords.me, playersCoords.opponent);
             this.strategy.startListenGameLoop((instractions) => {
+                // console.log(instractions);
                 this.scene.updateObjects("tankMe", instractions);
             });
             this.startLoop();
         }
         if (strategy == "multi") {
             var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
-            // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
             let isConnected = false;
 
             function sendMsg(msgToSend) {
@@ -30,31 +28,23 @@ export default class GameManager {
             }
 
             webSocket.onmessage = function(message) {
+                // console.log(message.data);
+                // let coords = { x: message.data.x, y: message.data.y };
+                // if (message.data.me == true) {
+                //     this.scene.updateObjects("tankMe", { angle: message.data.angle, turretAngle: message.data.turretAngle, coords: coords, fire: false, cameraType: 0 });
+                // } else {
+                //     this.scene.updateObjects("tankOpponent", { angle: message.data.angle, turretAngle: message.data.turretAngle, coords: coords, fire: false, cameraType: 0 });
+                // }
                 let obj = JSON.parse(message.data);
                 let coords = { x: obj.x, y: obj.y };
                 if (obj.me) {
-                    // console.log(obj.victory);
-                    this.scene.updateObjects("tankMe", {
-                        angle: obj.angle,
-                        turretAngle: obj.turretAngle,
-                        coords: coords,
-                        fire: obj.fire,
-                        cameraType: obj.cameraType,
-                        bulletCoords: obj.bulletCoords,
-                        HP: obj.hp,
-                        state: obj.victory,
-                        enemyNick: obj.enemyNick
-                    });
+                    this.scene.updateObjects("tankMe", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: false, cameraType: 0 });
                 } else {
-                    this.scene.updateObjects("tankOpponent", {
-                        angle: obj.angle,
-                        turretAngle: obj.turretAngle,
-                        coords: coords,
-                        fire: obj.fire,
-                        cameraType: 0,
-                        bulletCoords: obj.bulletCoords
-                    });
+                    this.scene.updateObjects("tankOpponent", { angle: obj.angle, turretAngle: obj.turretAngle, coords: coords, fire: false, cameraType: 0 });
                 }
+
+
+
             }.bind(this);
 
             webSocket.onopen = function() {
@@ -72,24 +62,29 @@ export default class GameManager {
             };
 
 
+
+            // this.strategy = new MultiPlayer();
+            // this.strategy._initKeyListeners((instractions) => {
+
+            //     if (flag) {
+            //         sendMsg(instractions);
+            //     }
+            // });
+
             console.log("im in flag");
             this.strategy = new MultiPlayer(); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
-            this.scene = new Scene({ x: 50, y: 50 }, { x: 50, y: 50 }, "multi", liteVersion);
-            this.strategy.startListenGameLoop((instractions) => {
+            this.scene = new Scene({ x: 50, y: 50 }, { x: 50, y: 50 });
+            this.strategy._initKeyListeners((instractions) => {
                 // console.log(instractions);
                 // this.scene.updateObjects("tankMe", instractions);
                 if (isConnected) {
                     sendMsg(instractions);
                 }
-                instractions.fire = false;
-                instractions.changeCamera = false;
             });
             // this.startLoop();
 
         }
     }
-
-
 
     startLoop() {
         this.mainLoopId = setInterval(this._mainLoop, 500);
@@ -113,6 +108,4 @@ export default class GameManager {
             console.log("I won! ;)");
         }
     }
-
-
 }

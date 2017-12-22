@@ -2,56 +2,7 @@ const keyboardJS = require("keyboardjs");
 import Player from "../models/Player";
 
 export default class MultiPlayer {
-    constructor() {
-        this._gameLoop = this._gameLoop.bind(this);
-        this.actionStates = {};
-        this.allowFire = true;
-        window.movingSound = new Audio("./sounds/move.mp3");
-        window.stayingSound = new Audio("./sounds/move.mp3");
-        window.stayingSound.loop = true;
-        window.stayingSound.volume = 0.2;
-        window.movingSound.loop = true;
-        window.movingSound.volume = 0.2;
-        window.movingSound.play();
-        setTimeout(() => { window.stayingSound.play(); }, 1000);
-        window.reloadSound = new Audio("./sounds/reload.mp3")
-
-        // this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
-        // this.opponent = new Player("super bitch bot", [-10, -10], null);
-    }
-
-    // getPlayersCoors() {
-    // 	return {
-    // 		me: this.me.coords,
-    // 		opponent: this.opponent.coords
-    // 	};
-    // }
-
-    startListenGameLoop(callback) {
-        this.sceneInstructionCallback = callback;
-        this._startLoop();
-        this._initKeyListeners((newState) => {
-            Object.assign(this.actionStates, newState);
-        });
-    }
-
-    _startLoop() {
-        window.requestAnimationFrame(this._gameLoop);
-    }
-
-    //Основной цикл, который шлет изменения
-    _gameLoop() {
-
-        // Object.keys(this._actionStates).forEach(key => {
-        //     this.me[key] = this._actionStates[key];
-        // });
-        // this.me.update();
-        this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
-            this.actionStates
-        );
-        window.requestAnimationFrame(this._gameLoop);
-
-    }
+    constructor() {}
 
     _initKeyListeners(callback) {
         keyboardJS.bind("m", function(e) {
@@ -66,22 +17,13 @@ export default class MultiPlayer {
         });
         keyboardJS.bind("w", function(e) {
             callback({ forward: true });
-            window.movingSound.volume = 0.65;
-            window.stayingSound.volume = 0.65;
         }, function(e) {
             callback({ forward: false });
-            window.movingSound.volume = 0.2;
-            window.stayingSound.volume = 0.2;
-
         });
         keyboardJS.bind("s", function(e) {
             callback({ backward: true });
-            window.movingSound.volume = 0.65;
-            window.stayingSound.volume = 0.65;
         }, function(e) {
             callback({ backward: false });
-            window.movingSound.volume = 0.2;
-            window.stayingSound.volume = 0.2;
         });
         keyboardJS.bind("d", function(e) {
             callback({ right: true });
@@ -101,14 +43,10 @@ export default class MultiPlayer {
         keyboardJS.bind("space", function(e) {
             // callback({ changeCamera: false });
         }, function(e) {
-            if (this.allowFire) {
-                setTimeout(() => { window.reloadSound.play(); }, 2000);
+            callback({ fire: true });
+            console.log("fire in sp");
 
-                callback({ fire: true });
-                this.allowFire = false;
-                setTimeout(() => { this.allowFire = true; }, 4000);
-            }
-        }.bind(this));
+        });
     }
     randomMovemant(callback) {
         callback({ left: true, forward: true });

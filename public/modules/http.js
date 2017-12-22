@@ -14,8 +14,8 @@ function httpReq(type, uRL, sendObject) {
             credentials: "include"
         }).then(function(response) {
             if (response.status === 200) {
-                resolve(response.json());
-                // return response;
+                resolve(response);
+                return;
             } else {
                 reject("Something went wrong");
             }
