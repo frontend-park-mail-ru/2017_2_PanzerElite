@@ -1,0 +1,236 @@
+.hpBar {
+    bottom: 3%;
+    right: 3%;
+    z-index: 95;
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 95;
+        background-color: rgba(81, 228, 81, 1); //100 hp
+    }
+    &:before {
+        top: 0;
+        left: 50%;
+        width: 20px;
+        height: 100%;
+        margin-left: -10px;
+    }
+    &:after {
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 20px;
+        margin-top: -10px;
+    }
+}
+
+.hpBarYellow {
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 95;
+        background-color: rgb(255, 230, 0); //75 hp
+    }
+}
+
+.hpBarRed {
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 95;
+        background-color: rgb(255, 0, 0); //25 hp
+    }
+}
+
+.hpBarOrange {
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: 95;
+        background-color: rgb(255, 157, 0); //50 hp        
+    }
+}
+
+.sceneDiv {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 90;
+    width: 100%;
+    height: 100%;
+}
+
+.comandorDiv {
+    z-index: 90;
+    color: rgb(247, 232, 193);
+    font-size: 140%;
+    // display: flex;
+    position: absolute;
+    // flex-direction: row;
+    background: rgba(74, 143, 0, 0.9);
+    width: 31%;
+    height: 70%;
+    bottom: 15%;
+    left: 3%;
+    padding: 5px;
+    text-align: left;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.comandorText {
+    margin: 0;
+}
+
+.man {
+    margin: 5px;
+    width: 40%;
+    height: 40%;
+    float: left;
+}
+
+.hideBtn {
+    order: 1;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #ffffff;
+    width: 20%;
+    padding: 3px;
+    border: 0;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 600;
+    //-webkit-transition: all 0.3 ease;
+    //transition: all 0.3 ease;
+    cursor: pointer;
+    position: absolute;
+    bottom: 7%;
+    right: 7%;
+}
+
+.hideBtn:hover,
+.hideBtn:active,
+.hideBtn:focus {
+    background: rgba(0, 0, 0, 0.20);
+    color: white;
+}
+
+.loader {
+    font-size: 10px;
+    bottom: 26%;
+    right: 26%;
+    z-index: 92;
+    position: absolute;
+    text-indent: -9999em;
+    width: 13em;
+    height: 13em;
+    border-radius: 50%;
+    background: linear-gradient(to right, white 1%, rgba(255, 255, 255, 0) 45%);
+    position: relative;
+    -webkit-animation: load3 1.4s infinite linear;
+    animation: load3 1.4s infinite linear;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.loader:after {
+    background: rgba(0, 0, 0, 0.5);
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: '';
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@-webkit-keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+// .injure {
+//     background: rgba(212, 9, 9, 0.5);
+//     width: 100%;
+//     height: 100%;
+//     border-radius: 5%;
+//     content: '';
+//     margin: auto;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     bottom: 0;
+//     right: 0;
+// }
+.injure {
+    bottom: 0;
+    right: 0;
+    z-index: 92;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient( rgba(255, 255, 255, 0) 50%, red 99%);
+    position: relative;
+}
+
+.injure-victory {
+    background: radial-gradient( rgba(255, 255, 255, 0) 50%, rgb(128, 230, 13) 99%);
+    color: rgb(128, 230, 13);
+}
+
+.injure-draw {
+    background: radial-gradient( rgba(255, 255, 255, 0) 50%, rgb(0, 255, 255) 99%);
+    color: rgb(0, 255, 255);
+}
+
+.injure-defeat {
+    background: radial-gradient( rgba(255, 255, 255, 0) 50%, rgb(192, 0, 0) 99%);
+    color: rgb(192, 0, 0);
+}
+
+.state {
+    font-weight: 600;
+    font-size: 500%;
+    position: absolute;
+    z-index: 99;
+    left: 40%;
+    top: 15%;
+}
+
+.enemynick {
+    top: 1%;
+    right: 3%;
+    color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    font-weight: 900;
+    font-size: 200%;
+}

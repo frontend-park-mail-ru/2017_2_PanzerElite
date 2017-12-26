@@ -1,0 +1,4 @@
+scale : 0.04
+size: 57 55
+qubeposition: housex + 6, housey - 25
+color 77 77 77

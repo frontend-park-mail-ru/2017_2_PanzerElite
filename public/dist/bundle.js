@@ -5551,6 +5551,16 @@ __WEBPACK_IMPORTED_MODULE_14__modules_load_bar__["a" /* default */].hide();
 //     window.navigator.serviceWorker.register('../sw.js');
 // }
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(function (reg) {
+        // регистрация сработала
+        console.log('Registration succeeded. Scope is ' + reg.scope);
+    }).catch(function (error) {
+        // регистрация прошла неудачно
+        console.log('Registration failed with ' + error);
+    });
+};
+
 /***/ }),
 /* 18 */
 /***/ (function(module, exports) {
