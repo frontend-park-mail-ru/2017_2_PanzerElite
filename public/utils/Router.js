@@ -22,6 +22,7 @@ class Router {
             window.history.pushState({ path: href }, "", href); // for -> <-
         }
         if (href !== this.currentHref) {
+            window.updateUserData();
             this.views[href].view.show();
             if (this.currentHref !== null) {
                 this.views[this.currentHref].view.hide();

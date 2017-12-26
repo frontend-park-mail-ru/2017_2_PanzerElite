@@ -1,55 +1,94 @@
 import modelLoader from "./modelLoader";
 // const THREE = require("three");
 
-export default function MapCreator(scene) {
+export default function MapCreator(scene, liteVersion) {
 	let promises = [];
+	if (!liteVersion) {
+		promises.push(modelLoader("houses/church/model.dae"));
+		promises.push(modelLoader("houses/bighouse/model.dae"));
+		promises.push(modelLoader("houses/middlehouse/model.dae"));
+		promises.push(modelLoader("houses/smallhouse/model.dae"));
 
-	promises.push(modelLoader("houses/church/model.dae"));
-	promises.push(modelLoader("houses/bighouse/model.dae"));
-	promises.push(modelLoader("houses/middlehouse/model.dae"));
-	promises.push(modelLoader("houses/smallhouse/model.dae"));
+		Promise.all(promises).then(collades => {
+			houseParams[4].house = modelInit(collades[0], 0.04);
+			houseParams[1].house = modelInit(collades[1], 0.04);
+			houseParams[2].house = modelInit(collades[2], 0.05);
+			houseParams[3].house = modelInit(collades[3], 0.05);
 
-	Promise.all(promises).then(collades => {
-		houseParams[4].house = modelInit(collades[0], 0.04);
-		houseParams[1].house = modelInit(collades[1], 0.04);
-		houseParams[2].house = modelInit(collades[2], 0.05);
-		houseParams[3].house = modelInit(collades[3], 0.05);
+			housePlace.forEach((key) => {
 
-		housePlace.forEach((key) => {
+				let house = houseParams[key.type].house.clone();
+				let geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
+				let material = new THREE.MeshBasicMaterial({
+					color: houseParams[key.type].color
+				});
+				let cube = new THREE.Mesh(geometry, material);
+				cube.position.x = key.x;
+				cube.position.y = key.y;
+				if (key.flag) {
+					cube.rotation.z = 0.5 * Math.PI;
+					house.rotation.y = 0.5 * Math.PI;
+					house.position.x = (key.x + houseParams[key.type].shifty);
+					house.position.y = (key.y - houseParams[key.type].shiftx);
+				} else {
+					house.position.x = (key.x + houseParams[key.type].shiftx);
+					house.position.y = (key.y + houseParams[key.type].shifty);
+				}
+				scene.add(cube);
 
-			let house = houseParams[key.type].house.clone();
-			let geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
-			let material = new THREE.MeshBasicMaterial({
-				color: houseParams[key.type].color
+
+				scene.add(house);
 			});
+
+		});
+	}
+	let index = 0;
+	map.forEach((key) => {
+		if (!liteVersion) {
+			if (key.width < 1 || key.height < 1) {
+				let geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
+				let material = new THREE.MeshBasicMaterial({
+					color: 0xFF0000
+				});
+				material.transparent = true;
+				material.opacity = 0.2;
+				let cube = new THREE.Mesh(geometry, material);
+				cube.position.x = key.x;
+				cube.position.y = key.y;
+				scene.add(cube);
+			}
+		} else {
+			if (index >= 15) {
+				index = 0;
+			}
+			let material;
+			let geometry;
+			// console.log(housePlace[index++].type);
+
+			if (key.width < 1 || key.height < 1) {
+				geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
+				material = new THREE.MeshBasicMaterial({
+					color: 0xFF0000
+				});
+				material.transparent = true;
+				material.opacity = 0.2;
+			} else {
+				geometry = new THREE.BoxGeometry(key.height, key.width, 20);
+				material = new THREE.MeshBasicMaterial({
+					//color: 0xFFEBCD,
+					color: houseParams[housePlace[index++].type].color
+
+				});
+				// index++;
+
+			}
 			let cube = new THREE.Mesh(geometry, material);
 			cube.position.x = key.x;
 			cube.position.y = key.y;
-			if (key.flag) {
-				cube.rotation.z = 0.5 * Math.PI;
-				house.rotation.y = 0.5 * Math.PI;
-				house.position.x = (key.x + houseParams[key.type].shifty);
-				house.position.y = (key.y - houseParams[key.type].shiftx);
-			} else {
-				house.position.x = (key.x + houseParams[key.type].shiftx);
-				house.position.y = (key.y + houseParams[key.type].shifty);
-			}
 			scene.add(cube);
+		}
 
 
-			scene.add(house);
-		});
-
-	});
-	map.forEach((key) => {
-		let geometry = new THREE.BoxGeometry(key.height, key.width, 4);
-		let material = new THREE.MeshBasicMaterial({
-			color: 0xFF0000
-		});
-		let cube = new THREE.Mesh(geometry, material);
-		cube.position.x = key.x;
-		cube.position.y = key.y;
-		// scene.add(cube);
 		// scene.add(house);
 	});
 
@@ -84,6 +123,10 @@ let map = [
 	{ x: 140, y: 84, height: 20, width: 32 },
 	{ x: -84, y: 64, height: 42, width: 25 },
 	{ x: -56, y: -40, height: 25, width: 42 },
+	{ x: -250, y: 0, height: 0.5, width: 500 },
+	{ x: 250, y: 0, height: 0.5, width: 500 },
+	{ x: 0, y: -250, height: 500, width: 0.5 },
+	{ x: 0, y: 250, height: 500, width: 0.5 },
 ];
 
 let houseParams = [{}, {

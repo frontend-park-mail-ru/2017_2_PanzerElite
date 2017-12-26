@@ -28,7 +28,11 @@ module.exports = {
 				use: "css-loader",
 				fallback: "style-loader"
 			})
-		}
+		},
+		{
+			test: /\.scss$/,
+			loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader!sass-loader" })
+		},
 		]
 	},
 	plugins: [

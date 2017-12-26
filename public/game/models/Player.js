@@ -1,4 +1,5 @@
 import { setTimeout } from "timers";
+import { fail } from "assert";
 
 export default class Player {
     constructor(nickname, coords, actionStates) {
@@ -7,9 +8,11 @@ export default class Player {
         this.nickname = nickname;
         this.coords = { x: coords[0], y: coords[1] };
         this.angle = -0.5 * Math.PI;
-        this.turretAngle = 0;
+        this.turretAngle = Math.PI - Math.PI - 0.5 * Math.PI;
         this.cameraCurrentType = 0;
-        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false };
+
+        this.bulletCoords = {};
+        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false, fire: true };
         this.map = [
             { x: 0, y: 0, height: 57, width: 58 },
             { x: -136, y: 88, height: 18, width: 17 },
@@ -26,6 +29,13 @@ export default class Player {
             { x: 140, y: 84, height: 20, width: 32 },
             { x: -84, y: 64, height: 42, width: 25 },
             { x: -56, y: -40, height: 25, width: 42 },
+            { x: -250, y: 0, height: 2, width: 500 },
+            { x: 250, y: 0, height: 2, width: 500 },
+            { x: 0, y: -250, height: 500, width: 2 },
+            { x: 0, y: 250, height: 500, width: 2 },
+
+
+
         ];
     }
 
@@ -103,8 +113,14 @@ export default class Player {
             this.cameraCurrentType++;
             this.cameraCurrentType %= 3;
         }
-        if (this.actionStates.fire) {
-            setTimeout(() => { this.actionStates.fire = false; }, 500);
+        if (this.actionStates.fire && this.deprecatedMovemants.fire) {
+
+            setTimeout(() => { this.actionStates.fire = false; }, 1);
+            this.deprecatedMovemants.fire = false;
+            setTimeout(() => { this.deprecatedMovemants.fire = true; }, 4000);
+            this.bulletCoords = this._fireCollision(); //TODO
+        } else {
+            this.actionStates.fire = false;
         }
     }
 
@@ -148,7 +164,31 @@ export default class Player {
         return flag;
     }
 
+    _fireCollision() {
+        let cnt = 0;
+        let bulletX = this.coords.x;
+        let bulletY = this.coords.y;
+        const currentAngle = this.turretAngle;
+        while (!this._checkBulletWithHouses(bulletX, bulletY) && cnt < 100000) {
+            bulletX += 0.1 * Math.sin(currentAngle);
+            bulletY += 0.1 * Math.cos(currentAngle);
+            cnt++;
+        }
+        if (cnt < 100000) {
+            return { x: bulletX, y: bulletY };
+        }
+        return { x: 0, y: 0 };
+    }
+
+    _checkBulletWithHouses(bulletX, bulletY) {
+        let flag = false;
+        this.map.some(key => {
+            flag = this._pointInPolygon(bulletX, bulletY, key.x, key.y, key.height, key.width);
+            return flag;
+        });
+        return flag;
+    }
     getInstrustions() {
-        return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire };
+        return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire, bulletCoords: this.bulletCoords };
     }
 }

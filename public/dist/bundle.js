@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,67 +77,67 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Block = function () {
-    function Block(type) {
-        var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	function Block(type) {
+		var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-        _classCallCheck(this, Block);
+		_classCallCheck(this, Block);
 
-        var el = document.createElement(type);
-        Object.keys(attrs).forEach(function (key) {
-            el.setAttribute(key, attrs[key]);
-        });
-        if (attrs.elemType && attrs.elemType !== 'input') {
-            el.innerHTML = attrs.value;
-        }
-        this.el = el;
-    }
+		var el = document.createElement(type);
+		Object.keys(attrs).forEach(function (key) {
+			el.setAttribute(key, attrs[key]);
+		});
+		if (attrs.elemType && attrs.elemType !== "input") {
+			el.innerHTML = attrs.value;
+		}
+		this.el = el;
+	}
 
-    _createClass(Block, [{
-        key: "clear",
-        value: function clear() {
-            this.el.innerHTML = "";
-        }
-    }, {
-        key: "hide",
-        value: function hide() {
-            this.el.setAttribute("hidden", "hidden");
-        }
-    }, {
-        key: "show",
-        value: function show() {
-            this.el.removeAttribute("hidden");
-        }
-    }, {
-        key: "setCallback",
-        value: function setCallback(callback) {
-            this.el.addEventListener("click", function (e) {
-                e.preventDefault();
-                callback();
-            }, true);
-        }
-    }, {
-        key: "setAttributes",
-        value: function setAttributes() {
-            var _this = this;
+	_createClass(Block, [{
+		key: "clear",
+		value: function clear() {
+			this.el.innerHTML = "";
+		}
+	}, {
+		key: "hide",
+		value: function hide() {
+			this.el.setAttribute("hidden", "hidden");
+		}
+	}, {
+		key: "show",
+		value: function show() {
+			this.el.removeAttribute("hidden");
+		}
+	}, {
+		key: "setCallback",
+		value: function setCallback(callback) {
+			this.el.addEventListener("click", function (e) {
+				e.preventDefault();
+				callback();
+			}, true);
+		}
+	}, {
+		key: "setAttributes",
+		value: function setAttributes() {
+			var _this = this;
 
-            var attrs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+			var attrs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-            Object.keys(attrs).forEach(function (key) {
-                _this.el.setAttribute(key, attrs[key]);
-            });
-        }
-    }]);
+			Object.keys(attrs).forEach(function (key) {
+				_this.el.setAttribute(key, attrs[key]);
+			});
+		}
+	}]);
 
-    return Block;
+	return Block;
 }();
 
 function FormCreator(main) {
-    var children = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+	var children = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-    children.forEach(function (key) {
-        var ch = new Block(key.elemType, key);
-        main.append(ch, key.name);
-    });
+	children.forEach(function (key) {
+		var ch = new Block(key.elemType, key);
+		main.append(ch, key.name);
+	});
 }
 
 /***/ }),
@@ -145,7 +145,7 @@ function FormCreator(main) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__RouteValidate__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__RouteValidate__ = __webpack_require__(10);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -165,43 +165,47 @@ var Router = function () {
     }
 
     _createClass(Router, [{
-        key: 'init',
+        key: "init",
         value: function init(node, config) {
             this.views = config;
             this.node = node;
             this.currentHref = null;
         }
     }, {
-        key: 'startListen',
+        key: "startListen",
         value: function startListen() {
             var _this2 = this;
 
-            this.node.addEventListener('click', function (event) {
+            this.node.addEventListener("click", function (event) {
                 return _this2._onRouteChange(event);
             });
         }
     }, {
-        key: 'go',
+        key: "go",
         value: function go(href) {
             var saveHistory = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
             if (saveHistory) {
-                window.history.pushState({ path: href }, '', href); // for -> <-
+                window.history.pushState({ path: href }, "", href); // for -> <-
             }
             if (href !== this.currentHref) {
+                window.updateUserData();
                 this.views[href].view.show();
                 if (this.currentHref !== null) {
                     this.views[this.currentHref].view.hide();
+                    if (this.views[this.currentHref].view.destroyGame !== undefined) {
+                        this.views[this.currentHref].view.destroyGame();
+                    }
                 }
                 this.currentHref = href;
             }
         }
     }, {
-        key: '_onRouteChange',
+        key: "_onRouteChange",
         value: function _onRouteChange(event) {
             if (event.target instanceof HTMLAnchorElement) {
                 event.preventDefault();
-                this.go(event.target.getAttribute('href'));
+                this.go(event.target.getAttribute("href"));
             }
         }
     }]);
@@ -216,10 +220,58 @@ var Router = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configs_config_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_http_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_validation_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_load_bar_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__buttons_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__forms_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__inputFields_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__warningMsg_css__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+
+
+var BaseView = function () {
+	function BaseView(node) {
+		_classCallCheck(this, BaseView);
+
+		this.node = node;
+	}
+
+	_createClass(BaseView, [{
+		key: "hide",
+		value: function hide() {
+			this.node.classList.add("hidden");
+		}
+	}, {
+		key: "show",
+		value: function show() {
+			this.node.classList.remove("hidden");
+		}
+	}]);
+
+	return BaseView;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (BaseView);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configs_config_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_http_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_validation_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_load_bar_js__ = __webpack_require__(4);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -314,8 +366,21 @@ var UserService = function () {
         key: "whoami",
         value: function whoami() {
             return new Promise(function (resolve, reject) {
-                Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].check).then(function () {
-                    resolve();
+                Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].check).then(function (responce) {
+                    resolve(responce);
+                    // return responce;
+                }).catch(function (error) {
+                    reject("its very sad");
+                });
+            });
+        }
+    }, {
+        key: "getScoreBoard",
+        value: function getScoreBoard() {
+            return new Promise(function (resolve, reject) {
+                Object(__WEBPACK_IMPORTED_MODULE_1__modules_http_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__configs_config_js__["a" /* GET */], __WEBPACK_IMPORTED_MODULE_0__configs_config_js__["c" /* default */].scoreboard).then(function (responce) {
+                    resolve(responce);
+                    // return responce;
                 }).catch(function (error) {
                     reject("its very sad");
                 });
@@ -329,55 +394,82 @@ var UserService = function () {
 /* harmony default export */ __webpack_exports__["a"] = (UserService);
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__buttons_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__forms_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__inputFields_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__inputFields_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__warningMsg_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__warningMsg_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__load_bar_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
 
+var pBar = function () {
+	function pBar() {
+		_classCallCheck(this, pBar);
+
+		this.elem = document.getElementsByClassName("myBar")[0];
+		this.hide();
+	}
+
+	/**
+     * Показать прогресс бар 
+     */
 
 
+	_createClass(pBar, [{
+		key: "show",
+		value: function show() {
+			this.elem.parentElement.classList.remove("hidden");
+		}
 
+		/**
+      * Скрыть прогресс бар 
+      */
 
-var BaseView = function () {
-    function BaseView(node) {
-        _classCallCheck(this, BaseView);
+	}, {
+		key: "hide",
+		value: function hide() {
+			this.elem.parentElement.classList.add("hidden");
+		}
+	}]);
 
-        this.node = node;
-    }
-
-    _createClass(BaseView, [{
-        key: "hide",
-        value: function hide() {
-            this.node.classList.add('hidden');
-        }
-    }, {
-        key: "show",
-        value: function show() {
-            this.node.classList.remove('hidden');
-        }
-    }]);
-
-    return BaseView;
+	return pBar;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (BaseView);
+/* harmony default export */ __webpack_exports__["a"] = (new pBar());
 
 /***/ }),
-/* 4 */
+/* 5 */
+/***/ (function(module, exports) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var g;
+
+// This works in non-strict mode
+g = function () {
+	return this;
+}();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+/***/ }),
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3834,7 +3926,149 @@ function Projector(){console.error('THREE.Projector has been moved to /examples/
 function CanvasRenderer(){console.error('THREE.CanvasRenderer has been moved to /examples/js/renderers/CanvasRenderer.js');this.domElement=document.createElementNS('http://www.w3.org/1999/xhtml','canvas');this.clear=function(){};this.render=function(){};this.setClearColor=function(){};this.setSize=function(){};}
 
 /***/ }),
-/* 5 */
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scene__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_three__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_util__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+
+
+var GameManager = function () {
+    function GameManager() {
+        _classCallCheck(this, GameManager);
+
+        this._mainLoop = this._mainLoop.bind(this);
+    }
+
+    _createClass(GameManager, [{
+        key: "start",
+        value: function start(strategy, liteVersion) {
+            var _this = this;
+
+            if (strategy == "single") {
+                this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+                var playersCoords = this.strategy.getPlayersCoors();
+                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */](playersCoords.me, playersCoords.opponent, "single", liteVersion);
+                this.strategy.startListenGameLoop(function (instractions) {
+                    _this.scene.updateObjects("tankMe", instractions);
+                });
+                this.startLoop();
+            }
+            if (strategy == "multi") {
+                var sendMsg = function sendMsg(msgToSend) {
+                    webSocket.send(JSON.stringify(msgToSend));
+                };
+
+                var webSocket = new WebSocket("wss://salty-shelf-19870.herokuapp.com/mgame");
+                // var webSocket = new WebSocket("ws://127.0.0.1:8080/mgame");
+                var isConnected = false;
+
+                webSocket.onmessage = function (message) {
+                    var obj = JSON.parse(message.data);
+                    var coords = { x: obj.x, y: obj.y };
+                    if (obj.me) {
+                        // console.log(obj.victory);
+                        this.scene.updateObjects("tankMe", {
+                            angle: obj.angle,
+                            turretAngle: obj.turretAngle,
+                            coords: coords,
+                            fire: obj.fire,
+                            cameraType: obj.cameraType,
+                            bulletCoords: obj.bulletCoords,
+                            HP: obj.hp,
+                            state: obj.victory,
+                            enemyNick: obj.enemyNick
+                        });
+                    } else {
+                        this.scene.updateObjects("tankOpponent", {
+                            angle: obj.angle,
+                            turretAngle: obj.turretAngle,
+                            coords: coords,
+                            fire: obj.fire,
+                            cameraType: 0,
+                            bulletCoords: obj.bulletCoords
+                        });
+                    }
+                }.bind(this);
+
+                webSocket.onopen = function () {
+                    console.log("connection opened");
+                    isConnected = true;
+                };
+
+                webSocket.onclose = function () {
+                    console.log("connection closed");
+                    isConnected = false;
+                };
+
+                webSocket.onerror = function wserror(message) {
+                    console.log("error: " + message);
+                };
+
+                console.log("im in flag");
+                this.strategy = new __WEBPACK_IMPORTED_MODULE_3__strategy_MultiPlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии            
+                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]({ x: 50, y: 50 }, { x: 50, y: 50 }, "multi", liteVersion);
+                this.strategy.startListenGameLoop(function (instractions) {
+                    // console.log(instractions);
+                    // this.scene.updateObjects("tankMe", instractions);
+                    if (isConnected) {
+                        sendMsg(instractions);
+                    }
+                    instractions.fire = false;
+                    instractions.changeCamera = false;
+                });
+                // this.startLoop();
+            }
+        }
+    }, {
+        key: "startLoop",
+        value: function startLoop() {
+            this.mainLoopId = setInterval(this._mainLoop, 500);
+        }
+    }, {
+        key: "stopLoop",
+        value: function stopLoop() {
+            clearInterval(this.mainLoopId);
+        }
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            stopLoop();
+            this.strategy.destroy();
+        }
+    }, {
+        key: "_mainLoop",
+        value: function _mainLoop() {
+            if (this.strategy.me.health <= 0 && this.strategy.opponent.health <= 0) {
+                console.log("Draw bitch");
+            } else if (this.strategy.me.health <= 0) {
+                console.log("Bot won! :(");
+            } else if (this.strategy.opponent.health <= 0) {
+                console.log("I won! ;)");
+            }
+        }
+    }]);
+
+    return GameManager;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (GameManager);
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -3965,11 +4199,67 @@ KeyCombo.prototype._checkSubCombo = function (subCombo, startingKeyNameIndex, pr
 module.exports = KeyCombo;
 
 /***/ }),
-/* 6 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var apply = Function.prototype.apply;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function () {
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+};
+exports.setInterval = function () {
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+};
+exports.clearTimeout = exports.clearInterval = function (timeout) {
+  if (timeout) {
+    timeout.close();
+  }
+};
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function () {};
+Timeout.prototype.close = function () {
+  this._clearFn.call(window, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function (item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function (item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function (item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout) item._onTimeout();
+    }, msecs);
+  }
+};
+
+// setimmediate attaches itself to the global object
+__webpack_require__(36);
+exports.setImmediate = setImmediate;
+exports.clearImmediate = clearImmediate;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_user_service__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_user_service__ = __webpack_require__(3);
 
 
 var userService = new __WEBPACK_IMPORTED_MODULE_0__services_user_service__["a" /* default */]();
@@ -3984,7 +4274,7 @@ function routeValidate(href, router, savehistory) {
 
 function analyseHref(href, isLogged, router, savehistory) {
     if (isLogged) {
-        ["/register/", "/login/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
+        ["/register/", "/login/", "/game/", "/scoreboard/"].includes(href) ? router.go("/menu/", savehistory) : router.go(href, savehistory);
     } else {
         ["/register/", "/login/"].includes(href) ? router.go(href, savehistory) : router.go("/login/", savehistory);
     }
@@ -3993,78 +4283,29 @@ function analyseHref(href, isLogged, router, savehistory) {
 /* harmony default export */ __webpack_exports__["a"] = (routeValidate);
 
 /***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Scene__ = __webpack_require__(33);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-
-var GameManager = function () {
-    function GameManager() {
-        _classCallCheck(this, GameManager);
-
-        this._mainLoop = this._mainLoop.bind(this);
-    }
-
-    _createClass(GameManager, [{
-        key: "start",
-        value: function start(strategy) {
-            var _this = this;
-
-            if (strategy == "single") {
-                this.scene = new __WEBPACK_IMPORTED_MODULE_1__Scene__["a" /* default */]([10, 10], [-10, -10]);
-                this.strategy = new __WEBPACK_IMPORTED_MODULE_0__strategy_SinglePlayer__["a" /* default */](); // повесить слушаетль, чтобы данные в сцене были получены из стратегии
-                this.strategy.initKeyListeners(function (action) {
-                    _this.scene.updateObjects('tankMe', action);
-                });
-                // setInterval(this.scene.updateObjects('tankOpponent', { forward: true }), 2000);
-                this.strategy.randomMovemant(function (action) {
-                    _this.scene.updateObjects('tankOpponent', action);
-                });
-            }
-            this.startLoop();
-        }
-    }, {
-        key: "startLoop",
-        value: function startLoop() {
-            this.mainLoop = setInterval(this._mainLoop, 500);
-        }
-    }, {
-        key: "stopLoop",
-        value: function stopLoop() {
-            clearInterval(this.mainLoop);
-        }
-    }, {
-        key: "_mainLoop",
-        value: function _mainLoop() {
-            if (this.strategy.me.health <= 0 && this.strategy.opponent.health <= 0) {
-                console.log('Draw bitch');
-            } else if (this.strategy.me.health <= 0) {
-                console.log('Bot won! :(');
-            } else if (this.strategy.opponent.health <= 0) {
-                console.log('I won! ;)');
-            }
-        }
-    }]);
-
-    return GameManager;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (GameManager);
-
-/***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var KeyCombo = __webpack_require__(5);
+var Keyboard = __webpack_require__(34);
+var Locale = __webpack_require__(12);
+var KeyCombo = __webpack_require__(8);
+
+var keyboard = new Keyboard();
+
+keyboard.setLocale('us', __webpack_require__(35));
+
+exports = module.exports = keyboard;
+exports.Keyboard = Keyboard;
+exports.Locale = Locale;
+exports.KeyCombo = KeyCombo;
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var KeyCombo = __webpack_require__(8);
 
 function Locale(name) {
   this.localeName = name;
@@ -4214,15 +4455,3515 @@ Locale.prototype._clearMacros = function () {
 module.exports = Locale;
 
 /***/ }),
-/* 9 */
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_timers__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assert__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_assert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_assert__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+var Player = function () {
+    function Player(nickname, coords, actionStates) {
+        _classCallCheck(this, Player);
+
+        this.actionStates = actionStates;
+        this.health = 100;
+        this.nickname = nickname;
+        this.coords = { x: coords[0], y: coords[1] };
+        this.angle = -0.5 * Math.PI;
+        this.turretAngle = Math.PI - Math.PI - 0.5 * Math.PI;
+        this.cameraCurrentType = 0;
+
+        this.bulletCoords = {};
+        this.deprecatedMovemants = { forward: false, backward: false, turnLeft: false, turnRight: false, fire: true };
+        this.map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }, { x: -250, y: 0, height: 2, width: 500 }, { x: 250, y: 0, height: 2, width: 500 }, { x: 0, y: -250, height: 500, width: 2 }, { x: 0, y: 250, height: 500, width: 2 }];
+    }
+
+    _createClass(Player, [{
+        key: "moveForward",
+        value: function moveForward() {
+            this.coords.y += 0.3 * Math.cos(this.angle);
+            this.coords.x += 0.3 * Math.sin(this.angle);
+        }
+    }, {
+        key: "moveBackward",
+        value: function moveBackward() {
+            this.coords.y -= 0.3 * Math.cos(this.angle);
+            this.coords.x -= 0.3 * Math.sin(this.angle);
+        }
+    }, {
+        key: "turnRight",
+        value: function turnRight() {
+            this.angle += 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnLeft",
+        value: function turnLeft() {
+            this.angle -= 0.005 * Math.PI;
+        }
+    }, {
+        key: "turnTurretRight",
+        value: function turnTurretRight() {
+            this.turretAngle += 0.008 * Math.PI;
+        }
+    }, {
+        key: "turnTurretLeft",
+        value: function turnTurretLeft() {
+            this.turretAngle -= 0.008 * Math.PI;
+        }
+    }, {
+        key: "update",
+        value: function update() {
+            var _this = this;
+
+            if (this.actionStates.forward) {
+                this.deprecatedMovemants.backward = false;
+                if (!this.deprecatedMovemants.forward) {
+                    this.moveForward();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.forward = true;
+                } else {
+                    this.deprecatedMovemants.forward = false;
+                }
+            }
+            if (this.actionStates.backward) {
+                this.deprecatedMovemants.forward = false;
+                if (!this.deprecatedMovemants.backward) {
+                    this.moveBackward();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.backward = true;
+                } else {
+                    this.deprecatedMovemants.backward = false;
+                }
+            }
+            if (this.actionStates.right) {
+                if (!this.deprecatedMovemants.turnRight) {
+                    this.turnRight();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.turnRight = true;
+                } else {
+                    this.deprecatedMovemants.turnRight = false;
+                }
+            }
+            if (this.actionStates.left) {
+                if (!this.deprecatedMovemants.turnLeft) {
+                    this.turnLeft();
+                }
+                if (this._tankCollisionWithHouses()) {
+                    this.deprecatedMovemants.turnLeft = true;
+                } else {
+                    this.deprecatedMovemants.turnLeft = false;
+                }
+            }
+            if (this.actionStates.turretLeft) {
+                this.turnTurretLeft();
+            }
+            if (this.actionStates.turretRight) {
+                this.turnTurretRight();
+            }
+            if (this.actionStates.changeCamera) {
+                this.actionStates.changeCamera = false;
+                this.cameraCurrentType++;
+                this.cameraCurrentType %= 3;
+            }
+            if (this.actionStates.fire && this.deprecatedMovemants.fire) {
+
+                Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
+                    _this.actionStates.fire = false;
+                }, 1);
+                this.deprecatedMovemants.fire = false;
+                Object(__WEBPACK_IMPORTED_MODULE_0_timers__["setTimeout"])(function () {
+                    _this.deprecatedMovemants.fire = true;
+                }, 4000);
+                this.bulletCoords = this._fireCollision(); //TODO
+            } else {
+                this.actionStates.fire = false;
+            }
+        }
+    }, {
+        key: "_pointInPolygon",
+        value: function _pointInPolygon(pointX, pointY, polyX, polyY, polyH, polyW) {
+            var leftX = polyX - polyH / 2;
+            var rightX = leftX + polyH;
+            if (pointX < rightX && pointX > leftX) {
+                var leftY = polyY - polyW / 2;
+                var rightY = leftY + polyW;
+                if (pointY < rightY && pointY > leftY) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }, {
+        key: "_tankCollisionWithHouses",
+        value: function _tankCollisionWithHouses() {
+            var _this2 = this;
+
+            var tankPoints = [{
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y - 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x + 3.9 * Math.abs(Math.sin(this.angle))
+            }, {
+                y: this.coords.y + 3.9 * Math.abs(Math.cos(this.angle)),
+                x: this.coords.x - 3.9 * Math.abs(Math.sin(this.angle))
+            }];
+            var flag = false;
+            this.map.some(function (key) {
+                tankPoints.some(function (tp) {
+                    flag = _this2._pointInPolygon(tp.x, tp.y, key.x, key.y, key.height, key.width);
+                    return flag;
+                });
+                return flag;
+            });
+            return flag;
+        }
+    }, {
+        key: "_fireCollision",
+        value: function _fireCollision() {
+            var cnt = 0;
+            var bulletX = this.coords.x;
+            var bulletY = this.coords.y;
+            var currentAngle = this.turretAngle;
+            while (!this._checkBulletWithHouses(bulletX, bulletY) && cnt < 100000) {
+                bulletX += 0.1 * Math.sin(currentAngle);
+                bulletY += 0.1 * Math.cos(currentAngle);
+                cnt++;
+            }
+            if (cnt < 100000) {
+                return { x: bulletX, y: bulletY };
+            }
+            return { x: 0, y: 0 };
+        }
+    }, {
+        key: "_checkBulletWithHouses",
+        value: function _checkBulletWithHouses(bulletX, bulletY) {
+            var _this3 = this;
+
+            var flag = false;
+            this.map.some(function (key) {
+                flag = _this3._pointInPolygon(bulletX, bulletY, key.x, key.y, key.height, key.width);
+                return flag;
+            });
+            return flag;
+        }
+    }, {
+        key: "getInstrustions",
+        value: function getInstrustions() {
+            return { coords: this.coords, angle: this.angle, turretAngle: this.turretAngle, cameraType: this.cameraCurrentType, fire: this.actionStates.fire, bulletCoords: this.bulletCoords };
+        }
+    }]);
+
+    return Player;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Player);
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout() {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+})();
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch (e) {
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch (e) {
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e) {
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e) {
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while (len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) {
+    return [];
+};
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () {
+    return '/';
+};
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function () {
+    return 0;
+};
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var THREE = __webpack_require__(4);
+/* WEBPACK VAR INJECTION */(function(global, process) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var formatRegExp = /%[sdj%]/g;
+exports.format = function (f) {
+  if (!isString(f)) {
+    var objects = [];
+    for (var i = 0; i < arguments.length; i++) {
+      objects.push(inspect(arguments[i]));
+    }
+    return objects.join(' ');
+  }
+
+  var i = 1;
+  var args = arguments;
+  var len = args.length;
+  var str = String(f).replace(formatRegExp, function (x) {
+    if (x === '%%') return '%';
+    if (i >= len) return x;
+    switch (x) {
+      case '%s':
+        return String(args[i++]);
+      case '%d':
+        return Number(args[i++]);
+      case '%j':
+        try {
+          return JSON.stringify(args[i++]);
+        } catch (_) {
+          return '[Circular]';
+        }
+      default:
+        return x;
+    }
+  });
+  for (var x = args[i]; i < len; x = args[++i]) {
+    if (isNull(x) || !isObject(x)) {
+      str += ' ' + x;
+    } else {
+      str += ' ' + inspect(x);
+    }
+  }
+  return str;
+};
+
+// Mark that a method should not be used.
+// Returns a modified function which warns once by default.
+// If --no-deprecation is set, then it is a no-op.
+exports.deprecate = function (fn, msg) {
+  // Allow for deprecating things in the process of starting up.
+  if (isUndefined(global.process)) {
+    return function () {
+      return exports.deprecate(fn, msg).apply(this, arguments);
+    };
+  }
+
+  if (process.noDeprecation === true) {
+    return fn;
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (process.throwDeprecation) {
+        throw new Error(msg);
+      } else if (process.traceDeprecation) {
+        console.trace(msg);
+      } else {
+        console.error(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+};
+
+var debugs = {};
+var debugEnviron;
+exports.debuglog = function (set) {
+  if (isUndefined(debugEnviron)) debugEnviron = process.env.NODE_DEBUG || '';
+  set = set.toUpperCase();
+  if (!debugs[set]) {
+    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
+      var pid = process.pid;
+      debugs[set] = function () {
+        var msg = exports.format.apply(exports, arguments);
+        console.error('%s %d: %s', set, pid, msg);
+      };
+    } else {
+      debugs[set] = function () {};
+    }
+  }
+  return debugs[set];
+};
 
 /**
- * @author Tim Knip / http://www.floorplanner.com/ / tim at floorplanner.com
- * @author Tony Parisi / http://www.tonyparisi.com/
+ * Echos the value of a value. Trys to print the value out
+ * in the best way possible given the different types.
+ *
+ * @param {Object} obj The object to print out.
+ * @param {Object} opts Optional options object that alters the output.
  */
+/* legacy: obj, showHidden, depth, colors*/
+function inspect(obj, opts) {
+  // default options
+  var ctx = {
+    seen: [],
+    stylize: stylizeNoColor
+  };
+  // legacy...
+  if (arguments.length >= 3) ctx.depth = arguments[2];
+  if (arguments.length >= 4) ctx.colors = arguments[3];
+  if (isBoolean(opts)) {
+    // legacy...
+    ctx.showHidden = opts;
+  } else if (opts) {
+    // got an "options" object
+    exports._extend(ctx, opts);
+  }
+  // set default options
+  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+  if (isUndefined(ctx.depth)) ctx.depth = 2;
+  if (isUndefined(ctx.colors)) ctx.colors = false;
+  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+  if (ctx.colors) ctx.stylize = stylizeWithColor;
+  return formatValue(ctx, obj, ctx.depth);
+}
+exports.inspect = inspect;
+
+// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+inspect.colors = {
+  'bold': [1, 22],
+  'italic': [3, 23],
+  'underline': [4, 24],
+  'inverse': [7, 27],
+  'white': [37, 39],
+  'grey': [90, 39],
+  'black': [30, 39],
+  'blue': [34, 39],
+  'cyan': [36, 39],
+  'green': [32, 39],
+  'magenta': [35, 39],
+  'red': [31, 39],
+  'yellow': [33, 39]
+};
+
+// Don't use 'blue' not visible on cmd.exe
+inspect.styles = {
+  'special': 'cyan',
+  'number': 'yellow',
+  'boolean': 'yellow',
+  'undefined': 'grey',
+  'null': 'bold',
+  'string': 'green',
+  'date': 'magenta',
+  // "name": intentionally not styling
+  'regexp': 'red'
+};
+
+function stylizeWithColor(str, styleType) {
+  var style = inspect.styles[styleType];
+
+  if (style) {
+    return '\x1B[' + inspect.colors[style][0] + 'm' + str + '\x1B[' + inspect.colors[style][1] + 'm';
+  } else {
+    return str;
+  }
+}
+
+function stylizeNoColor(str, styleType) {
+  return str;
+}
+
+function arrayToHash(array) {
+  var hash = {};
+
+  array.forEach(function (val, idx) {
+    hash[val] = true;
+  });
+
+  return hash;
+}
+
+function formatValue(ctx, value, recurseTimes) {
+  // Provide a hook for user-specified inspect functions.
+  // Check that value is an object with an inspect function on it
+  if (ctx.customInspect && value && isFunction(value.inspect) &&
+  // Filter out the util module, it's inspect function is special
+  value.inspect !== exports.inspect &&
+  // Also filter out any prototype objects using the circular check.
+  !(value.constructor && value.constructor.prototype === value)) {
+    var ret = value.inspect(recurseTimes, ctx);
+    if (!isString(ret)) {
+      ret = formatValue(ctx, ret, recurseTimes);
+    }
+    return ret;
+  }
+
+  // Primitive types cannot have properties
+  var primitive = formatPrimitive(ctx, value);
+  if (primitive) {
+    return primitive;
+  }
+
+  // Look up the keys of the object.
+  var keys = Object.keys(value);
+  var visibleKeys = arrayToHash(keys);
+
+  if (ctx.showHidden) {
+    keys = Object.getOwnPropertyNames(value);
+  }
+
+  // IE doesn't make error fields non-enumerable
+  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+  if (isError(value) && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+    return formatError(value);
+  }
+
+  // Some type of object without properties can be shortcutted.
+  if (keys.length === 0) {
+    if (isFunction(value)) {
+      var name = value.name ? ': ' + value.name : '';
+      return ctx.stylize('[Function' + name + ']', 'special');
+    }
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    }
+    if (isDate(value)) {
+      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+    }
+    if (isError(value)) {
+      return formatError(value);
+    }
+  }
+
+  var base = '',
+      array = false,
+      braces = ['{', '}'];
+
+  // Make Array say that they are Array
+  if (isArray(value)) {
+    array = true;
+    braces = ['[', ']'];
+  }
+
+  // Make functions say that they are functions
+  if (isFunction(value)) {
+    var n = value.name ? ': ' + value.name : '';
+    base = ' [Function' + n + ']';
+  }
+
+  // Make RegExps say that they are RegExps
+  if (isRegExp(value)) {
+    base = ' ' + RegExp.prototype.toString.call(value);
+  }
+
+  // Make dates with properties first say the date
+  if (isDate(value)) {
+    base = ' ' + Date.prototype.toUTCString.call(value);
+  }
+
+  // Make error with message first say the error
+  if (isError(value)) {
+    base = ' ' + formatError(value);
+  }
+
+  if (keys.length === 0 && (!array || value.length == 0)) {
+    return braces[0] + base + braces[1];
+  }
+
+  if (recurseTimes < 0) {
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    } else {
+      return ctx.stylize('[Object]', 'special');
+    }
+  }
+
+  ctx.seen.push(value);
+
+  var output;
+  if (array) {
+    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+  } else {
+    output = keys.map(function (key) {
+      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+    });
+  }
+
+  ctx.seen.pop();
+
+  return reduceToSingleString(output, base, braces);
+}
+
+function formatPrimitive(ctx, value) {
+  if (isUndefined(value)) return ctx.stylize('undefined', 'undefined');
+  if (isString(value)) {
+    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '').replace(/'/g, "\\'").replace(/\\"/g, '"') + '\'';
+    return ctx.stylize(simple, 'string');
+  }
+  if (isNumber(value)) return ctx.stylize('' + value, 'number');
+  if (isBoolean(value)) return ctx.stylize('' + value, 'boolean');
+  // For some reason typeof null is "object", so special case here.
+  if (isNull(value)) return ctx.stylize('null', 'null');
+}
+
+function formatError(value) {
+  return '[' + Error.prototype.toString.call(value) + ']';
+}
+
+function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+  var output = [];
+  for (var i = 0, l = value.length; i < l; ++i) {
+    if (hasOwnProperty(value, String(i))) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, String(i), true));
+    } else {
+      output.push('');
+    }
+  }
+  keys.forEach(function (key) {
+    if (!key.match(/^\d+$/)) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, key, true));
+    }
+  });
+  return output;
+}
+
+function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+  var name, str, desc;
+  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+  if (desc.get) {
+    if (desc.set) {
+      str = ctx.stylize('[Getter/Setter]', 'special');
+    } else {
+      str = ctx.stylize('[Getter]', 'special');
+    }
+  } else {
+    if (desc.set) {
+      str = ctx.stylize('[Setter]', 'special');
+    }
+  }
+  if (!hasOwnProperty(visibleKeys, key)) {
+    name = '[' + key + ']';
+  }
+  if (!str) {
+    if (ctx.seen.indexOf(desc.value) < 0) {
+      if (isNull(recurseTimes)) {
+        str = formatValue(ctx, desc.value, null);
+      } else {
+        str = formatValue(ctx, desc.value, recurseTimes - 1);
+      }
+      if (str.indexOf('\n') > -1) {
+        if (array) {
+          str = str.split('\n').map(function (line) {
+            return '  ' + line;
+          }).join('\n').substr(2);
+        } else {
+          str = '\n' + str.split('\n').map(function (line) {
+            return '   ' + line;
+          }).join('\n');
+        }
+      }
+    } else {
+      str = ctx.stylize('[Circular]', 'special');
+    }
+  }
+  if (isUndefined(name)) {
+    if (array && key.match(/^\d+$/)) {
+      return str;
+    }
+    name = JSON.stringify('' + key);
+    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+      name = name.substr(1, name.length - 2);
+      name = ctx.stylize(name, 'name');
+    } else {
+      name = name.replace(/'/g, "\\'").replace(/\\"/g, '"').replace(/(^"|"$)/g, "'");
+      name = ctx.stylize(name, 'string');
+    }
+  }
+
+  return name + ': ' + str;
+}
+
+function reduceToSingleString(output, base, braces) {
+  var numLinesEst = 0;
+  var length = output.reduce(function (prev, cur) {
+    numLinesEst++;
+    if (cur.indexOf('\n') >= 0) numLinesEst++;
+    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+  }, 0);
+
+  if (length > 60) {
+    return braces[0] + (base === '' ? '' : base + '\n ') + ' ' + output.join(',\n  ') + ' ' + braces[1];
+  }
+
+  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+}
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+function isArray(ar) {
+  return Array.isArray(ar);
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return isObject(re) && objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return isObject(d) && objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return isObject(e) && (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null || typeof arg === 'boolean' || typeof arg === 'number' || typeof arg === 'string' || (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'symbol' || // ES6 symbol
+  typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = __webpack_require__(38);
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+function pad(n) {
+  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+}
+
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// 26 Feb 16:19:34
+function timestamp() {
+  var d = new Date();
+  var time = [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  return [d.getDate(), months[d.getMonth()], time].join(' ');
+}
+
+// log is just a thin wrapper to console.log that prepends a timestamp
+exports.log = function () {
+  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+};
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * The Function.prototype.inherits from lang.js rewritten as a standalone
+ * function (not on Function.prototype). NOTE: If this file is to be loaded
+ * during bootstrapping this function needs to be rewritten using some native
+ * functions as prototype setup using normal JavaScript does not work as
+ * expected during bootstrapping (see mirror.js in r114903).
+ *
+ * @param {function} ctor Constructor function which needs to inherit the
+ *     prototype.
+ * @param {function} superCtor Constructor function to inherit prototype from.
+ */
+exports.inherits = __webpack_require__(39);
+
+exports._extend = function (origin, add) {
+  // Don't do anything if add isn't an object
+  if (!add || !isObject(add)) return origin;
+
+  var keys = Object.keys(add);
+  var i = keys.length;
+  while (i--) {
+    origin[keys[i]] = add[keys[i]];
+  }
+  return origin;
+};
+
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(14)))
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = modelLoader;
+// const THREE = require("three");
+var ColladaLoader = __webpack_require__(43);
+
+function modelLoader(modelPath) {
+	return new Promise(function (resolve, reject) {
+		var loader = new THREE.ColladaLoader();
+		loader.options.convertUpAxis = true;
+		loader.load("./game/3dModels/" + modelPath, function (collada) {
+			resolve(collada);
+		});
+	});
+}
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__main_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_ScoreboardView_ScoreboardView__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_GameMenu_GameMenuView__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__views_AboutView_AboutView__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__utils_RouteValidate__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_load_bar__ = __webpack_require__(4);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('../sw.js', { scope: '/' });
+// }
+// if ("serviceWorker" in navigator) {
+//     navigator.serviceWorker.register("../../sw.js")
+//         .then(function(registration) {
+//             // при удачной регистрации имеем объект типа ServiceWorkerRegistration
+//             console.log("ServiceWorker registration", registration);
+//             // строкой ниже можно прекратить работу serviceWorker’а
+//             //registration.unregister();
+//         })
+//         .catch(function(err) {
+//             console.error(err);
+//         });
+// }
+
+__WEBPACK_IMPORTED_MODULE_14__modules_load_bar__["a" /* default */].show();
+
+var app = document.getElementById("application");
+document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
+
+var main = new __WEBPACK_IMPORTED_MODULE_1__block_block_js__["a" /* Block */]("div", { class: "main-container" });
+app.appendChild(main.el);
+
+//config
+var login = new __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__["a" /* default */](main.el);
+var register = new __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__["a" /* default */](main.el);
+var menu = new __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__["a" /* default */](main.el);
+var change = new __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__["a" /* default */](main.el);
+var theme = new __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__["a" /* default */](main.el);
+var gameType = new __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__["a" /* default */](main.el);
+var gameMenu = new __WEBPACK_IMPORTED_MODULE_11__views_GameMenu_GameMenuView__["a" /* default */](main.el);
+var gameView = new __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__["a" /* default */](main.el);
+var aboutView = new __WEBPACK_IMPORTED_MODULE_12__views_AboutView_AboutView__["a" /* default */](main.el);
+var scoreboardView = new __WEBPACK_IMPORTED_MODULE_10__views_ScoreboardView_ScoreboardView__["a" /* default */](main.el);
+
+var config = {
+    "/login/": {
+        view: login
+    },
+    "/register/": {
+        view: register
+    },
+    "/menu/": {
+        view: menu
+    },
+    "/": {
+        view: menu
+    },
+    "/changepass/": {
+        view: change
+    },
+    "/play/": {
+        view: gameType
+    },
+    "/game/": {
+        view: gameView
+    },
+    "/scoreboard/": {
+        view: scoreboardView
+    },
+    "/about/": {
+        view: aboutView
+    }
+};
+
+Object(__WEBPACK_IMPORTED_MODULE_13__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
+
+__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].init(main.el, config);
+__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
+
+__WEBPACK_IMPORTED_MODULE_14__modules_load_bar__["a" /* default */].hide();
+
+// if ('serviceWorker' in window.navigator) {
+//     window.navigator.serviceWorker.register('../sw.js');
+// }
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
+var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
+// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
+var urls = {
+    login: PREFIX_URL + "login",
+    scoreboard: PREFIX_URL + "scoreboard",
+    register: PREFIX_URL + "register",
+    logout: PREFIX_URL + "logout",
+    check: PREFIX_URL + "getuser",
+    chagePassword: PREFIX_URL + "changepassword"
+};
+var GET = "GET";
+var POST = "POST";
+
+/* harmony default export */ __webpack_exports__["c"] = (urls);
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * Модуль, предоставляющий методы для выполнения HTTP-запросов
+ * @module Http
+ */
+function httpReq(type, uRL, sendObject) {
+    return new Promise(function (resolve, reject) {
+        fetch(uRL, {
+            method: type,
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify(sendObject),
+            mode: "cors",
+            credentials: "include"
+        }).then(function (response) {
+            if (response.status === 200) {
+                resolve(response.json());
+                // return response;
+            } else {
+                reject("Something went wrong");
+            }
+        });
+    });
+}
+/* harmony default export */ __webpack_exports__["a"] = (httpReq);
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Validate = function () {
+	function Validate() {
+		_classCallCheck(this, Validate);
+	}
+
+	/**
+     * Проверить логин(ник)
+     */
+
+
+	_createClass(Validate, null, [{
+		key: "checkLogin",
+		value: function checkLogin(nick) {
+			return nick.length < 20 && nick.length > 1;
+		}
+
+		/**
+      * Проверить пароль
+      */
+
+	}, {
+		key: "checkPassword",
+		value: function checkPassword(password) {
+			return password.length < 20 && password.length > 1;
+		}
+
+		/**
+      * Проверить совпадение паролей
+      */
+
+	}, {
+		key: "confirmPassword",
+		value: function confirmPassword(password, confirm) {
+			return password === confirm;
+		}
+
+		/**
+      * Проверить логин(ник) и пароль
+      */
+
+	}, {
+		key: "checkLogAndPas",
+		value: function checkLogAndPas(nick, password) {
+			return this.checkLogin(nick) && this.checkPassword(password);
+		}
+	}]);
+
+	return Validate;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Validate);
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var LoginView = function (_BaseView) {
+	_inherits(LoginView, _BaseView);
+
+	function LoginView(parentNode) {
+		_classCallCheck(this, LoginView);
+
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+		var _this = _possibleConstructorReturn(this, (LoginView.__proto__ || Object.getPrototypeOf(LoginView)).call(this, view.el));
+
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
+
+	_createClass(LoginView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_1__login_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
+
+			this.loginBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
+				userService.login(_this3.nick.el.value, _this3.password.el.value).then(function () {
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.loginBtn.el.getAttribute("href"));
+					_this3.warning.hide();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				}).catch(function (err) {
+					_this3.warning.setAttributes({ value: err });
+					_this3.warning.show();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				});
+			});
+			this.changeformBtn.setCallback(function () {
+				_this3.warning.hide();
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+			});
+		}
+	}]);
+
+	return LoginView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (LoginView);
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var loginFields = [{
+	name: "nick",
+	class: "input",
+	elemType: "input",
+	type: "text",
+	placeholder: "Nickname"
+}, {
+	name: "password",
+	class: "input",
+	elemType: "input",
+	type: "password",
+	placeholder: "Password"
+}, {
+	name: "loginBtn",
+	class: " button",
+	elemType: "input",
+	type: "button",
+	value: "Log In",
+	href: "/menu/"
+}, {
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "Havent Account?",
+	href: "/register/"
+}, {
+	name: "warning",
+	class: "warning",
+	elemType: "input",
+	type: "text",
+	value: "Invalid Data",
+	readonly: "true",
+	hidden: "true"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (loginFields);
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var RegisterView = function (_BaseView) {
+	_inherits(RegisterView, _BaseView);
+
+	function RegisterView(parentNode) {
+		_classCallCheck(this, RegisterView);
+
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+		var _this = _possibleConstructorReturn(this, (RegisterView.__proto__ || Object.getPrototypeOf(RegisterView)).call(this, view.el));
+
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
+
+	_createClass(RegisterView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
+
+			__WEBPACK_IMPORTED_MODULE_1__register_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
+
+			this.registerBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
+				userService.register(_this3.nick.el.value, _this3.password.el.value, _this3.confirm.el.value).then(function () {
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.registerBtn.el.getAttribute("href"));
+					_this3.warning.hide();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				}).catch(function (err) {
+					_this3.warning.setAttributes({ value: err });
+					_this3.warning.show();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				});
+
+				_this3.changeformBtn.setCallback(function () {
+					_this3.warning.hide();
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+				});
+			});
+		}
+	}]);
+
+	return RegisterView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (RegisterView);
+
+/***/ }),
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var registerFields = [{
+	class: "input",
+	type: "text",
+	name: "nick",
+	placeholder: "Nickname",
+	elemType: "input"
+}, {
+	class: "input",
+	type: "password",
+	name: "password",
+	placeholder: "Password",
+	elemType: "input"
+}, {
+	class: "input",
+	type: "password",
+	name: "confirm",
+	placeholder: "Confirm Password",
+	elemType: "input"
+}, {
+	name: "registerBtn",
+	class: " button",
+	elemType: "input",
+	type: "button",
+	value: "Register",
+	href: "/menu/"
+
+}, {
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "Already Have Account?",
+	href: "/login/"
+}, {
+	name: "warning",
+	class: "warning",
+	type: "text",
+	value: "Invalid Data",
+	elemType: "input",
+	readonly: "true",
+	hidden: "true"
+}];
+
+/* harmony default export */ __webpack_exports__["a"] = (registerFields);
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_js__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(7);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var MenuView = function (_BaseView) {
+    _inherits(MenuView, _BaseView);
+
+    function MenuView(parentNode) {
+        _classCallCheck(this, MenuView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+        var _this = _possibleConstructorReturn(this, (MenuView.__proto__ || Object.getPrototypeOf(MenuView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        return _this;
+    }
+
+    _createClass(MenuView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1__menu_js__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.changeBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"), false);
+            });
+            this.logoutBtn.setCallback(function () {
+                userService.logout().then(function () {
+                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.logoutBtn.el.getAttribute("href"));
+                }).catch(function (err) {});
+            });
+
+            this.play.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.play.el.getAttribute("href"), false);
+            });
+            this.scoreboardBtn.setCallback(function () {
+                userService.getScoreBoard().then(function (res) {
+                    // console.log(res)
+                    window.updateScoreboard(res);
+                });
+            });
+        }
+    }]);
+
+    return MenuView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (MenuView);
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var menuFields = [{
+    name: "play",
+    class: " button",
+    elemType: "a",
+    href: "/play/",
+    value: "play"
+}, {
+    name: "changeBtn",
+    class: " button",
+    elemType: "a",
+    href: "/changepass/",
+    value: "Change Password"
+}, {
+    name: "scoreboardBtn",
+    class: " button",
+    elemType: "a",
+    value: "scoreboard",
+    href: "/scoreboard/",
+    type: "button"
+}, {
+    name: "aboutBtn",
+    class: " button",
+    elemType: "a",
+    value: "about",
+    href: "/about/",
+    type: "button"
+}, {
+    name: "logoutBtn",
+    class: " button",
+    elemType: "input",
+    type: "button",
+    href: "/login/",
+    value: "log out"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (menuFields);
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(13);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var keyboardJS = __webpack_require__(11);
+
+
+var SinglePlayer = function () {
+    function SinglePlayer() {
+        _classCallCheck(this, SinglePlayer);
+
+        this._gameLoop = this._gameLoop.bind(this);
+        this.actionStates = {};
+        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("me", [80, 60], this.actionStates); // TODO write your original
+        this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]("super bitch bot", [-10, -10], null);
+        window.movingSound = new Audio("./sounds/move.mp3");
+        window.stayingSound = new Audio("./sounds/move.mp3");
+        window.stayingSound.loop = true;
+        window.stayingSound.volume = 0.2;
+        window.movingSound.loop = true;
+        window.movingSound.volume = 0.2;
+        window.movingSound.play();
+        setTimeout(function () {
+            window.stayingSound.play();
+        }, 1000);
+        window.reloadSound = new Audio("./sounds/reload.mp3");
+        window.stopGame = this.stop.bind(this);
+    }
+
+    _createClass(SinglePlayer, [{
+        key: "getPlayersCoors",
+        value: function getPlayersCoors() {
+            return {
+                me: this.me.coords,
+                opponent: this.opponent.coords
+            };
+        }
+    }, {
+        key: "startListenGameLoop",
+        value: function startListenGameLoop(callback) {
+            var _this = this;
+
+            this.sceneInstructionCallback = callback;
+            this._startLoop();
+            this._initKeyListeners(function (newState) {
+                Object.assign(_this.actionStates, newState);
+            });
+        }
+    }, {
+        key: "_startLoop",
+        value: function _startLoop() {
+            this.requestId = window.requestAnimationFrame(this._gameLoop);
+        }
+    }, {
+        key: "stop",
+        value: function stop() {
+            if (this.requestId) {
+                window.cancelAnimationFrame(this.requestId);
+                this.requestId = undefined;
+            }
+        }
+
+        //Основной цикл, который шлет изменения
+
+    }, {
+        key: "_gameLoop",
+        value: function _gameLoop() {
+
+            // Object.keys(this._actionStates).forEach(key => {
+            //     this.me[key] = this._actionStates[key];
+            // });
+            this.me.update();
+            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+            this.me.getInstrustions());
+            window.requestAnimationFrame(this._gameLoop);
+        }
+    }, {
+        key: "_initKeyListeners",
+        value: function _initKeyListeners(callback) {
+            callback({ enemyNick: "NoEnemy" });
+            keyboardJS.bind("m", function (e) {
+                callback({ turretRight: true });
+            }, function (e) {
+                callback({ turretRight: false });
+            });
+            keyboardJS.bind("n", function (e) {
+                callback({ turretLeft: true });
+            }, function (e) {
+                callback({ turretLeft: false });
+            });
+            keyboardJS.bind("w", function (e) {
+                callback({ forward: true });
+                window.movingSound.volume = 0.65;
+                window.stayingSound.volume = 0.65;
+            }, function (e) {
+                callback({ forward: false });
+                window.movingSound.volume = 0.2;
+                window.stayingSound.volume = 0.2;
+            });
+            keyboardJS.bind("s", function (e) {
+                callback({ backward: true });
+                window.movingSound.volume = 0.65;
+                window.stayingSound.volume = 0.65;
+            }, function (e) {
+                callback({ backward: false });
+                window.movingSound.volume = 0.2;
+                window.stayingSound.volume = 0.2;
+            });
+            keyboardJS.bind("d", function (e) {
+                callback({ right: true });
+            }, function (e) {
+                callback({ right: false });
+            });
+            keyboardJS.bind("a", function (e) {
+                callback({ left: true });
+            }, function (e) {
+                callback({ left: false });
+            });
+            keyboardJS.bind("v", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ changeCamera: true });
+            });
+            keyboardJS.bind("space", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ fire: true });
+                setTimeout(function () {
+                    window.reloadSound.play();
+                }, 2000);
+            });
+        }
+    }, {
+        key: "randomMovemant",
+        value: function randomMovemant(callback) {
+            callback({ left: true, forward: true });
+        }
+    }]);
+
+    return SinglePlayer;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (SinglePlayer);
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var Locale = __webpack_require__(12);
+var KeyCombo = __webpack_require__(8);
+
+function Keyboard(targetWindow, targetElement, platform, userAgent) {
+  this._locale = null;
+  this._currentContext = null;
+  this._contexts = {};
+  this._listeners = [];
+  this._appliedListeners = [];
+  this._locales = {};
+  this._targetElement = null;
+  this._targetWindow = null;
+  this._targetPlatform = '';
+  this._targetUserAgent = '';
+  this._isModernBrowser = false;
+  this._targetKeyDownBinding = null;
+  this._targetKeyUpBinding = null;
+  this._targetResetBinding = null;
+  this._paused = false;
+  this._callerHandler = null;
+
+  this.setContext('global');
+  this.watch(targetWindow, targetElement, platform, userAgent);
+}
+
+Keyboard.prototype.setLocale = function (localeName, localeBuilder) {
+  var locale = null;
+  if (typeof localeName === 'string') {
+
+    if (localeBuilder) {
+      locale = new Locale(localeName);
+      localeBuilder(locale, this._targetPlatform, this._targetUserAgent);
+    } else {
+      locale = this._locales[localeName] || null;
+    }
+  } else {
+    locale = localeName;
+    localeName = locale._localeName;
+  }
+
+  this._locale = locale;
+  this._locales[localeName] = locale;
+  if (locale) {
+    this._locale.pressedKeys = locale.pressedKeys;
+  }
+};
+
+Keyboard.prototype.getLocale = function (localName) {
+  localName || (localName = this._locale.localeName);
+  return this._locales[localName] || null;
+};
+
+Keyboard.prototype.bind = function (keyComboStr, pressHandler, releaseHandler, preventRepeatByDefault) {
+  if (keyComboStr === null || typeof keyComboStr === 'function') {
+    preventRepeatByDefault = releaseHandler;
+    releaseHandler = pressHandler;
+    pressHandler = keyComboStr;
+    keyComboStr = null;
+  }
+
+  if (keyComboStr && (typeof keyComboStr === 'undefined' ? 'undefined' : _typeof(keyComboStr)) === 'object' && typeof keyComboStr.length === 'number') {
+    for (var i = 0; i < keyComboStr.length; i += 1) {
+      this.bind(keyComboStr[i], pressHandler, releaseHandler);
+    }
+    return;
+  }
+
+  this._listeners.push({
+    keyCombo: keyComboStr ? new KeyCombo(keyComboStr) : null,
+    pressHandler: pressHandler || null,
+    releaseHandler: releaseHandler || null,
+    preventRepeat: preventRepeatByDefault || false,
+    preventRepeatByDefault: preventRepeatByDefault || false
+  });
+};
+Keyboard.prototype.addListener = Keyboard.prototype.bind;
+Keyboard.prototype.on = Keyboard.prototype.bind;
+
+Keyboard.prototype.unbind = function (keyComboStr, pressHandler, releaseHandler) {
+  if (keyComboStr === null || typeof keyComboStr === 'function') {
+    releaseHandler = pressHandler;
+    pressHandler = keyComboStr;
+    keyComboStr = null;
+  }
+
+  if (keyComboStr && (typeof keyComboStr === 'undefined' ? 'undefined' : _typeof(keyComboStr)) === 'object' && typeof keyComboStr.length === 'number') {
+    for (var i = 0; i < keyComboStr.length; i += 1) {
+      this.unbind(keyComboStr[i], pressHandler, releaseHandler);
+    }
+    return;
+  }
+
+  for (var i = 0; i < this._listeners.length; i += 1) {
+    var listener = this._listeners[i];
+
+    var comboMatches = !keyComboStr && !listener.keyCombo || listener.keyCombo && listener.keyCombo.isEqual(keyComboStr);
+    var pressHandlerMatches = !pressHandler && !releaseHandler || !pressHandler && !listener.pressHandler || pressHandler === listener.pressHandler;
+    var releaseHandlerMatches = !pressHandler && !releaseHandler || !releaseHandler && !listener.releaseHandler || releaseHandler === listener.releaseHandler;
+
+    if (comboMatches && pressHandlerMatches && releaseHandlerMatches) {
+      this._listeners.splice(i, 1);
+      i -= 1;
+    }
+  }
+};
+Keyboard.prototype.removeListener = Keyboard.prototype.unbind;
+Keyboard.prototype.off = Keyboard.prototype.unbind;
+
+Keyboard.prototype.setContext = function (contextName) {
+  if (this._locale) {
+    this.releaseAllKeys();
+  }
+
+  if (!this._contexts[contextName]) {
+    this._contexts[contextName] = [];
+  }
+  this._listeners = this._contexts[contextName];
+  this._currentContext = contextName;
+};
+
+Keyboard.prototype.getContext = function () {
+  return this._currentContext;
+};
+
+Keyboard.prototype.withContext = function (contextName, callback) {
+  var previousContextName = this.getContext();
+  this.setContext(contextName);
+
+  callback();
+
+  this.setContext(previousContextName);
+};
+
+Keyboard.prototype.watch = function (targetWindow, targetElement, targetPlatform, targetUserAgent) {
+  var _this = this;
+
+  this.stop();
+
+  if (!targetWindow) {
+    if (!global.addEventListener && !global.attachEvent) {
+      throw new Error('Cannot find global functions addEventListener or attachEvent.');
+    }
+    targetWindow = global;
+  }
+
+  if (typeof targetWindow.nodeType === 'number') {
+    targetUserAgent = targetPlatform;
+    targetPlatform = targetElement;
+    targetElement = targetWindow;
+    targetWindow = global;
+  }
+
+  if (!targetWindow.addEventListener && !targetWindow.attachEvent) {
+    throw new Error('Cannot find addEventListener or attachEvent methods on targetWindow.');
+  }
+
+  this._isModernBrowser = !!targetWindow.addEventListener;
+
+  var userAgent = targetWindow.navigator && targetWindow.navigator.userAgent || '';
+  var platform = targetWindow.navigator && targetWindow.navigator.platform || '';
+
+  targetElement && targetElement !== null || (targetElement = targetWindow.document);
+  targetPlatform && targetPlatform !== null || (targetPlatform = platform);
+  targetUserAgent && targetUserAgent !== null || (targetUserAgent = userAgent);
+
+  this._targetKeyDownBinding = function (event) {
+    _this.pressKey(event.keyCode, event);
+    _this._handleCommandBug(event, platform);
+  };
+  this._targetKeyUpBinding = function (event) {
+    _this.releaseKey(event.keyCode, event);
+  };
+  this._targetResetBinding = function (event) {
+    _this.releaseAllKeys(event);
+  };
+
+  this._bindEvent(targetElement, 'keydown', this._targetKeyDownBinding);
+  this._bindEvent(targetElement, 'keyup', this._targetKeyUpBinding);
+  this._bindEvent(targetWindow, 'focus', this._targetResetBinding);
+  this._bindEvent(targetWindow, 'blur', this._targetResetBinding);
+
+  this._targetElement = targetElement;
+  this._targetWindow = targetWindow;
+  this._targetPlatform = targetPlatform;
+  this._targetUserAgent = targetUserAgent;
+};
+
+Keyboard.prototype.stop = function () {
+  var _this = this;
+
+  if (!this._targetElement || !this._targetWindow) {
+    return;
+  }
+
+  this._unbindEvent(this._targetElement, 'keydown', this._targetKeyDownBinding);
+  this._unbindEvent(this._targetElement, 'keyup', this._targetKeyUpBinding);
+  this._unbindEvent(this._targetWindow, 'focus', this._targetResetBinding);
+  this._unbindEvent(this._targetWindow, 'blur', this._targetResetBinding);
+
+  this._targetWindow = null;
+  this._targetElement = null;
+};
+
+Keyboard.prototype.pressKey = function (keyCode, event) {
+  if (this._paused) {
+    return;
+  }
+  if (!this._locale) {
+    throw new Error('Locale not set');
+  }
+
+  this._locale.pressKey(keyCode);
+  this._applyBindings(event);
+};
+
+Keyboard.prototype.releaseKey = function (keyCode, event) {
+  if (this._paused) {
+    return;
+  }
+  if (!this._locale) {
+    throw new Error('Locale not set');
+  }
+
+  this._locale.releaseKey(keyCode);
+  this._clearBindings(event);
+};
+
+Keyboard.prototype.releaseAllKeys = function (event) {
+  if (this._paused) {
+    return;
+  }
+  if (!this._locale) {
+    throw new Error('Locale not set');
+  }
+
+  this._locale.pressedKeys.length = 0;
+  this._clearBindings(event);
+};
+
+Keyboard.prototype.pause = function () {
+  if (this._paused) {
+    return;
+  }
+  if (this._locale) {
+    this.releaseAllKeys();
+  }
+  this._paused = true;
+};
+
+Keyboard.prototype.resume = function () {
+  this._paused = false;
+};
+
+Keyboard.prototype.reset = function () {
+  this.releaseAllKeys();
+  this._listeners.length = 0;
+};
+
+Keyboard.prototype._bindEvent = function (targetElement, eventName, handler) {
+  return this._isModernBrowser ? targetElement.addEventListener(eventName, handler, false) : targetElement.attachEvent('on' + eventName, handler);
+};
+
+Keyboard.prototype._unbindEvent = function (targetElement, eventName, handler) {
+  return this._isModernBrowser ? targetElement.removeEventListener(eventName, handler, false) : targetElement.detachEvent('on' + eventName, handler);
+};
+
+Keyboard.prototype._getGroupedListeners = function () {
+  var listenerGroups = [];
+  var listenerGroupMap = [];
+
+  var listeners = this._listeners;
+  if (this._currentContext !== 'global') {
+    listeners = [].concat(listeners, this._contexts.global);
+  }
+
+  listeners.sort(function (a, b) {
+    return (b.keyCombo ? b.keyCombo.keyNames.length : 0) - (a.keyCombo ? a.keyCombo.keyNames.length : 0);
+  }).forEach(function (l) {
+    var mapIndex = -1;
+    for (var i = 0; i < listenerGroupMap.length; i += 1) {
+      if (listenerGroupMap[i] === null && l.keyCombo === null || listenerGroupMap[i] !== null && listenerGroupMap[i].isEqual(l.keyCombo)) {
+        mapIndex = i;
+      }
+    }
+    if (mapIndex === -1) {
+      mapIndex = listenerGroupMap.length;
+      listenerGroupMap.push(l.keyCombo);
+    }
+    if (!listenerGroups[mapIndex]) {
+      listenerGroups[mapIndex] = [];
+    }
+    listenerGroups[mapIndex].push(l);
+  });
+  return listenerGroups;
+};
+
+Keyboard.prototype._applyBindings = function (event) {
+  var preventRepeat = false;
+
+  event || (event = {});
+  event.preventRepeat = function () {
+    preventRepeat = true;
+  };
+  event.pressedKeys = this._locale.pressedKeys.slice(0);
+
+  var pressedKeys = this._locale.pressedKeys.slice(0);
+  var listenerGroups = this._getGroupedListeners();
+
+  for (var i = 0; i < listenerGroups.length; i += 1) {
+    var listeners = listenerGroups[i];
+    var keyCombo = listeners[0].keyCombo;
+
+    if (keyCombo === null || keyCombo.check(pressedKeys)) {
+      for (var j = 0; j < listeners.length; j += 1) {
+        var listener = listeners[j];
+
+        if (keyCombo === null) {
+          listener = {
+            keyCombo: new KeyCombo(pressedKeys.join('+')),
+            pressHandler: listener.pressHandler,
+            releaseHandler: listener.releaseHandler,
+            preventRepeat: listener.preventRepeat,
+            preventRepeatByDefault: listener.preventRepeatByDefault
+          };
+        }
+
+        if (listener.pressHandler && !listener.preventRepeat) {
+          listener.pressHandler.call(this, event);
+          if (preventRepeat) {
+            listener.preventRepeat = preventRepeat;
+            preventRepeat = false;
+          }
+        }
+
+        if (listener.releaseHandler && this._appliedListeners.indexOf(listener) === -1) {
+          this._appliedListeners.push(listener);
+        }
+      }
+
+      if (keyCombo) {
+        for (var j = 0; j < keyCombo.keyNames.length; j += 1) {
+          var index = pressedKeys.indexOf(keyCombo.keyNames[j]);
+          if (index !== -1) {
+            pressedKeys.splice(index, 1);
+            j -= 1;
+          }
+        }
+      }
+    }
+  }
+};
+
+Keyboard.prototype._clearBindings = function (event) {
+  event || (event = {});
+
+  for (var i = 0; i < this._appliedListeners.length; i += 1) {
+    var listener = this._appliedListeners[i];
+    var keyCombo = listener.keyCombo;
+    if (keyCombo === null || !keyCombo.check(this._locale.pressedKeys)) {
+      if (this._callerHandler !== listener.releaseHandler) {
+        var oldCaller = this._callerHandler;
+        this._callerHandler = listener.releaseHandler;
+        listener.preventRepeat = listener.preventRepeatByDefault;
+        listener.releaseHandler.call(this, event);
+        this._callerHandler = oldCaller;
+      }
+      this._appliedListeners.splice(i, 1);
+      i -= 1;
+    }
+  }
+};
+
+Keyboard.prototype._handleCommandBug = function (event, platform) {
+  // On Mac when the command key is kept pressed, keyup is not triggered for any other key.
+  // In this case force a keyup for non-modifier keys directly after the keypress.
+  var modifierKeys = ["shift", "ctrl", "alt", "capslock", "tab", "command"];
+  if (platform.match("Mac") && this._locale.pressedKeys.includes("command") && !modifierKeys.includes(this._locale.getKeyNames(event.keyCode)[0])) {
+    this._targetKeyUpBinding(event);
+  }
+};
+
+module.exports = Keyboard;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+
+module.exports = function (locale, platform, userAgent) {
+
+  // general
+  locale.bindKeyCode(3, ['cancel']);
+  locale.bindKeyCode(8, ['backspace']);
+  locale.bindKeyCode(9, ['tab']);
+  locale.bindKeyCode(12, ['clear']);
+  locale.bindKeyCode(13, ['enter']);
+  locale.bindKeyCode(16, ['shift']);
+  locale.bindKeyCode(17, ['ctrl']);
+  locale.bindKeyCode(18, ['alt', 'menu']);
+  locale.bindKeyCode(19, ['pause', 'break']);
+  locale.bindKeyCode(20, ['capslock']);
+  locale.bindKeyCode(27, ['escape', 'esc']);
+  locale.bindKeyCode(32, ['space', 'spacebar']);
+  locale.bindKeyCode(33, ['pageup']);
+  locale.bindKeyCode(34, ['pagedown']);
+  locale.bindKeyCode(35, ['end']);
+  locale.bindKeyCode(36, ['home']);
+  locale.bindKeyCode(37, ['left']);
+  locale.bindKeyCode(38, ['up']);
+  locale.bindKeyCode(39, ['right']);
+  locale.bindKeyCode(40, ['down']);
+  locale.bindKeyCode(41, ['select']);
+  locale.bindKeyCode(42, ['printscreen']);
+  locale.bindKeyCode(43, ['execute']);
+  locale.bindKeyCode(44, ['snapshot']);
+  locale.bindKeyCode(45, ['insert', 'ins']);
+  locale.bindKeyCode(46, ['delete', 'del']);
+  locale.bindKeyCode(47, ['help']);
+  locale.bindKeyCode(145, ['scrolllock', 'scroll']);
+  locale.bindKeyCode(187, ['equal', 'equalsign', '=']);
+  locale.bindKeyCode(188, ['comma', ',']);
+  locale.bindKeyCode(190, ['period', '.']);
+  locale.bindKeyCode(191, ['slash', 'forwardslash', '/']);
+  locale.bindKeyCode(192, ['graveaccent', '`']);
+  locale.bindKeyCode(219, ['openbracket', '[']);
+  locale.bindKeyCode(220, ['backslash', '\\']);
+  locale.bindKeyCode(221, ['closebracket', ']']);
+  locale.bindKeyCode(222, ['apostrophe', '\'']);
+
+  // 0-9
+  locale.bindKeyCode(48, ['zero', '0']);
+  locale.bindKeyCode(49, ['one', '1']);
+  locale.bindKeyCode(50, ['two', '2']);
+  locale.bindKeyCode(51, ['three', '3']);
+  locale.bindKeyCode(52, ['four', '4']);
+  locale.bindKeyCode(53, ['five', '5']);
+  locale.bindKeyCode(54, ['six', '6']);
+  locale.bindKeyCode(55, ['seven', '7']);
+  locale.bindKeyCode(56, ['eight', '8']);
+  locale.bindKeyCode(57, ['nine', '9']);
+
+  // numpad
+  locale.bindKeyCode(96, ['numzero', 'num0']);
+  locale.bindKeyCode(97, ['numone', 'num1']);
+  locale.bindKeyCode(98, ['numtwo', 'num2']);
+  locale.bindKeyCode(99, ['numthree', 'num3']);
+  locale.bindKeyCode(100, ['numfour', 'num4']);
+  locale.bindKeyCode(101, ['numfive', 'num5']);
+  locale.bindKeyCode(102, ['numsix', 'num6']);
+  locale.bindKeyCode(103, ['numseven', 'num7']);
+  locale.bindKeyCode(104, ['numeight', 'num8']);
+  locale.bindKeyCode(105, ['numnine', 'num9']);
+  locale.bindKeyCode(106, ['nummultiply', 'num*']);
+  locale.bindKeyCode(107, ['numadd', 'num+']);
+  locale.bindKeyCode(108, ['numenter']);
+  locale.bindKeyCode(109, ['numsubtract', 'num-']);
+  locale.bindKeyCode(110, ['numdecimal', 'num.']);
+  locale.bindKeyCode(111, ['numdivide', 'num/']);
+  locale.bindKeyCode(144, ['numlock', 'num']);
+
+  // function keys
+  locale.bindKeyCode(112, ['f1']);
+  locale.bindKeyCode(113, ['f2']);
+  locale.bindKeyCode(114, ['f3']);
+  locale.bindKeyCode(115, ['f4']);
+  locale.bindKeyCode(116, ['f5']);
+  locale.bindKeyCode(117, ['f6']);
+  locale.bindKeyCode(118, ['f7']);
+  locale.bindKeyCode(119, ['f8']);
+  locale.bindKeyCode(120, ['f9']);
+  locale.bindKeyCode(121, ['f10']);
+  locale.bindKeyCode(122, ['f11']);
+  locale.bindKeyCode(123, ['f12']);
+
+  // secondary key symbols
+  locale.bindMacro('shift + `', ['tilde', '~']);
+  locale.bindMacro('shift + 1', ['exclamation', 'exclamationpoint', '!']);
+  locale.bindMacro('shift + 2', ['at', '@']);
+  locale.bindMacro('shift + 3', ['number', '#']);
+  locale.bindMacro('shift + 4', ['dollar', 'dollars', 'dollarsign', '$']);
+  locale.bindMacro('shift + 5', ['percent', '%']);
+  locale.bindMacro('shift + 6', ['caret', '^']);
+  locale.bindMacro('shift + 7', ['ampersand', 'and', '&']);
+  locale.bindMacro('shift + 8', ['asterisk', '*']);
+  locale.bindMacro('shift + 9', ['openparen', '(']);
+  locale.bindMacro('shift + 0', ['closeparen', ')']);
+  locale.bindMacro('shift + -', ['underscore', '_']);
+  locale.bindMacro('shift + =', ['plus', '+']);
+  locale.bindMacro('shift + [', ['opencurlybrace', 'opencurlybracket', '{']);
+  locale.bindMacro('shift + ]', ['closecurlybrace', 'closecurlybracket', '}']);
+  locale.bindMacro('shift + \\', ['verticalbar', '|']);
+  locale.bindMacro('shift + ;', ['colon', ':']);
+  locale.bindMacro('shift + \'', ['quotationmark', '\'']);
+  locale.bindMacro('shift + !,', ['openanglebracket', '<']);
+  locale.bindMacro('shift + .', ['closeanglebracket', '>']);
+  locale.bindMacro('shift + /', ['questionmark', '?']);
+
+  //a-z and A-Z
+  for (var keyCode = 65; keyCode <= 90; keyCode += 1) {
+    var keyName = String.fromCharCode(keyCode + 32);
+    var capitalKeyName = String.fromCharCode(keyCode);
+    locale.bindKeyCode(keyCode, keyName);
+    locale.bindMacro('shift + ' + keyName, capitalKeyName);
+    locale.bindMacro('capslock + ' + keyName, capitalKeyName);
+  }
+
+  // browser caveats
+  var semicolonKeyCode = userAgent.match('Firefox') ? 59 : 186;
+  var dashKeyCode = userAgent.match('Firefox') ? 173 : 189;
+  var leftCommandKeyCode;
+  var rightCommandKeyCode;
+  if (platform.match('Mac') && (userAgent.match('Safari') || userAgent.match('Chrome'))) {
+    leftCommandKeyCode = 91;
+    rightCommandKeyCode = 93;
+  } else if (platform.match('Mac') && userAgent.match('Opera')) {
+    leftCommandKeyCode = 17;
+    rightCommandKeyCode = 17;
+  } else if (platform.match('Mac') && userAgent.match('Firefox')) {
+    leftCommandKeyCode = 224;
+    rightCommandKeyCode = 224;
+  }
+  locale.bindKeyCode(semicolonKeyCode, ['semicolon', ';']);
+  locale.bindKeyCode(dashKeyCode, ['dash', '-']);
+  locale.bindKeyCode(leftCommandKeyCode, ['command', 'windows', 'win', 'super', 'leftcommand', 'leftwindows', 'leftwin', 'leftsuper']);
+  locale.bindKeyCode(rightCommandKeyCode, ['command', 'windows', 'win', 'super', 'rightcommand', 'rightwindows', 'rightwin', 'rightsuper']);
+
+  // kill keys
+  locale.setKillKey('command');
+};
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+    "use strict";
+
+    if (global.setImmediate) {
+        return;
+    }
+
+    var nextHandle = 1; // Spec says greater than zero
+    var tasksByHandle = {};
+    var currentlyRunningATask = false;
+    var doc = global.document;
+    var registerImmediate;
+
+    function setImmediate(callback) {
+        // Callback can either be a function or a string
+        if (typeof callback !== "function") {
+            callback = new Function("" + callback);
+        }
+        // Copy function arguments
+        var args = new Array(arguments.length - 1);
+        for (var i = 0; i < args.length; i++) {
+            args[i] = arguments[i + 1];
+        }
+        // Store and register the task
+        var task = { callback: callback, args: args };
+        tasksByHandle[nextHandle] = task;
+        registerImmediate(nextHandle);
+        return nextHandle++;
+    }
+
+    function clearImmediate(handle) {
+        delete tasksByHandle[handle];
+    }
+
+    function run(task) {
+        var callback = task.callback;
+        var args = task.args;
+        switch (args.length) {
+            case 0:
+                callback();
+                break;
+            case 1:
+                callback(args[0]);
+                break;
+            case 2:
+                callback(args[0], args[1]);
+                break;
+            case 3:
+                callback(args[0], args[1], args[2]);
+                break;
+            default:
+                callback.apply(undefined, args);
+                break;
+        }
+    }
+
+    function runIfPresent(handle) {
+        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+        // So if we're currently running a task, we'll need to delay this invocation.
+        if (currentlyRunningATask) {
+            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+            // "too much recursion" error.
+            setTimeout(runIfPresent, 0, handle);
+        } else {
+            var task = tasksByHandle[handle];
+            if (task) {
+                currentlyRunningATask = true;
+                try {
+                    run(task);
+                } finally {
+                    clearImmediate(handle);
+                    currentlyRunningATask = false;
+                }
+            }
+        }
+    }
+
+    function installNextTickImplementation() {
+        registerImmediate = function registerImmediate(handle) {
+            process.nextTick(function () {
+                runIfPresent(handle);
+            });
+        };
+    }
+
+    function canUsePostMessage() {
+        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+        // where `global.postMessage` means something completely different and can't be used for this purpose.
+        if (global.postMessage && !global.importScripts) {
+            var postMessageIsAsynchronous = true;
+            var oldOnMessage = global.onmessage;
+            global.onmessage = function () {
+                postMessageIsAsynchronous = false;
+            };
+            global.postMessage("", "*");
+            global.onmessage = oldOnMessage;
+            return postMessageIsAsynchronous;
+        }
+    }
+
+    function installPostMessageImplementation() {
+        // Installs an event handler on `global` for the `message` event: see
+        // * https://developer.mozilla.org/en/DOM/window.postMessage
+        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+        var messagePrefix = "setImmediate$" + Math.random() + "$";
+        var onGlobalMessage = function onGlobalMessage(event) {
+            if (event.source === global && typeof event.data === "string" && event.data.indexOf(messagePrefix) === 0) {
+                runIfPresent(+event.data.slice(messagePrefix.length));
+            }
+        };
+
+        if (global.addEventListener) {
+            global.addEventListener("message", onGlobalMessage, false);
+        } else {
+            global.attachEvent("onmessage", onGlobalMessage);
+        }
+
+        registerImmediate = function registerImmediate(handle) {
+            global.postMessage(messagePrefix + handle, "*");
+        };
+    }
+
+    function installMessageChannelImplementation() {
+        var channel = new MessageChannel();
+        channel.port1.onmessage = function (event) {
+            var handle = event.data;
+            runIfPresent(handle);
+        };
+
+        registerImmediate = function registerImmediate(handle) {
+            channel.port2.postMessage(handle);
+        };
+    }
+
+    function installReadyStateChangeImplementation() {
+        var html = doc.documentElement;
+        registerImmediate = function registerImmediate(handle) {
+            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+            var script = doc.createElement("script");
+            script.onreadystatechange = function () {
+                runIfPresent(handle);
+                script.onreadystatechange = null;
+                html.removeChild(script);
+                script = null;
+            };
+            html.appendChild(script);
+        };
+    }
+
+    function installSetTimeoutImplementation() {
+        registerImmediate = function registerImmediate(handle) {
+            setTimeout(runIfPresent, 0, handle);
+        };
+    }
+
+    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+    // Don't get fooled by e.g. browserify environments.
+    if ({}.toString.call(global.process) === "[object process]") {
+        // For Node.js before 0.9
+        installNextTickImplementation();
+    } else if (canUsePostMessage()) {
+        // For non-IE10 modern browsers
+        installPostMessageImplementation();
+    } else if (global.MessageChannel) {
+        // For web workers, where supported
+        installMessageChannelImplementation();
+    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+        // For IE 6–8
+        installReadyStateChangeImplementation();
+    } else {
+        // For older browsers
+        installSetTimeoutImplementation();
+    }
+
+    attachTo.setImmediate = setImmediate;
+    attachTo.clearImmediate = clearImmediate;
+})(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(14)))
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+// compare and isBuffer taken from https://github.com/feross/buffer/blob/680e9e5e488f22aac27599a57dc844a6315928dd/index.js
+// original notice:
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function compare(a, b) {
+  if (a === b) {
+    return 0;
+  }
+
+  var x = a.length;
+  var y = b.length;
+
+  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+    if (a[i] !== b[i]) {
+      x = a[i];
+      y = b[i];
+      break;
+    }
+  }
+
+  if (x < y) {
+    return -1;
+  }
+  if (y < x) {
+    return 1;
+  }
+  return 0;
+}
+function isBuffer(b) {
+  if (global.Buffer && typeof global.Buffer.isBuffer === 'function') {
+    return global.Buffer.isBuffer(b);
+  }
+  return !!(b != null && b._isBuffer);
+}
+
+// based on node assert, original notice:
+
+// http://wiki.commonjs.org/wiki/Unit_Testing/1.0
+//
+// THIS IS NOT TESTED NOR LIKELY TO WORK OUTSIDE V8!
+//
+// Originally from narwhal.js (http://narwhaljs.org)
+// Copyright (c) 2009 Thomas Robinson <280north.com>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the 'Software'), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+// ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var util = __webpack_require__(15);
+var hasOwn = Object.prototype.hasOwnProperty;
+var pSlice = Array.prototype.slice;
+var functionsHaveNames = function () {
+  return function foo() {}.name === 'foo';
+}();
+function pToString(obj) {
+  return Object.prototype.toString.call(obj);
+}
+function isView(arrbuf) {
+  if (isBuffer(arrbuf)) {
+    return false;
+  }
+  if (typeof global.ArrayBuffer !== 'function') {
+    return false;
+  }
+  if (typeof ArrayBuffer.isView === 'function') {
+    return ArrayBuffer.isView(arrbuf);
+  }
+  if (!arrbuf) {
+    return false;
+  }
+  if (arrbuf instanceof DataView) {
+    return true;
+  }
+  if (arrbuf.buffer && arrbuf.buffer instanceof ArrayBuffer) {
+    return true;
+  }
+  return false;
+}
+// 1. The assert module provides functions that throw
+// AssertionError's when particular conditions are not met. The
+// assert module must conform to the following interface.
+
+var assert = module.exports = ok;
+
+// 2. The AssertionError is defined in assert.
+// new assert.AssertionError({ message: message,
+//                             actual: actual,
+//                             expected: expected })
+
+var regex = /\s*function\s+([^\(\s]*)\s*/;
+// based on https://github.com/ljharb/function.prototype.name/blob/adeeeec8bfcc6068b187d7d9fb3d5bb1d3a30899/implementation.js
+function getName(func) {
+  if (!util.isFunction(func)) {
+    return;
+  }
+  if (functionsHaveNames) {
+    return func.name;
+  }
+  var str = func.toString();
+  var match = str.match(regex);
+  return match && match[1];
+}
+assert.AssertionError = function AssertionError(options) {
+  this.name = 'AssertionError';
+  this.actual = options.actual;
+  this.expected = options.expected;
+  this.operator = options.operator;
+  if (options.message) {
+    this.message = options.message;
+    this.generatedMessage = false;
+  } else {
+    this.message = getMessage(this);
+    this.generatedMessage = true;
+  }
+  var stackStartFunction = options.stackStartFunction || fail;
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, stackStartFunction);
+  } else {
+    // non v8 browsers so we can have a stacktrace
+    var err = new Error();
+    if (err.stack) {
+      var out = err.stack;
+
+      // try to strip useless frames
+      var fn_name = getName(stackStartFunction);
+      var idx = out.indexOf('\n' + fn_name);
+      if (idx >= 0) {
+        // once we have located the function frame
+        // we need to strip out everything before it (and its line)
+        var next_line = out.indexOf('\n', idx + 1);
+        out = out.substring(next_line + 1);
+      }
+
+      this.stack = out;
+    }
+  }
+};
+
+// assert.AssertionError instanceof Error
+util.inherits(assert.AssertionError, Error);
+
+function truncate(s, n) {
+  if (typeof s === 'string') {
+    return s.length < n ? s : s.slice(0, n);
+  } else {
+    return s;
+  }
+}
+function inspect(something) {
+  if (functionsHaveNames || !util.isFunction(something)) {
+    return util.inspect(something);
+  }
+  var rawname = getName(something);
+  var name = rawname ? ': ' + rawname : '';
+  return '[Function' + name + ']';
+}
+function getMessage(self) {
+  return truncate(inspect(self.actual), 128) + ' ' + self.operator + ' ' + truncate(inspect(self.expected), 128);
+}
+
+// At present only the three keys mentioned above are used and
+// understood by the spec. Implementations or sub modules can pass
+// other keys to the AssertionError's constructor - they will be
+// ignored.
+
+// 3. All of the following functions must throw an AssertionError
+// when a corresponding condition is not met, with a message that
+// may be undefined if not provided.  All assertion methods provide
+// both the actual and expected values to the assertion error for
+// display purposes.
+
+function fail(actual, expected, message, operator, stackStartFunction) {
+  throw new assert.AssertionError({
+    message: message,
+    actual: actual,
+    expected: expected,
+    operator: operator,
+    stackStartFunction: stackStartFunction
+  });
+}
+
+// EXTENSION! allows for well behaved errors defined elsewhere.
+assert.fail = fail;
+
+// 4. Pure assertion tests whether a value is truthy, as determined
+// by !!guard.
+// assert.ok(guard, message_opt);
+// This statement is equivalent to assert.equal(true, !!guard,
+// message_opt);. To test strictly for the value true, use
+// assert.strictEqual(true, guard, message_opt);.
+
+function ok(value, message) {
+  if (!value) fail(value, true, message, '==', assert.ok);
+}
+assert.ok = ok;
+
+// 5. The equality assertion tests shallow, coercive equality with
+// ==.
+// assert.equal(actual, expected, message_opt);
+
+assert.equal = function equal(actual, expected, message) {
+  if (actual != expected) fail(actual, expected, message, '==', assert.equal);
+};
+
+// 6. The non-equality assertion tests for whether two objects are not equal
+// with != assert.notEqual(actual, expected, message_opt);
+
+assert.notEqual = function notEqual(actual, expected, message) {
+  if (actual == expected) {
+    fail(actual, expected, message, '!=', assert.notEqual);
+  }
+};
+
+// 7. The equivalence assertion tests a deep equality relation.
+// assert.deepEqual(actual, expected, message_opt);
+
+assert.deepEqual = function deepEqual(actual, expected, message) {
+  if (!_deepEqual(actual, expected, false)) {
+    fail(actual, expected, message, 'deepEqual', assert.deepEqual);
+  }
+};
+
+assert.deepStrictEqual = function deepStrictEqual(actual, expected, message) {
+  if (!_deepEqual(actual, expected, true)) {
+    fail(actual, expected, message, 'deepStrictEqual', assert.deepStrictEqual);
+  }
+};
+
+function _deepEqual(actual, expected, strict, memos) {
+  // 7.1. All identical values are equivalent, as determined by ===.
+  if (actual === expected) {
+    return true;
+  } else if (isBuffer(actual) && isBuffer(expected)) {
+    return compare(actual, expected) === 0;
+
+    // 7.2. If the expected value is a Date object, the actual value is
+    // equivalent if it is also a Date object that refers to the same time.
+  } else if (util.isDate(actual) && util.isDate(expected)) {
+    return actual.getTime() === expected.getTime();
+
+    // 7.3 If the expected value is a RegExp object, the actual value is
+    // equivalent if it is also a RegExp object with the same source and
+    // properties (`global`, `multiline`, `lastIndex`, `ignoreCase`).
+  } else if (util.isRegExp(actual) && util.isRegExp(expected)) {
+    return actual.source === expected.source && actual.global === expected.global && actual.multiline === expected.multiline && actual.lastIndex === expected.lastIndex && actual.ignoreCase === expected.ignoreCase;
+
+    // 7.4. Other pairs that do not both pass typeof value == 'object',
+    // equivalence is determined by ==.
+  } else if ((actual === null || (typeof actual === 'undefined' ? 'undefined' : _typeof(actual)) !== 'object') && (expected === null || (typeof expected === 'undefined' ? 'undefined' : _typeof(expected)) !== 'object')) {
+    return strict ? actual === expected : actual == expected;
+
+    // If both values are instances of typed arrays, wrap their underlying
+    // ArrayBuffers in a Buffer each to increase performance
+    // This optimization requires the arrays to have the same type as checked by
+    // Object.prototype.toString (aka pToString). Never perform binary
+    // comparisons for Float*Arrays, though, since e.g. +0 === -0 but their
+    // bit patterns are not identical.
+  } else if (isView(actual) && isView(expected) && pToString(actual) === pToString(expected) && !(actual instanceof Float32Array || actual instanceof Float64Array)) {
+    return compare(new Uint8Array(actual.buffer), new Uint8Array(expected.buffer)) === 0;
+
+    // 7.5 For all other Object pairs, including Array objects, equivalence is
+    // determined by having the same number of owned properties (as verified
+    // with Object.prototype.hasOwnProperty.call), the same set of keys
+    // (although not necessarily the same order), equivalent values for every
+    // corresponding key, and an identical 'prototype' property. Note: this
+    // accounts for both named and indexed properties on Arrays.
+  } else if (isBuffer(actual) !== isBuffer(expected)) {
+    return false;
+  } else {
+    memos = memos || { actual: [], expected: [] };
+
+    var actualIndex = memos.actual.indexOf(actual);
+    if (actualIndex !== -1) {
+      if (actualIndex === memos.expected.indexOf(expected)) {
+        return true;
+      }
+    }
+
+    memos.actual.push(actual);
+    memos.expected.push(expected);
+
+    return objEquiv(actual, expected, strict, memos);
+  }
+}
+
+function isArguments(object) {
+  return Object.prototype.toString.call(object) == '[object Arguments]';
+}
+
+function objEquiv(a, b, strict, actualVisitedObjects) {
+  if (a === null || a === undefined || b === null || b === undefined) return false;
+  // if one is a primitive, the other must be same
+  if (util.isPrimitive(a) || util.isPrimitive(b)) return a === b;
+  if (strict && Object.getPrototypeOf(a) !== Object.getPrototypeOf(b)) return false;
+  var aIsArgs = isArguments(a);
+  var bIsArgs = isArguments(b);
+  if (aIsArgs && !bIsArgs || !aIsArgs && bIsArgs) return false;
+  if (aIsArgs) {
+    a = pSlice.call(a);
+    b = pSlice.call(b);
+    return _deepEqual(a, b, strict);
+  }
+  var ka = objectKeys(a);
+  var kb = objectKeys(b);
+  var key, i;
+  // having the same number of owned properties (keys incorporates
+  // hasOwnProperty)
+  if (ka.length !== kb.length) return false;
+  //the same set of keys (although not necessarily the same order),
+  ka.sort();
+  kb.sort();
+  //~~~cheap key test
+  for (i = ka.length - 1; i >= 0; i--) {
+    if (ka[i] !== kb[i]) return false;
+  }
+  //equivalent values for every corresponding key, and
+  //~~~possibly expensive deep test
+  for (i = ka.length - 1; i >= 0; i--) {
+    key = ka[i];
+    if (!_deepEqual(a[key], b[key], strict, actualVisitedObjects)) return false;
+  }
+  return true;
+}
+
+// 8. The non-equivalence assertion tests for any deep inequality.
+// assert.notDeepEqual(actual, expected, message_opt);
+
+assert.notDeepEqual = function notDeepEqual(actual, expected, message) {
+  if (_deepEqual(actual, expected, false)) {
+    fail(actual, expected, message, 'notDeepEqual', assert.notDeepEqual);
+  }
+};
+
+assert.notDeepStrictEqual = notDeepStrictEqual;
+function notDeepStrictEqual(actual, expected, message) {
+  if (_deepEqual(actual, expected, true)) {
+    fail(actual, expected, message, 'notDeepStrictEqual', notDeepStrictEqual);
+  }
+}
+
+// 9. The strict equality assertion tests strict equality, as determined by ===.
+// assert.strictEqual(actual, expected, message_opt);
+
+assert.strictEqual = function strictEqual(actual, expected, message) {
+  if (actual !== expected) {
+    fail(actual, expected, message, '===', assert.strictEqual);
+  }
+};
+
+// 10. The strict non-equality assertion tests for strict inequality, as
+// determined by !==.  assert.notStrictEqual(actual, expected, message_opt);
+
+assert.notStrictEqual = function notStrictEqual(actual, expected, message) {
+  if (actual === expected) {
+    fail(actual, expected, message, '!==', assert.notStrictEqual);
+  }
+};
+
+function expectedException(actual, expected) {
+  if (!actual || !expected) {
+    return false;
+  }
+
+  if (Object.prototype.toString.call(expected) == '[object RegExp]') {
+    return expected.test(actual);
+  }
+
+  try {
+    if (actual instanceof expected) {
+      return true;
+    }
+  } catch (e) {
+    // Ignore.  The instanceof check doesn't work for arrow functions.
+  }
+
+  if (Error.isPrototypeOf(expected)) {
+    return false;
+  }
+
+  return expected.call({}, actual) === true;
+}
+
+function _tryBlock(block) {
+  var error;
+  try {
+    block();
+  } catch (e) {
+    error = e;
+  }
+  return error;
+}
+
+function _throws(shouldThrow, block, expected, message) {
+  var actual;
+
+  if (typeof block !== 'function') {
+    throw new TypeError('"block" argument must be a function');
+  }
+
+  if (typeof expected === 'string') {
+    message = expected;
+    expected = null;
+  }
+
+  actual = _tryBlock(block);
+
+  message = (expected && expected.name ? ' (' + expected.name + ').' : '.') + (message ? ' ' + message : '.');
+
+  if (shouldThrow && !actual) {
+    fail(actual, expected, 'Missing expected exception' + message);
+  }
+
+  var userProvidedMessage = typeof message === 'string';
+  var isUnwantedException = !shouldThrow && util.isError(actual);
+  var isUnexpectedException = !shouldThrow && actual && !expected;
+
+  if (isUnwantedException && userProvidedMessage && expectedException(actual, expected) || isUnexpectedException) {
+    fail(actual, expected, 'Got unwanted exception' + message);
+  }
+
+  if (shouldThrow && actual && expected && !expectedException(actual, expected) || !shouldThrow && actual) {
+    throw actual;
+  }
+}
+
+// 11. Expected to throw an error:
+// assert.throws(block, Error_opt, message_opt);
+
+assert.throws = function (block, /*optional*/error, /*optional*/message) {
+  _throws(true, block, error, message);
+};
+
+// EXTENSION! This is annoying to write outside this module.
+assert.doesNotThrow = function (block, /*optional*/error, /*optional*/message) {
+  _throws(false, block, error, message);
+};
+
+assert.ifError = function (err) {
+  if (err) throw err;
+};
+
+var objectKeys = Object.keys || function (obj) {
+  var keys = [];
+  for (var key in obj) {
+    if (hasOwn.call(obj, key)) keys.push(key);
+  }
+  return keys;
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+module.exports = function isBuffer(arg) {
+  return arg && (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && typeof arg.copy === 'function' && typeof arg.fill === 'function' && typeof arg.readUInt8 === 'function';
+};
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor;
+    ctor.prototype = Object.create(superCtor.prototype, {
+      constructor: {
+        value: ctor,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor;
+    var TempCtor = function TempCtor() {};
+    TempCtor.prototype = superCtor.prototype;
+    ctor.prototype = new TempCtor();
+    ctor.prototype.constructor = ctor;
+  };
+}
+
+/***/ }),
+/* 40 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Tank__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_timers__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_timers__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+
+
+// import { Math } from "../../../../Library/Caches/typescript/2.6/node_modules/@types/three";
+
+var Scene = function () {
+    function Scene(startPositionMe, startPositionOpponent, type, liteVersion) {
+        var _this = this;
+
+        _classCallCheck(this, Scene);
+
+        __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].show();
+        this.type = type;
+        this.liteVersion = liteVersion;
+        window.fireSound = new Audio("./sounds/fire.mp3");
+        this.stats = new Stats();
+        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        //////
+        this._resizeFunction = this._resizeFunction.bind(this);
+
+        this.scene = new THREE.Scene();
+        this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
+        this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
+        // modelLoader("Hammer+Tank/model.dae").then(coll => {
+        Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("T90/model.dae").then(function (coll) {
+
+            var collada = [coll.scene.clone(), coll.scene.clone()];
+            var i = 0;
+            ["tankOpponent", "tankMe"].forEach(function (key) {
+                //tank
+                var cpy1 = collada[i].clone();
+                var cpy2 = collada[i].clone();
+
+                cpy1.children[2] = new THREE.Object3D();
+                cpy1.children[3] = new THREE.Object3D();
+                cpy2.children[0] = new THREE.Object3D();
+                cpy2.children[1] = new THREE.Object3D();
+
+                // this[key].parent.add(cpy1);
+                _this[key].dae.add(cpy1);
+
+                _this[key].dae.rotation.x = -0.5 * Math.PI;
+                _this[key].dae.rotation.z = 1 * Math.PI;
+                _this[key].dae.rotation.y = -0.5 * Math.PI;
+
+                // this[key].dae.castShadow = true;
+                _this.scene.add(_this[key].dae);
+
+                //turret
+                _this[key].turret.parent.add(cpy2);
+                _this[key].turret.dae.rotation.x = -0.5 * Math.PI;
+                // this[key].turret.dae.rotation.y = +0.5 * Math.PI;
+
+                _this[key].turret.dae.rotation.z = 1 * Math.PI;
+                _this.scene.add(_this[key].turret.dae);
+                i++;
+            });
+            // progressBar.hide();
+            _this._init();
+            Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__["a" /* default */].hide();
+                document.getElementsByClassName("game")[0].appendChild(_this.renderer.domElement);
+                _this.staticScene = new __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__["a" /* default */](_this.type);
+                document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
+                document.getElementsByClassName("game")[0].appendChild(_this.stats.dom);
+            }, 7000);
+        });
+        this._addMap();
+    }
+
+    _createClass(Scene, [{
+        key: "_init",
+        value: function _init() {
+            ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
+
+            this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
+
+            this.camera.position.set(0, 7.9, 50);
+            this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+            this.renderer = new THREE.WebGLRenderer({
+                alpha: true,
+                antialias: true
+            });
+            //this.renderer.shadowMap.enabled = true;
+
+            this.tankMe.turret.dae.add(this.camera);
+            ///f
+            this.tankMe.camera = this.camera;
+            ///
+
+            this.renderer.setPixelRatio(window.devicePixelRatio);
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            ///
+            this.renderer.domElement.setAttribute("id", "game");
+            this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
+            this.renderer.domElement.style.position = "absolute";
+            this.renderer.domElement.style.zIndex = "1";
+
+            ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
+            var light = void 0,
+                light2 = void 0;
+            this.scene.add(new THREE.AmbientLight(0x666666));
+            light = new THREE.DirectionalLight(0xdfebff, 1.1);
+            light2 = new THREE.DirectionalLight(0xdfebff, 1.1);
+
+            light.position.set(50, 200, 100);
+            light2.position.set(-150, -200, 100);
+
+            light.position.multiplyScalar(1.3);
+            light2.position.multiplyScalar(1.3);
+            this.scene.add(light);
+            this.scene.add(light2);
+            /////////light end
+            this._resizeWindow();
+
+            this._startRenderAnimate();
+        }
+    }, {
+        key: "updateObjects",
+        value: function updateObjects(type, instractions) {
+            var _this2 = this;
+
+            if (instractions.state === 1 || instractions.state === 0 || instractions.state === -1) {
+                this.staticScene.showGameState(instractions.state);
+            }
+            this[type].instractions = instractions;
+            if (type === "tankMe") {
+                if (this.staticScene !== undefined) {
+                    this.staticScene.changeHP(instractions.HP);
+                    this.staticScene.setEnemyName(instractions.enemyNick);
+                }
+            }
+            if (instractions.fire) {
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    window.fireSound.play();
+                }, 0);
+
+                if (type === "tankMe") {
+                    this.staticScene.fireReload();
+                }
+                this[type].boom.visible = true;
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this2[type].boom.visible = false;
+                    _this2._showBoom(type, instractions.bulletCoords);
+                }, 500);
+            }
+        }
+
+        // _showBoom(type, coords = {}) {
+        //     if (type === "tankMe") {
+        //         this.boom2.position.set(coords.x - 5, coords.y, 2);
+        //         this.boom2.visible = true;
+        //         setTimeout(() => { this.boom2.visible = false; }, 300);
+        //     } else {
+        //         this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+        //         this.boom2Op.visible = true;
+        //         setTimeout(() => { this.boom2Op.visible = false; }, 300);
+        //     }
+
+        // }
+
+    }, {
+        key: "_showBoom",
+        value: function _showBoom(type) {
+            var _this3 = this;
+
+            var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+            //TODO тут косяк с оппонентом
+            if (type === "tankMe") {
+                this.boom2.scale.y = 0.005;
+                this.boom2.scale.x = 0.005;
+                this.boom2.scale.z = 0.005;
+                this.boom2.position.set(coords.x, coords.y, 1);
+                this.boom2.visible = true;
+                var cnt = 20;
+                while (cnt != 500) {
+                    Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                        _this3.boom2.scale.y *= 1.1;
+                        _this3.boom2.scale.x *= 1.1;
+                        _this3.boom2.scale.z *= 1.1;
+                        //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+                    }, cnt);
+                    cnt += 20;
+                }
+
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this3.boom2.visible = false;
+                }, 800);
+            } else {
+                this.boom2Op.scale.y = 0.005;
+                this.boom2Op.scale.x = 0.005;
+                this.boom2Op.scale.z = 0.005;
+                this.boom2Op.position.set(coords.x, coords.y, 1);
+                this.boom2Op.visible = true;
+                var _cnt = 20;
+                while (_cnt != 500) {
+                    Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                        _this3.boom2Op.scale.y *= 1.1;
+                        _this3.boom2Op.scale.x *= 1.1;
+                        _this3.boom2Op.scale.z *= 1.1;
+                        //this.boom2.position.set(this.boom2.position.x - 0.45, coords.y, 2);
+                    }, _cnt);
+                    _cnt += 20;
+                }
+
+                Object(__WEBPACK_IMPORTED_MODULE_5_timers__["setTimeout"])(function () {
+                    _this3.boom2Op.visible = false;
+                }, 800);
+            }
+            // this.boom2.visible = false;
+
+            // } else {
+            //     this.boom2Op.position.set(coords.x - 5, coords.y, 2);
+            //     this.boom2Op.visible = true;
+            //     setTimeout(() => { this.boom2Op.visible = false; }, 300);
+            // }
+        }
+    }, {
+        key: "_startRenderAnimate",
+        value: function _startRenderAnimate() {
+            var _this4 = this;
+
+            var innerrender = function innerrender() {
+                window.requestAnimationFrame(innerrender);
+                _this4.stats.begin();
+                _this4._render();
+                _this4.stats.end();
+            };
+
+            innerrender();
+        }
+    }, {
+        key: "_render",
+        value: function _render() {
+            var _this5 = this;
+
+            ["tankMe", "tankOpponent"].forEach(function (key) {
+                _this5[key].update();
+            });
+            this.renderer.render(this.scene, this.camera);
+        }
+    }, {
+        key: "_resizeWindow",
+        value: function _resizeWindow() {
+            window.addEventListener("resize", this._resizeFunction, false);
+        }
+    }, {
+        key: "_resizeFunction",
+        value: function _resizeFunction() {
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+            this._render();
+        }
+    }, {
+        key: "_addMap",
+        value: function _addMap() {
+            var _this6 = this;
+
+            Object(__WEBPACK_IMPORTED_MODULE_2__utils_MapCreator__["a" /* default */])(this.scene, this.liteVersion);
+            var loader = new THREE.TextureLoader();
+            var groundTexture = loader.load("./game/3dModels/terrain/www.jpg");
+            groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+            groundTexture.repeat.set(1900, 1900);
+            groundTexture.anisotropy = 16;
+            var groundMaterial = new THREE.MeshPhongMaterial({ color: 0xAAAAAA, specular: 0x000000, map: groundTexture });
+            var mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(20000, 20000), groundMaterial);
+            mesh.position.z = 0.01;
+            this.scene.add(mesh);
+            //
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("road/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                coll.scene.scale.z = 3;
+                coll.scene.scale.x = 0.05;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.y = 500;
+                var road2 = coll.scene.clone();
+                road2.rotation.y = 0.5 * Math.PI;
+                road2.position.y = 0;
+                road2.position.x = 500;
+
+                _this6.scene.add(coll.scene);
+                _this6.scene.add(road2);
+            });
+
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("flagRed/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                coll.scene.scale.z = 0.04;
+                coll.scene.scale.x = 0.04;
+                coll.scene.scale.y = 0.04;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.x = 85;
+                coll.scene.position.y = 65;
+                _this6.scene.add(coll.scene);
+            });
+
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("flagBlue/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.position.z -= 0.1;
+                coll.scene.scale.z = 0.04;
+                coll.scene.scale.x = 0.04;
+                coll.scene.scale.y = 0.04;
+                coll.scene.position.z = 0.11;
+                coll.scene.position.x = -85;
+                coll.scene.position.y = -60;
+                _this6.scene.add(coll.scene);
+            });
+
+            Object(__WEBPACK_IMPORTED_MODULE_1__utils_modelLoader__["a" /* default */])("expl/model.dae").then(function (coll) {
+                coll.scene.rotation.x = -0.5 * Math.PI;
+                coll.scene.rotation.z = 1 * Math.PI;
+                coll.scene.rotation.y = -0.5 * Math.PI;
+                coll.scene.scale.z *= 0.35;
+                coll.scene.scale.y *= 0.35;
+                coll.scene.scale.x *= 0.35;
+                _this6.boom = coll.scene.clone();
+                _this6.boomOp = coll.scene.clone();
+                _this6.boom2 = coll.scene.clone();
+                // this.boom2.scale.y *= 10;
+                // this.boom2.scale.x *= 10;
+                // this.boom2.scale.z *= 10;
+                _this6.boom2.scale.y *= 4;
+                _this6.boom2.scale.x *= 4;
+                _this6.boom2.scale.z *= 4;
+                _this6.boom2Op = _this6.boom2.clone();
+                _this6.boom2.position.set(-100, -100, -100);
+                _this6.boom2Op.position.set(-100, -100, -100);
+
+                _this6.scene.add(_this6.boom2);
+                _this6.scene.add(_this6.boom2Op);
+                // this.boom.position.set(-0.75, 1.75, -7);
+                // this.boomOp.position.set(-0.75, 1.75, -7);
+                _this6.boom.position.set(-0.1, 2, -7);
+                _this6.boomOp.position.set(-0.1, 2, -7);
+                _this6.tankMe.turret.dae.add(_this6.boom);
+                _this6.tankOpponent.turret.dae.add(_this6.boomOp);
+                _this6.tankMe.boom = _this6.boom;
+                _this6.tankOpponent.boom = _this6.boomOp;
+                _this6.tankMe.boom.visible = false;
+                _this6.tankOpponent.boom.visible = false;
+            });
+        }
+    }]);
+
+    return Scene;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Scene);
+
+/***/ }),
+/* 41 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Turret__ = __webpack_require__(42);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var THREE = __webpack_require__(6);
+
+
+var Tank = function () {
+    function Tank(dae) {
+        var _this = this;
+
+        var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { x: 0, y: 0 };
+
+        _classCallCheck(this, Tank);
+
+        this.dae = new THREE.Object3D();
+        this.dae.position.x = coords.x;
+        this.dae.position.y = coords.y;
+
+        this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
+
+        this.camera = null;
+        // this.changeCamera = false;
+        this.cameraCurrentType = 0;
+
+        this.cameraTypes = [function () {
+            _this.camera.position.set(0, 7.9, 50);
+            _this.camera.lookAt(new THREE.Vector3(0, 3.60, 0));
+        }, function () {
+            _this.camera.position.set(0, 3, 5);
+            _this.camera.lookAt(new THREE.Vector3(0, 2.7, 0));
+        }, function () {
+            _this.camera.position.set(0, 45, 185);
+            _this.camera.lookAt(new THREE.Vector3(0, 15, 0));
+        }];
+        this.instractions = { coords: { x: 0, y: 0 }, angle: -0.5 * Math.PI, cameraType: 0 };
+    }
+
+    _createClass(Tank, [{
+        key: "update",
+        value: function update() {
+            this.dae.rotation.y = this.instractions.angle - Math.PI;
+            this.turret.dae.rotation.y = this.instractions.turretAngle - Math.PI;
+            this.dae.position.y = this.instractions.coords.y;
+            this.dae.position.x = this.instractions.coords.x;
+            this.turret.dae.position.y = this.instractions.coords.y;
+            this.turret.dae.position.x = this.instractions.coords.x;
+
+            if (this.instractions.cameraType !== this.cameraCurrentType) {
+                this.cameraTypes[this.instractions.cameraType]();
+                this.cameraCurrentType = this.instractions.cameraType;
+            }
+        }
+    }]);
+
+    return Tank;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Tank);
+
+/***/ }),
+/* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var THREE = __webpack_require__(6);
+
+var Turret = function Turret(dae, coords) {
+	_classCallCheck(this, Turret);
+
+	this.dae = new THREE.Object3D();
+	this.parent = new THREE.Object3D();
+	// this.parent.rotation.y += 0.5 * Math.PI;
+	this.dae.add(this.parent);
+	this.angle = Math.PI - Math.PI;
+
+	this.dae.position.x = coords.x;
+	this.dae.position.y = coords.y;
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Turret);
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var THREE = __webpack_require__(6);
+
+/**
+* @author Tim Knip / http://www.floorplanner.com/ / tim at floorplanner.com
+* @author Tony Parisi / http://www.tonyparisi.com/
+*/
 
 var ColladaLoader = function ColladaLoader() {
 
@@ -4476,6 +8217,7 @@ var ColladaLoader = function ColladaLoader() {
             var url = sceneElement.getAttribute('url').replace(/^#/, '');
             return visualScenes[url.length > 0 ? url : 'visual_scene0'];
         } else {
+
             return null;
         }
     }
@@ -7250,8 +10992,7 @@ var ColladaLoader = function ColladaLoader() {
         switch (param.type) {
 
             case 'IDREF':
-            case 'Name':
-            case 'name':
+            case 'Name':case 'name':
             case 'float':
 
                 return this.data;
@@ -9198,1724 +12939,604 @@ var ColladaLoader = function ColladaLoader() {
 module.exports = ColladaLoader;
 
 /***/ }),
-/* 10 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__main_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_RouteValidate__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__modules_load_bar__ = __webpack_require__(15);
+/* harmony export (immutable) */ __webpack_exports__["a"] = MapCreator;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modelLoader__ = __webpack_require__(16);
 
+// const THREE = require("three");
 
+function MapCreator(scene, liteVersion) {
+	var promises = [];
+	if (!liteVersion) {
+		promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/church/model.dae"));
+		promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/bighouse/model.dae"));
+		promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/middlehouse/model.dae"));
+		promises.push(Object(__WEBPACK_IMPORTED_MODULE_0__modelLoader__["a" /* default */])("houses/smallhouse/model.dae"));
 
+		Promise.all(promises).then(function (collades) {
+			houseParams[4].house = modelInit(collades[0], 0.04);
+			houseParams[1].house = modelInit(collades[1], 0.04);
+			houseParams[2].house = modelInit(collades[2], 0.05);
+			houseParams[3].house = modelInit(collades[3], 0.05);
 
+			housePlace.forEach(function (key) {
 
+				var house = houseParams[key.type].house.clone();
+				var geometry = new THREE.BoxGeometry(houseParams[key.type].x, houseParams[key.type].y, 0.5);
+				var material = new THREE.MeshBasicMaterial({
+					color: houseParams[key.type].color
+				});
+				var cube = new THREE.Mesh(geometry, material);
+				cube.position.x = key.x;
+				cube.position.y = key.y;
+				if (key.flag) {
+					cube.rotation.z = 0.5 * Math.PI;
+					house.rotation.y = 0.5 * Math.PI;
+					house.position.x = key.x + houseParams[key.type].shifty;
+					house.position.y = key.y - houseParams[key.type].shiftx;
+				} else {
+					house.position.x = key.x + houseParams[key.type].shiftx;
+					house.position.y = key.y + houseParams[key.type].shifty;
+				}
+				scene.add(cube);
 
+				scene.add(house);
+			});
+		});
+	}
+	var index = 0;
+	map.forEach(function (key) {
+		if (!liteVersion) {
+			if (key.width < 1 || key.height < 1) {
+				var geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
+				var material = new THREE.MeshBasicMaterial({
+					color: 0xFF0000
+				});
+				material.transparent = true;
+				material.opacity = 0.2;
+				var cube = new THREE.Mesh(geometry, material);
+				cube.position.x = key.x;
+				cube.position.y = key.y;
+				scene.add(cube);
+			}
+		} else {
+			if (index >= 15) {
+				index = 0;
+			}
+			var _material = void 0;
+			var _geometry = void 0;
+			// console.log(housePlace[index++].type);
 
+			if (key.width < 1 || key.height < 1) {
+				_geometry = new THREE.BoxGeometry(key.height, key.width, 0.5);
+				_material = new THREE.MeshBasicMaterial({
+					color: 0xFF0000
+				});
+				_material.transparent = true;
+				_material.opacity = 0.2;
+			} else {
+				_geometry = new THREE.BoxGeometry(key.height, key.width, 20);
+				_material = new THREE.MeshBasicMaterial({
+					//color: 0xFFEBCD,
+					color: houseParams[housePlace[index++].type].color
 
+				});
+				// index++;
+			}
+			var _cube = new THREE.Mesh(_geometry, _material);
+			_cube.position.x = key.x;
+			_cube.position.y = key.y;
+			scene.add(_cube);
+		}
 
+		// scene.add(house);
+	});
+}
 
+function modelInit(collada, size) {
+	var plc = new THREE.Object3D();
+	collada.scene.scale.x = size;
+	collada.scene.scale.y = size;
+	collada.scene.scale.z = size;
+	plc.add(collada.scene);
+	plc.rotation.x = -0.5 * Math.PI;
+	plc.rotation.z = 1 * Math.PI;
+	plc.position.z -= 0.1;
+	return plc;
+}
 
+var map = [{ x: 0, y: 0, height: 57, width: 58 }, { x: -136, y: 88, height: 18, width: 17 }, { x: -48, y: 108, height: 18, width: 17 }, { x: -20, y: 56, height: 18, width: 17 }, { x: -136, y: -20, height: 18, width: 17 }, { x: 68, y: 40, height: 18, width: 17 }, { x: 100, y: 40, height: 18, width: 17 }, { x: 132, y: 40, height: 18, width: 17 }, { x: -100, y: 24, height: 32, width: 20 }, { x: -128, y: -88, height: 32, width: 20 }, { x: -20, y: -92, height: 20, width: 32 }, { x: 32, y: 104, height: 32, width: 20 }, { x: 140, y: 84, height: 20, width: 32 }, { x: -84, y: 64, height: 42, width: 25 }, { x: -56, y: -40, height: 25, width: 42 }, { x: -250, y: 0, height: 0.5, width: 500 }, { x: 250, y: 0, height: 0.5, width: 500 }, { x: 0, y: -250, height: 500, width: 0.5 }, { x: 0, y: 250, height: 500, width: 0.5 }];
 
+var houseParams = [{}, {
+	x: 57,
+	y: 58,
+	color: 0x777777,
+	house: null,
+	shiftx: -6,
+	shifty: 25
+}, {
+	x: 20,
+	y: 32,
+	color: 0xCFBDAA,
+	house: null,
+	shiftx: 7,
+	shifty: 15
 
+}, {
+	x: 18,
+	y: 17,
+	color: 0xFFEBCD,
+	house: null,
+	shiftx: 8,
+	shifty: 10
+}, {
+	x: 25,
+	y: 42,
+	color: 0x888888,
+	house: null,
+	shiftx: -6,
+	shifty: 25
+}];
 
-__WEBPACK_IMPORTED_MODULE_11__modules_load_bar__["a" /* default */].show();
+var housePlace = [{
+	x: 0,
+	y: 0,
+	type: 1
+}, {
+	x: -136,
+	y: 88,
+	type: 3,
+	flag: false
 
-var app = document.getElementById("application");
-document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
+}, {
+	x: -48,
+	y: 108,
+	type: 3,
+	flag: false
 
-var main = new __WEBPACK_IMPORTED_MODULE_1__block_block_js__["a" /* Block */]("div", { class: "main-container" });
-app.appendChild(main.el);
+}, {
+	x: -20,
+	y: 56,
+	type: 3,
+	flag: false
 
-//config
-var login = new __WEBPACK_IMPORTED_MODULE_3__views_LoginView_LoginView__["a" /* default */](main.el);
-var register = new __WEBPACK_IMPORTED_MODULE_4__views_RegisterView_RegisterView__["a" /* default */](main.el);
-var menu = new __WEBPACK_IMPORTED_MODULE_5__views_MenuView_MenuView__["a" /* default */](main.el);
-var change = new __WEBPACK_IMPORTED_MODULE_6__views_ChangeView_ChangeView__["a" /* default */](main.el);
-var theme = new __WEBPACK_IMPORTED_MODULE_7__views_ThemeView_ThemeView__["a" /* default */](main.el);
-var gameType = new __WEBPACK_IMPORTED_MODULE_8__views_GameType_GameTypeView__["a" /* default */](main.el);
-var gameView = new __WEBPACK_IMPORTED_MODULE_9__views_GameView_GameView__["a" /* default */](main.el);
+}, {
+	x: -136,
+	y: -20,
+	type: 3,
+	flag: false
 
-var config = {
-    '/login/': {
-        view: login
-    },
-    '/register/': {
-        view: register
-    },
-    '/menu/': {
-        view: menu
-    },
-    '/': {
-        view: menu
-    },
-    '/changepass/': {
-        view: change
-    },
-    '/play/': {
-        view: gameType
-    },
-    '/game/': {
-        view: gameView
-    }
-};
+}, {
+	x: 68,
+	y: 40,
+	type: 3,
+	flag: false
 
-Object(__WEBPACK_IMPORTED_MODULE_10__utils_RouteValidate__["a" /* default */])(document.location.pathname, __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */], true);
+}, {
+	x: 100,
+	y: 40,
+	type: 3,
+	flag: false
 
-__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].init(main.el, config);
-__WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].startListen();
+}, {
+	x: 132,
+	y: 40,
+	type: 3,
+	flag: false
 
-__WEBPACK_IMPORTED_MODULE_11__modules_load_bar__["a" /* default */].hide();
+}, {
+	x: -100,
+	y: 24,
+	type: 2,
+	flag: true
+
+}, {
+	x: -128,
+	y: -88,
+	type: 2,
+	flag: true
+
+}, {
+	x: -20,
+	y: -92,
+	type: 2,
+	flag: false
+
+}, {
+	x: 32,
+	y: 104,
+	type: 2,
+	flag: true
+
+}, {
+	x: 140,
+	y: 84,
+	type: 2,
+	flag: false
+
+}, {
+	x: -84,
+	y: 64,
+	type: 4,
+	flag: true
+
+}, {
+	x: -56,
+	y: -40,
+	type: 4,
+	flag: false
+}];
 
 /***/ }),
-/* 11 */
+/* 45 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StaticScene_scss__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__StaticScene_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__StaticScene_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__textWriter__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_timers__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_timers___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_timers__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+
+var StaticScene = function () {
+    function StaticScene(type) {
+        var _this = this;
+
+        _classCallCheck(this, StaticScene);
+
+        this.HP = 100;
+        this.type = type;
+        this.enemyNickValue = "";
+        //All 
+        this.sceneDiv = document.createElement("div");
+        this.sceneDiv.classList.add("sceneDiv");
+        this.sceneDiv.setAttribute("width", "100%");
+        this.sceneDiv.setAttribute("height", "100%");
+        //HP + RELOADER
+        this.hpDiv = document.createElement("div");
+        this.hpDiv.classList.add("hpBar");
+        this.loader = document.createElement("div");
+        this.loader.classList.add("loader");
+        this.hpDiv.appendChild(this.loader);
+        this.sceneDiv.appendChild(this.hpDiv);
+        //Main right div
+        this.comandorDiv = document.createElement("div");
+        this.comandorDiv.classList.add("comandorDiv");
+        //Commandor img
+        this.comandorImg = document.createElement("img");
+        this.comandorImg.classList.add("man");
+        this.comandorImg.setAttribute("src", "../game/staticScene/man.jpg");
+        this.comandorDiv.appendChild(this.comandorImg);
+        //Commandor text        
+        this.comandorText = document.createElement("p");
+        this.comandorText.classList.add("comandorText");
+        this.comandorText.setAttribute("id", "comandorText");
+        this.comandorText.innerHTML = "General: ";
+        this.comandorDiv.appendChild(this.comandorText);
+        this.sceneDiv.appendChild(this.comandorDiv);
+        //Hide btn
+        this.hideBtn = document.createElement("button");
+        this.hideBtn.classList.add("hideBtn");
+        this.hideBtn.innerHTML = "Okay";
+        this.comandorDiv.appendChild(this.hideBtn);
+        this.hideBtn.addEventListener("click", function () {
+            _this.comandorDiv.classList.add("hidden");
+        });
+
+        //Red  Injure 
+        this.injure = document.createElement("div");
+        this.injure.classList.add("injure");
+        this.injure.classList.add("hidden");
+        this.sceneDiv.appendChild(this.injure);
+        ///VICTORY
+        this.gameState = document.createElement("p");
+        this.gameState.classList.add("state");
+        this.gameState.classList.add("hidden");
+        this.injure.appendChild(this.gameState);
+        ///ENEMY nick
+        this.enemyNick = document.createElement("p");
+        this.enemyNick.classList.add("enemynick");
+        // this.enemyNick.innerHTML = "Enemy: XUYxuy";
+        // this.gameState.classList.add("hidden");
+        this.sceneDiv.appendChild(this.enemyNick);
+        ///
+        document.getElementsByClassName("game")[0].appendChild(this.sceneDiv);
+        this.hideReload = this.hideReload.bind(this);
+        this.hideReload();
+        if (this.type == "single") {
+            Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the military training!\n", "To move the vehicle push W,A,S,D.\n", "To rotate the turret push M,N.\n", "You can also change view by pushing V.\n", "If you want to shoot-push SPACE button.", "After shooting you will see the reload bar in the right bottom corner.\n", "Also in that corner you can see your health bar: ", "When it comes red you have to be very careful, you can be killed with the one bullet.\n", "So now you can try the controlls and watch the map.\n", "When you want to quit push ESC.\n"]);
+        } else {
+            Object(__WEBPACK_IMPORTED_MODULE_1__textWriter__["a" /* default */])("comandorText", ["Welcome to the battle ground!\n", "If you don't know how to play \n", "you should have some trainig in the single mode. \n", "You are on the war, soldier. So you have to defeat the enemy.\n", "Your enemy is the other tank. He is somewhere in the town.", "Find him, shoot him and save the civilians!\n", "Good luck, soldier!"]);
+        }
+        // textWriter(
+        //     "comandorText", [
+        //         "Дес, сверстай блять\n",
+        //         "нормально, пожалуйста\n"
+        //     ]
+        // );
+        ////new scenes
+    }
+
+    _createClass(StaticScene, [{
+        key: "changeHP",
+        value: function changeHP(HP) {
+            if (this.HP !== HP) {
+                this.injured();
+            }
+            this.HP = HP;
+            this.hpDiv.classList.remove(this.currentColor);
+            if (this.HP == 100) {
+                // this.hpDiv.classList.add(" ");
+            }
+            if (this.HP == 75) {
+                this.hpDiv.classList.add("hpBarYellow");
+                this.currentColor = "hpBarYellow";
+            }
+            if (this.HP == 50) {
+                this.hpDiv.classList.add("hpBarOrange");
+                this.currentColor = "hpBarOrange";
+            }
+            if (this.HP == 25) {
+                this.hpDiv.classList.add("hpBarRed");
+                this.currentColor = "hpBarRed";
+            }
+        }
+    }, {
+        key: "injured",
+        value: function injured() {
+            var _this2 = this;
+
+            this.injure.classList.remove("hidden");
+            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
+                _this2.injure.classList.add("hidden");
+            }, 1000);
+        }
+    }, {
+        key: "showGameState",
+        value: function showGameState(state) {
+            if (state === -1) {
+                this.injure.classList.add("injure-defeat");
+                this.gameState.innerHTML = "YOU LOSE!";
+            }
+            if (state === 0) {
+                this.injure.classList.add("injure-draw");
+                this.gameState.innerHTML = "DRAW!";
+            }
+            if (state === 1) {
+                this.injure.classList.add("injure-victory");
+                this.gameState.innerHTML = "YOU WIN!";
+            }
+            this.gameState.classList.remove("hidden");
+            this.injure.classList.remove("hidden");
+            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(function () {
+                __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go("/menu/", true);
+            }, 5000);
+        }
+    }, {
+        key: "fireReload",
+        value: function fireReload() {
+            this.loader.classList.remove("hidden");
+            Object(__WEBPACK_IMPORTED_MODULE_3_timers__["setTimeout"])(this.hideReload, 4000);
+        }
+    }, {
+        key: "hideReload",
+        value: function hideReload() {
+            this.loader.classList.add("hidden");
+        }
+    }, {
+        key: "setEnemyName",
+        value: function setEnemyName(name) {
+            if (this.enemyNickValue !== name) {
+                this.enemyNick.innerHTML = "Enemy: " + name;
+                this.enemyNickValue = name;
+            }
+        }
+    }]);
+
+    return StaticScene;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (StaticScene);
+
+/***/ }),
+/* 46 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 12 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GET; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return POST; });
-var PREFIX_URL = "https://salty-shelf-19870.herokuapp.com/api/user/";
-// const PREFIX_URL = "http://127.0.0.1:8080/api/user/";
-var urls = {
-    login: PREFIX_URL + "login",
-    register: PREFIX_URL + "register",
-    logout: PREFIX_URL + "logout",
-    check: PREFIX_URL + "getuser",
-    chagePassword: PREFIX_URL + "changepassword"
-};
-var GET = "GET";
-var POST = "POST";
+/* harmony export (immutable) */ __webpack_exports__["a"] = textWriter;
+function textWriter(classname, text, speed) {
 
-/* harmony default export */ __webpack_exports__["c"] = (urls);
+	var ele = document.getElementsByClassName(classname)[0];
+	var txt = text.join("").split("");
+	var interval = setInterval(function () {
+		if (!txt[0]) {
+			return clearInterval(interval);
+		}
+		ele.innerHTML += txt.shift();
+	}, speed != undefined ? speed : 10);
 
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * Модуль, предоставляющий методы для выполнения HTTP-запросов
- * @module Http
- */
-function httpReq(type, uRL, sendObject) {
-    return new Promise(function (resolve, reject) {
-        fetch(uRL, {
-            method: type,
-            headers: {
-                "Content-Type": "application/json; charset=utf-8"
-            },
-            body: JSON.stringify(sendObject),
-            mode: "cors",
-            credentials: "include"
-        }).then(function (response) {
-            if (response.status === 200) {
-                resolve(response);
-                return;
-            } else {
-                reject("Something went wrong");
-            }
-        });
-    });
+	return false;
 }
-/* harmony default export */ __webpack_exports__["a"] = (httpReq);
 
 /***/ }),
-/* 14 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(13);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Validate = function () {
-	function Validate() {
-		_classCallCheck(this, Validate);
-	}
-
-	/**
-     * Проверить логин(ник)
-     */
+var keyboardJS = __webpack_require__(11);
 
 
-	_createClass(Validate, null, [{
-		key: "checkLogin",
-		value: function checkLogin(nick) {
-			return nick.length < 20 && nick.length > 1;
-		}
+var MultiPlayer = function () {
+    function MultiPlayer() {
+        _classCallCheck(this, MultiPlayer);
 
-		/**
-      * Проверить пароль
-      */
+        this._gameLoop = this._gameLoop.bind(this);
+        this.actionStates = {};
+        this.allowFire = true;
+        window.movingSound = new Audio("./sounds/move.mp3");
+        window.stayingSound = new Audio("./sounds/move.mp3");
+        window.stayingSound.loop = true;
+        window.stayingSound.volume = 0.2;
+        window.movingSound.loop = true;
+        window.movingSound.volume = 0.2;
+        window.movingSound.play();
+        setTimeout(function () {
+            window.stayingSound.play();
+        }, 1000);
+        window.reloadSound = new Audio("./sounds/reload.mp3");
 
-	}, {
-		key: "checkPassword",
-		value: function checkPassword(password) {
-			return password.length < 20 && password.length > 1;
-		}
-
-		/**
-      * Проверить совпадение паролей
-      */
-
-	}, {
-		key: "confirmPassword",
-		value: function confirmPassword(password, confirm) {
-			return password === confirm;
-		}
-
-		/**
-      * Проверить логин(ник) и пароль
-      */
-
-	}, {
-		key: "checkLogAndPas",
-		value: function checkLogAndPas(nick, password) {
-			return this.checkLogin(nick) && this.checkPassword(password);
-		}
-	}]);
-
-	return Validate;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Validate);
-
-/***/ }),
-/* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__load_bar_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__load_bar_css__);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-
-var pBar = function () {
-    function pBar() {
-        _classCallCheck(this, pBar);
-
-        this.elem = document.getElementsByClassName("myBar")[0];
-        this.id;
-        this.hide();
+        // this.me = new Player("me", [50, 50], this.actionStates); // TODO write your original
+        // this.opponent = new Player("super bitch bot", [-10, -10], null);
     }
 
-    /**
-     * Показать прогресс бар 
-     */
+    // getPlayersCoors() {
+    // 	return {
+    // 		me: this.me.coords,
+    // 		opponent: this.opponent.coords
+    // 	};
+    // }
 
-
-    _createClass(pBar, [{
-        key: "show",
-        value: function show() {
+    _createClass(MultiPlayer, [{
+        key: "startListenGameLoop",
+        value: function startListenGameLoop(callback) {
             var _this = this;
 
-            this.elem.parentElement.classList.remove("hidden");
-            var shift = 1;
-            this.id = setInterval(function () {
-                if (shift >= 98) {
-                    shift = 1;
-                } else {
-                    shift++;
-                }
-                _this.elem.style.left = shift + "%";
-            }, 10);
-        }
-
-        /**
-         * Скрыть прогресс бар 
-         */
-
-    }, {
-        key: "hide",
-        value: function hide() {
-            this.elem.parentElement.classList.add("hidden");
-            clearInterval(this.id);
-        }
-    }]);
-
-    return pBar;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (new pBar());
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 17 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_js__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(15);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var LoginView = function (_BaseView) {
-    _inherits(LoginView, _BaseView);
-
-    function LoginView(parentNode) {
-        _classCallCheck(this, LoginView);
-
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-        var _this = _possibleConstructorReturn(this, (LoginView.__proto__ || Object.getPrototypeOf(LoginView)).call(this, view.el));
-
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
-
-    _createClass(LoginView, [{
-        key: '_appendChildren',
-        value: function _appendChildren() {
-            var _this2 = this;
-
-            __WEBPACK_IMPORTED_MODULE_1__login_js__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
+            this.sceneInstructionCallback = callback;
+            this._startLoop();
+            this._initKeyListeners(function (newState) {
+                Object.assign(_this.actionStates, newState);
             });
         }
     }, {
-        key: '_buttonsInit',
-        value: function _buttonsInit() {
-            var _this3 = this;
-
-            this.loginBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
-                userService.login(_this3.nick.el.value, _this3.password.el.value).then(function () {
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.loginBtn.el.getAttribute("href"));
-                    _this3.warning.hide();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                }).catch(function (err) {
-                    _this3.warning.setAttributes({ value: err });
-                    _this3.warning.show();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                });
-            });
-            this.changeformBtn.setCallback(function () {
-                _this3.warning.hide();
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-            });
+        key: "_startLoop",
+        value: function _startLoop() {
+            window.requestAnimationFrame(this._gameLoop);
         }
-    }]);
 
-    return LoginView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+        //Основной цикл, который шлет изменения
 
-/* harmony default export */ __webpack_exports__["a"] = (LoginView);
+    }, {
+        key: "_gameLoop",
+        value: function _gameLoop() {
 
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var loginFields = [{
-    name: "nick",
-    class: "input",
-    elemType: "input",
-    type: "text",
-    placeholder: "Nickname"
-}, {
-    name: "password",
-    class: "input",
-    elemType: "input",
-    type: "password",
-    placeholder: "Password"
-}, {
-    name: "loginBtn",
-    class: " button",
-    elemType: "input",
-    type: "button",
-    value: "Log In",
-    href: "/menu/"
-}, {
-    name: "changeformBtn",
-    class: " button",
-    elemType: "a",
-    value: "Havent Account?",
-    href: "/register/"
-}, {
-    name: "warning",
-    class: "warning",
-    elemType: "input",
-    type: "text",
-    value: "Invalid Data",
-    readonly: "true",
-    hidden: "true"
-}];
-/* harmony default export */ __webpack_exports__["a"] = (loginFields);
-
-/***/ }),
-/* 23 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(15);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var RegisterView = function (_BaseView) {
-    _inherits(RegisterView, _BaseView);
-
-    function RegisterView(parentNode) {
-        _classCallCheck(this, RegisterView);
-
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-        var _this = _possibleConstructorReturn(this, (RegisterView.__proto__ || Object.getPrototypeOf(RegisterView)).call(this, view.el));
-
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
-
-    _createClass(RegisterView, [{
-        key: '_appendChildren',
-        value: function _appendChildren() {
-            var _this2 = this;
-
-            __WEBPACK_IMPORTED_MODULE_1__register_js__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
+            // Object.keys(this._actionStates).forEach(key => {
+            //     this.me[key] = this._actionStates[key];
+            // });
+            // this.me.update();
+            this.sceneInstructionCallback( //TODO передается объект, в котором лежат указания для сцены по изменениям
+            this.actionStates);
+            window.requestAnimationFrame(this._gameLoop);
         }
     }, {
-        key: '_buttonsInit',
-        value: function _buttonsInit() {
-            var _this3 = this;
-
-            this.registerBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
-                userService.register(_this3.nick.el.value, _this3.password.el.value, _this3.confirm.el.value).then(function () {
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.registerBtn.el.getAttribute("href"));
-                    _this3.warning.hide();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                }).catch(function (err) {
-                    _this3.warning.setAttributes({ value: err });
-                    _this3.warning.show();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                });
-
-                _this3.changeformBtn.setCallback(function () {
-                    _this3.warning.hide();
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-                });
-            });
-        }
-    }]);
-
-    return RegisterView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (RegisterView);
-
-/***/ }),
-/* 24 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var registerFields = [{
-    class: "input",
-    type: "text",
-    name: "nick",
-    placeholder: "Nickname",
-    elemType: "input"
-}, {
-    class: "input",
-    type: "password",
-    name: "password",
-    placeholder: "Password",
-    elemType: "input"
-}, {
-    class: "input",
-    type: "password",
-    name: "confirm",
-    placeholder: "Confirm Password",
-    elemType: "input"
-}, {
-    name: "registerBtn",
-    class: " button",
-    elemType: "input",
-    type: "button",
-    value: "Register",
-    href: "/menu/"
-
-}, {
-    name: "changeformBtn",
-    class: " button",
-    elemType: "a",
-    value: "Already Have Account?",
-    href: "/login/"
-}, {
-    name: "warning",
-    class: "warning",
-    type: "text",
-    value: "Invalid Data",
-    elemType: "input",
-    readonly: "true",
-    hidden: "true"
-}];
-
-/* harmony default export */ __webpack_exports__["a"] = (registerFields);
-
-/***/ }),
-/* 25 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__menu_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(7);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-
-
-
-
-
-var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
-
-var MenuView = function (_BaseView) {
-    _inherits(MenuView, _BaseView);
-
-    function MenuView(parentNode) {
-        _classCallCheck(this, MenuView);
-
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
-
-        var _this = _possibleConstructorReturn(this, (MenuView.__proto__ || Object.getPrototypeOf(MenuView)).call(this, view.el));
-
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
-
-    _createClass(MenuView, [{
-        key: '_appendChildren',
-        value: function _appendChildren() {
-            var _this2 = this;
-
-            __WEBPACK_IMPORTED_MODULE_1__menu_js__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: '_buttonsInit',
-        value: function _buttonsInit() {
-            var _this3 = this;
-
-            this.changeBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"), false);
-            });
-            this.logoutBtn.setCallback(function () {
-                userService.logout().then(function () {
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.logoutBtn.el.getAttribute("href"));
-                }).catch(function (err) {});
-            });
-
-            this.play.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.play.el.getAttribute("href"), false);
-            });
-        }
-    }]);
-
-    return MenuView;
-}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (MenuView);
-
-/***/ }),
-/* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var menuFields = [{
-    name: "play",
-    class: " button",
-    elemType: "a",
-    href: "/play/",
-    value: "play"
-}, {
-    name: "changeBtn",
-    class: " button",
-    elemType: "a",
-    href: "/changepass/",
-    value: "Change Password"
-}, {
-    name: "logoutBtn",
-    class: " button",
-    elemType: "input",
-    type: "button",
-    href: "/login/",
-    value: "log out"
-}, {
-    name: "scoreboardBtn",
-    class: " button",
-    elemType: "a",
-    value: "scoreboard"
-}];
-/* harmony default export */ __webpack_exports__["a"] = (menuFields);
-
-/***/ }),
-/* 27 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Player__ = __webpack_require__(32);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var keyboardJS = __webpack_require__(28);
-
-
-var SinglePlayer = function () {
-    function SinglePlayer() {
-        _classCallCheck(this, SinglePlayer);
-
-        //TODO create instance of players
-        this.me = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]('me'); // TODO write your original
-        this.opponent = new __WEBPACK_IMPORTED_MODULE_0__models_Player__["a" /* default */]('super bitch bot');
-    }
-
-    _createClass(SinglePlayer, [{
-        key: 'initKeyListeners',
-        value: function initKeyListeners(callback) {
-            keyboardJS.bind('m', function (e) {
+        key: "_initKeyListeners",
+        value: function _initKeyListeners(callback) {
+            keyboardJS.bind("m", function (e) {
                 callback({ turretRight: true });
             }, function (e) {
                 callback({ turretRight: false });
             });
-            keyboardJS.bind('n', function (e) {
+            keyboardJS.bind("n", function (e) {
                 callback({ turretLeft: true });
             }, function (e) {
                 callback({ turretLeft: false });
             });
-            keyboardJS.bind('w', function (e) {
+            keyboardJS.bind("w", function (e) {
                 callback({ forward: true });
+                window.movingSound.volume = 0.65;
+                window.stayingSound.volume = 0.65;
             }, function (e) {
                 callback({ forward: false });
+                window.movingSound.volume = 0.2;
+                window.stayingSound.volume = 0.2;
             });
-            keyboardJS.bind('s', function (e) {
+            keyboardJS.bind("s", function (e) {
                 callback({ backward: true });
+                window.movingSound.volume = 0.65;
+                window.stayingSound.volume = 0.65;
             }, function (e) {
                 callback({ backward: false });
+                window.movingSound.volume = 0.2;
+                window.stayingSound.volume = 0.2;
             });
-            keyboardJS.bind('d', function (e) {
+            keyboardJS.bind("d", function (e) {
                 callback({ right: true });
             }, function (e) {
                 callback({ right: false });
             });
-            keyboardJS.bind('a', function (e) {
+            keyboardJS.bind("a", function (e) {
                 callback({ left: true });
             }, function (e) {
                 callback({ left: false });
             });
+            keyboardJS.bind("v", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                callback({ changeCamera: true });
+            });
+            keyboardJS.bind("space", function (e) {
+                // callback({ changeCamera: false });
+            }, function (e) {
+                var _this2 = this;
+
+                if (this.allowFire) {
+                    setTimeout(function () {
+                        window.reloadSound.play();
+                    }, 2000);
+
+                    callback({ fire: true });
+                    this.allowFire = false;
+                    setTimeout(function () {
+                        _this2.allowFire = true;
+                    }, 4000);
+                }
+            }.bind(this));
         }
     }, {
-        key: 'randomMovemant',
+        key: "randomMovemant",
         value: function randomMovemant(callback) {
             callback({ left: true, forward: true });
         }
     }]);
 
-    return SinglePlayer;
+    return MultiPlayer;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = (SinglePlayer);
+/* harmony default export */ __webpack_exports__["a"] = (MultiPlayer);
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var Keyboard = __webpack_require__(29);
-var Locale = __webpack_require__(8);
-var KeyCombo = __webpack_require__(5);
-
-var keyboard = new Keyboard();
-
-keyboard.setLocale('us', __webpack_require__(31));
-
-exports = module.exports = keyboard;
-exports.Keyboard = Keyboard;
-exports.Locale = Locale;
-exports.KeyCombo = KeyCombo;
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var Locale = __webpack_require__(8);
-var KeyCombo = __webpack_require__(5);
-
-function Keyboard(targetWindow, targetElement, platform, userAgent) {
-  this._locale = null;
-  this._currentContext = null;
-  this._contexts = {};
-  this._listeners = [];
-  this._appliedListeners = [];
-  this._locales = {};
-  this._targetElement = null;
-  this._targetWindow = null;
-  this._targetPlatform = '';
-  this._targetUserAgent = '';
-  this._isModernBrowser = false;
-  this._targetKeyDownBinding = null;
-  this._targetKeyUpBinding = null;
-  this._targetResetBinding = null;
-  this._paused = false;
-  this._callerHandler = null;
-
-  this.setContext('global');
-  this.watch(targetWindow, targetElement, platform, userAgent);
-}
-
-Keyboard.prototype.setLocale = function (localeName, localeBuilder) {
-  var locale = null;
-  if (typeof localeName === 'string') {
-
-    if (localeBuilder) {
-      locale = new Locale(localeName);
-      localeBuilder(locale, this._targetPlatform, this._targetUserAgent);
-    } else {
-      locale = this._locales[localeName] || null;
-    }
-  } else {
-    locale = localeName;
-    localeName = locale._localeName;
-  }
-
-  this._locale = locale;
-  this._locales[localeName] = locale;
-  if (locale) {
-    this._locale.pressedKeys = locale.pressedKeys;
-  }
-};
-
-Keyboard.prototype.getLocale = function (localName) {
-  localName || (localName = this._locale.localeName);
-  return this._locales[localName] || null;
-};
-
-Keyboard.prototype.bind = function (keyComboStr, pressHandler, releaseHandler, preventRepeatByDefault) {
-  if (keyComboStr === null || typeof keyComboStr === 'function') {
-    preventRepeatByDefault = releaseHandler;
-    releaseHandler = pressHandler;
-    pressHandler = keyComboStr;
-    keyComboStr = null;
-  }
-
-  if (keyComboStr && (typeof keyComboStr === 'undefined' ? 'undefined' : _typeof(keyComboStr)) === 'object' && typeof keyComboStr.length === 'number') {
-    for (var i = 0; i < keyComboStr.length; i += 1) {
-      this.bind(keyComboStr[i], pressHandler, releaseHandler);
-    }
-    return;
-  }
-
-  this._listeners.push({
-    keyCombo: keyComboStr ? new KeyCombo(keyComboStr) : null,
-    pressHandler: pressHandler || null,
-    releaseHandler: releaseHandler || null,
-    preventRepeat: preventRepeatByDefault || false,
-    preventRepeatByDefault: preventRepeatByDefault || false
-  });
-};
-Keyboard.prototype.addListener = Keyboard.prototype.bind;
-Keyboard.prototype.on = Keyboard.prototype.bind;
-
-Keyboard.prototype.unbind = function (keyComboStr, pressHandler, releaseHandler) {
-  if (keyComboStr === null || typeof keyComboStr === 'function') {
-    releaseHandler = pressHandler;
-    pressHandler = keyComboStr;
-    keyComboStr = null;
-  }
-
-  if (keyComboStr && (typeof keyComboStr === 'undefined' ? 'undefined' : _typeof(keyComboStr)) === 'object' && typeof keyComboStr.length === 'number') {
-    for (var i = 0; i < keyComboStr.length; i += 1) {
-      this.unbind(keyComboStr[i], pressHandler, releaseHandler);
-    }
-    return;
-  }
-
-  for (var i = 0; i < this._listeners.length; i += 1) {
-    var listener = this._listeners[i];
-
-    var comboMatches = !keyComboStr && !listener.keyCombo || listener.keyCombo && listener.keyCombo.isEqual(keyComboStr);
-    var pressHandlerMatches = !pressHandler && !releaseHandler || !pressHandler && !listener.pressHandler || pressHandler === listener.pressHandler;
-    var releaseHandlerMatches = !pressHandler && !releaseHandler || !releaseHandler && !listener.releaseHandler || releaseHandler === listener.releaseHandler;
-
-    if (comboMatches && pressHandlerMatches && releaseHandlerMatches) {
-      this._listeners.splice(i, 1);
-      i -= 1;
-    }
-  }
-};
-Keyboard.prototype.removeListener = Keyboard.prototype.unbind;
-Keyboard.prototype.off = Keyboard.prototype.unbind;
-
-Keyboard.prototype.setContext = function (contextName) {
-  if (this._locale) {
-    this.releaseAllKeys();
-  }
-
-  if (!this._contexts[contextName]) {
-    this._contexts[contextName] = [];
-  }
-  this._listeners = this._contexts[contextName];
-  this._currentContext = contextName;
-};
-
-Keyboard.prototype.getContext = function () {
-  return this._currentContext;
-};
-
-Keyboard.prototype.withContext = function (contextName, callback) {
-  var previousContextName = this.getContext();
-  this.setContext(contextName);
-
-  callback();
-
-  this.setContext(previousContextName);
-};
-
-Keyboard.prototype.watch = function (targetWindow, targetElement, targetPlatform, targetUserAgent) {
-  var _this = this;
-
-  this.stop();
-
-  if (!targetWindow) {
-    if (!global.addEventListener && !global.attachEvent) {
-      throw new Error('Cannot find global functions addEventListener or attachEvent.');
-    }
-    targetWindow = global;
-  }
-
-  if (typeof targetWindow.nodeType === 'number') {
-    targetUserAgent = targetPlatform;
-    targetPlatform = targetElement;
-    targetElement = targetWindow;
-    targetWindow = global;
-  }
-
-  if (!targetWindow.addEventListener && !targetWindow.attachEvent) {
-    throw new Error('Cannot find addEventListener or attachEvent methods on targetWindow.');
-  }
-
-  this._isModernBrowser = !!targetWindow.addEventListener;
-
-  var userAgent = targetWindow.navigator && targetWindow.navigator.userAgent || '';
-  var platform = targetWindow.navigator && targetWindow.navigator.platform || '';
-
-  targetElement && targetElement !== null || (targetElement = targetWindow.document);
-  targetPlatform && targetPlatform !== null || (targetPlatform = platform);
-  targetUserAgent && targetUserAgent !== null || (targetUserAgent = userAgent);
-
-  this._targetKeyDownBinding = function (event) {
-    _this.pressKey(event.keyCode, event);
-    _this._handleCommandBug(event, platform);
-  };
-  this._targetKeyUpBinding = function (event) {
-    _this.releaseKey(event.keyCode, event);
-  };
-  this._targetResetBinding = function (event) {
-    _this.releaseAllKeys(event);
-  };
-
-  this._bindEvent(targetElement, 'keydown', this._targetKeyDownBinding);
-  this._bindEvent(targetElement, 'keyup', this._targetKeyUpBinding);
-  this._bindEvent(targetWindow, 'focus', this._targetResetBinding);
-  this._bindEvent(targetWindow, 'blur', this._targetResetBinding);
-
-  this._targetElement = targetElement;
-  this._targetWindow = targetWindow;
-  this._targetPlatform = targetPlatform;
-  this._targetUserAgent = targetUserAgent;
-};
-
-Keyboard.prototype.stop = function () {
-  var _this = this;
-
-  if (!this._targetElement || !this._targetWindow) {
-    return;
-  }
-
-  this._unbindEvent(this._targetElement, 'keydown', this._targetKeyDownBinding);
-  this._unbindEvent(this._targetElement, 'keyup', this._targetKeyUpBinding);
-  this._unbindEvent(this._targetWindow, 'focus', this._targetResetBinding);
-  this._unbindEvent(this._targetWindow, 'blur', this._targetResetBinding);
-
-  this._targetWindow = null;
-  this._targetElement = null;
-};
-
-Keyboard.prototype.pressKey = function (keyCode, event) {
-  if (this._paused) {
-    return;
-  }
-  if (!this._locale) {
-    throw new Error('Locale not set');
-  }
-
-  this._locale.pressKey(keyCode);
-  this._applyBindings(event);
-};
-
-Keyboard.prototype.releaseKey = function (keyCode, event) {
-  if (this._paused) {
-    return;
-  }
-  if (!this._locale) {
-    throw new Error('Locale not set');
-  }
-
-  this._locale.releaseKey(keyCode);
-  this._clearBindings(event);
-};
-
-Keyboard.prototype.releaseAllKeys = function (event) {
-  if (this._paused) {
-    return;
-  }
-  if (!this._locale) {
-    throw new Error('Locale not set');
-  }
-
-  this._locale.pressedKeys.length = 0;
-  this._clearBindings(event);
-};
-
-Keyboard.prototype.pause = function () {
-  if (this._paused) {
-    return;
-  }
-  if (this._locale) {
-    this.releaseAllKeys();
-  }
-  this._paused = true;
-};
-
-Keyboard.prototype.resume = function () {
-  this._paused = false;
-};
-
-Keyboard.prototype.reset = function () {
-  this.releaseAllKeys();
-  this._listeners.length = 0;
-};
-
-Keyboard.prototype._bindEvent = function (targetElement, eventName, handler) {
-  return this._isModernBrowser ? targetElement.addEventListener(eventName, handler, false) : targetElement.attachEvent('on' + eventName, handler);
-};
-
-Keyboard.prototype._unbindEvent = function (targetElement, eventName, handler) {
-  return this._isModernBrowser ? targetElement.removeEventListener(eventName, handler, false) : targetElement.detachEvent('on' + eventName, handler);
-};
-
-Keyboard.prototype._getGroupedListeners = function () {
-  var listenerGroups = [];
-  var listenerGroupMap = [];
-
-  var listeners = this._listeners;
-  if (this._currentContext !== 'global') {
-    listeners = [].concat(listeners, this._contexts.global);
-  }
-
-  listeners.sort(function (a, b) {
-    return (b.keyCombo ? b.keyCombo.keyNames.length : 0) - (a.keyCombo ? a.keyCombo.keyNames.length : 0);
-  }).forEach(function (l) {
-    var mapIndex = -1;
-    for (var i = 0; i < listenerGroupMap.length; i += 1) {
-      if (listenerGroupMap[i] === null && l.keyCombo === null || listenerGroupMap[i] !== null && listenerGroupMap[i].isEqual(l.keyCombo)) {
-        mapIndex = i;
-      }
-    }
-    if (mapIndex === -1) {
-      mapIndex = listenerGroupMap.length;
-      listenerGroupMap.push(l.keyCombo);
-    }
-    if (!listenerGroups[mapIndex]) {
-      listenerGroups[mapIndex] = [];
-    }
-    listenerGroups[mapIndex].push(l);
-  });
-  return listenerGroups;
-};
-
-Keyboard.prototype._applyBindings = function (event) {
-  var preventRepeat = false;
-
-  event || (event = {});
-  event.preventRepeat = function () {
-    preventRepeat = true;
-  };
-  event.pressedKeys = this._locale.pressedKeys.slice(0);
-
-  var pressedKeys = this._locale.pressedKeys.slice(0);
-  var listenerGroups = this._getGroupedListeners();
-
-  for (var i = 0; i < listenerGroups.length; i += 1) {
-    var listeners = listenerGroups[i];
-    var keyCombo = listeners[0].keyCombo;
-
-    if (keyCombo === null || keyCombo.check(pressedKeys)) {
-      for (var j = 0; j < listeners.length; j += 1) {
-        var listener = listeners[j];
-
-        if (keyCombo === null) {
-          listener = {
-            keyCombo: new KeyCombo(pressedKeys.join('+')),
-            pressHandler: listener.pressHandler,
-            releaseHandler: listener.releaseHandler,
-            preventRepeat: listener.preventRepeat,
-            preventRepeatByDefault: listener.preventRepeatByDefault
-          };
-        }
-
-        if (listener.pressHandler && !listener.preventRepeat) {
-          listener.pressHandler.call(this, event);
-          if (preventRepeat) {
-            listener.preventRepeat = preventRepeat;
-            preventRepeat = false;
-          }
-        }
-
-        if (listener.releaseHandler && this._appliedListeners.indexOf(listener) === -1) {
-          this._appliedListeners.push(listener);
-        }
-      }
-
-      if (keyCombo) {
-        for (var j = 0; j < keyCombo.keyNames.length; j += 1) {
-          var index = pressedKeys.indexOf(keyCombo.keyNames[j]);
-          if (index !== -1) {
-            pressedKeys.splice(index, 1);
-            j -= 1;
-          }
-        }
-      }
-    }
-  }
-};
-
-Keyboard.prototype._clearBindings = function (event) {
-  event || (event = {});
-
-  for (var i = 0; i < this._appliedListeners.length; i += 1) {
-    var listener = this._appliedListeners[i];
-    var keyCombo = listener.keyCombo;
-    if (keyCombo === null || !keyCombo.check(this._locale.pressedKeys)) {
-      if (this._callerHandler !== listener.releaseHandler) {
-        var oldCaller = this._callerHandler;
-        this._callerHandler = listener.releaseHandler;
-        listener.preventRepeat = listener.preventRepeatByDefault;
-        listener.releaseHandler.call(this, event);
-        this._callerHandler = oldCaller;
-      }
-      this._appliedListeners.splice(i, 1);
-      i -= 1;
-    }
-  }
-};
-
-Keyboard.prototype._handleCommandBug = function (event, platform) {
-  // On Mac when the command key is kept pressed, keyup is not triggered for any other key.
-  // In this case force a keyup for non-modifier keys directly after the keypress.
-  var modifierKeys = ["shift", "ctrl", "alt", "capslock", "tab", "command"];
-  if (platform.match("Mac") && this._locale.pressedKeys.includes("command") && !modifierKeys.includes(this._locale.getKeyNames(event.keyCode)[0])) {
-    this._targetKeyUpBinding(event);
-  }
-};
-
-module.exports = Keyboard;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)))
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports) {
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var g;
-
-// This works in non-strict mode
-g = function () {
-	return this;
-}();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports) {
-
-
-module.exports = function (locale, platform, userAgent) {
-
-  // general
-  locale.bindKeyCode(3, ['cancel']);
-  locale.bindKeyCode(8, ['backspace']);
-  locale.bindKeyCode(9, ['tab']);
-  locale.bindKeyCode(12, ['clear']);
-  locale.bindKeyCode(13, ['enter']);
-  locale.bindKeyCode(16, ['shift']);
-  locale.bindKeyCode(17, ['ctrl']);
-  locale.bindKeyCode(18, ['alt', 'menu']);
-  locale.bindKeyCode(19, ['pause', 'break']);
-  locale.bindKeyCode(20, ['capslock']);
-  locale.bindKeyCode(27, ['escape', 'esc']);
-  locale.bindKeyCode(32, ['space', 'spacebar']);
-  locale.bindKeyCode(33, ['pageup']);
-  locale.bindKeyCode(34, ['pagedown']);
-  locale.bindKeyCode(35, ['end']);
-  locale.bindKeyCode(36, ['home']);
-  locale.bindKeyCode(37, ['left']);
-  locale.bindKeyCode(38, ['up']);
-  locale.bindKeyCode(39, ['right']);
-  locale.bindKeyCode(40, ['down']);
-  locale.bindKeyCode(41, ['select']);
-  locale.bindKeyCode(42, ['printscreen']);
-  locale.bindKeyCode(43, ['execute']);
-  locale.bindKeyCode(44, ['snapshot']);
-  locale.bindKeyCode(45, ['insert', 'ins']);
-  locale.bindKeyCode(46, ['delete', 'del']);
-  locale.bindKeyCode(47, ['help']);
-  locale.bindKeyCode(145, ['scrolllock', 'scroll']);
-  locale.bindKeyCode(187, ['equal', 'equalsign', '=']);
-  locale.bindKeyCode(188, ['comma', ',']);
-  locale.bindKeyCode(190, ['period', '.']);
-  locale.bindKeyCode(191, ['slash', 'forwardslash', '/']);
-  locale.bindKeyCode(192, ['graveaccent', '`']);
-  locale.bindKeyCode(219, ['openbracket', '[']);
-  locale.bindKeyCode(220, ['backslash', '\\']);
-  locale.bindKeyCode(221, ['closebracket', ']']);
-  locale.bindKeyCode(222, ['apostrophe', '\'']);
-
-  // 0-9
-  locale.bindKeyCode(48, ['zero', '0']);
-  locale.bindKeyCode(49, ['one', '1']);
-  locale.bindKeyCode(50, ['two', '2']);
-  locale.bindKeyCode(51, ['three', '3']);
-  locale.bindKeyCode(52, ['four', '4']);
-  locale.bindKeyCode(53, ['five', '5']);
-  locale.bindKeyCode(54, ['six', '6']);
-  locale.bindKeyCode(55, ['seven', '7']);
-  locale.bindKeyCode(56, ['eight', '8']);
-  locale.bindKeyCode(57, ['nine', '9']);
-
-  // numpad
-  locale.bindKeyCode(96, ['numzero', 'num0']);
-  locale.bindKeyCode(97, ['numone', 'num1']);
-  locale.bindKeyCode(98, ['numtwo', 'num2']);
-  locale.bindKeyCode(99, ['numthree', 'num3']);
-  locale.bindKeyCode(100, ['numfour', 'num4']);
-  locale.bindKeyCode(101, ['numfive', 'num5']);
-  locale.bindKeyCode(102, ['numsix', 'num6']);
-  locale.bindKeyCode(103, ['numseven', 'num7']);
-  locale.bindKeyCode(104, ['numeight', 'num8']);
-  locale.bindKeyCode(105, ['numnine', 'num9']);
-  locale.bindKeyCode(106, ['nummultiply', 'num*']);
-  locale.bindKeyCode(107, ['numadd', 'num+']);
-  locale.bindKeyCode(108, ['numenter']);
-  locale.bindKeyCode(109, ['numsubtract', 'num-']);
-  locale.bindKeyCode(110, ['numdecimal', 'num.']);
-  locale.bindKeyCode(111, ['numdivide', 'num/']);
-  locale.bindKeyCode(144, ['numlock', 'num']);
-
-  // function keys
-  locale.bindKeyCode(112, ['f1']);
-  locale.bindKeyCode(113, ['f2']);
-  locale.bindKeyCode(114, ['f3']);
-  locale.bindKeyCode(115, ['f4']);
-  locale.bindKeyCode(116, ['f5']);
-  locale.bindKeyCode(117, ['f6']);
-  locale.bindKeyCode(118, ['f7']);
-  locale.bindKeyCode(119, ['f8']);
-  locale.bindKeyCode(120, ['f9']);
-  locale.bindKeyCode(121, ['f10']);
-  locale.bindKeyCode(122, ['f11']);
-  locale.bindKeyCode(123, ['f12']);
-
-  // secondary key symbols
-  locale.bindMacro('shift + `', ['tilde', '~']);
-  locale.bindMacro('shift + 1', ['exclamation', 'exclamationpoint', '!']);
-  locale.bindMacro('shift + 2', ['at', '@']);
-  locale.bindMacro('shift + 3', ['number', '#']);
-  locale.bindMacro('shift + 4', ['dollar', 'dollars', 'dollarsign', '$']);
-  locale.bindMacro('shift + 5', ['percent', '%']);
-  locale.bindMacro('shift + 6', ['caret', '^']);
-  locale.bindMacro('shift + 7', ['ampersand', 'and', '&']);
-  locale.bindMacro('shift + 8', ['asterisk', '*']);
-  locale.bindMacro('shift + 9', ['openparen', '(']);
-  locale.bindMacro('shift + 0', ['closeparen', ')']);
-  locale.bindMacro('shift + -', ['underscore', '_']);
-  locale.bindMacro('shift + =', ['plus', '+']);
-  locale.bindMacro('shift + [', ['opencurlybrace', 'opencurlybracket', '{']);
-  locale.bindMacro('shift + ]', ['closecurlybrace', 'closecurlybracket', '}']);
-  locale.bindMacro('shift + \\', ['verticalbar', '|']);
-  locale.bindMacro('shift + ;', ['colon', ':']);
-  locale.bindMacro('shift + \'', ['quotationmark', '\'']);
-  locale.bindMacro('shift + !,', ['openanglebracket', '<']);
-  locale.bindMacro('shift + .', ['closeanglebracket', '>']);
-  locale.bindMacro('shift + /', ['questionmark', '?']);
-
-  //a-z and A-Z
-  for (var keyCode = 65; keyCode <= 90; keyCode += 1) {
-    var keyName = String.fromCharCode(keyCode + 32);
-    var capitalKeyName = String.fromCharCode(keyCode);
-    locale.bindKeyCode(keyCode, keyName);
-    locale.bindMacro('shift + ' + keyName, capitalKeyName);
-    locale.bindMacro('capslock + ' + keyName, capitalKeyName);
-  }
-
-  // browser caveats
-  var semicolonKeyCode = userAgent.match('Firefox') ? 59 : 186;
-  var dashKeyCode = userAgent.match('Firefox') ? 173 : 189;
-  var leftCommandKeyCode;
-  var rightCommandKeyCode;
-  if (platform.match('Mac') && (userAgent.match('Safari') || userAgent.match('Chrome'))) {
-    leftCommandKeyCode = 91;
-    rightCommandKeyCode = 93;
-  } else if (platform.match('Mac') && userAgent.match('Opera')) {
-    leftCommandKeyCode = 17;
-    rightCommandKeyCode = 17;
-  } else if (platform.match('Mac') && userAgent.match('Firefox')) {
-    leftCommandKeyCode = 224;
-    rightCommandKeyCode = 224;
-  }
-  locale.bindKeyCode(semicolonKeyCode, ['semicolon', ';']);
-  locale.bindKeyCode(dashKeyCode, ['dash', '-']);
-  locale.bindKeyCode(leftCommandKeyCode, ['command', 'windows', 'win', 'super', 'leftcommand', 'leftwindows', 'leftwin', 'leftsuper']);
-  locale.bindKeyCode(rightCommandKeyCode, ['command', 'windows', 'win', 'super', 'rightcommand', 'rightwindows', 'rightwin', 'rightsuper']);
-
-  // kill keys
-  locale.setKillKey('command');
-};
-
-/***/ }),
-/* 32 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Player = function Player(nickname) {
-    _classCallCheck(this, Player);
-
-    this.health = 100;
-    this.nickname = nickname;
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Player);
-
-/***/ }),
-/* 33 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_Tank__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_tankLoader__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_turretLoader__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_load_bar__ = __webpack_require__(15);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
-// import Turret from "./models/Turret";
-
-
-
-var THREE = __webpack_require__(4);
-
-var Scene = function () {
-    function Scene(startPositionMe, startPositionOpponent) {
-        var _this = this;
-
-        _classCallCheck(this, Scene);
-
-        __WEBPACK_IMPORTED_MODULE_3__modules_load_bar__["a" /* default */].show();
-        //////
-        this._resizeFunction = this._resizeFunction.bind(this);
-
-        this.scene = new THREE.Scene();
-        this.tankMe = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionMe);
-        this.tankOpponent = new __WEBPACK_IMPORTED_MODULE_0__models_Tank__["a" /* default */](null, startPositionOpponent);
-        var promises = [];
-        var resultPromises = [];
-
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_1__utils_tankLoader__["a" /* default */])());
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_2__utils_turretLoader__["a" /* default */])());
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_1__utils_tankLoader__["a" /* default */])('1.'));
-        promises.push(Object(__WEBPACK_IMPORTED_MODULE_2__utils_turretLoader__["a" /* default */])('1.'));
-
-        Promise.all(promises).then(function (collades) {
-            collades = [collades.slice(0, 2), collades.slice(2, 4)];
-            collades.forEach(function (collada, i) {
-                ['tankOpponent', 'tankMe'].forEach(function (key, j) {
-                    if (i === j) {
-                        //tank
-                        collada[0].scene.children[0].children[1].children[0].children[3] = new THREE.Object3D();
-                        _this[key].parent.add(collada[0].scene);
-                        _this[key].original = collada[0].scene;
-                        _this[key].dae.rotation.x = -0.5 * Math.PI;
-                        _this[key].dae.rotation.z = 1 * Math.PI;
-                        _this.scene.add(_this[key].dae);
-
-                        //turret
-                        var size = 0.012;
-                        collada[1].scene.scale.x = size;
-                        collada[1].scene.scale.y = size;
-                        collada[1].scene.scale.z = size;
-                        _this[key].turret.parent.add(collada[1].scene);
-                        _this[key].turret.dae.rotation.x = -0.5 * Math.PI;
-                        _this[key].turret.dae.rotation.z = 1 * Math.PI;
-                        _this.scene.add(_this[key].turret.dae);
-                    }
-                });
-            });
-            __WEBPACK_IMPORTED_MODULE_3__modules_load_bar__["a" /* default */].hide();
-            _this._init();
-            _this._addMap();
-        });
-    }
-
-    _createClass(Scene, [{
-        key: "_init",
-        value: function _init() {
-            ///////////////////////////////////////// // Camera ///////////////////////////////////////// 
-
-            this.camera = new THREE.PerspectiveCamera(10, window.innerWidth / window.innerHeight, 1, 1000);
-            this.camera.position.set(-1, 15, -115);
-
-            this.camera.lookAt(new THREE.Vector3(-1, 3, 3));
-            this.renderer = new THREE.WebGLRenderer({
-                alpha: true,
-                antialias: true
-            });
-
-            this.tankMe.turret.dae.add(this.camera);
-
-            this.renderer.setPixelRatio(window.devicePixelRatio);
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-            ///
-            this.renderer.domElement.setAttribute("id", "game");
-            this.renderer.domElement.style.background = "rgba(255, 255, 255, 1)";
-            this.renderer.domElement.style.position = "absolute";
-            this.renderer.domElement.style.zIndex = "99";
-            document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
-            ///////////////////////////////////////// // Lighting ///////////////////////////////////////// 
-            var my_color = '#FAFAFA',
-                ambientLight = new THREE.AmbientLight('#EEEEEE'),
-                hemiLight = new THREE.HemisphereLight(my_color, my_color, 0),
-                light = new THREE.PointLight(my_color, 1, 100);
-            hemiLight.position.set(0, 50, 0);
-            light.position.set(0, 20, 10);
-            this.scene.add(ambientLight);
-            this.scene.add(hemiLight);
-            this.scene.add(light);
-
-            this._resizeWindow();
-
-            this._startRenderAnimate();
-        }
-
-        /**
-         * object action
-         * @param {string} type : tankMe | tankOpponent
-         * @param {object} action 
-         */
-
-    }, {
-        key: "updateObjects",
-        value: function updateObjects(type, action) {
-            var _this2 = this;
-
-            Object.keys(action).forEach(function (key) {
-                _this2[type][key] = action[key];
-            });
-        }
-    }, {
-        key: "_startRenderAnimate",
-        value: function _startRenderAnimate() {
-            var _this3 = this;
-
-            var innerrender = function innerrender() {
-                window.requestAnimationFrame(innerrender);
-                _this3._render();
-            };
-            innerrender();
-        }
-    }, {
-        key: "_render",
-        value: function _render() {
-            var _this4 = this;
-
-            ['tankMe', 'tankOpponent'].forEach(function (key) {
-                _this4[key].update();
-            });
-            this.renderer.render(this.scene, this.camera);
-        }
-    }, {
-        key: "_resizeWindow",
-        value: function _resizeWindow() {
-            window.addEventListener('resize', this._resizeFunction, false);
-        }
-    }, {
-        key: "_resizeFunction",
-        value: function _resizeFunction() {
-            this.camera.aspect = window.innerWidth / window.innerHeight;
-            this.camera.updateProjectionMatrix();
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-            this._render();
-        }
-    }, {
-        key: "_addMap",
-        value: function _addMap() {
-            var planeGeometry = new THREE.PlaneGeometry(600, 200, 1, 1);
-            var planeMaterial = new THREE.MeshLambertMaterial({
-                color: 0x30E02E
-            });
-            var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-            plane.receiveShadow = true;
-            plane.position.x = 0;
-            plane.position.y = 0;
-            plane.position.z = 0;
-            this.scene.add(plane);
-        }
-    }]);
-
-    return Scene;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Scene);
-
-/***/ }),
-/* 34 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Turret__ = __webpack_require__(35);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var THREE = __webpack_require__(4);
-
-
-var Tank = function () {
-    function Tank(dae) {
-        var coords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [0, 0];
-
-        _classCallCheck(this, Tank);
-
-        //some magic for turn
-        this.dae = new THREE.Object3D();
-        this.parent = new THREE.Object3D();
-        this.parent.position.x = -1;
-        this.parent.position.z = +4.4;
-        this.dae.add(this.parent);
-        this.original = null;
-        this.angle = Math.PI - Math.PI;
-        ////new motion
-        this.forward = false;
-        this.backward = false;
-        this.right = false;
-        this.left = false;
-        //turret
-        this.turret = null;
-        this.turretRight = false;
-        this.turretLeft = false;
-
-        this.dae.position.x = coords[0];
-        this.dae.position.y = coords[1];
-
-        this.turret = new __WEBPACK_IMPORTED_MODULE_0__Turret__["a" /* default */](null, coords);
-    }
-
-    _createClass(Tank, [{
-        key: "moveForward",
-        value: function moveForward() {
-            this.dae.position.y += 0.3 * Math.cos(this.angle);
-            this.dae.position.x += 0.3 * Math.sin(this.angle);
-            this.turret.dae.position.y += 0.3 * Math.cos(this.angle);
-            this.turret.dae.position.x += 0.3 * Math.sin(this.angle);
-        }
-    }, {
-        key: "moveBackward",
-        value: function moveBackward() {
-            this.dae.position.y -= 0.2 * Math.cos(this.angle);
-            this.dae.position.x -= 0.2 * Math.sin(this.angle);
-            this.turret.dae.position.y -= 0.2 * Math.cos(this.angle);
-            this.turret.dae.position.x -= 0.2 * Math.sin(this.angle);
-        }
-    }, {
-        key: "turnRight",
-        value: function turnRight() {
-            this.dae.rotation.y += 0.005 * Math.PI;
-            this.angle += 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnLeft",
-        value: function turnLeft() {
-            this.dae.rotation.y -= 0.005 * Math.PI;
-            this.angle -= 0.005 * Math.PI;
-        }
-    }, {
-        key: "turnTurretRight",
-        value: function turnTurretRight() {
-            this.turret.dae.rotation.y += 0.008 * Math.PI;
-        }
-    }, {
-        key: "turnTurretLeft",
-        value: function turnTurretLeft() {
-            this.turret.dae.rotation.y -= 0.008 * Math.PI;
-        }
-    }, {
-        key: "update",
-        value: function update() {
-            if (this.forward) {
-                this.moveForward();
-            }
-            if (this.backward) {
-                this.moveBackward();
-            }
-            if (this.right) {
-                this.turnRight();
-            }
-            if (this.left) {
-                this.turnLeft();
-            }
-            if (this.turretLeft) {
-                this.turnTurretLeft();
-            }
-            if (this.turretRight) {
-                this.turnTurretRight();
-            }
-        }
-    }]);
-
-    return Tank;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Tank);
-;
-
-/***/ }),
-/* 35 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var THREE = __webpack_require__(4);
-
-var Turret = function Turret(dae, coords) {
-    _classCallCheck(this, Turret);
-
-    this.dae = new THREE.Object3D();
-    this.parent = new THREE.Object3D();
-    this.parent.position.x = -0.33;
-    this.parent.position.z = -2;
-    this.parent.position.y = +1.7;
-    this.parent.rotation.y += Math.PI;
-    this.dae.add(this.parent);
-    this.angle = Math.PI - Math.PI;
-
-    this.dae.position.x = coords[0];
-    this.dae.position.y = coords[1];
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Turret);
-;
-
-/***/ }),
-/* 36 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = tankLoader;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_http__ = __webpack_require__(13);
-var THREE = __webpack_require__(4);
-var ColladaLoader = __webpack_require__(9);
-
-
-
-function tankLoader(index) {
-    return new Promise(function (resolve, reject) {
-        var loader = new ColladaLoader();
-        loader.options.convertUpAxis = true;
-        // httpReq('GET', `./game/3dModels/model.${index ? index : ''}dae`).then(res => {
-        //     // console.log(res);
-        //     loader.parse(res.body, (collada) => {
-        //         resolve(collada);
-        //     });
-        // });
-        loader.load('./game/3dModels/model.' + (index ? index : '') + 'dae', function (collada) {
-            resolve(collada);
-        });
-    });
-}
-
-/***/ }),
-/* 37 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = turretLoader;
-var THREE = __webpack_require__(4);
-var ColladaLoader = __webpack_require__(9);
-function turretLoader() {
-    return new Promise(function (resolve, reject) {
-        var loader = new ColladaLoader();
-        loader.options.convertUpAxis = true;
-        loader.load('./game/3dModels/turret.dae', function (collada) {
-            resolve(collada);
-        });
-    });
-}
-
-/***/ }),
-/* 38 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__change_js__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__change_js__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10934,118 +13555,121 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
 
 var ChangeView = function (_BaseView) {
-    _inherits(ChangeView, _BaseView);
+	_inherits(ChangeView, _BaseView);
 
-    function ChangeView(parentNode) {
-        _classCallCheck(this, ChangeView);
+	function ChangeView(parentNode) {
+		_classCallCheck(this, ChangeView);
 
-        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+		var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
 
-        var _this = _possibleConstructorReturn(this, (ChangeView.__proto__ || Object.getPrototypeOf(ChangeView)).call(this, view.el));
+		var _this = _possibleConstructorReturn(this, (ChangeView.__proto__ || Object.getPrototypeOf(ChangeView)).call(this, view.el));
 
-        _this.view = view;
-        _this.parentNode = parentNode;
-        _this.parentNode.appendChild(_this.view.el);
-        _this._appendChildren();
-        _this._buttonsInit();
-        return _this;
-    }
+		_this.view = view;
+		_this.parentNode = parentNode;
+		_this.parentNode.appendChild(_this.view.el);
+		_this._appendChildren();
+		_this._buttonsInit();
+		return _this;
+	}
 
-    _createClass(ChangeView, [{
-        key: '_appendChildren',
-        value: function _appendChildren() {
-            var _this2 = this;
+	_createClass(ChangeView, [{
+		key: "_appendChildren",
+		value: function _appendChildren() {
+			var _this2 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1__change_js__["a" /* default */].forEach(function (key) {
-                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
-                _this2.view.el.appendChild(ch.el);
-                _this2[key.name] = ch;
-            });
-        }
-    }, {
-        key: '_buttonsInit',
-        value: function _buttonsInit() {
-            var _this3 = this;
+			__WEBPACK_IMPORTED_MODULE_1__change_js__["a" /* default */].forEach(function (key) {
+				var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+				_this2.view.el.appendChild(ch.el);
+				_this2[key.name] = ch;
+			});
+		}
+	}, {
+		key: "_buttonsInit",
+		value: function _buttonsInit() {
+			var _this3 = this;
 
-            this.changeBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
-                userService.changePassword(_this3.password.el.value, _this3.confirm.el.value).then(function () {
-                    __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"));
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                }).catch(function (err) {
-                    _this3.warning.setAttributes({ value: err });
-                    _this3.warning.show();
-                    __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
-                });
-            });
+			this.changeBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].show();
+				userService.changePassword(_this3.password.el.value, _this3.confirm.el.value).then(function () {
+					__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeBtn.el.getAttribute("href"));
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				}).catch(function (err) {
+					_this3.warning.setAttributes({ value: err });
+					_this3.warning.show();
+					__WEBPACK_IMPORTED_MODULE_5__modules_load_bar__["a" /* default */].hide();
+				});
+			});
 
-            this.changeformBtn.setCallback(function () {
-                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
-            });
-        }
-    }]);
+			this.changeformBtn.setCallback(function () {
+				__WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+			});
+		}
+	}]);
 
-    return ChangeView;
+	return ChangeView;
 }(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (ChangeView);
 
 /***/ }),
-/* 39 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 
 var changeFields = [{
-    elemType: "input",
-    class: "input",
-    type: "password",
-    name: "password",
-    placeholder: "Password"
+	elemType: "input",
+	class: "input",
+	type: "password",
+	name: "password",
+	placeholder: "Password"
 }, {
-    elemType: "input",
-    class: "input",
-    type: "password",
-    name: "confirm",
-    placeholder: "Confirm"
+	elemType: "input",
+	class: "input",
+	type: "password",
+	name: "confirm",
+	placeholder: "Confirm"
 
 }, {
-    name: "changeBtn",
-    class: " button",
-    elemType: "input",
-    value: "Change",
-    type: "button",
-    href: "/menu/"
+	name: "changeBtn",
+	class: " button",
+	elemType: "input",
+	value: "Change",
+	type: "button",
+	href: "/menu/"
 
 }, {
-    name: "changeformBtn",
-    class: " button",
-    elemType: "a",
-    value: "back to menu",
-    href: "/menu/"
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "back to menu",
+	href: "/menu/"
 
 }, {
-    name: "warning",
-    class: "warning",
-    type: "text",
-    value: "Invalid Data",
-    readonly: "true",
-    hidden: "true"
+	name: "warning",
+	class: "warning",
+	type: "text",
+	value: "Invalid Data",
+	readonly: "true",
+	hidden: "true"
 
 }];
 /* harmony default export */ __webpack_exports__["a"] = (changeFields);
 
 /***/ }),
-/* 40 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_js__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__theme_js__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__theme_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__theme_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__game_GameManager__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_user_service__ = __webpack_require__(3);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11053,6 +13677,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
 
 
 
@@ -11069,6 +13696,8 @@ var ThemeView = function (_BaseView) {
 
         var _this = _possibleConstructorReturn(this, (ThemeView.__proto__ || Object.getPrototypeOf(ThemeView)).call(this, view.el));
 
+        _this.userService = new __WEBPACK_IMPORTED_MODULE_6__services_user_service__["a" /* default */]();
+
         _this.view = view;
         _this.parentNode = parentNode;
         _this.parentNode.appendChild(_this.view.el);
@@ -11077,11 +13706,12 @@ var ThemeView = function (_BaseView) {
 
         _this.themeFlag = true;
         _this.wallpaper = null;
+        window.updateUserData = _this.updateUserData.bind(_this);
         return _this;
     }
 
     _createClass(ThemeView, [{
-        key: '_appendChildren',
+        key: "_appendChildren",
         value: function _appendChildren() {
             var _this2 = this;
 
@@ -11092,21 +13722,45 @@ var ThemeView = function (_BaseView) {
             });
         }
     }, {
-        key: '_buttonsInit',
+        key: "_buttonsInit",
         value: function _buttonsInit() {
             var _this3 = this;
 
-            this.themeBtn.setCallback(function () {
-                _this3.themeFlag ? _this3.wallpaper = "url(../images/2wallpaper.jpg)" : _this3.wallpaper = "url(../images/wallpaper.jpg)";
-                document.getElementById("background").style.backgroundImage = _this3.wallpaper;
-                _this3.parentNode.childNodes.forEach(function (key) {
-                    key.childNodes.forEach(function (child) {
-                        if (child.classList.contains("button")) {
-                            _this3.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
-                        }
-                    });
-                });
-                _this3.themeFlag = !_this3.themeFlag;
+            // this.themeBtn.setCallback(() => {
+            // 	this.themeFlag ? this.wallpaper = "url(../images/2wallpaper.jpg)" : this.wallpaper = "url(../images/wallpaper.jpg)";
+            // 	document.getElementById("background").style.backgroundImage = this.wallpaper;
+            // 	this.parentNode.childNodes.forEach(key => {
+            // 		key.childNodes.forEach(child => {
+            // 			if (child.classList.contains("button")) {
+            // 				this.themeFlag ? child.classList.add("new_button") : child.classList.remove("new_button");
+            // 			}
+            // 		});
+            // 	});
+            // 	this.themeFlag = !this.themeFlag;
+            // });
+
+            // this.nickname.setCallback(() => {
+            this.updateUserData();
+            // });
+            this.playBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_5__utils_Router__["a" /* default */].go(_this3.playBtn.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_4__game_GameManager__["a" /* default */]();
+                gameManager.start("single");
+            });
+        }
+    }, {
+        key: "updateUserData",
+        value: function updateUserData() {
+            var _this4 = this;
+
+            this.userService.whoami().then(function (responce) {
+                _this4.nickname.setAttributes({ value: "Nick: " + responce.login });
+                _this4.rank.setAttributes({ value: "Rank: " + responce.rank.toFixed(2) });
+                _this4.position.setAttributes({ value: "Position: " + responce.position });
+            }).catch(function () {
+                _this4.nickname.setAttributes({ value: "Nick: " + "------" });
+                _this4.rank.setAttributes({ value: "Rank: " + "---" });
+                _this4.position.setAttributes({ value: "Position: " + "---" });
             });
         }
     }]);
@@ -11117,38 +13771,75 @@ var ThemeView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (ThemeView);
 
 /***/ }),
-/* 41 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 
+// const themeFields = [{
+// 	name: "themeBtn",
+// 	class: "button",
+// 	elemType: "input",
+// 	type: "button",
+// 	value: "Theme",
+// }, {
+// 	name: "playBtn",
+// 	class: " button",
+// 	elemType: "input",
+// 	value: "Fast Game",
+// 	href: "/game/",
+// 	type: "button"
+// }, ];
+
 var themeFields = [{
-    name: "themeBtn",
-    class: "register__button button",
+    name: "nickname",
+    class: " userdata",
     elemType: "input",
-    type: "button",
-    value: "Theme"
+    value: "Nick",
+    href: "/game/",
+    type: "button"
+}, {
+    name: "position",
+    class: " userdata",
+    elemType: "input",
+    value: "Position",
+    href: "/game/",
+    type: "button"
+}, {
+    name: "rank",
+    class: " userdata",
+    elemType: "input",
+    value: "Rank",
+    href: "/game/",
+    type: "button"
+}, {
+    name: "playBtn",
+    class: " button",
+    elemType: "input",
+    value: "Fast Game",
+    href: "/game/",
+    type: "button"
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = (themeFields);
 
 /***/ }),
-/* 42 */
+/* 53 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 43 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameType__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gameType__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__game_GameManager__ = __webpack_require__(7);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -11186,7 +13877,7 @@ var GameTypeView = function (_BaseView) {
     }
 
     _createClass(GameTypeView, [{
-        key: '_appendChildren',
+        key: "_appendChildren",
         value: function _appendChildren() {
             var _this2 = this;
 
@@ -11197,18 +13888,42 @@ var GameTypeView = function (_BaseView) {
             });
         }
     }, {
-        key: '_buttonsInit',
+        key: "_buttonsInit",
         value: function _buttonsInit() {
             var _this3 = this;
 
             this.singlePlayer.setCallback(function () {
                 __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayer.el.getAttribute("href"), false);
                 var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
-                gameManager.start("single");
+                gameManager.start("single", false);
+                _this3._setControlsBackground();
+            });
+            this.multiPlayer.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayer.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+                gameManager.start("multi", false);
+                _this3._setControlsBackground();
+            });
+            this.singlePlayerLite.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.singlePlayerLite.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+                gameManager.start("single", true);
+                _this3._setControlsBackground();
+            });
+            this.multiPlayerLite.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.multiPlayerLite.el.getAttribute("href"), false);
+                var gameManager = new __WEBPACK_IMPORTED_MODULE_5__game_GameManager__["a" /* default */]();
+                gameManager.start("multi", true);
+                _this3._setControlsBackground();
             });
             this.changeformBtn.setCallback(function () {
                 __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
             });
+        }
+    }, {
+        key: "_setControlsBackground",
+        value: function _setControlsBackground() {
+            document.getElementById("background").style.backgroundImage = "url(../images/controls.jpg)";
         }
     }]);
 
@@ -11218,36 +13933,54 @@ var GameTypeView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (GameTypeView);
 
 /***/ }),
-/* 44 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 
 var gameFields = [{
-    name: "singlePlayer",
-    class: " button",
-    elemType: "a",
-    value: "Singleplayer",
-    href: "/game/"
+	name: "singlePlayer",
+	class: " button",
+	elemType: "a",
+	value: "Singleplayer",
+	href: "/game/"
 }, {
-    name: "changeformBtn",
-    class: " button",
-    elemType: "a",
-    value: "Back to menu",
-    href: "/menu/"
+	name: "singlePlayerLite",
+	class: " button",
+	elemType: "a",
+	value: "Singleplayer Lite",
+	href: "/game/"
+}, {
+	name: "multiPlayer",
+	class: " button",
+	elemType: "a",
+	value: "multiplayer",
+	href: "/game/"
+}, {
+	name: "multiPlayerLite",
+	class: " button",
+	elemType: "a",
+	value: "multiplayer lite",
+	href: "/game/"
+}, {
+	name: "changeformBtn",
+	class: " button",
+	elemType: "a",
+	value: "Back to menu",
+	href: "/menu/"
 }];
 /* harmony default export */ __webpack_exports__["a"] = (gameFields);
 
 /***/ }),
-/* 45 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameView_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__gameView_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -11280,17 +14013,31 @@ var GameView = function (_BaseView) {
     }
 
     _createClass(GameView, [{
-        key: '_buttonsInit',
+        key: "_buttonsInit",
         value: function _buttonsInit() {
-            window.addEventListener("keyup", function (e) {
+            window.addEventListener("keyup", this._enableGameMenu);
+        }
+    }, {
+        key: "_enableGameMenu",
+        value: function _enableGameMenu(e) {
+            e.preventDefault();
+            if (document.location.pathname === "/game/") {
                 if (e.keyCode == 27) {
-                    var flag = confirm("Do You want to Quit?");
-                    if (flag) {
-                        document.getElementById("game").classList.add("hidden");
-                        __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go("/play/", true);
-                    }
+                    document.getElementsByClassName("gamemenu")[0].classList.remove("hidden");
+                    document.getElementById("game").classList.add("blured");
                 }
-            });
+            }
+        }
+    }, {
+        key: "destroyGame",
+        value: function destroyGame() {
+            // window.removeEventListener("keyup", this._enableGameMenu);
+            this.view.el.innerHTML = "";
+            window.movingSound.muted = true;
+            window.stayingSound.muted = true;
+            window.fireSound.muted = true;
+            window.reloadSound.muted = true;
+            window.stopGame();
         }
     }]);
 
@@ -11300,10 +14047,389 @@ var GameView = function (_BaseView) {
 /* harmony default export */ __webpack_exports__["a"] = (GameView);
 
 /***/ }),
-/* 46 */
+/* 57 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scoreboard__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_user_service__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+var userService = new __WEBPACK_IMPORTED_MODULE_4__services_user_service__["a" /* default */]();
+
+var ScoreboardView = function (_BaseView) {
+    _inherits(ScoreboardView, _BaseView);
+
+    function ScoreboardView(parentNode) {
+        _classCallCheck(this, ScoreboardView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+        var _this = _possibleConstructorReturn(this, (ScoreboardView.__proto__ || Object.getPrototypeOf(ScoreboardView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        window.updateScoreboard = _this.updateScoreboard.bind(_this);
+        return _this;
+    }
+
+    _createClass(ScoreboardView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1__scoreboard__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.changeformBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+            });
+        }
+    }, {
+        key: "updateScoreboard",
+        value: function updateScoreboard(array) {
+            this.view.el.innerHTML = "";
+            this._appendChildren();
+            this._buttonsInit;
+            // let cnt = 1;
+            // array.forEach(key => {
+            //     let ch = new Block("input", {
+            //         class: " userdata",
+            //         elemType: "input",
+            //         value: cnt + ")  " + key.login + ": " + key.rank,
+            //         href: "/game/",
+            //         type: "button"
+            //     });
+            //     this.view.el.appendChild(ch.el);
+            //     cnt++;
+            // });
+            this._createTable(array);
+        }
+    }, {
+        key: "_createTable",
+        value: function _createTable(array) {
+            var table = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("table", { class: "scoreboard" });
+            var tableHead = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("table", { class: "scoreboard" });
+            var tablediv = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "scorediv" });
+            table.setAttributes(_defineProperty({
+                align: "left",
+                width: "100%",
+                rules: 'rows'
+            }, "rules", 'cols'));
+            tableHead.setAttributes({
+                align: "left",
+                width: "115%"
+
+            });
+            var cnt = 1;
+            var row = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("tr", { class: "scoredata" });
+            var num = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+            num.el.innerHTML = "#";
+            var nick = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+            nick.el.innerHTML = "Nick";
+            var rank = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+            rank.el.innerHTML = "Rank";
+            row.el.appendChild(num.el);
+            row.el.appendChild(nick.el);
+            row.el.appendChild(rank.el);
+            tableHead.el.appendChild(row.el);
+            array.forEach(function (key) {
+                var row = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("tr", { class: "scoredata" });
+                var num = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+                num.el.innerHTML = cnt;
+                var nick = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+                nick.el.innerHTML = key.login;
+
+                var rank = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("td");
+                rank.el.innerHTML = key.rank.toFixed(2);
+                row.el.appendChild(num.el);
+                row.el.appendChild(nick.el);
+                row.el.appendChild(rank.el);
+                table.el.appendChild(row.el);
+                cnt++;
+            });
+            this.view.el.appendChild(tableHead.el);
+            this.view.el.appendChild(tablediv.el);
+            tablediv.el.appendChild(table.el);
+        }
+    }]);
+
+    return ScoreboardView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (ScoreboardView);
+
+/***/ }),
+/* 59 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var scoreboardfields = [{
+    name: "changeformBtn",
+    class: " button",
+    elemType: "a",
+    value: "back to menu",
+    href: "/menu/"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (scoreboardfields);
+
+/***/ }),
+/* 60 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gameMenu__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gameMenu_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__gameMenu_css__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+var GameMenuView = function (_BaseView) {
+    _inherits(GameMenuView, _BaseView);
+
+    function GameMenuView(parentNode) {
+        _classCallCheck(this, GameMenuView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */]("div", { class: "gamemenu hidden" });
+
+        var _this = _possibleConstructorReturn(this, (GameMenuView.__proto__ || Object.getPrototypeOf(GameMenuView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        _this.muteflag = true;
+        return _this;
+    }
+
+    _createClass(GameMenuView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_3__gameMenu__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_1__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.resumeBtn.setCallback(function () {
+                _this3.hide();
+                document.getElementById("game").classList.remove("blured");
+            });
+            this.quitBtn.setCallback(function () {
+                _this3.hide();
+                __WEBPACK_IMPORTED_MODULE_2__utils_Router__["a" /* default */].go(_this3.quitBtn.el.getAttribute("href"), true);
+            });
+            this.muteBtn.setCallback(function () {
+                window.movingSound.muted = _this3.muteflag;
+                window.stayingSound.muted = _this3.muteflag;
+                window.fireSound.muted = _this3.muteflag;
+                window.reloadSound.muted = _this3.muteflag;
+                _this3.muteflag = !_this3.muteflag;
+                if (!_this3.muteflag) {
+                    _this3.muteBtn.el.value = "unmute";
+                } else {
+                    _this3.muteBtn.el.value = "mute";
+                }
+            });
+        }
+    }]);
+
+    return GameMenuView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (GameMenuView);
+
+/***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var gameMenuFields = [{
+    name: "resumeBtn",
+    class: " button",
+    elemType: "input",
+    value: "resume",
+    type: "button",
+    href: "/menu/"
+
+}, {
+    name: "muteBtn",
+    class: " button",
+    elemType: "input",
+    value: "mute",
+    type: "button",
+    href: "/menu/"
+
+}, {
+    name: "quitBtn",
+    class: " button",
+    elemType: "input",
+    value: "quit",
+    type: "button",
+    href: "/menu/"
+
+}];
+/* harmony default export */ __webpack_exports__["a"] = (gameMenuFields);
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 63 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BaseView__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__about_js__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__block_block__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Router__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_load_bar__ = __webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+var AboutView = function (_BaseView) {
+    _inherits(AboutView, _BaseView);
+
+    function AboutView(parentNode) {
+        _classCallCheck(this, AboutView);
+
+        var view = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */]("div", { class: "form hidden" });
+
+        var _this = _possibleConstructorReturn(this, (AboutView.__proto__ || Object.getPrototypeOf(AboutView)).call(this, view.el));
+
+        _this.view = view;
+        _this.parentNode = parentNode;
+        _this.parentNode.appendChild(_this.view.el);
+        _this._appendChildren();
+        _this._buttonsInit();
+        return _this;
+    }
+
+    _createClass(AboutView, [{
+        key: "_appendChildren",
+        value: function _appendChildren() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_1__about_js__["a" /* default */].forEach(function (key) {
+                var ch = new __WEBPACK_IMPORTED_MODULE_2__block_block__["a" /* Block */](key.elemType, key);
+                _this2.view.el.appendChild(ch.el);
+                _this2[key.name] = ch;
+            });
+        }
+    }, {
+        key: "_buttonsInit",
+        value: function _buttonsInit() {
+            var _this3 = this;
+
+            this.changeformBtn.setCallback(function () {
+                __WEBPACK_IMPORTED_MODULE_3__utils_Router__["a" /* default */].go(_this3.changeformBtn.el.getAttribute("href"), false);
+            });
+        }
+    }]);
+
+    return AboutView;
+}(__WEBPACK_IMPORTED_MODULE_0__BaseView__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (AboutView);
+
+/***/ }),
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var changeFields = [{
+    name: "about",
+    class: " userdata",
+    elemType: "a",
+    value: "Game was created By Oganesian R. , Kurkin N. and mentor Stepanov D. during the automn semester of Technopark(Bmstu) in 2017.\n        We DO NOT own anything(images, sounds, fonts, 3D models).",
+    href: "",
+    type: "button"
+}, {
+    name: "changeformBtn",
+    class: " button",
+    elemType: "a",
+    value: "back to menu",
+    href: "/menu/"
+}];
+/* harmony default export */ __webpack_exports__["a"] = (changeFields);
 
 /***/ })
 /******/ ]);

@@ -1,8 +1,36 @@
 .theme {
     position: absolute;
     width: 50px;
-    top: 1%;
-    left: 90%;
+    top: 3%;
+    left: 2%;
+}
+
+.userdata {
+    text-decoration: none;
+    margin-top: 5%;
+    border-color: white;
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    font-size: 22px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.scorediv {
+    height: 200px;
+    overflow: scroll;
+}
+
+.scoredata {
+    /* width: 350; */
+    margin-top: 5%;
+    border-color: white;
+    color: white;
+    font-size: 28px;
+    font-weight: 900 !important;
+    /* padding: 30px; */
+    text-align: center;
+    /* padding-left: 3px; */
 }
 
 .new_button {
