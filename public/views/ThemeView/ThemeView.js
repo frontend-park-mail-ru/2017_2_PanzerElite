@@ -53,7 +53,7 @@ export default class ThemeView extends BaseView {
         this.playBtn.setCallback(() => {
             router.go(this.playBtn.el.getAttribute("href"), false);
             const gameManager = new GameManager();
-            gameManager.start("single");
+            gameManager.start("single", true);
         });
     }
     updateUserData() {

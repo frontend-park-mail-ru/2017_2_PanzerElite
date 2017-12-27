@@ -12,9 +12,9 @@ export default class Scene {
         this.type = type;
         this.liteVersion = liteVersion;
         window.fireSound = new Audio("./sounds/fire.mp3")
-        this.stats = new Stats();
-        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-        //////
+            //this.stats = new Stats();
+            //this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+            //////
         this._resizeFunction = this._resizeFunction.bind(this);
 
         this.scene = new THREE.Scene();
@@ -61,7 +61,7 @@ export default class Scene {
                 document.getElementsByClassName("game")[0].appendChild(this.renderer.domElement);
                 this.staticScene = new StaticScene(this.type);
                 document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
-                document.getElementsByClassName("game")[0].appendChild(this.stats.dom);
+                //document.getElementsByClassName("game")[0].appendChild(this.stats.dom);
 
             }, 7000);
         });
@@ -205,9 +205,9 @@ export default class Scene {
 
         let innerrender = () => {
             window.requestAnimationFrame(innerrender);
-            this.stats.begin();
+            //this.stats.begin();
             this._render();
-            this.stats.end();
+            //this.stats.end();
 
         };
 

@@ -7535,8 +7535,8 @@ var Scene = function () {
         this.type = type;
         this.liteVersion = liteVersion;
         window.fireSound = new Audio("./sounds/fire.mp3");
-        this.stats = new Stats();
-        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        //this.stats = new Stats();
+        //this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
         //////
         this._resizeFunction = this._resizeFunction.bind(this);
 
@@ -7584,7 +7584,7 @@ var Scene = function () {
                 document.getElementsByClassName("game")[0].appendChild(_this.renderer.domElement);
                 _this.staticScene = new __WEBPACK_IMPORTED_MODULE_3__staticScene_StaticScene__["a" /* default */](_this.type);
                 document.getElementById("background").style.backgroundImage = "url(../images/wallpaper.jpg)";
-                document.getElementsByClassName("game")[0].appendChild(_this.stats.dom);
+                //document.getElementsByClassName("game")[0].appendChild(this.stats.dom);
             }, 7000);
         });
         this._addMap();
@@ -7744,9 +7744,9 @@ var Scene = function () {
 
             var innerrender = function innerrender() {
                 window.requestAnimationFrame(innerrender);
-                _this4.stats.begin();
+                //this.stats.begin();
                 _this4._render();
-                _this4.stats.end();
+                //this.stats.end();
             };
 
             innerrender();
@@ -13755,7 +13755,7 @@ var ThemeView = function (_BaseView) {
             this.playBtn.setCallback(function () {
                 __WEBPACK_IMPORTED_MODULE_5__utils_Router__["a" /* default */].go(_this3.playBtn.el.getAttribute("href"), false);
                 var gameManager = new __WEBPACK_IMPORTED_MODULE_4__game_GameManager__["a" /* default */]();
-                gameManager.start("single");
+                gameManager.start("single", true);
             });
         }
     }, {
